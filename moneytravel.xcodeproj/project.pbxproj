@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2172BD6B20B02AF400132D36 /* AppDelegate.swift */; };
-		2172BD6E20B02AF400132D36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2172BD6D20B02AF400132D36 /* ViewController.swift */; };
+		2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2172BD6D20B02AF400132D36 /* MainViewController.swift */; };
 		2172BD7120B02AF400132D36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2172BD6F20B02AF400132D36 /* Main.storyboard */; };
 		2172BD7320B02AF500132D36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2172BD7220B02AF500132D36 /* Assets.xcassets */; };
 		2172BD7620B02AF500132D36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2172BD7420B02AF500132D36 /* LaunchScreen.storyboard */; };
+		2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2172BD6820B02AF400132D36 /* moneytravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = moneytravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2172BD6B20B02AF400132D36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2172BD6D20B02AF400132D36 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2172BD6D20B02AF400132D36 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2172BD7020B02AF400132D36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2172BD7220B02AF500132D36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2172BD7520B02AF500132D36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2172BD7720B02AF500132D36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyKeyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				2172BD6B20B02AF400132D36 /* AppDelegate.swift */,
-				2172BD6D20B02AF400132D36 /* ViewController.swift */,
+				2172BD6D20B02AF400132D36 /* MainViewController.swift */,
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
 				2172BD7220B02AF500132D36 /* Assets.xcassets */,
 				2172BD7420B02AF500132D36 /* LaunchScreen.storyboard */,
 				2172BD7720B02AF500132D36 /* Info.plist */,
+				2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */,
 			);
 			path = moneytravel;
 			sourceTree = "<group>";
@@ -135,7 +138,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2172BD6E20B02AF400132D36 /* ViewController.swift in Sources */,
+				2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */,
+				2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
