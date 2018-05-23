@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--MoneyTravel-->
+        <!--Money Travel-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="moneytravel" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sRs-tg-0Ae">
-                                <rect key="frame" x="20" y="74" width="335" height="308"/>
+                                <rect key="frame" x="20" y="74" width="335" height="524"/>
                                 <subviews>
                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter sum" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QsF-tb-jKQ">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -37,6 +37,28 @@
                                             <action selector="onMoneyEnter:" destination="BYZ-38-t0r" eventType="valueChanged" id="KhP-Ws-cza"/>
                                         </connections>
                                     </view>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BKi-o4-oTO">
+                                        <rect key="frame" x="0.0" y="316" width="335" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" identifier="height" id="8Bc-Hn-B1U"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TQY-FD-WSy">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P72-8Z-jrA">
+                                        <rect key="frame" x="0.0" y="424" width="335" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" identifier="height" id="CP6-eb-kVZ"/>
+                                        </constraints>
+                                        <sections/>
+                                    </tableView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -48,7 +70,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="MoneyTravel" id="Au5-lh-gNu">
+                    <navigationItem key="navigationItem" title="Money Travel" id="Au5-lh-gNu">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="iaH-dK-vqB"/>
                         <barButtonItem key="leftBarButtonItem" title="Settings" image="Settings" id="b7M-Eg-DZK">
                             <connections>
                                 <segue destination="htg-54-DoI" kind="show" id="gGW-pN-ffr"/>
@@ -56,6 +79,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="categoriesView" destination="BKi-o4-oTO" id="9vP-gq-Bbo"/>
+                        <outlet property="spendView" destination="P72-8Z-jrA" id="Lfw-DS-1eZ"/>
                         <outlet property="sumField" destination="QsF-tb-jKQ" id="HCa-Vq-bm5"/>
                     </connections>
                 </viewController>

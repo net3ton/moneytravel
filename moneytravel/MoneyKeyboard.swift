@@ -8,13 +8,6 @@
 
 import UIKit
 
-// C0CAAD
-// 9DA9A0
-// 654C4F
-// B26E63
-// CEC075
-
-
 @IBDesignable class MoneyKeyboard: UIControl {
     let COUNTX = 3
     let COUNTY = 4
@@ -45,7 +38,7 @@ import UIKit
         let attributes = [
             NSAttributedStringKey.paragraphStyle: paragraphStyle,
             NSAttributedStringKey.font: UIFont.systemFont(ofSize: 30.0),
-            NSAttributedStringKey.foregroundColor: UIColor.white
+            NSAttributedStringKey.foregroundColor: UIColor.white,
             ]
         
         let xsize = rect.width / CGFloat(COUNTX)

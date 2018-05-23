@@ -11,8 +11,13 @@
 		2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2172BD6D20B02AF400132D36 /* MainViewController.swift */; };
 		2172BD7120B02AF400132D36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2172BD6F20B02AF400132D36 /* Main.storyboard */; };
 		2172BD7320B02AF500132D36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2172BD7220B02AF500132D36 /* Assets.xcassets */; };
-		2172BD7620B02AF500132D36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2172BD7420B02AF500132D36 /* LaunchScreen.storyboard */; };
 		2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */; };
+		2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */; };
+		2174F4A820B4448E00B6E381 /* CategoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */; };
+		2174F4AA20B44B9800B6E381 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A920B44B9800B6E381 /* Categories.swift */; };
+		2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4AB20B55DC600B6E381 /* Consts.swift */; };
+		2174F4AF20B574E500B6E381 /* SpendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4AD20B574E500B6E381 /* SpendViewCell.swift */; };
+		2174F4B020B574E500B6E381 /* SpendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2174F4AE20B574E500B6E381 /* SpendViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,9 +26,14 @@
 		2172BD6D20B02AF400132D36 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2172BD7020B02AF400132D36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2172BD7220B02AF500132D36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2172BD7520B02AF500132D36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2172BD7720B02AF500132D36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyKeyboard.swift; sourceTree = "<group>"; };
+		2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewCell.xib; sourceTree = "<group>"; };
+		2174F4A920B44B9800B6E381 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		2174F4AB20B55DC600B6E381 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
+		2174F4AD20B574E500B6E381 /* SpendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendViewCell.swift; sourceTree = "<group>"; };
+		2174F4AE20B574E500B6E381 /* SpendViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpendViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +70,14 @@
 				2172BD6D20B02AF400132D36 /* MainViewController.swift */,
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
 				2172BD7220B02AF500132D36 /* Assets.xcassets */,
-				2172BD7420B02AF500132D36 /* LaunchScreen.storyboard */,
 				2172BD7720B02AF500132D36 /* Info.plist */,
 				2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */,
+				2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */,
+				2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */,
+				2174F4AD20B574E500B6E381 /* SpendViewCell.swift */,
+				2174F4AE20B574E500B6E381 /* SpendViewCell.xib */,
+				2174F4A920B44B9800B6E381 /* Categories.swift */,
+				2174F4AB20B55DC600B6E381 /* Consts.swift */,
 			);
 			path = moneytravel;
 			sourceTree = "<group>";
@@ -125,9 +140,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2172BD7620B02AF500132D36 /* LaunchScreen.storyboard in Resources */,
 				2172BD7320B02AF500132D36 /* Assets.xcassets in Resources */,
+				2174F4A820B4448E00B6E381 /* CategoryViewCell.xib in Resources */,
 				2172BD7120B02AF400132D36 /* Main.storyboard in Resources */,
+				2174F4B020B574E500B6E381 /* SpendViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +155,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */,
+				2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */,
 				2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */,
+				2174F4AA20B44B9800B6E381 /* Categories.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
+				2174F4AF20B574E500B6E381 /* SpendViewCell.swift in Sources */,
+				2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,14 +173,6 @@
 				2172BD7020B02AF400132D36 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		2172BD7420B02AF500132D36 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2172BD7520B02AF500132D36 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
