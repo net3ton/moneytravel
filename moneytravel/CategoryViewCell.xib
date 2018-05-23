@@ -26,7 +26,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dUM-SX-wpj">
+                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dUM-SX-wpj">
                         <rect key="frame" x="9" y="5" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="dUM-SX-wpj" secondAttribute="height" multiplier="1:1" id="WLP-jj-5sg"/>

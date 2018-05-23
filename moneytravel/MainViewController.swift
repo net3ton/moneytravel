@@ -20,6 +20,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        appSettings.load()
+        
         let COUNTX: CGFloat = 5
         let COUNTY: CGFloat = 2
         let SPACING: CGFloat = 2

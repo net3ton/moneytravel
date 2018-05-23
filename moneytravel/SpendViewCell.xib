@@ -20,12 +20,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rXd-0v-Psr">
-                        <rect key="frame" x="0.0" y="0.0" width="43.5" height="43.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="rXd-0v-Psr" secondAttribute="height" multiplier="1:1" id="FzR-1j-aIK"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5m-cL-tsd">
                         <rect key="frame" x="51" y="11" width="160" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -40,11 +34,17 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rXd-0v-Psr">
+                        <rect key="frame" x="5" y="5" width="33.5" height="33.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="rXd-0v-Psr" secondAttribute="height" multiplier="1:1" id="FzR-1j-aIK"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="rXd-0v-Psr" secondAttribute="bottom" id="K6J-xI-rbl"/>
-                    <constraint firstItem="rXd-0v-Psr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aLj-wU-gNc"/>
-                    <constraint firstItem="rXd-0v-Psr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xdk-Fc-tuc"/>
+                    <constraint firstItem="rXd-0v-Psr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="9oG-Ay-dcY"/>
+                    <constraint firstItem="rXd-0v-Psr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="MGN-rX-0el"/>
+                    <constraint firstAttribute="bottom" secondItem="rXd-0v-Psr" secondAttribute="bottom" constant="5" id="j3Y-Re-TF4"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
