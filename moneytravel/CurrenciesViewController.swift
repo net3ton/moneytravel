@@ -8,37 +8,41 @@
 
 import UIKit
 
-var appCurrencies: [CurrencyInfo] = [CurrencyInfo]()
-
 struct CurrencyInfo {
     var iso: String
     var name: String
+
+    private static var available: [CurrencyInfo] = [CurrencyInfo]()
+
+    public static func getAllCurrencies() -> [CurrencyInfo] {
+        if !available.isEmpty {
+            return available
+        }
+
+        //print(NSLocale.isoCurrencyCodes.count)
+        //print(NSLocale.commonISOCurrencyCodes.count)
+
+        for ciso in NSLocale.commonISOCurrencyCodes {
+            let cname: String = NSLocale.current.localizedString(forCurrencyCode: ciso) ?? ""
+            available.append(CurrencyInfo(iso: ciso, name: cname))
+        }
+
+        return available
+    }
 }
 
-func appInitCurrencyInfos() {
-    if !appCurrencies.isEmpty {
-        return
-    }
-    
-    //print(NSLocale.isoCurrencyCodes.count)
-    //print(NSLocale.commonISOCurrencyCodes.count)
 
-    for ciso in NSLocale.commonISOCurrencyCodes {
-        let cname: String = NSLocale.current.localizedString(forCurrencyCode: ciso) ?? ""
-        appCurrencies.append(CurrencyInfo(iso: ciso, name: cname))
-    }
-}
-
-
-
-class CurrenciesViewController: UITableViewController {
+class CurrenciesViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     public var selectedHandler: ((String) -> Void)?
+    private var currencies: [CurrencyInfo] = [CurrencyInfo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        appInitCurrencyInfos()
+
+        currencies = CurrencyInfo.getAllCurrencies()
+        searchBar.delegate = self
     }
 
     //override func didReceiveMemoryWarning() {
@@ -52,24 +56,36 @@ class CurrenciesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appCurrencies.count
+        return currencies.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath)
-        cell.textLabel?.text = appCurrencies[indexPath.row].iso
-        cell.detailTextLabel?.text = appCurrencies[indexPath.row].name
+        cell.textLabel?.text = currencies[indexPath.row].iso
+        cell.detailTextLabel?.text = currencies[indexPath.row].name
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.popViewController(animated: true)
-        selectedHandler?(appCurrencies[indexPath.row].iso)
+        selectedHandler?(currencies[indexPath.row].iso)
     }
     
     // MARK: - Search
-    
-    //func updateSearchResults(for searchController: UISearchController) {
-    //    print(searchController.searchBar.text ?? "")
-    //}
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let allCurrencies = CurrencyInfo.getAllCurrencies()
+
+        if searchText.isEmpty {
+            currencies = allCurrencies
+        }
+        else {
+            currencies = allCurrencies.filter { (info) -> Bool in
+                return info.iso.lowercased().range(of: searchText.lowercased()) != nil ||
+                    info.name.lowercased().range(of: searchText.lowercased()) != nil
+            }
+        }
+
+        tableView.reloadData()
+    }
 }

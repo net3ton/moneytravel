@@ -15,7 +15,7 @@ class CategoryViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = 3
         self.selectedBackgroundView?.backgroundColor = UIColor.white
     }
 
@@ -29,19 +29,19 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return 15
-        return categories.count
+        return getCategoriesCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cat = appCategories![indexPath.row]
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryViewCell
-        let cat = categories[indexPath.row]
         cell.name.text = cat.name
         cell.icon.image = cat.icon
         cell.contentView.backgroundColor = COLOR_MAIN2
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("select" + String(indexPath.row))
     }

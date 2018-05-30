@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName="CategoryModel" syncable="YES" codeGenerationType="class">
+        <attribute name="iconname" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="spends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Spend" inverseName="category" inverseEntity="Spend" syncable="YES"/>
+    </entity>
+    <entity name="Spend" representedClassName="SpendModel" syncable="YES" codeGenerationType="class">
+        <attribute name="bcurrency" attributeType="String" syncable="YES"/>
+        <attribute name="bsum" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currency" attributeType="String" syncable="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sum" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="spends" inverseEntity="Category" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Category" positionX="-5643" positionY="-4878" width="128" height="90"/>
+        <element name="Spend" positionX="-5805" positionY="-4869" width="128" height="150"/>
+    </elements>
+</model>

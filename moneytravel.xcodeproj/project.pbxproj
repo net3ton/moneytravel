@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211A1F2C20BA1E4F004A793D /* MoneyInput.swift */; };
+		2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */; };
+		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
 		2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2172BD6B20B02AF400132D36 /* AppDelegate.swift */; };
 		2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2172BD6D20B02AF400132D36 /* MainViewController.swift */; };
 		2172BD7120B02AF400132D36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2172BD6F20B02AF400132D36 /* Main.storyboard */; };
@@ -14,7 +17,7 @@
 		2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */; };
 		2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */; };
 		2174F4A820B4448E00B6E381 /* CategoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */; };
-		2174F4AA20B44B9800B6E381 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A920B44B9800B6E381 /* Categories.swift */; };
+		2174F4AA20B44B9800B6E381 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A920B44B9800B6E381 /* Data.swift */; };
 		2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4AB20B55DC600B6E381 /* Consts.swift */; };
 		2174F4AF20B574E500B6E381 /* SpendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4AD20B574E500B6E381 /* SpendViewCell.swift */; };
 		2174F4B020B574E500B6E381 /* SpendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2174F4AE20B574E500B6E381 /* SpendViewCell.xib */; };
@@ -24,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		211A1F2C20BA1E4F004A793D /* MoneyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInput.swift; sourceTree = "<group>"; };
+		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
+		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
 		2172BD6820B02AF400132D36 /* moneytravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = moneytravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2172BD6B20B02AF400132D36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2172BD6D20B02AF400132D36 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -33,7 +39,7 @@
 		2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyKeyboard.swift; sourceTree = "<group>"; };
 		2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewCell.xib; sourceTree = "<group>"; };
-		2174F4A920B44B9800B6E381 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		2174F4A920B44B9800B6E381 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2174F4AB20B55DC600B6E381 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 		2174F4AD20B574E500B6E381 /* SpendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendViewCell.swift; sourceTree = "<group>"; };
 		2174F4AE20B574E500B6E381 /* SpendViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpendViewCell.xib; sourceTree = "<group>"; };
@@ -77,16 +83,19 @@
 				2174F4B320B5B83900B6E381 /* SettingsViewController.swift */,
 				2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */,
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
+				2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */,
 				2172BD7220B02AF500132D36 /* Assets.xcassets */,
 				2172BD7720B02AF500132D36 /* Info.plist */,
 				2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */,
+				211A1F2C20BA1E4F004A793D /* MoneyInput.swift */,
 				2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */,
 				2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */,
 				2174F4AD20B574E500B6E381 /* SpendViewCell.swift */,
 				2174F4AE20B574E500B6E381 /* SpendViewCell.xib */,
-				2174F4A920B44B9800B6E381 /* Categories.swift */,
+				2174F4A920B44B9800B6E381 /* Data.swift */,
 				2174F4AB20B55DC600B6E381 /* Consts.swift */,
 				2174F4B120B585E600B6E381 /* Settings.swift */,
+				2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */,
 			);
 			path = moneytravel;
 			sourceTree = "<group>";
@@ -167,12 +176,15 @@
 				2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */,
 				2174F4B220B585E600B6E381 /* Settings.swift in Sources */,
 				2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */,
-				2174F4AA20B44B9800B6E381 /* Categories.swift in Sources */,
+				2174F4AA20B44B9800B6E381 /* Data.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
 				2174F4AF20B574E500B6E381 /* SpendViewCell.swift in Sources */,
+				2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */,
 				2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */,
 				2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */,
+				211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */,
+				2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +374,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */,
+			);
+			currentVersion = 2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */;
+			path = Main.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2172BD6020B02AF400132D36 /* Project object */;
 }

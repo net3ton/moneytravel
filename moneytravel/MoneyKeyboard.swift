@@ -26,12 +26,11 @@ import UIKit
     }
     
     private var selectedCell: Position?
-    public var enteredChar: String?
+    private var enteredChar: String = ""
 
+    public var onPressedHandler: ((String) -> Void)?
+    
     override func draw(_ rect: CGRect) {
-        let col = UIColor(displayP3Red: 0.753, green:0.792, blue:0.678, alpha: 1.0)
-        let colSelected = UIColor(displayP3Red:0.808, green:0.753, blue:0.459, alpha: 1.0)
-        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
@@ -51,10 +50,10 @@ import UIKit
             for iy in 0...(COUNTY-1) {
                 
                 if (selectedCell != nil && ix == selectedCell!.x && iy == selectedCell!.y) {
-                    cnx?.setFillColor(colSelected.cgColor)
+                    cnx?.setFillColor(COLOR_SELECT.cgColor)
                 }
                 else {
-                    cnx?.setFillColor(col.cgColor)
+                    cnx?.setFillColor(COLOR_MAIN.cgColor)
                 }
                 
                 let rect = CGRect(x: CGFloat(ix) * xsize, y: CGFloat(iy) * ysize, width: xsize - 2, height: ysize - 2)
@@ -91,11 +90,16 @@ import UIKit
         
         if let sel = selectedCell {
             enteredChar = CHARS[sel.y][sel.x]
+            onPressedHandler?(enteredChar)
             sendActions(for: .valueChanged)
         }
         
         selectedCell = nil
         setNeedsDisplay()
+    }
+
+    public func getEnteredChar() -> String {
+        return enteredChar
     }
 
     private func getCellPosition(pos: CGPoint) -> Position? {
