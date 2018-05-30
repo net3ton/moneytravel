@@ -21,10 +21,11 @@ import UIKit
         
         textField = UITextField(frame: getTextFieldRect(rect: frame))
         textField?.borderStyle = .roundedRect
-        textField?.placeholder = "EnterSum"
+        textField?.placeholder = "Enter Sum"
         textField?.backgroundColor = COLOR4
         textField?.font = UIFont.systemFont(ofSize: 30.0)
         textField?.textAlignment = .center
+        textField?.clearButtonMode = .always
         textField?.delegate = self
         addSubview(textField!)
         

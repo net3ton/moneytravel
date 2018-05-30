@@ -26,7 +26,6 @@ import UIKit
     }
     
     private var selectedCell: Position?
-    private var enteredChar: String = ""
 
     public var onPressedHandler: ((String) -> Void)?
     
@@ -89,17 +88,13 @@ import UIKit
         super.endTracking(touch, with: event)
         
         if let sel = selectedCell {
-            enteredChar = CHARS[sel.y][sel.x]
+            let enteredChar = CHARS[sel.y][sel.x]
             onPressedHandler?(enteredChar)
-            sendActions(for: .valueChanged)
+            //sendActions(for: .valueChanged)
         }
         
         selectedCell = nil
         setNeedsDisplay()
-    }
-
-    public func getEnteredChar() -> String {
-        return enteredChar
     }
 
     private func getCellPosition(pos: CGPoint) -> Position? {
