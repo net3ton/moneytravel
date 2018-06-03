@@ -60,42 +60,50 @@ class AppSpends {
             date = forDate
         }
 
-        public func getInfoString() -> String {
-            var sum: Float = 0
+        public func getSumBaseString() -> String {
             var bsum: Float = 0
 
             for spend in spends {
-                if spend.currency == appSettings.currency {
-                    sum += spend.sum
-                }
                 if spend.bcurrency == appSettings.currencyBase {
                     bsum += spend.bsum
                 }
             }
 
-            let bsumStr = sum_to_string(sum: bsum, currency: appSettings.currencyBase)
-            let sumStr = sum_to_string(sum: sum, currency: appSettings.currency)
-
-            return String.init(format: "%@: %@ (%@)", getDateString(), bsumStr, sumStr)
+            return sum_to_string(sum: bsum, currency: appSettings.currencyBase)
         }
-
+        
         public func getRemainString() -> String {
+            var sum: Float = 0
             
-            return ""
+            for spend in spends {
+                if spend.currency == appSettings.currency {
+                    sum += spend.sum
+                }
+            }
+
+            let sumStr = sum_to_string(sum: sum, currency: appSettings.currency)
+            let maxsum = appSettings.dailyMax * appSettings.exchangeRate
+            let maxsumStr = sum_to_string(sum: maxsum, currency: appSettings.currency)
+
+            return String.init(format: "%@ / %@", sumStr, maxsumStr)
         }
 
-        public func getDateString() -> String {
+        public func getDateSubname() -> String {
             let calendar = Calendar.current
             let today = calendar.startOfDay(for: Date())
             if date == today {
                 return "Today"
             }
-            
+
             let yesterday = calendar.date(byAdding: .day, value: -1, to: today)
             if date == yesterday {
                 return "Yesterday"
             }
 
+            return ""
+        }
+        
+        public func getDateString() -> String {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd LLLL"
             return formatter.string(from: date)

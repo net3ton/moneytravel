@@ -56,7 +56,8 @@ import UIKit
                 }
                 
                 let rect = CGRect(x: CGFloat(ix) * xsize, y: CGFloat(iy) * ysize, width: xsize - 2, height: ysize - 2)
-                cnx?.addRect(rect)
+                //cnx?.addRect(rect)
+                cnx?.addPath(UIBezierPath(roundedRect: rect, cornerRadius: 3.0).cgPath)
                 cnx?.fillPath()
                 
                 let str = NSAttributedString(string: CHARS[iy][ix], attributes: attributes)

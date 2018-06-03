@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2103DA1D20C46CEE003B027D /* SpendViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2103DA1C20C46CEE003B027D /* SpendViewHeader.xib */; };
 		211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211A1F2C20BA1E4F004A793D /* MoneyInput.swift */; };
 		2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */; };
 		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
@@ -19,7 +20,7 @@
 		2174F4A820B4448E00B6E381 /* CategoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */; };
 		2174F4AA20B44B9800B6E381 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4A920B44B9800B6E381 /* Data.swift */; };
 		2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4AB20B55DC600B6E381 /* Consts.swift */; };
-		2174F4AF20B574E500B6E381 /* SpendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4AD20B574E500B6E381 /* SpendViewCell.swift */; };
+		2174F4AF20B574E500B6E381 /* SpendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4AD20B574E500B6E381 /* SpendView.swift */; };
 		2174F4B020B574E500B6E381 /* SpendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2174F4AE20B574E500B6E381 /* SpendViewCell.xib */; };
 		2174F4B220B585E600B6E381 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B120B585E600B6E381 /* Settings.swift */; };
 		2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B320B5B83900B6E381 /* SettingsViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2103DA1C20C46CEE003B027D /* SpendViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpendViewHeader.xib; sourceTree = "<group>"; };
 		211A1F2C20BA1E4F004A793D /* MoneyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInput.swift; sourceTree = "<group>"; };
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
@@ -41,7 +43,7 @@
 		2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewCell.xib; sourceTree = "<group>"; };
 		2174F4A920B44B9800B6E381 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2174F4AB20B55DC600B6E381 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
-		2174F4AD20B574E500B6E381 /* SpendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendViewCell.swift; sourceTree = "<group>"; };
+		2174F4AD20B574E500B6E381 /* SpendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendView.swift; sourceTree = "<group>"; };
 		2174F4AE20B574E500B6E381 /* SpendViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpendViewCell.xib; sourceTree = "<group>"; };
 		2174F4B120B585E600B6E381 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2174F4B320B5B83900B6E381 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -90,8 +92,9 @@
 				211A1F2C20BA1E4F004A793D /* MoneyInput.swift */,
 				2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */,
 				2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */,
-				2174F4AD20B574E500B6E381 /* SpendViewCell.swift */,
+				2174F4AD20B574E500B6E381 /* SpendView.swift */,
 				2174F4AE20B574E500B6E381 /* SpendViewCell.xib */,
+				2103DA1C20C46CEE003B027D /* SpendViewHeader.xib */,
 				2174F4A920B44B9800B6E381 /* Data.swift */,
 				2174F4AB20B55DC600B6E381 /* Consts.swift */,
 				2174F4B120B585E600B6E381 /* Settings.swift */,
@@ -162,6 +165,7 @@
 				2174F4A820B4448E00B6E381 /* CategoryViewCell.xib in Resources */,
 				2172BD7120B02AF400132D36 /* Main.storyboard in Resources */,
 				2174F4B020B574E500B6E381 /* SpendViewCell.xib in Resources */,
+				2103DA1D20C46CEE003B027D /* SpendViewHeader.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +183,7 @@
 				2174F4AA20B44B9800B6E381 /* Data.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
-				2174F4AF20B574E500B6E381 /* SpendViewCell.swift in Sources */,
+				2174F4AF20B574E500B6E381 /* SpendView.swift in Sources */,
 				2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */,
 				2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */,
 				2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */,
