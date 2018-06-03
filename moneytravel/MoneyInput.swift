@@ -78,6 +78,11 @@ import UIKit
         return res
     }
 
+    public func clear() {
+        textField?.text = ""
+        sumString = ""
+    }
+    
     private func onMoneyEnter(add: String) {
         sumString = updateSum(instr: sumString, add: add)
         textField?.text = prepareSumString(instr: sumString)

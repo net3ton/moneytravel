@@ -10,6 +10,7 @@ import UIKit
 
 class SpendViewCell: UITableViewCell {
     public static let HEIGHT: CGFloat = 44.0
+    public static let HEIGHT_HEADER: CGFloat = 30.0
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var comment: UILabel!
@@ -32,33 +33,57 @@ class SpendViewCell: UITableViewCell {
 
 class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     
+    func getContentHeight() -> CGFloat {
+        var height: CGFloat = 0.0
+        for spendsInfo in appSpends.daily {
+            height += CGFloat(spendsInfo.spends.count) * SpendViewCell.HEIGHT
+        }
+
+        height += CGFloat(appSpends.daily.count) * SpendViewCell.HEIGHT_HEADER
+        return height
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return appSpends.daily.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getSpendsCount()
+        return appSpends.daily[section].spends.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let spend = appSpends![indexPath.row]
+        let spend = appSpends.daily[indexPath.section].spends[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpendCell", for: indexPath) as! SpendViewCell
         cell.icon.image = spend.category?.icon
         cell.comment.text = spend.category?.name
-        cell.sum.text = String(spend.sum) + " RUB"
-        cell.sumBase.text = "12.23 USD"
+        cell.sum.text = spend.getSumString()
+        cell.sumBase.text = spend.getBaseSumString()
         cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SP1 : COLOR_SP3
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Ha ha ha header"
+        return appSpends.daily[section].getInfoString()
     }
-    
-    //func tableviewheader
-    
+
+    //func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //    
+    //}
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return SpendViewCell.HEIGHT
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return SpendViewCell.HEIGHT_HEADER
+    }
+
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
     }
 }

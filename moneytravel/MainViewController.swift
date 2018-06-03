@@ -17,6 +17,15 @@ class MainViewController: UIViewController {
     var categoriesDelegate: CategoriesViewDelegate?
     var spendDelegate: SpendViewDelegate?
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        appSettings.load()
+        
+        initCategories()
+        initSpends()
+    }
+    
     private func initCategories() {
         initCategoryBase()
         
@@ -28,6 +37,7 @@ class MainViewController: UIViewController {
         let viewheight = cellsize * COUNTY + (COUNTY-1) * SPACING
         
         categoriesDelegate = CategoriesViewDelegate(cellSize: cellsize)
+        categoriesDelegate?.onCategoryPressed = onCategoryPressed
         
         categoriesView.register(UINib.init(nibName: "CategoryViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
         categoriesView.delegate = categoriesDelegate
@@ -40,38 +50,12 @@ class MainViewController: UIViewController {
         }
     }
 
-    private func initSpend() {
-        fetchSpends()
-        spendDelegate = SpendViewDelegate()
-
-        spendView.register(UINib.init(nibName: "SpendViewCell", bundle: nil), forCellReuseIdentifier: "SpendCell")
-        spendView.delegate = spendDelegate
-        spendView.dataSource = spendDelegate
-
-        //spendView.tableFooterView?.isHidden = true
-
-        for constr in spendView.constraints {
-            if constr.identifier == "height" {
-                constr.constant = CGFloat(getSpendsCount()) * SpendViewCell.HEIGHT
-            }
-        }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        appSettings.load()
-
-        initCategories()
-        initSpend()
-    }
-
     func initCategoryBase() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
         let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
-
+        
         let catList = [
             ("Food", "food"),
             ("House", "rent"),
@@ -85,7 +69,7 @@ class MainViewController: UIViewController {
             ("Clothes", "clothes"),
             ("Entertain", "entertain")
         ]
-
+        
         do {
             let count = try context.count(for: fetchRequest)
             if count == 0 {
@@ -94,52 +78,49 @@ class MainViewController: UIViewController {
                     cat.name = name
                     cat.iconname = iconname
                 }
-
+                
                 try context.save()
             }
-
+            
             appCategories = try context.fetch(fetchRequest)
         }
         catch let error {
             print("Categories init ERROR: " + error.localizedDescription)
         }
     }
+    
+    private func initSpends() {
+        spendDelegate = SpendViewDelegate()
 
-    func fetchSpends() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
+        spendView.register(UINib.init(nibName: "SpendViewCell", bundle: nil), forCellReuseIdentifier: "SpendCell")
+        spendView.delegate = spendDelegate
+        spendView.dataSource = spendDelegate
 
-        do {
-            appSpends = try context.fetch(fetchRequest)
-        }
-        catch let error {
-            print("Spends init ERROR: " + error.localizedDescription)
-        }
+        //spendView.tableFooterView?.isHidden = true
+        updateSpendsView()
     }
 
-    func addSpend(cat: CategoryModel, sum: Float, curIso: String, bsum: Float, bcurIso: String, comment: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let spendEntity = NSEntityDescription.entity(forEntityName: "Spend", in: context)
-
-        let spend = NSManagedObject(entity: spendEntity!, insertInto: context) as! SpendModel
-        spend.category = cat
-        spend.comment = comment
-        spend.date = Date()
-        spend.sum = sum
-        spend.currency = curIso
-        spend.bsum = bsum
-        spend.bcurrency = bcurIso
-
-        do {
-            try context.save()
-            appSpends?.append(spend)
-            spendView.reloadData()
+    private func updateSpendsView() {
+        for constr in spendView.constraints {
+            if constr.identifier == "height" {
+                constr.constant = spendDelegate!.getContentHeight()
+            }
         }
-        catch let error {
-           print("Failed to add spend. ERROR: " + error.localizedDescription)
+
+        spendView.reloadData()
+    }
+
+    private func onCategoryPressed(cat: CategoryModel) {
+        if keysView.getValue() <= 0 {
+            return
         }
+
+        let sum = keysView.getValue()
+        let bsum = sum / appSettings.exchangeRate
+
+        appSpends.addSpend(cat: cat, sum: sum, curIso: appSettings.currency, bsum: bsum, bcurIso: appSettings.currencyBase, comment: "")
+        updateSpendsView()
+        keysView.clear()
     }
 
     //override func didReceiveMemoryWarning() {

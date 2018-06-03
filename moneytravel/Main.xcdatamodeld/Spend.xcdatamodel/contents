@@ -5,6 +5,10 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="spends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Spend" inverseName="category" inverseEntity="Spend" syncable="YES"/>
     </entity>
+    <entity name="Mark" representedClassName="MarkModel" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Spend" representedClassName="SpendModel" syncable="YES" codeGenerationType="class">
         <attribute name="bcurrency" attributeType="String" syncable="YES"/>
         <attribute name="bsum" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -17,5 +21,6 @@
     <elements>
         <element name="Category" positionX="-5643" positionY="-4878" width="128" height="90"/>
         <element name="Spend" positionX="-5805" positionY="-4869" width="128" height="150"/>
+        <element name="Mark" positionX="-5724" positionY="-4815" width="128" height="75"/>
     </elements>
 </model>

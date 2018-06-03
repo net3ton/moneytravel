@@ -46,7 +46,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells/>
                                             </collectionView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="P72-8Z-jrA">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="P72-8Z-jrA">
                                                 <rect key="frame" x="0.0" y="416" width="335" height="100"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 <constraints>
@@ -82,6 +82,7 @@
                                 <segue destination="htg-54-DoI" kind="show" id="gGW-pN-ffr"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wn1-iX-iVN"/>
                     </navigationItem>
                     <connections>
                         <outlet property="categoriesView" destination="BKi-o4-oTO" id="9vP-gq-Bbo"/>
@@ -286,7 +287,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hhx-hQ-W6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1866" y="133"/>
+            <point key="canvasLocation" x="1864.8" y="132.68365817091455"/>
         </scene>
         <!--Currencies-->
         <scene sceneID="cmF-QN-Adv">

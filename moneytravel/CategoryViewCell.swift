@@ -23,6 +23,7 @@ class CategoryViewCell: UICollectionViewCell {
 
 class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private var cellSize: CGFloat
+    public var onCategoryPressed: ((CategoryModel) -> Void)?
     
     init(cellSize: CGFloat) {
         self.cellSize = cellSize
@@ -43,7 +44,7 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("select" + String(indexPath.row))
+        onCategoryPressed?(appCategories![indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

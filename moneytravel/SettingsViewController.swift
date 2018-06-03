@@ -52,6 +52,12 @@ class SettingsViewController: UITableViewController {
     }
 
     func updateCurrenciesRate() {
+        if appSettings.currency == appSettings.currencyBase {
+            appSettings.exchangeRate = 1.0
+            self.updateLabels()
+            return
+        }
+        
         CurrencyExchangeRate.fetch(fromIso: appSettings.currencyBase, toIso: appSettings.currency, result: { rate in
             if (rate > 0) {
                 appSettings.exchangeRate = rate
@@ -120,6 +126,10 @@ class SettingsViewController: UITableViewController {
             })
         }
         else if indexPath.section == 1 && indexPath.row == 0 {
+            if appSettings.currency == appSettings.currencyBase {
+                return
+            }
+            
             let title = String(format: "Exchange Rate for %@", appSettings.currency)
             let exchangeRatePopup = makePopupFloat(title: title, value: appSettings.exchangeRate, resultcb: { val in
                 appSettings.exchangeRate = val
