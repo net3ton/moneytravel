@@ -94,6 +94,7 @@ class MainViewController: UIViewController {
 
         spendView.register(UINib.init(nibName: "SpendViewCell", bundle: nil), forCellReuseIdentifier: SpendViewCell.ID)
         spendView.register(SpendViewHeader.self, forHeaderFooterViewReuseIdentifier: SpendViewHeader.ID)
+        spendView.register(SpendViewFooter.self, forHeaderFooterViewReuseIdentifier: SpendViewFooter.ID)
         spendView.delegate = spendDelegate
         spendView.dataSource = spendDelegate
         updateSpendsView()

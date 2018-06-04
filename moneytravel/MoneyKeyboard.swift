@@ -49,10 +49,10 @@ import UIKit
             for iy in 0...(COUNTY-1) {
                 
                 if (selectedCell != nil && ix == selectedCell!.x && iy == selectedCell!.y) {
-                    cnx?.setFillColor(COLOR_SELECT.cgColor)
+                    cnx?.setFillColor(COLOR_KEYS_SELECT.cgColor)
                 }
                 else {
-                    cnx?.setFillColor(COLOR_MAIN.cgColor)
+                    cnx?.setFillColor(COLOR_KEYS.cgColor)
                 }
                 
                 let rect = CGRect(x: CGFloat(ix) * xsize, y: CGFloat(iy) * ysize, width: xsize - 2, height: ysize - 2)

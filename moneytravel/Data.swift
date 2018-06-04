@@ -60,7 +60,7 @@ class AppSpends {
             date = forDate
         }
 
-        public func getBudgetInfo() -> (baseSum: String, budgetProgress: Float, budgetLeft: String) {
+        public func getBudgetInfo() -> (baseSum: String, budgetProgress: Float, budgetLeft: String, budgetPlus: Bool) {
             var bsum: Float = 0
             
             for spend in spends {
@@ -71,10 +71,11 @@ class AppSpends {
 
             let bsumStr = (bsum <= 0) ? "" : sum_to_string(sum: bsum, currency: appSettings.currencyBase)
             let budgetProgress: Float = bsum / appSettings.dailyMax
+            let budgetPlus: Bool = appSettings.dailyMax >= bsum
             let budgetLeft: Float = (appSettings.dailyMax - bsum) * appSettings.exchangeRate
             let budgetLeftStr = String.init(format: "Budget: %@", sum_to_string(sum: budgetLeft, currency: appSettings.currency))
 
-            return (baseSum: bsumStr, budgetProgress: budgetProgress, budgetLeft: budgetLeftStr)
+            return (baseSum: bsumStr, budgetProgress: budgetProgress, budgetLeft: budgetLeftStr, budgetPlus: budgetPlus)
         }
 
         public func getDateSubname() -> String {

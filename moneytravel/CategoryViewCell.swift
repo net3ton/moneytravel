@@ -39,7 +39,7 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryViewCell
         cell.name.text = cat.name
         cell.icon.image = cat.icon
-        cell.contentView.backgroundColor = COLOR_MAIN2
+        cell.contentView.backgroundColor = COLOR_CAT
         return cell
     }
 
@@ -49,12 +49,12 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = COLOR_SELECT
+        cell?.contentView.backgroundColor = COLOR_CAT_SELECT
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = COLOR_MAIN2
+        cell?.contentView.backgroundColor = COLOR_CAT
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {

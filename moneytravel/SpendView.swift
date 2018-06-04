@@ -18,11 +18,9 @@ class SpendViewCell: UITableViewCell {
     @IBOutlet weak var comment: UILabel!
     @IBOutlet weak var sum: UILabel!
     @IBOutlet weak var sumBase: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        self.layer.cornerRadius = 5.0
     }
 
     //override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,11 +37,9 @@ class SpendViewHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         
         content = UINib(nibName: "SpendViewHeader", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SpendViewHeaderContent
-        content.backgroundColor = COLOR4
-        //content.layer.cornerRadius = 5.0
+        content.backgroundColor = COLOR_SPEND_HEADER
 
         addSubview(content)
-        //layer.cornerRadius = 5.0
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,9 +48,7 @@ class SpendViewHeader: UITableViewHeaderFooterView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
         content.frame = self.bounds
-        //layer.cornerRadius = 5.0
     }
 }
 
@@ -66,24 +60,9 @@ class SpendViewHeaderContent: UIView {
     @IBOutlet weak var dayProgress: UIProgressView!
 }
 
-/*
 class SpendViewFooter: UITableViewHeaderFooterView {
     public static let ID = "SpendFooter"
-    
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        addSubview(view)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
-*/
-
 
 class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     
@@ -114,7 +93,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         cell.comment.text = spend.category?.name
         cell.sum.text = spend.getSumString()
         cell.sumBase.text = spend.getBaseSumString()
-        cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SP1 : COLOR_SP3
+        cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
         return cell
     }
 
@@ -130,6 +109,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         header.content.date.text = dayInfo.getDateString()
         header.content.dateName.text = dayInfo.getDateSubname()
         header.content.sum.text = budgetInfo.budgetLeft
+        header.content.sum.textColor = budgetInfo.budgetPlus ? UIColor.black : UIColor.red
         header.content.sumBase.text = budgetInfo.baseSum
         header.content.dayProgress.progress = budgetInfo.budgetProgress
         return header
@@ -140,8 +120,8 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: SpendViewFooter.ID)
+        view?.contentView.backgroundColor = COLOR_SPEND_FOOTER
         return view
     }
     
