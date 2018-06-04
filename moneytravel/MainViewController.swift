@@ -96,8 +96,6 @@ class MainViewController: UIViewController {
         spendView.register(SpendViewHeader.self, forHeaderFooterViewReuseIdentifier: SpendViewHeader.ID)
         spendView.delegate = spendDelegate
         spendView.dataSource = spendDelegate
-
-        //spendView.tableFooterView?.isHidden = true
         updateSpendsView()
     }
 

@@ -12,6 +12,7 @@ class SpendViewCell: UITableViewCell {
     public static let ID = "SpendCell"
     public static let HEIGHT: CGFloat = 44.0
     public static let HEIGHT_HEADER: CGFloat = 36.0
+    public static let HEIGHT_FOOTER: CGFloat = 4.0
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var comment: UILabel!
@@ -53,6 +54,7 @@ class SpendViewHeader: UITableViewHeaderFooterView {
         super.layoutSubviews()
 
         content.frame = self.bounds
+        //layer.cornerRadius = 5.0
     }
 }
 
@@ -61,7 +63,26 @@ class SpendViewHeaderContent: UIView {
     @IBOutlet weak var sumBase: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var dateName: UILabel!
+    @IBOutlet weak var dayProgress: UIProgressView!
 }
+
+/*
+class SpendViewFooter: UITableViewHeaderFooterView {
+    public static let ID = "SpendFooter"
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        addSubview(view)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+*/
 
 
 class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
@@ -73,6 +94,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         }
 
         height += CGFloat(appSpends.daily.count) * SpendViewCell.HEIGHT_HEADER
+        height += CGFloat(appSpends.daily.count) * SpendViewCell.HEIGHT_FOOTER
         return height
     }
 
@@ -102,12 +124,14 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let dayInfo = appSpends.daily[section]
+        let budgetInfo = dayInfo.getBudgetInfo()
         
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SpendViewHeader.ID) as! SpendViewHeader
         header.content.date.text = dayInfo.getDateString()
         header.content.dateName.text = dayInfo.getDateSubname()
-        header.content.sum.text = dayInfo.getRemainString()
-        header.content.sumBase.text = dayInfo.getSumBaseString()
+        header.content.sum.text = budgetInfo.budgetLeft
+        header.content.sumBase.text = budgetInfo.baseSum
+        header.content.dayProgress.progress = budgetInfo.budgetProgress
         return header
     }
 
@@ -115,12 +139,14 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         return SpendViewCell.HEIGHT_HEADER
     }
 
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return nil
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        return view
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        return SpendViewCell.HEIGHT_FOOTER
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

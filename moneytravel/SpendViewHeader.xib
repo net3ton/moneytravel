@@ -23,7 +23,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sum" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfd-lo-yTA">
-                    <rect key="frame" x="50" y="3" width="220" height="14.5"/>
+                    <rect key="frame" x="50" y="8" width="220" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -34,6 +34,9 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jVl-je-BXX">
+                    <rect key="frame" x="90" y="26" width="140" height="2"/>
+                </progressView>
                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDb-s7-JzH">
                     <rect key="frame" x="5" y="19" width="31" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -46,12 +49,15 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="nO7-AE-0bO" secondAttribute="trailing" constant="7" id="4lf-XJ-aKX"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="nO7-AE-0bO" secondAttribute="bottom" constant="2" id="ATz-1E-Rg0"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rDb-s7-JzH" secondAttribute="bottom" constant="2" id="Ikl-z5-ePa"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jVl-je-BXX" secondAttribute="bottom" constant="8" id="L65-Rl-2p0"/>
                 <constraint firstItem="x7V-X8-eHv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="Mkf-RE-0w7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Nfd-lo-yTA" secondAttribute="trailing" constant="50" id="dMd-h6-mQO"/>
                 <constraint firstItem="x7V-X8-eHv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="3" id="f37-dQ-fre"/>
                 <constraint firstItem="Nfd-lo-yTA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="fJj-Sx-mlt"/>
                 <constraint firstItem="rDb-s7-JzH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="rdN-4V-WZs"/>
-                <constraint firstItem="Nfd-lo-yTA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="3" id="xlc-c3-UbK"/>
+                <constraint firstAttribute="trailing" secondItem="jVl-je-BXX" secondAttribute="trailing" constant="90" id="svD-Td-0aV"/>
+                <constraint firstItem="jVl-je-BXX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="90" id="uy2-cJ-Jrw"/>
+                <constraint firstItem="Nfd-lo-yTA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="xlc-c3-UbK"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
@@ -60,10 +66,11 @@
             <connections>
                 <outlet property="date" destination="x7V-X8-eHv" id="E3K-sj-saW"/>
                 <outlet property="dateName" destination="rDb-s7-JzH" id="exJ-Wj-pjr"/>
+                <outlet property="dayProgress" destination="jVl-je-BXX" id="zs6-G8-7sk"/>
                 <outlet property="sum" destination="Nfd-lo-yTA" id="XTY-RK-zUA"/>
                 <outlet property="sumBase" destination="nO7-AE-0bO" id="myP-UP-sGg"/>
             </connections>
-            <point key="canvasLocation" x="33.5" y="54"/>
+            <point key="canvasLocation" x="33" y="54"/>
         </view>
     </objects>
 </document>

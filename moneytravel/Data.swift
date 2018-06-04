@@ -60,32 +60,21 @@ class AppSpends {
             date = forDate
         }
 
-        public func getSumBaseString() -> String {
+        public func getBudgetInfo() -> (baseSum: String, budgetProgress: Float, budgetLeft: String) {
             var bsum: Float = 0
-
+            
             for spend in spends {
                 if spend.bcurrency == appSettings.currencyBase {
                     bsum += spend.bsum
                 }
             }
 
-            return sum_to_string(sum: bsum, currency: appSettings.currencyBase)
-        }
-        
-        public func getRemainString() -> String {
-            var sum: Float = 0
-            
-            for spend in spends {
-                if spend.currency == appSettings.currency {
-                    sum += spend.sum
-                }
-            }
+            let bsumStr = (bsum <= 0) ? "" : sum_to_string(sum: bsum, currency: appSettings.currencyBase)
+            let budgetProgress: Float = bsum / appSettings.dailyMax
+            let budgetLeft: Float = (appSettings.dailyMax - bsum) * appSettings.exchangeRate
+            let budgetLeftStr = String.init(format: "Budget: %@", sum_to_string(sum: budgetLeft, currency: appSettings.currency))
 
-            let sumStr = sum_to_string(sum: sum, currency: appSettings.currency)
-            let maxsum = appSettings.dailyMax * appSettings.exchangeRate
-            let maxsumStr = sum_to_string(sum: maxsum, currency: appSettings.currency)
-
-            return String.init(format: "%@ / %@", sumStr, maxsumStr)
+            return (baseSum: bsumStr, budgetProgress: budgetProgress, budgetLeft: budgetLeftStr)
         }
 
         public func getDateSubname() -> String {
