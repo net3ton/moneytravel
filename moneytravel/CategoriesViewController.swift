@@ -27,7 +27,7 @@ class CategoriesViewController: UITableViewController {
         categoriesDelegate?.onCategoryPressed = editCategory
         
         gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-        
+
         categoriesView.register(CategoryViewCell.getNib(), forCellWithReuseIdentifier: CategoryViewCell.ID)
         categoriesView.delegate = categoriesDelegate
         categoriesView.dataSource = categoriesDelegate

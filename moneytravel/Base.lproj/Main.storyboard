@@ -604,10 +604,10 @@
             </objects>
             <point key="canvasLocation" x="2687" y="893"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Icons View Controller-->
         <scene sceneID="xpq-o2-aXf">
             <objects>
-                <collectionViewController id="516-pG-xUf" sceneMemberID="viewController">
+                <collectionViewController id="516-pG-xUf" customClass="IconsViewController" customModule="moneytravel" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="bvJ-xJ-9oT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -627,7 +627,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QcX-W2-QSh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3425" y="893"/>
+            <point key="canvasLocation" x="3479" y="893"/>
         </scene>
         <!--Currencies-->
         <scene sceneID="cmF-QN-Adv">
