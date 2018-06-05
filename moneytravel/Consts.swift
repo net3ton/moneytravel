@@ -17,6 +17,6 @@ let COLOR_CAT_SELECT = UIColor(displayP3Red:0.886, green:0.906, blue:0.855, alph
 let COLOR_SUM_FIELD = UIColor(displayP3Red: 0.804, green:1, blue:0.894, alpha:1.0)
 
 let COLOR_SPEND1 = UIColor(displayP3Red:0.902, green:1, blue:0.945, alpha: 1.0)
-let COLOR_SPEND2 = UIColor.white //UIColor(displayP3Red:0.961, green:1, blue:0.976, alpha: 1.0)
+let COLOR_SPEND2 = UIColor.white
 let COLOR_SPEND_HEADER = UIColor(displayP3Red: 0.714, green:0.976, blue:0.788, alpha:1.0)
 let COLOR_SPEND_FOOTER = UIColor.white

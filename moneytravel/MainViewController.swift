@@ -26,26 +26,29 @@ class MainViewController: UIViewController {
         initSpends()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let selected = spendView.indexPathForSelectedRow {
+            spendView.deselectRow(at: selected, animated: true)
+        }
+    }
+    
     private func initCategories() {
         initCategoryBase()
-        
-        let COUNTX: CGFloat = 5
-        let COUNTY: CGFloat = 2
-        let SPACING: CGFloat = 2
-        
-        let cellsize = (categoriesView.frame.width - CGFloat(COUNTX-1) * SPACING) / COUNTX
-        let viewheight = cellsize * COUNTY + (COUNTY-1) * SPACING
-        
-        categoriesDelegate = CategoriesViewDelegate(cellSize: cellsize)
+
+        let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
+
+        categoriesDelegate = CategoriesViewDelegate(cellSize: viewInfo.csize)
         categoriesDelegate?.onCategoryPressed = onCategoryPressed
         
-        categoriesView.register(UINib.init(nibName: "CategoryViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
+        categoriesView.register(CategoryViewCell.getNib(), forCellWithReuseIdentifier: CategoryViewCell.ID)
         categoriesView.delegate = categoriesDelegate
         categoriesView.dataSource = categoriesDelegate
         
         for constr in categoriesView.constraints {
             if constr.identifier == "height" {
-                constr.constant = viewheight
+                constr.constant = viewInfo.height
             }
         }
     }
@@ -57,17 +60,17 @@ class MainViewController: UIViewController {
         let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
         
         let catList = [
-            ("Food", "food"),
-            ("House", "rent"),
-            ("Cafe", "cafe"),
-            ("Games", "games"),
-            ("Gift", "gifts"),
-            ("Museum", "museums"),
-            ("Transport", "transport"),
-            ("Restaurant", "restaurant"),
-            ("Canteen", "canteen"),
-            ("Clothes", "clothes"),
-            ("Entertain", "entertain")
+            ("Food", "Food"),
+            ("House", "Rent"),
+            ("Cafe", "Cafe"),
+            ("Games", "Games"),
+            ("Gift", "Gifts"),
+            ("Museum", "Museums"),
+            ("Transport", "Transport"),
+            ("Restaurant", "Restaurant"),
+            ("Canteen", "Canteen"),
+            ("Clothes", "Clothes"),
+            ("Entertain", "Entertain")
         ]
         
         do {
@@ -91,8 +94,9 @@ class MainViewController: UIViewController {
     
     private func initSpends() {
         spendDelegate = SpendViewDelegate()
+        spendDelegate?.onSpendPressed = showSpendInfo
 
-        spendView.register(UINib.init(nibName: "SpendViewCell", bundle: nil), forCellReuseIdentifier: SpendViewCell.ID)
+        spendView.register(SpendViewCell.getNib(), forCellReuseIdentifier: SpendViewCell.ID)
         spendView.register(SpendViewHeader.self, forHeaderFooterViewReuseIdentifier: SpendViewHeader.ID)
         spendView.register(SpendViewFooter.self, forHeaderFooterViewReuseIdentifier: SpendViewFooter.ID)
         spendView.delegate = spendDelegate
@@ -100,6 +104,14 @@ class MainViewController: UIViewController {
         updateSpendsView()
     }
 
+    private func showSpendInfo(spend: SpendModel) {
+        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
+        let view = sboard.instantiateViewController(withIdentifier: "spend-info") as! SpendViewController
+
+        view.spendInfo = spend
+        navigationController?.pushViewController(view, animated: true)
+    }
+    
     private func updateSpendsView() {
         for constr in spendView.constraints {
             if constr.identifier == "height" {

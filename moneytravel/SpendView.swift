@@ -27,6 +27,10 @@ class SpendViewCell: UITableViewCell {
     //    super.setSelected(selected, animated: animated)
     //    // Configure the view for the selected state
     //}
+
+    public static func getNib() -> UINib {
+        return UINib.init(nibName: "SpendViewCell", bundle: nil)
+    }
 }
 
 class SpendViewHeader: UITableViewHeaderFooterView {
@@ -65,7 +69,8 @@ class SpendViewFooter: UITableViewHeaderFooterView {
 }
 
 class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
-    
+    public var onSpendPressed: ((SpendModel) -> Void)?
+
     func getContentHeight() -> CGFloat {
         var height: CGFloat = 0.0
         for spendsInfo in appSpends.daily {
@@ -130,6 +135,6 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print(String(indexPath.row))
+        onSpendPressed?(appSpends.daily[indexPath.section].spends[indexPath.row])
     }
 }

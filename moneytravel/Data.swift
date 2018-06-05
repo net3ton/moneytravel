@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-private func sum_to_string(sum: Float, currency: String) -> String {
+public func sum_to_string(sum: Float, currency: String) -> String {
     let formatter = NumberFormatter()
     formatter.usesGroupingSeparator = true
     formatter.groupingSeparator = "\u{00a0}" // non-breaking space

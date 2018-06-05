@@ -9,6 +9,11 @@
 import UIKit
 
 class CategoryViewCell: UICollectionViewCell {
+    public static let ID = "CategoryCell"
+    public static let COUNTX = 5
+    public static let COUNTY = 2
+    public static let SPACING: CGFloat = 2.0
+    
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var name: UILabel!
     
@@ -19,6 +24,16 @@ class CategoryViewCell: UICollectionViewCell {
         self.selectedBackgroundView?.backgroundColor = UIColor.white
     }
 
+    public static func getCellSizeAndHeight(width: CGFloat) -> (csize: CGFloat, height: CGFloat) {
+        let cellsize = (width - CGFloat(CategoryViewCell.COUNTX-1) * CategoryViewCell.SPACING) / CGFloat(CategoryViewCell.COUNTX)
+        let viewheight = cellsize * CGFloat(CategoryViewCell.COUNTY) + CGFloat(CategoryViewCell.COUNTY-1) * CategoryViewCell.SPACING
+
+        return (csize: cellsize, height: viewheight)
+    }
+    
+    public static func getNib() -> UINib {
+        return UINib.init(nibName: "CategoryViewCell", bundle: nil)
+    }
 }
 
 class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -36,7 +51,7 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cat = appCategories![indexPath.row]
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryViewCell.ID, for: indexPath) as! CategoryViewCell
         cell.name.text = cat.name
         cell.icon.image = cat.icon
         cell.contentView.backgroundColor = COLOR_CAT
@@ -70,10 +85,10 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
+        return CategoryViewCell.SPACING
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
+        return CategoryViewCell.SPACING
     }
 }

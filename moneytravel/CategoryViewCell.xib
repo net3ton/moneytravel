@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dUM-SX-wpj">
-                        <rect key="frame" x="9" y="5" width="32" height="32"/>
+                        <rect key="frame" x="11" y="5" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="dUM-SX-wpj" secondAttribute="height" multiplier="1:1" id="WLP-jj-5sg"/>
                         </constraints>
@@ -35,12 +35,12 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="dUM-SX-wpj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="9" id="33f-TR-tdc"/>
+                <constraint firstAttribute="trailing" secondItem="dUM-SX-wpj" secondAttribute="trailing" constant="11" id="Bop-j7-1Ku"/>
                 <constraint firstItem="Bvo-9s-0fv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="DUL-tS-cwU"/>
+                <constraint firstItem="dUM-SX-wpj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="GwW-NR-d6k"/>
                 <constraint firstAttribute="trailing" secondItem="Bvo-9s-0fv" secondAttribute="trailing" id="KpP-Ea-F00"/>
-                <constraint firstItem="dUM-SX-wpj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="YDW-mv-qqn"/>
                 <constraint firstAttribute="bottom" secondItem="Bvo-9s-0fv" secondAttribute="bottom" id="hgR-a2-WtH"/>
-                <constraint firstAttribute="trailing" secondItem="dUM-SX-wpj" secondAttribute="trailing" constant="9" id="pJ5-ri-AXW"/>
+                <constraint firstItem="dUM-SX-wpj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="11" id="lQ5-4G-wuC"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>

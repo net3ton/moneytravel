@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2103DA1D20C46CEE003B027D /* SpendViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2103DA1C20C46CEE003B027D /* SpendViewHeader.xib */; };
+		2103DA2120C5C1D5003B027D /* SpendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA2020C5C1D5003B027D /* SpendViewController.swift */; };
+		2103DA2520C6832F003B027D /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA2420C6832F003B027D /* CategoryViewController.swift */; };
+		2103DA2720C6BD92003B027D /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA2620C6BD92003B027D /* CategoriesViewController.swift */; };
 		211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211A1F2C20BA1E4F004A793D /* MoneyInput.swift */; };
 		2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */; };
 		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
@@ -29,6 +32,9 @@
 
 /* Begin PBXFileReference section */
 		2103DA1C20C46CEE003B027D /* SpendViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpendViewHeader.xib; sourceTree = "<group>"; };
+		2103DA2020C5C1D5003B027D /* SpendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendViewController.swift; sourceTree = "<group>"; };
+		2103DA2420C6832F003B027D /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		2103DA2620C6BD92003B027D /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		211A1F2C20BA1E4F004A793D /* MoneyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInput.swift; sourceTree = "<group>"; };
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
@@ -82,8 +88,11 @@
 			children = (
 				2172BD6B20B02AF400132D36 /* AppDelegate.swift */,
 				2172BD6D20B02AF400132D36 /* MainViewController.swift */,
+				2103DA2020C5C1D5003B027D /* SpendViewController.swift */,
+				2103DA2420C6832F003B027D /* CategoryViewController.swift */,
 				2174F4B320B5B83900B6E381 /* SettingsViewController.swift */,
 				2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */,
+				2103DA2620C6BD92003B027D /* CategoriesViewController.swift */,
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
 				2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */,
 				2172BD7220B02AF500132D36 /* Assets.xcassets */,
@@ -179,10 +188,13 @@
 				2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */,
 				2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */,
 				2174F4B220B585E600B6E381 /* Settings.swift in Sources */,
+				2103DA2120C5C1D5003B027D /* SpendViewController.swift in Sources */,
+				2103DA2520C6832F003B027D /* CategoryViewController.swift in Sources */,
 				2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */,
 				2174F4AA20B44B9800B6E381 /* Data.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
+				2103DA2720C6BD92003B027D /* CategoriesViewController.swift in Sources */,
 				2174F4AF20B574E500B6E381 /* SpendView.swift in Sources */,
 				2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */,
 				2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */,
@@ -327,6 +339,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5324A38GMP;
 				INFOPLIST_FILE = moneytravel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -345,6 +358,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5324A38GMP;
 				INFOPLIST_FILE = moneytravel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
