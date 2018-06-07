@@ -28,10 +28,10 @@ extension CategoryModel {
 
     var color: UIColor {
         get {
-            let r: CGFloat = 1.0 / CGFloat(colorvalue | 0xFF)
-            let g: CGFloat = 1.0 / CGFloat(colorvalue >> 8 | 0xFF)
-            let b: CGFloat = 1.0 / CGFloat(colorvalue >> 16 | 0xFF)
-            let a: CGFloat = 1.0 / CGFloat(colorvalue >> 24 | 0xFF)
+            let r: CGFloat = CGFloat(colorvalue & 0xFF) / 255.0
+            let g: CGFloat = CGFloat(colorvalue >> 8 & 0xFF) / 255.0
+            let b: CGFloat = CGFloat(colorvalue >> 16 & 0xFF) / 255.0
+            let a: CGFloat = CGFloat(colorvalue >> 24 & 0xFF) / 255.0
 
             return UIColor(displayP3Red: r, green: g, blue: b, alpha: a)
         }
@@ -42,10 +42,10 @@ extension CategoryModel {
             var a: CGFloat = 0
             newValue.getRed(&r, green: &g, blue: &b, alpha: &a)
 
-            let ir = Int32(r * 256)
-            let ig = Int32(g * 256) << 8
-            let ib = Int32(b * 256) << 16
-            let ia = Int32(a * 256) << 24
+            let ir = Int32(r * 255)
+            let ig = Int32(g * 255) << 8
+            let ib = Int32(b * 255) << 16
+            let ia = Int32(a * 255) << 24
             colorvalue = ia + ib + ig + ir
         }
     }
@@ -89,7 +89,7 @@ class AppCategories {
             ("Clothes", "Clothes"),
             ("Entertain", "Entertain")
         ]
-        
+
         do {
             let count = try context.count(for: fetchRequest)
             if count == 0 {
@@ -122,17 +122,7 @@ class AppCategories {
 
         categories.append(category)
     }
-    
-    /*
-    public func createNewCategory() -> CategoryModel {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
-        
-        return NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
-    }
-    */
-    
+
     public func replace(from: Int, to: Int) {
         if from >= 0 && from < categories.count && to >= 0 && to < categories.count {
             let temp = categories[from]

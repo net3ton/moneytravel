@@ -33,17 +33,15 @@ class CategoryViewController: UITableViewController {
         super.viewDidAppear(animated)
         colorView.backgroundColor = color
     }
-    
+
     public func setup(category: CategoryModel?) {
         categoryToSave = category
 
-        guard let cat = category else {
-            return
+        if let cat = category {
+            name = cat.name
+            iconname = cat.iconname
+            color = cat.color
         }
-
-        name = cat.name
-        iconname = cat.iconname
-        color = cat.color
     }
 
     private func updateInfo() {

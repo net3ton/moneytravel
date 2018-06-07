@@ -16,6 +16,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var exchangeRateLabel: UILabel!
     @IBOutlet weak var exchangeRate: UILabel!
     @IBOutlet weak var exchangeUpdate: UISwitch!
+    @IBOutlet weak var exchangeUpdateLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

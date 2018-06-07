@@ -25,6 +25,7 @@ class CategoriesViewController: UITableViewController {
         viewHeight = viewInfo.height
         categoriesDelegate = CategoriesEditViewDelegate(cellSize: viewInfo.csize)
         categoriesDelegate?.onCategoryPressed = editCategory
+        categoriesDelegate?.onCategoryMoved = movedCategory
         
         gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
 
@@ -47,6 +48,11 @@ class CategoriesViewController: UITableViewController {
         showCategoryInfo(info: cat)
     }
 
+    private func movedCategory(from: Int, to: Int) {
+        appCategories.replace(from: from, to: to)
+        categoriesView.reloadData()
+    }
+    
     private func showCategoryInfo(info: CategoryModel?) {
         let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
         let view = sboard.instantiateViewController(withIdentifier: "category-info") as! CategoryViewController
@@ -77,6 +83,8 @@ class CategoriesViewController: UITableViewController {
 
 
 class CategoriesEditViewDelegate: CategoriesViewDelegate {
+    public var onCategoryMoved: ((Int, Int) -> Void)?
+
     override init(cellSize: CGFloat) {
         super.init(cellSize: cellSize)
     }
@@ -86,6 +94,6 @@ class CategoriesEditViewDelegate: CategoriesViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        appCategories.replace(from: sourceIndexPath.row, to: destinationIndexPath.row)
+        onCategoryMoved?(sourceIndexPath.row, destinationIndexPath.row)
     }
 }

@@ -15,7 +15,12 @@ import UIKit
                   ["4", "5", "6"],
                   ["7", "8", "9"],
                   [".", "0", "del"]]
-    
+
+    let ICONS = [ [nil, nil, nil],
+                  [nil, nil, nil],
+                  [nil, nil, nil],
+                  [nil, nil, UIImage(named: "Backspace")]]
+
     private struct Position: Equatable {
         var x: Int
         var y: Int
@@ -24,18 +29,18 @@ import UIKit
             return lhs.x == rhs.x && lhs.y == rhs.y
         }
     }
-    
-    private var selectedCell: Position?
 
+    private var selectedCell: Position?
     public var onPressedHandler: ((String) -> Void)?
     
     override func draw(_ rect: CGRect) {
+        let fontSize: CGFloat = 30.0
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
         let attributes = [
             NSAttributedStringKey.paragraphStyle: paragraphStyle,
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 30.0),
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize),
             NSAttributedStringKey.foregroundColor: UIColor.white,
             ]
         
@@ -48,21 +53,26 @@ import UIKit
         for ix in 0...(COUNTX-1) {
             for iy in 0...(COUNTY-1) {
                 
-                if (selectedCell != nil && ix == selectedCell!.x && iy == selectedCell!.y) {
-                    cnx?.setFillColor(COLOR_KEYS_SELECT.cgColor)
-                }
-                else {
-                    cnx?.setFillColor(COLOR_KEYS.cgColor)
-                }
-                
+                let isSelected = (selectedCell != nil && ix == selectedCell!.x && iy == selectedCell!.y)
                 let rect = CGRect(x: CGFloat(ix) * xsize, y: CGFloat(iy) * ysize, width: xsize - 2, height: ysize - 2)
-                //cnx?.addRect(rect)
+
+                cnx?.setFillColor(isSelected ? COLOR_KEYS_SELECT.cgColor : COLOR_KEYS.cgColor)
                 cnx?.addPath(UIBezierPath(roundedRect: rect, cornerRadius: 3.0).cgPath)
                 cnx?.fillPath()
-                
-                let str = NSAttributedString(string: CHARS[iy][ix], attributes: attributes)
-                let rect2 = CGRect(x: CGFloat(ix) * xsize, y: CGFloat(iy) * ysize + ysize/4, width: xsize - 2, height: ysize - 2)
-                str.draw(in: rect2)
+
+                if let icon = ICONS[iy][ix] {
+                    let isize = min(rect.width, rect.height) * 0.75
+                    let rectIcon = CGRect(x: rect.origin.x + (rect.width - isize)/2, y: rect.origin.y + (rect.height - isize)/2, width: isize, height: isize)
+
+                    cnx?.setFillColor(UIColor.white.cgColor)
+                    icon.withRenderingMode(.alwaysTemplate).draw(in: rectIcon)
+                }
+                else {
+                    let rectStr = CGRect(x: rect.origin.x, y: rect.origin.y + (rect.height - fontSize)/2, width: rect.width, height: fontSize)
+                    
+                    let str = NSAttributedString(string: CHARS[iy][ix], attributes: attributes)
+                    str.draw(in: rectStr)
+                }
                 cnx?.fillPath()
             }
         }

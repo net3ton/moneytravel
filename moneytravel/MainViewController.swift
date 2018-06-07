@@ -32,6 +32,8 @@ class MainViewController: UIViewController {
         if let selected = spendView.indexPathForSelectedRow {
             spendView.deselectRow(at: selected, animated: true)
         }
+
+        categoriesView.reloadData()
     }
 
     private func initCategories() {

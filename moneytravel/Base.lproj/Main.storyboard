@@ -82,7 +82,7 @@
                                 <segue destination="htg-54-DoI" kind="show" id="gGW-pN-ffr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wn1-iX-iVN"/>
+                        <barButtonItem key="rightBarButtonItem" title="Chart" image="Chart" id="wn1-iX-iVN"/>
                     </navigationItem>
                     <connections>
                         <outlet property="categoriesView" destination="BKi-o4-oTO" id="9vP-gq-Bbo"/>
@@ -315,6 +315,7 @@
                         <outlet property="exchangeRate" destination="S85-Sm-bfc" id="b3B-Vg-vCn"/>
                         <outlet property="exchangeRateLabel" destination="7zb-mA-qZp" id="11n-ip-aia"/>
                         <outlet property="exchangeUpdate" destination="F1X-6h-3ZE" id="k5s-gQ-A7G"/>
+                        <outlet property="exchangeUpdateLabel" destination="HR7-28-Ozr" id="Mrh-FN-AmW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hhx-hQ-W6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -599,8 +600,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1x7-LL-HOB">
-                                                    <rect key="frame" x="307.5" y="5" width="32" height="32"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1x7-LL-HOB">
+                                                    <rect key="frame" x="309" y="5" width="32" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="ejW-ZL-01Y"/>
+                                                        <constraint firstAttribute="width" constant="32" id="seU-sS-IVW"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aN8-VT-j2n">
                                                     <rect key="frame" x="16" y="11" width="32.5" height="21"/>
@@ -872,10 +877,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Chart" width="30" height="30"/>
         <image name="Settings" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QDa-Sh-xer"/>
-        <segue reference="rqO-wJ-jtM"/>
+        <segue reference="Rus-yZ-lVv"/>
     </inferredMetricsTieBreakers>
 </document>
