@@ -32,24 +32,26 @@ class CategoriesViewController: UITableViewController {
         categoriesView.delegate = categoriesDelegate
         categoriesView.dataSource = categoriesDelegate
         categoriesView.addGestureRecognizer(gestureRecognizer!)
-        categoriesView.reloadData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        categoriesView.reloadData()
+    }
+    
     @objc private func addNewCategory() {
-        print("new category")
         showCategoryInfo(info: nil)
     }
-    
+
     private func editCategory(cat: CategoryModel) {
-        print("edit category")
-        showCategoryInfo(info: nil)
+        showCategoryInfo(info: cat)
     }
-    
+
     private func showCategoryInfo(info: CategoryModel?) {
         let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
         let view = sboard.instantiateViewController(withIdentifier: "category-info") as! CategoryViewController
-        
-        view.categoryInfo = info
+
+        view.setup(category: info)
         navigationController?.pushViewController(view, animated: true)
     }
     
@@ -78,12 +80,12 @@ class CategoriesEditViewDelegate: CategoriesViewDelegate {
     override init(cellSize: CGFloat) {
         super.init(cellSize: cellSize)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
+        appCategories.replace(from: sourceIndexPath.row, to: destinationIndexPath.row)
     }
 }

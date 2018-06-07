@@ -21,7 +21,7 @@ import UIKit
         
         textField = UITextField(frame: getTextFieldRect(rect: frame))
         textField?.borderStyle = .roundedRect
-        textField?.placeholder = "Enter Sum"
+        textField?.placeholder = "Enter sum"
         textField?.backgroundColor = COLOR_SUM_FIELD
         textField?.font = UIFont.systemFont(ofSize: 30.0)
         textField?.textAlignment = .center

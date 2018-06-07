@@ -80,7 +80,7 @@ import UIKit
         if (sel != selectedCell) {
             setNeedsDisplay()
         }
-        
+
         selectedCell = sel
         return true
     }
@@ -93,11 +93,11 @@ import UIKit
             onPressedHandler?(enteredChar)
             //sendActions(for: .valueChanged)
         }
-        
+
         selectedCell = nil
         setNeedsDisplay()
     }
-
+    
     private func getCellPosition(pos: CGPoint) -> Position? {
         let xpos = Int(pos.x * CGFloat(COUNTX) / self.frame.width)
         let ypos = Int(pos.y * CGFloat(COUNTY) / self.frame.height)
@@ -105,7 +105,7 @@ import UIKit
         if (xpos < 0 || xpos >= COUNTX || ypos < 0 || ypos >= COUNTY) {
             return nil
         }
-        
+
         return Position(x: xpos, y: ypos)
     }
 }

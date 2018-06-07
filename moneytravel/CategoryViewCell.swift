@@ -43,13 +43,13 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
     init(cellSize: CGFloat) {
         self.cellSize = cellSize
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return getCategoriesCount()
+        return appCategories.categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cat = appCategories![indexPath.row]
+        let cat = appCategories.categories[indexPath.row]
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryViewCell.ID, for: indexPath) as! CategoryViewCell
         cell.name.text = cat.name
@@ -59,7 +59,7 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        onCategoryPressed?(appCategories![indexPath.row])
+        onCategoryPressed?(appCategories.categories[indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

@@ -25,6 +25,30 @@ extension CategoryModel {
     var icon: UIImage? {
         return UIImage(named: iconname!)
     }
+
+    var color: UIColor {
+        get {
+            let r: CGFloat = 1.0 / CGFloat(colorvalue | 0xFF)
+            let g: CGFloat = 1.0 / CGFloat(colorvalue >> 8 | 0xFF)
+            let b: CGFloat = 1.0 / CGFloat(colorvalue >> 16 | 0xFF)
+            let a: CGFloat = 1.0 / CGFloat(colorvalue >> 24 | 0xFF)
+
+            return UIColor(displayP3Red: r, green: g, blue: b, alpha: a)
+        }
+        set {
+            var r : CGFloat = 0
+            var g : CGFloat = 0
+            var b : CGFloat = 0
+            var a: CGFloat = 0
+            newValue.getRed(&r, green: &g, blue: &b, alpha: &a)
+
+            let ir = Int32(r * 256)
+            let ig = Int32(g * 256) << 8
+            let ib = Int32(b * 256) << 16
+            let ia = Int32(a * 256) << 24
+            colorvalue = ia + ib + ig + ir
+        }
+    }
 }
 
 extension SpendModel {
@@ -37,15 +61,85 @@ extension SpendModel {
     }
 }
 
+let appCategories = AppCategories()
 
-var appCategories: [CategoryModel]?
+class AppCategories {
+    private(set) var categories: [CategoryModel] = []
 
-func getCategoriesCount() -> Int {
-    guard let cats = appCategories else {
-        return 0
+    init() {
+        initBase()
     }
 
-    return cats.count
+    private func initBase() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
+        let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
+
+        let catList = [
+            ("Food", "Food"),
+            ("House", "Rent"),
+            ("Cafe", "Cafe"),
+            ("Games", "Games"),
+            ("Gift", "Gifts"),
+            ("Museum", "Museums"),
+            ("Transport", "Transport"),
+            ("Restaurant", "Restaurant"),
+            ("Canteen", "Canteen"),
+            ("Clothes", "Clothes"),
+            ("Entertain", "Entertain")
+        ]
+        
+        do {
+            let count = try context.count(for: fetchRequest)
+            if count == 0 {
+                for (iconname, name) in catList {
+                    let category = NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
+                    category.name = name
+                    category.iconname = iconname
+                    category.color = CATEGORY_DEFAULT
+                }
+
+                try context.save()
+            }
+            
+            categories = try context.fetch(fetchRequest)
+        }
+        catch let error {
+            print("Categories init ERROR: " + error.localizedDescription)
+        }
+    }
+
+    public func addNewCategory(name: String, iconname: String, color: UIColor) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
+        
+        let category = NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
+        category.name = name
+        category.iconname = iconname
+        category.color = color
+
+        categories.append(category)
+    }
+    
+    /*
+    public func createNewCategory() -> CategoryModel {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
+        
+        return NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
+    }
+    */
+    
+    public func replace(from: Int, to: Int) {
+        if from >= 0 && from < categories.count && to >= 0 && to < categories.count {
+            let temp = categories[from]
+            categories[from] = categories[to]
+            categories[to] = temp
+        }
+    }
 }
 
 
@@ -73,7 +167,7 @@ class AppSpends {
             let budgetProgress: Float = bsum / appSettings.dailyMax
             let budgetPlus: Bool = appSettings.dailyMax >= bsum
             let budgetLeft: Float = (appSettings.dailyMax - bsum) * appSettings.exchangeRate
-            let budgetLeftStr = String.init(format: "Budget: %@", sum_to_string(sum: budgetLeft, currency: appSettings.currency))
+            let budgetLeftStr = String.init(format: "Budget left: %@", sum_to_string(sum: budgetLeft, currency: appSettings.currency))
 
             return (baseSum: bsumStr, budgetProgress: budgetProgress, budgetLeft: budgetLeftStr, budgetPlus: budgetPlus)
         }

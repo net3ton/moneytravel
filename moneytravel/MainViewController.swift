@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
         initCategories()
         initSpends()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -33,19 +33,17 @@ class MainViewController: UIViewController {
             spendView.deselectRow(at: selected, animated: true)
         }
     }
-    
-    private func initCategories() {
-        initCategoryBase()
 
+    private func initCategories() {
         let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
 
         categoriesDelegate = CategoriesViewDelegate(cellSize: viewInfo.csize)
         categoriesDelegate?.onCategoryPressed = onCategoryPressed
-        
+
         categoriesView.register(CategoryViewCell.getNib(), forCellWithReuseIdentifier: CategoryViewCell.ID)
         categoriesView.delegate = categoriesDelegate
         categoriesView.dataSource = categoriesDelegate
-        
+
         for constr in categoriesView.constraints {
             if constr.identifier == "height" {
                 constr.constant = viewInfo.height
@@ -53,45 +51,6 @@ class MainViewController: UIViewController {
         }
     }
 
-    func initCategoryBase() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
-        let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
-        
-        let catList = [
-            ("Food", "Food"),
-            ("House", "Rent"),
-            ("Cafe", "Cafe"),
-            ("Games", "Games"),
-            ("Gift", "Gifts"),
-            ("Museum", "Museums"),
-            ("Transport", "Transport"),
-            ("Restaurant", "Restaurant"),
-            ("Canteen", "Canteen"),
-            ("Clothes", "Clothes"),
-            ("Entertain", "Entertain")
-        ]
-        
-        do {
-            let count = try context.count(for: fetchRequest)
-            if count == 0 {
-                for (iconname, name) in catList {
-                    let cat = NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
-                    cat.name = name
-                    cat.iconname = iconname
-                }
-                
-                try context.save()
-            }
-            
-            appCategories = try context.fetch(fetchRequest)
-        }
-        catch let error {
-            print("Categories init ERROR: " + error.localizedDescription)
-        }
-    }
-    
     private func initSpends() {
         spendDelegate = SpendViewDelegate()
         spendDelegate?.onSpendPressed = showSpendInfo
