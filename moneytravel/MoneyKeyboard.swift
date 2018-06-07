@@ -75,19 +75,18 @@ import UIKit
 
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.continueTracking(touch, with: event)
-        
-        let sel = getCellPosition(pos: touch.location(in: self))
-        if (sel != selectedCell) {
-            setNeedsDisplay()
-        }
 
-        selectedCell = sel
+        updateSelection(point: touch.location(in: self))
         return true
     }
     
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         super.endTracking(touch, with: event)
-        
+
+        if touch != nil {
+            updateSelection(point: touch!.location(in: self))
+        }
+
         if let sel = selectedCell {
             let enteredChar = CHARS[sel.y][sel.x]
             onPressedHandler?(enteredChar)
@@ -97,7 +96,16 @@ import UIKit
         selectedCell = nil
         setNeedsDisplay()
     }
-    
+
+    private func updateSelection(point: CGPoint) {
+        let sel = getCellPosition(pos: point)
+        if (sel != selectedCell) {
+            setNeedsDisplay()
+        }
+
+        selectedCell = sel
+    }
+
     private func getCellPosition(pos: CGPoint) -> Position? {
         let xpos = Int(pos.x * CGFloat(COUNTX) / self.frame.width)
         let ypos = Int(pos.y * CGFloat(COUNTY) / self.frame.height)
