@@ -130,6 +130,11 @@ class AppCategories {
             categories[to] = temp
         }
     }
+    
+    public func save() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.saveContext()
+    }
 }
 
 
@@ -266,11 +271,24 @@ class AppSpends {
         spend.bcurrency = bcurIso
         
         do {
-            //try context.save()
+            try context.save()
             daily[0].spends.insert(spend, at: 0)
         }
         catch let error {
             print("Failed to add spend. ERROR: " + error.localizedDescription)
+        }
+    }
+
+    public func deleteSpend(spend: SpendModel) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = getContext()
+
+        for dayInfo in daily {
+            if let ind = dayInfo.spends.index(of: spend) {
+                dayInfo.spends.remove(at: ind)
+                context.delete(spend)
+                appDelegate.saveContext()
+            }
         }
     }
 

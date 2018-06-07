@@ -48,6 +48,7 @@ class SpendViewController: UITableViewController {
 
             removeController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
                 self.navigationController?.popViewController(animated: true)
+                appSpends.deleteSpend(spend: self.spendInfo!)
             }))
             removeController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 

@@ -33,6 +33,7 @@ class MainViewController: UIViewController {
             spendView.deselectRow(at: selected, animated: true)
         }
 
+        updateSpendsView()
         categoriesView.reloadData()
     }
 
@@ -62,7 +63,7 @@ class MainViewController: UIViewController {
         spendView.register(SpendViewFooter.self, forHeaderFooterViewReuseIdentifier: SpendViewFooter.ID)
         spendView.delegate = spendDelegate
         spendView.dataSource = spendDelegate
-        updateSpendsView()
+        //updateSpendsView()
     }
 
     private func showSpendInfo(spend: SpendModel) {

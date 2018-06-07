@@ -60,6 +60,7 @@ class CategoryViewController: UITableViewController {
             appCategories.addNewCategory(name: name ?? "", iconname: iconname ?? "", color: color ?? CATEGORY_DEFAULT)
         }
 
+        appCategories.save()
         navigationController?.popViewController(animated: true)
     }
 
