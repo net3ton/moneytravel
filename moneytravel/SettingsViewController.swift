@@ -48,8 +48,7 @@ class SettingsViewController: UITableViewController {
         exchangeRate.text = exchangeRateStr
         exchangeUpdate.isOn = appSettings.exchangeUpdate
         exchangeRateLabel.text = String(format: "1 %@ = %@ %@", appSettings.currencyBase, exchangeRateStr!, appSettings.currency)
-
-        //tableView.footerView(forSection: 1)?.textLabel?.text = "ha ha ha"
+        exchangeUpdateLabel.text = getLastCurrencyExchangeRateUpdateString()
     }
 
     func updateCurrenciesRate() {
@@ -81,11 +80,15 @@ class SettingsViewController: UITableViewController {
         }
 
         let formatter = DateFormatter()
-        formatter.dateFormat = "Last update: dd.MM.yyyy HH:mm"
-        return formatter.string(from: date)
+        formatter.dateFormat = "HH:mm, dd.MM.yyyy"
+        return String.init(format: "Last update: %@", formatter.string(from: date))
     }
 
     private func needToUpdateCurrencyExchangeRate() -> Bool {
+        if !appSettings.exchangeUpdate {
+            return false
+        }
+
         guard let date = appSettings.exchangeUpdateDate else {
             return true
         }
@@ -174,24 +177,7 @@ class SettingsViewController: UITableViewController {
             }
         }
     }
-    
-    /*
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView(frame: CGRect(x:0, y:0, width:tableView.frame.size.width, height: 40))
-        footerView.backgroundColor = UIColor.lightGray
-        
-        switch(section) {
-        case 1: // change only 3rd cell's footer
-            let label = UILabel(frame: footerView.frame)
-            label.text = "Section 5"
-            footerView.addSubview(label)
-            return footerView
-        default: break
-        }
-        return nil
-    }
-    */
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
