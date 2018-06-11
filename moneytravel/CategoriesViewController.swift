@@ -15,6 +15,8 @@ class CategoriesViewController: UITableViewController {
     private var gestureRecognizer: UILongPressGestureRecognizer?
     private var viewHeight: CGFloat = 100
 
+    public var onCateggorySelected: ((CategoryModel) -> Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,12 +46,12 @@ class CategoriesViewController: UITableViewController {
         showCategoryInfo(info: nil)
     }
 
-    private func editCategory(cat: CategoryModel) {
-        showCategoryInfo(info: cat)
+    private func editCategory(category: CategoryModel) {
+        showCategoryInfo(info: category)
     }
 
     private func movedCategory(from: Int, to: Int) {
-        appCategories.replace(from: from, to: to)
+        appCategories.replace(fromPosition: from, to: to)
         //categoriesView.reloadData()
     }
     

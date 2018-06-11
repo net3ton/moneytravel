@@ -55,12 +55,12 @@ class CategoryViewController: UITableViewController {
             categoryToSave!.name = name ?? ""
             categoryToSave!.iconname = iconname
             categoryToSave!.color = color ?? CATEGORY_DEFAULT
+            appCategories.save()
         }
         else {
-            appCategories.addNewCategory(name: name ?? "", iconname: iconname ?? "", color: color ?? CATEGORY_DEFAULT)
+            appCategories.add(name: name ?? "", iconname: iconname ?? "", color: color ?? CATEGORY_DEFAULT)
         }
 
-        appCategories.save()
         navigationController?.popViewController(animated: true)
     }
 

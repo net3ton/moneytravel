@@ -45,7 +45,7 @@ class IconsViewController: UICollectionViewController, UICollectionViewDelegateF
         collectionView!.register(IconViewCell.self, forCellWithReuseIdentifier: IconViewCell.ID)
         cellSize = collectionView!.contentSize.width / CGFloat(COUNTX)
 
-        navigationItem.title = "Icons"
+        navigationItem.title = "Icon"
     }
 
     private func getColor(forIndex index: IndexPath) -> UIColor {

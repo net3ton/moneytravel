@@ -92,10 +92,11 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let spend = appSpends.daily[indexPath.section].spends[indexPath.row]
+        let comment = spend.comment ?? ""
 
         let cell = tableView.dequeueReusableCell(withIdentifier: SpendViewCell.ID, for: indexPath) as! SpendViewCell
         cell.icon.image = spend.category?.icon
-        cell.comment.text = spend.category?.name
+        cell.comment.text = comment.isEmpty ? spend.category?.name : comment
         cell.sum.text = spend.getSumString()
         cell.sumBase.text = spend.getBaseSumString()
         cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2

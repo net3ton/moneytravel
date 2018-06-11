@@ -9,37 +9,64 @@
 import UIKit
 
 class SpendViewController: UITableViewController {
-    @IBOutlet weak var catLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var sumLabel: UILabel!
     @IBOutlet weak var exchangeRateLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
-    
-    public var spendInfo: SpendModel?
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var categoryIcon: UIImageView!
+
+    private var spendInfo: SpendModel?
+
+    private var date: Date = Date()
+    private var sum: Float = 0.0
+    private var exchangeRate: Float = 1.0
+    private var currency: String = "USD"
+    private var comment: String = ""
+    private var category: CategoryModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+        //navigationItem.title = "Spend record"
+
         updateInfo()
+    }
+
+    public func setup(sinfo: SpendModel) {
+        spendInfo = sinfo
+
+        date = sinfo.date!
+        sum = sinfo.sum
+        exchangeRate = sinfo.sum / sinfo.bsum
+        currency = sinfo.currency!
+        comment = sinfo.comment!
+        category = sinfo.category
     }
     
     private func updateInfo() {
-        guard let info = spendInfo else {
-            return
-        }
-
         let formatter = DateFormatter()
-        formatter.dateFormat = "mm:HH, dd LLLL"
+        formatter.dateFormat = "hh:mm, dd LLLL"
 
-        catLabel.text = info.category?.name
-        dateLabel.text = formatter.string(from: info.date!)
-        sumLabel.text = sum_to_string(sum: info.sum, currency: info.currency!)
-        commentLabel.text = info.comment
+        categoryLabel.text = category!.name
+        categoryIcon.image = category!.icon
+        dateLabel.text = formatter.string(from: date)
+        sumLabel.text = sum_to_string(sum: sum, currency: currency)
+        exchangeRateLabel.text = sum_to_string(sum: exchangeRate, currency: currency)
+        commentLabel.text = comment
     }
     
     @objc private func save() {
         navigationController?.popViewController(animated: true)
+
+        spendInfo?.date = date
+        spendInfo?.sum = sum
+        spendInfo?.bsum = sum / exchangeRate
+        spendInfo?.comment = comment
+        spendInfo?.category = category
+
+        appSpends.update(spend: spendInfo!)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -48,7 +75,7 @@ class SpendViewController: UITableViewController {
 
             removeController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
                 self.navigationController?.popViewController(animated: true)
-                appSpends.deleteSpend(spend: self.spendInfo!)
+                appSpends.delete(spend: self.spendInfo!)
             }))
             removeController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
@@ -63,18 +90,35 @@ class SpendViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "spend-comment" {
             let nameEdit = segue.destination as! TextViewController
-            nameEdit.setup(caption: "Comment", text: "")
+            nameEdit.setup(caption: "Comment", text: comment)
             nameEdit.onTextEntered = { text in
-                //self.name = text
-                //self.updateInfo()
+                self.comment = text
+                self.updateInfo()
             }
         }
         else if segue.identifier == "spend-date" {
             let dateEdit = segue.destination as! DateViewController
-            dateEdit.setup(caption: "Date and Time", date: Date())
+            dateEdit.setup(caption: "Date and Time", date: date)
             dateEdit.onDatePicked = { date in
-                //self.name = text
-                //self.updateInfo()
+                self.date = date
+                self.updateInfo()
+            }
+        }
+        else if segue.identifier == "spend-sum" {
+            let sumEdit = segue.destination as! SumViewController
+            sumEdit.setup(caption: "Sum", sum: spendInfo?.sum ?? 0, currency: spendInfo?.currency ?? "")
+            sumEdit.onSumEntered = { sum in
+                self.sum = sum
+                self.updateInfo()
+            }
+        }
+        else if segue.identifier == "spend-exchange" {
+            let sumEdit = segue.destination as! SumViewController
+            let exchangeRate = (spendInfo?.sum ?? 0.0) / (spendInfo?.bsum ?? 1.0)
+            sumEdit.setup(caption: "Exchange rate", sum: exchangeRate, currency: spendInfo?.currency ?? "")
+            sumEdit.onSumEntered = { rate in
+                self.exchangeRate = rate
+                self.updateInfo()
             }
         }
     }

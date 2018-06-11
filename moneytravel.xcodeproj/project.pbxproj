@@ -34,6 +34,7 @@
 		2174F4B220B585E600B6E381 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B120B585E600B6E381 /* Settings.swift */; };
 		2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B320B5B83900B6E381 /* SettingsViewController.swift */; };
 		2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */; };
+		21FCDDAF20CBC9A50044567F /* SumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCDDAE20CBC9A50044567F /* SumViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		2174F4B120B585E600B6E381 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2174F4B320B5B83900B6E381 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewController.swift; sourceTree = "<group>"; };
+		21FCDDAE20CBC9A50044567F /* SumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				2103DA2C20C720BC003B027D /* ColorsViewController.swift */,
 				2103DA2E20C74195003B027D /* TextViewController.swift */,
 				2103DA3220C939E0003B027D /* DateViewController.swift */,
+				21FCDDAE20CBC9A50044567F /* SumViewController.swift */,
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
 				2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */,
 				2172BD7220B02AF500132D36 /* Assets.xcassets */,
@@ -209,6 +212,7 @@
 				2103DA2920C6C679003B027D /* IconsViewController.swift in Sources */,
 				2103DA2120C5C1D5003B027D /* SpendViewController.swift in Sources */,
 				2103DA2520C6832F003B027D /* CategoryViewController.swift in Sources */,
+				21FCDDAF20CBC9A50044567F /* SumViewController.swift in Sources */,
 				2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */,
 				2174F4AA20B44B9800B6E381 /* Data.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,

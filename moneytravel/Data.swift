@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-public func sum_to_string(sum: Float, currency: String) -> String {
+public func num_to_string(sum: Float) -> String {
     let formatter = NumberFormatter()
     formatter.usesGroupingSeparator = true
     formatter.groupingSeparator = "\u{00a0}" // non-breaking space
@@ -18,8 +18,13 @@ public func sum_to_string(sum: Float, currency: String) -> String {
     formatter.minimumFractionDigits = 2
     formatter.minimumIntegerDigits = 1
 
-    return String.init(format: "%@ %@", formatter.string(from: NSNumber(value: sum))!, currency)
+    return formatter.string(from: NSNumber(value: sum)) ?? "0.00"
 }
+
+public func sum_to_string(sum: Float, currency: String) -> String {
+    return String.init(format: "%@ %@", num_to_string(sum: sum), currency)
+}
+
 
 extension CategoryModel {
     var icon: UIImage? {
@@ -51,6 +56,7 @@ extension CategoryModel {
     }
 }
 
+
 extension SpendModel {
     public func getSumString() -> String {
         return sum_to_string(sum: sum, currency: currency!)
@@ -61,6 +67,7 @@ extension SpendModel {
     }
 }
 
+
 let appCategories = AppCategories()
 
 class AppCategories {
@@ -70,24 +77,32 @@ class AppCategories {
         initBase()
     }
 
+    private func getDelegate() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+
+    private func getContext() -> NSManagedObjectContext {
+        return getDelegate().persistentContainer.viewContext
+    }
+
     private func initBase() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        let context = getContext()
         let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
         let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
 
         let catList = [
             ("Food", "Food"),
             ("House", "Rent"),
-            ("Cafe", "Cafe"),
-            ("Games", "Games"),
-            ("Gift", "Gifts"),
-            ("Museum", "Museums"),
             ("Transport", "Transport"),
-            ("Restaurant", "Restaurant"),
             ("Canteen", "Canteen"),
+            ("Cafe", "Cafe"),
+            ("Museum", "Museums"),
+            ("Gift", "Gifts"),
             ("Clothes", "Clothes"),
             ("Entertain", "Entertain")
+
+            //("Restaurant", "Restaurant"),
+            //("Games", "Games"),
         ]
 
         do {
@@ -106,34 +121,38 @@ class AppCategories {
             categories = try context.fetch(fetchRequest)
         }
         catch let error {
-            print("Categories init ERROR: " + error.localizedDescription)
+            print("Failed to init categories! ERROR: " + error.localizedDescription)
         }
     }
 
-    public func addNewCategory(name: String, iconname: String, color: UIColor) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+    public func add(name: String, iconname: String, color: UIColor) {
+        let context = getContext()
         let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
-        
+
         let category = NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
         category.name = name
         category.iconname = iconname
         category.color = color
 
-        categories.append(category)
+        do {
+            try context.save()
+            categories.append(category)
+        }
+        catch let error {
+            print("Failed to add category! ERROR: " + error.localizedDescription)
+        }
     }
 
-    public func replace(from: Int, to: Int) {
+    public func replace(fromPosition from: Int, to: Int) {
         if from >= 0 && from < categories.count && to >= 0 && to < categories.count {
             let temp = categories[from]
             categories[from] = categories[to]
             categories[to] = temp
         }
     }
-    
+
     public func save() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.saveContext()
+        getDelegate().saveContext()
     }
 }
 
@@ -187,6 +206,11 @@ class AppSpends {
             formatter.dateFormat = "dd LLLL"
             return formatter.string(from: date)
         }
+
+        public func isThisDay(testdate: Date) -> Bool {
+            let calendar = Calendar.current
+            return calendar.isDate(testdate, inSameDayAs: date)
+        }
     }
 
     private let DAYS_HISTORY = 3
@@ -196,7 +220,15 @@ class AppSpends {
         daily = [DaySpends]()
 
         checkDays()
-        fetchSpends()
+        fetchLast()
+    }
+
+    private func getDelegate() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    private func getContext() -> NSManagedObjectContext {
+        return getDelegate().persistentContainer.viewContext
     }
 
     public func checkDays() {
@@ -230,16 +262,10 @@ class AppSpends {
         
         return -1
     }
-    
-    private func getContext() -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
-    }
-    
-    private func fetchSpends() {
+
+    private func fetchLast() {
         let context = getContext()
         let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
-
         let calendar = Calendar.current
 
         for daySpends in daily {
@@ -250,26 +276,26 @@ class AppSpends {
                 daySpends.spends = try context.fetch(fetchRequest)
             }
             catch let error {
-                print("Failed to fetch spends. ERROR: " + error.localizedDescription)
+                print("Failed to fetch spend record! ERROR: " + error.localizedDescription)
             }
         }
     }
 
-    public func addSpend(cat: CategoryModel, sum: Float, curIso: String, bsum: Float, bcurIso: String, comment: String) {
+    public func add(category: CategoryModel, sum: Float, curIso: String, bsum: Float, bcurIso: String, comment: String) {
         checkDays()
         
         let context = getContext()
         let spendEntity = NSEntityDescription.entity(forEntityName: "Spend", in: context)
 
         let spend = NSManagedObject(entity: spendEntity!, insertInto: context) as! SpendModel
-        spend.category = cat
+        spend.category = category
         spend.comment = comment
         spend.date = Date()
         spend.sum = sum
         spend.currency = curIso
         spend.bsum = bsum
         spend.bcurrency = bcurIso
-        
+
         do {
             try context.save()
             daily[0].spends.insert(spend, at: 0)
@@ -279,15 +305,43 @@ class AppSpends {
         }
     }
 
-    public func deleteSpend(spend: SpendModel) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = getContext()
-
+    private func find(spend: SpendModel) -> (day: DaySpends, ind: Int)? {
         for dayInfo in daily {
             if let ind = dayInfo.spends.index(of: spend) {
-                dayInfo.spends.remove(at: ind)
-                context.delete(spend)
-                appDelegate.saveContext()
+                return (day: dayInfo, ind: ind)
+            }
+        }
+
+        return nil
+    }
+
+    public func delete(spend: SpendModel) {
+        getContext().delete(spend)
+        getDelegate().saveContext()
+
+        if let res = find(spend: spend) {
+            res.day.spends.remove(at: res.ind)
+        }
+    }
+
+    public func update(spend: SpendModel) {
+        getDelegate().saveContext()
+
+        if let res = find(spend: spend) {
+            res.day.spends.remove(at: res.ind)
+        }
+
+        for dayInfo in daily {
+            if dayInfo.isThisDay(testdate: spend.date!) {
+                for i in 0..<dayInfo.spends.count {
+                    if dayInfo.spends[i].date! < spend.date! {
+                        dayInfo.spends.insert(spend, at: i)
+                        return
+                    }
+                }
+
+                dayInfo.spends.append(spend)
+                return
             }
         }
     }
@@ -296,28 +350,3 @@ class AppSpends {
     //let today = calendar.date(from: DateComponents(year: comps.year, month: comps.month, day: comps.day))
 }
 
-
-/*
-class SpendModel: NSManagedObject {
-    @NSManaged var date: Date
-    @NSManaged var comment: String
-
-    @NSManaged var sum: Float
-    @NSManaged var currency: String
-    @NSManaged var bsum: Float
-    @NSManaged var bcurrency: String
-}
-
-struct SpendInfo {
-    var id: Int
-    var catId: Int
-    //var date: Date
-    var comment: String
-
-    var sum: Double
-    var currency: String
-
-    //var bsum: Double
-    //var bcurrency: String
-}
-*/

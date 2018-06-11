@@ -70,7 +70,7 @@ class MainViewController: UIViewController {
         let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
         let view = sboard.instantiateViewController(withIdentifier: "spend-info") as! SpendViewController
 
-        view.spendInfo = spend
+        view.setup(sinfo: spend)
         navigationController?.pushViewController(view, animated: true)
     }
     
@@ -92,7 +92,7 @@ class MainViewController: UIViewController {
         let sum = keysView.getValue()
         let bsum = sum / appSettings.exchangeRate
 
-        appSpends.addSpend(cat: cat, sum: sum, curIso: appSettings.currency, bsum: bsum, bcurIso: appSettings.currencyBase, comment: "")
+        appSpends.add(category: cat, sum: sum, curIso: appSettings.currency, bsum: bsum, bcurIso: appSettings.currencyBase, comment: "")
         updateSpendsView()
         keysView.clear()
     }

@@ -47,7 +47,7 @@ class ColorsViewController: UICollectionViewController, UICollectionViewDelegate
         collectionView!.register(ColorViewCell.self, forCellWithReuseIdentifier: ColorViewCell.ID)
         cellSize = collectionView!.contentSize.width / CGFloat(COUNTX)
         
-        navigationItem.title = "Colors"
+        navigationItem.title = "Color"
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

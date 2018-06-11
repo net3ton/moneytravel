@@ -31,7 +31,7 @@ class DateViewController: UIViewController {
 
     private func updateDateText() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "mm:HH dd.MM.yyyy"
+        formatter.dateFormat = "hh:mm, dd LLLL"
         textField.text = formatter.string(from: datePicker.date)
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoneyViewController: UIViewController {
+class SumViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var currencyLabel: UILabel!
 
@@ -20,8 +20,11 @@ class MoneyViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveSum))
-        textField.becomeFirstResponder()
         textField.keyboardType = .decimalPad
+        textField.becomeFirstResponder()
+        
+        textField.text = String.init(format: "%.02f", initSum)
+        currencyLabel.text = initCurrency
     }
 
     public func setup(caption: String, sum: Float, currency: String) {
