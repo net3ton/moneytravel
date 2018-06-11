@@ -17,6 +17,7 @@
 		2103DA2F20C74195003B027D /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA2E20C74195003B027D /* TextViewController.swift */; };
 		2103DA3120C88005003B027D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA3020C88005003B027D /* Colors.swift */; };
 		2103DA3320C939E0003B027D /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA3220C939E0003B027D /* DateViewController.swift */; };
+		2114F13420CEF86400BB40CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */; };
 		211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211A1F2C20BA1E4F004A793D /* MoneyInput.swift */; };
 		2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */; };
 		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
@@ -48,6 +49,7 @@
 		2103DA2E20C74195003B027D /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		2103DA3020C88005003B027D /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2103DA3220C939E0003B027D /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
+		2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		211A1F2C20BA1E4F004A793D /* MoneyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInput.swift; sourceTree = "<group>"; };
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				21FCDDAE20CBC9A50044567F /* SumViewController.swift */,
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
 				2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */,
+				2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */,
 				2172BD7220B02AF500132D36 /* Assets.xcassets */,
 				2172BD7720B02AF500132D36 /* Info.plist */,
 				2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */,
@@ -194,6 +197,7 @@
 				2172BD7320B02AF500132D36 /* Assets.xcassets in Resources */,
 				2174F4A820B4448E00B6E381 /* CategoryViewCell.xib in Resources */,
 				2172BD7120B02AF400132D36 /* Main.storyboard in Resources */,
+				2114F13420CEF86400BB40CB /* LaunchScreen.storyboard in Resources */,
 				2174F4B020B574E500B6E381 /* SpendViewCell.xib in Resources */,
 				2103DA1D20C46CEE003B027D /* SpendViewHeader.xib in Resources */,
 			);
