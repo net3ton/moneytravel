@@ -25,6 +25,14 @@ public func sum_to_string(sum: Float, currency: String) -> String {
     return String.init(format: "%@ %@", num_to_string(sum: sum), currency)
 }
 
+private func get_delegate() -> AppDelegate {
+    return UIApplication.shared.delegate as! AppDelegate
+}
+
+private func get_context() -> NSManagedObjectContext {
+    return get_delegate().persistentContainer.viewContext
+}
+
 
 extension CategoryModel {
     var icon: UIImage? {
@@ -348,5 +356,36 @@ class AppSpends {
 
     //let comps = calendar.dateComponents([.day, .month, .year], from: Date())
     //let today = calendar.date(from: DateComponents(year: comps.year, month: comps.month, day: comps.day))
+}
+
+let appStats = AppStats()
+
+class AppStats {
+    
+    init() {
+    }
+
+    public func getSumSince(date: Date) -> Float {
+        let context = get_context()
+        let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
+
+        //let dateDays = Calendar.current.dateComponents([.day], from: date, to: Date())
+        //let daysCount = Float(max(dateDays.day ?? 1, 1))
+        var sum: Float = 0.0
+
+        do {
+            fetchRequest.predicate = NSPredicate(format: "date >= %@", date as NSDate)
+            let spends = try context.fetch(fetchRequest)
+
+            for sinfo in spends {
+                sum += sinfo.bsum
+            }
+        }
+        catch let error {
+            print("Failed to fetch spends for stats! ERROR: " + error.localizedDescription)
+        }
+
+        return sum
+    }
 }
 

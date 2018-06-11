@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
 
         for constr in categoriesView.constraints {
             if constr.identifier == "height" {
-                constr.constant = viewInfo.height
+                constr.constant = viewInfo.height + 1.0
             }
         }
     }
@@ -82,6 +82,7 @@ class MainViewController: UIViewController {
         }
 
         spendView.reloadData()
+        updateHeader()
     }
 
     private func onCategoryPressed(cat: CategoryModel) {
@@ -97,6 +98,13 @@ class MainViewController: UIViewController {
         keysView.clear()
     }
 
+    private func updateHeader() {
+        let sum = appStats.getSumSince(date: appSettings.headerSince)
+        let sumString = sum_to_string(sum: sum, currency: appSettings.currencyBase)
+
+        navigationItem.title = sumString
+    }
+    
     //override func didReceiveMemoryWarning() {
     //    super.didReceiveMemoryWarning()
     //}

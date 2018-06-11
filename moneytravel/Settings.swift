@@ -17,6 +17,8 @@ class AppSettings {
     var exchangeUpdate: Bool = ConfDefaults.EXCHANGE_UPDATE
     var exchangeUpdateDate: Date?
 
+    var headerSince: Date = ConfDefaults.HEADER_SINCE
+    
     struct ConfNames {
         static let CURRENCY = "currency"
         static let CURRENCY_BASE = "currency-base"
@@ -25,6 +27,8 @@ class AppSettings {
         static let EXCHANGE_RATE = "exchange-rate"
         static let EXCHANGE_UPDATE = "exchange-update"
         static let EXCHANGE_UPDATE_DATE = "exchange-update-date"
+        
+        static let HEADER_SINCE = "header-since"
     }
     
     struct ConfDefaults {
@@ -34,6 +38,8 @@ class AppSettings {
 
         static let EXCHANGE_RATE: Float = 1.0
         static let EXCHANGE_UPDATE: Bool = true
+
+        static let HEADER_SINCE: Date = Calendar.current.startOfDay(for: Date())
     }
     
     func load() {
@@ -46,6 +52,8 @@ class AppSettings {
         exchangeRate = conf.object(forKey: ConfNames.EXCHANGE_RATE) as? Float ?? ConfDefaults.EXCHANGE_RATE
         exchangeUpdate = conf.object(forKey: ConfNames.EXCHANGE_UPDATE) as? Bool ?? ConfDefaults.EXCHANGE_UPDATE
         exchangeUpdateDate = conf.object(forKey: ConfNames.EXCHANGE_UPDATE_DATE) as? Date
+
+        headerSince = conf.object(forKey: ConfNames.HEADER_SINCE) as? Date ?? ConfDefaults.HEADER_SINCE
     }
 
     func save() {
@@ -58,6 +66,8 @@ class AppSettings {
         conf.set(exchangeRate, forKey: ConfNames.EXCHANGE_RATE)
         conf.set(exchangeUpdate, forKey: ConfNames.EXCHANGE_UPDATE)
         conf.set(exchangeUpdateDate, forKey: ConfNames.EXCHANGE_UPDATE_DATE)
+
+        conf.set(headerSince, forKey: ConfNames.HEADER_SINCE)
 
         print("settings saved.")
     }
