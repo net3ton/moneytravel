@@ -82,7 +82,11 @@
                                 <segue destination="htg-54-DoI" kind="show" id="gGW-pN-ffr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Chart" image="Chart" id="wn1-iX-iVN"/>
+                        <barButtonItem key="rightBarButtonItem" title="Chart" image="Chart" id="wn1-iX-iVN">
+                            <connections>
+                                <segue destination="GJe-FJ-W4v" kind="show" id="Uk7-NZ-aJk"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="categoriesView" destination="BKi-o4-oTO" id="9vP-gq-Bbo"/>
@@ -93,6 +97,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1076" y="132.68365817091455"/>
+        </scene>
+        <!--Stats-->
+        <scene sceneID="g6c-4D-blh">
+            <objects>
+                <viewController title="Stats" id="GJe-FJ-W4v" customClass="StatsViewController" customModule="moneytravel" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5x1-DT-Tge">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="X93-6U-PIf"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YX9-SC-U5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1865" y="-558"/>
         </scene>
         <!--Settings-->
         <scene sceneID="0Lf-2u-coP">
