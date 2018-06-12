@@ -281,6 +281,7 @@ class AppSpends {
 
             do {
                 fetchRequest.predicate = NSPredicate(format: "date >= %@ && date <%@", daySpends.date as NSDate, dateend! as NSDate)
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 daySpends.spends = try context.fetch(fetchRequest)
             }
             catch let error {
