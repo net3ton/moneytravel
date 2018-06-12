@@ -47,7 +47,7 @@ class SpendViewController: UITableViewController {
     
     private func updateInfo() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm, dd LLLL"
+        formatter.dateFormat = "HH:mm, dd LLLL"
 
         categoryLabel.text = category!.name
         categoryIcon.image = category!.icon
