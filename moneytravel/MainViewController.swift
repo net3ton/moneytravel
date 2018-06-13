@@ -104,6 +104,13 @@ class MainViewController: UIViewController {
 
         navigationItem.title = sumString
     }
+
+    @IBAction func onShowHistory(_ sender: UIButton) {
+        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
+        let view = sboard.instantiateViewController(withIdentifier: "history") as! HistoryViewController
+        
+        navigationController?.pushViewController(view, animated: true)
+    }
     
     //override func didReceiveMemoryWarning() {
     //    super.didReceiveMemoryWarning()
