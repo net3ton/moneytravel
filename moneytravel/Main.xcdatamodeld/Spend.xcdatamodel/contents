@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName="CategoryModel" syncable="YES" codeGenerationType="class">
         <attribute name="colorvalue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="iconname" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="spends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Spend" inverseName="category" inverseEntity="Spend" syncable="YES"/>
     </entity>
     <entity name="Mark" representedClassName="MarkModel" syncable="YES" codeGenerationType="class">
+        <attribute name="colorvalue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -20,8 +22,8 @@
         <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="spends" inverseEntity="Category" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Category" positionX="-5643" positionY="-4878" width="128" height="105"/>
+        <element name="Category" positionX="-5643" positionY="-4878" width="128" height="120"/>
+        <element name="Mark" positionX="-5724" positionY="-4815" width="128" height="90"/>
         <element name="Spend" positionX="-5805" positionY="-4869" width="128" height="150"/>
-        <element name="Mark" positionX="-5724" positionY="-4815" width="128" height="75"/>
     </elements>
 </model>

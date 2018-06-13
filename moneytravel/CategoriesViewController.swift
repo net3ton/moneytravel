@@ -51,8 +51,7 @@ class CategoriesViewController: UITableViewController {
     }
 
     private func movedCategory(from: Int, to: Int) {
-        appCategories.replace(fromPosition: from, to: to)
-        //categoriesView.reloadData()
+        appCategories.move(fromPosition: from, to: to)
     }
     
     private func showCategoryInfo(info: CategoryModel?) {

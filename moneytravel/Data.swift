@@ -107,7 +107,8 @@ class AppCategories {
             ("Museum", "Museums"),
             ("Gift", "Gifts"),
             ("Clothes", "Clothes"),
-            ("Entertain", "Entertain")
+            ("Entertain", "Entertain"),
+            ("Mobile", "Mobile"),
 
             //("Restaurant", "Restaurant"),
             //("Games", "Games"),
@@ -116,16 +117,21 @@ class AppCategories {
         do {
             let count = try context.count(for: fetchRequest)
             if count == 0 {
+                var pos: Int16 = 0
                 for (iconname, name) in catList {
                     let category = NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
                     category.name = name
                     category.iconname = iconname
                     category.color = CATEGORY_DEFAULT
+                    category.position = pos
+
+                    pos += 1
                 }
 
                 try context.save()
             }
             
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "position", ascending: true)]
             categories = try context.fetch(fetchRequest)
         }
         catch let error {
@@ -151,14 +157,36 @@ class AppCategories {
         }
     }
 
-    public func replace(fromPosition from: Int, to: Int) {
-        if from >= 0 && from < categories.count && to >= 0 && to < categories.count {
-            let temp = categories[from]
-            categories[from] = categories[to]
-            categories[to] = temp
+    public func move(fromPosition from: Int, to: Int) {
+        if from == to || from < 0 || to < 0 || from >= categories.count || to >= categories.count {
+            return
         }
+
+        let catMoved = categories[from]
+        
+        var ind = from
+        let delta = (to > from) ? 1 : -1
+
+        while ind != to {
+            categories[ind] = categories[ind + delta]
+            ind += delta
+        }
+
+        categories[to] = catMoved
+        invalidatePositions()
+        getDelegate().saveContext()
     }
 
+    private func invalidatePositions() {
+        for i in 0..<categories.count {
+            let ind: Int16 = Int16(i)
+
+            if categories[i].position != ind {
+                categories[i].position = ind
+            }
+        }
+    }
+    
     public func save() {
         getDelegate().saveContext()
     }
