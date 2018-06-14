@@ -32,22 +32,13 @@ class SettingsViewController: UITableViewController {
     }
     
     func updateLabels() {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 2
-        
-        let dailyMaxStr = formatter.string(from: NSNumber(value: appSettings.dailyMax))
-        
         currency.text = appSettings.currency
         currencyBase.text = appSettings.currencyBase
-        dailyMax.text = String(format: "%@ %@", dailyMaxStr!, appSettings.currencyBase)
-        
-        let exchangeRateStr = formatter.string(from: NSNumber(value: appSettings.exchangeRate))
-        
-        exchangeRate.text = exchangeRateStr
+        dailyMax.text = sum_to_string(sum: appSettings.dailyMax, currency: appSettings.currencyBase)
+
+        exchangeRate.text = sum_to_string(sum: appSettings.exchangeRate, currency: appSettings.currency)
         exchangeUpdate.isOn = appSettings.exchangeUpdate
-        exchangeRateLabel.text = String(format: "1 %@ = %@ %@", appSettings.currencyBase, exchangeRateStr!, appSettings.currency)
+        exchangeRateLabel.text = String(format: "1 %@ =", appSettings.currencyBase)
         exchangeUpdateLabel.text = getLastCurrencyExchangeRateUpdateString()
     }
 
