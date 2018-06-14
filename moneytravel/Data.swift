@@ -231,7 +231,9 @@ class DaySpends {
             return "Yesterday"
         }
         
-        return ""
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EE"
+        return formatter.string(from: date)
     }
     
     public func getDateString() -> String {
