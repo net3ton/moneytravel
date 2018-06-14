@@ -13,7 +13,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var keysView: MoneyInput!
     @IBOutlet weak var categoriesView: UICollectionView!
     @IBOutlet weak var spendView: UITableView!
-
+    @IBOutlet weak var showMore: UIButton!
+    
     var categoriesDelegate: CategoriesViewDelegate?
     var spendDelegate: SpendViewDelegate?
 
@@ -24,6 +25,8 @@ class MainViewController: UIViewController {
         
         initCategories()
         initSpends()
+        
+        showMore.layer.cornerRadius = 3.0
     }
 
     override func viewWillAppear(_ animated: Bool) {
