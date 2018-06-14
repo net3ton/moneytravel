@@ -60,6 +60,7 @@ class MainViewController: UIViewController {
     private func initSpends() {
         spendDelegate = SpendViewDelegate()
         spendDelegate?.onSpendPressed = showSpendInfo
+        spendDelegate?.data = appSpends.daily
 
         spendView.register(SpendViewCell.getNib(), forCellReuseIdentifier: SpendViewCell.ID)
         spendView.register(SpendViewHeader.self, forHeaderFooterViewReuseIdentifier: SpendViewHeader.ID)

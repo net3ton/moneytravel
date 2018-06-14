@@ -70,28 +70,29 @@ class SpendViewFooter: UITableViewHeaderFooterView {
 
 class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     public var onSpendPressed: ((SpendModel) -> Void)?
+    public var data: [DaySpends] = []
 
     func getContentHeight() -> CGFloat {
         var height: CGFloat = 0.0
-        for spendsInfo in appSpends.daily {
+        for spendsInfo in data {
             height += CGFloat(spendsInfo.spends.count) * SpendViewCell.HEIGHT
         }
 
-        height += CGFloat(appSpends.daily.count) * SpendViewCell.HEIGHT_HEADER
-        height += CGFloat(appSpends.daily.count) * SpendViewCell.HEIGHT_FOOTER
+        height += CGFloat(data.count) * SpendViewCell.HEIGHT_HEADER
+        height += CGFloat(data.count) * SpendViewCell.HEIGHT_FOOTER
         return height
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return appSpends.daily.count
+        return data.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appSpends.daily[section].spends.count
+        return data[section].spends.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let spend = appSpends.daily[indexPath.section].spends[indexPath.row]
+        let spend = data[indexPath.section].spends[indexPath.row]
         let comment = spend.comment ?? ""
 
         let cell = tableView.dequeueReusableCell(withIdentifier: SpendViewCell.ID, for: indexPath) as! SpendViewCell
@@ -108,7 +109,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let dayInfo = appSpends.daily[section]
+        let dayInfo = data[section]
         let budgetInfo = dayInfo.getBudgetInfo()
         
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SpendViewHeader.ID) as! SpendViewHeader
@@ -136,6 +137,6 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        onSpendPressed?(appSpends.daily[indexPath.section].spends[indexPath.row])
+        onSpendPressed?(data[indexPath.section].spends[indexPath.row])
     }
 }

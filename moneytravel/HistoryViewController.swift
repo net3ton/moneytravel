@@ -16,14 +16,12 @@ class HistoryViewController: UIViewController {
     var historyDelegate: SpendViewDelegate?
 
     var historyInterval: HistoryInterval = HistoryInterval()
-    //var historyInfo: [DaySpends] = [DaySpends]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         historyInterval.dateTo.setToday()
         historyInterval.dateFrom.setWeekAgo()
-        fetchData(interval: historyInterval)
 
         initDateRange()
         initHistory()
@@ -60,12 +58,14 @@ class HistoryViewController: UIViewController {
     }
 
     private func updateHistoryView() {
+        historyDelegate?.data = appSpends.fetch(for: historyInterval)
+
         for constr in historyView.constraints {
             if constr.identifier == "height" {
                 constr.constant = historyDelegate!.getContentHeight()
             }
         }
-
+        
         dateRangeView.reloadData()
         historyView.reloadData()
     }
@@ -95,10 +95,6 @@ class HistoryViewController: UIViewController {
 
     private func updateHeader() {
         //navigationItem.title = "History"
-    }
-
-    private func fetchData(interval: HistoryInterval) {
-        //historyInfo = appSpends.fetch(interval)
     }
 }
 
