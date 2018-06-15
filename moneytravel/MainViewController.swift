@@ -10,7 +10,8 @@ import UIKit
 import CoreData
 
 class MainViewController: UIViewController {
-    @IBOutlet weak var keysView: MoneyInput!
+    @IBOutlet weak var sumView: UITextField!
+    @IBOutlet weak var keysView: MoneyKeyboardWithInput!
     @IBOutlet weak var categoriesView: UICollectionView!
     @IBOutlet weak var spendView: UITableView!
     @IBOutlet weak var showMore: UIButton!
@@ -23,6 +24,7 @@ class MainViewController: UIViewController {
         
         appSettings.load()
         
+        initKeyboard()
         initCategories()
         initSpends()
         
@@ -40,6 +42,10 @@ class MainViewController: UIViewController {
         categoriesView.reloadData()
     }
 
+    private func initKeyboard() {
+        keysView.setInput(field: sumView)
+    }
+    
     private func initCategories() {
         let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
 
@@ -109,13 +115,6 @@ class MainViewController: UIViewController {
         navigationItem.title = sumString
     }
 
-    @IBAction func onShowHistory(_ sender: UIButton) {
-        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
-        let view = sboard.instantiateViewController(withIdentifier: "history") as! HistoryViewController
-        
-        navigationController?.pushViewController(view, animated: true)
-    }
-    
     //override func didReceiveMemoryWarning() {
     //    super.didReceiveMemoryWarning()
     //}

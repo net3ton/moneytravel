@@ -8,73 +8,48 @@
 
 import UIKit
 
-@IBDesignable class MoneyInput: UIControl, UITextFieldDelegate {
+@IBDesignable class MoneyKeyboardWithInput: MoneyKeyboard, UITextFieldDelegate {
     private var textField: UITextField?
-    private var keysView: MoneyKeyboard?
     private var sumString: String = ""
 
-    let TEXTF_HEIGHT: CGFloat = 40.0
-    let SPACING: CGFloat = 8.0
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        textField = UITextField(frame: getTextFieldRect(rect: frame))
-        textField?.borderStyle = .roundedRect
-        textField?.placeholder = "Enter sum"
-        textField?.backgroundColor = COLOR_SUM_FIELD
-        textField?.font = UIFont.systemFont(ofSize: 30.0)
-        textField?.textAlignment = .center
-        textField?.clearButtonMode = .always
+    public func setInput(field: UITextField) {
+        textField = field
         textField?.delegate = self
-        addSubview(textField!)
+        onPressedHandler = onMoneyEnter
+    }
+
+    public func setValue(_ value: Float) {
+        if value <= 0 {
+            clear()
+            return
+        }
         
-        keysView = MoneyKeyboard(frame: getKeysViewRect(rect: frame))
-        keysView?.backgroundColor = UIColor.white
-        keysView?.onPressedHandler = onMoneyEnter
-        addSubview(keysView!)
-    }
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
 
-    /*
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    */
-
-    override func layoutSubviews() {
-        super.layoutSubviews();
-
-        textField?.frame = getTextFieldRect(rect: self.bounds)
-        keysView?.frame = getKeysViewRect(rect: self.bounds)
-    }
-    
-    private func getTextFieldRect(rect: CGRect) -> CGRect {
-        return CGRect(origin: rect.origin, size: CGSize(width: rect.width, height: TEXTF_HEIGHT))
-    }
-    
-    private func getKeysViewRect(rect: CGRect) -> CGRect {
-        let topoffset = TEXTF_HEIGHT + SPACING
-        return CGRect(x: rect.origin.x, y: rect.origin.y + topoffset, width: rect.width, height: rect.height - topoffset)
+        sumString = formatter.string(from: value as NSNumber) ?? ""
+        textField?.text = prepareSumString(instr: sumString)
     }
     
     // MARK: - UITextFieldDelegate
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return false
     }
     
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        sumString = ""
+    internal func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        clear()
         return true
     }
-    
-    // MARK: - Logic
 
+    // MARK: - Logic
+    
     public func getValue() -> Float {
         guard let res = Float(sumString) else {
             return 0.0
         }
-
+        
         return res
     }
 
@@ -82,12 +57,12 @@ import UIKit
         textField?.text = ""
         sumString = ""
     }
-    
+
     private func onMoneyEnter(add: String) {
         sumString = updateSum(instr: sumString, add: add)
         textField?.text = prepareSumString(instr: sumString)
     }
-
+    
     private func updateSum(instr: String, add: String) -> String {
         if add == "del" {
             if instr.count > 0 {
@@ -106,7 +81,7 @@ import UIKit
                 return instr
             }
         }
-
+        
         return instr + add
     }
     

@@ -12,14 +12,19 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var currency: UILabel!
     @IBOutlet weak var currencyBase: UILabel!
     @IBOutlet weak var dailyMax: UILabel!
+    @IBOutlet weak var headerSince: UILabel!
     
     @IBOutlet weak var exchangeRateLabel: UILabel!
     @IBOutlet weak var exchangeRate: UILabel!
     @IBOutlet weak var exchangeUpdate: UISwitch!
     @IBOutlet weak var exchangeUpdateLabel: UILabel!
-    
+
+    private var headerDateSince: HistoryDate = HistoryDate()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        headerDateSince.setDate(date: appSettings.headerSince)
 
         updateLabels()
         if needToUpdateCurrencyExchangeRate() {
@@ -35,6 +40,7 @@ class SettingsViewController: UITableViewController {
         currency.text = appSettings.currency
         currencyBase.text = appSettings.currencyBase
         dailyMax.text = sum_to_string(sum: appSettings.dailyMax, currency: appSettings.currencyBase)
+        headerSince.text = headerDateSince.getName()
 
         exchangeRate.text = sum_to_string(sum: appSettings.exchangeRate, currency: appSettings.currency)
         exchangeUpdate.isOn = appSettings.exchangeUpdate
@@ -91,54 +97,6 @@ class SettingsViewController: UITableViewController {
         appSettings.exchangeUpdateDate = Date()
     }
 
-    private func makePopupFloat(title: String, value: Float, resultcb: @escaping ((Float) -> Void)) -> UIAlertController {
-        let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
-
-        alert.addTextField { (textField) in
-            textField.text = String(format: "%.02f", value)
-        }
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
-            let textfield = alert.textFields?.first
-            if let dailyMax = Float(textfield?.text ?? "") {
-                resultcb(dailyMax)
-            }
-        }))
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        return alert
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == 2 {
-            let dailyMaxPopup = makePopupFloat(title: "Daily Limit", value: appSettings.dailyMax, resultcb: { val in
-                appSettings.dailyMax = val
-                self.updateLabels()
-            })
-            
-            present(dailyMaxPopup, animated: true, completion: {
-                tableView.deselectRow(at: indexPath, animated: true)
-            })
-        }
-        else if indexPath.section == 1 && indexPath.row == 0 {
-            if appSettings.currency == appSettings.currencyBase {
-                return
-            }
-            
-            let title = String(format: "Exchange Rate for %@", appSettings.currency)
-            let exchangeRatePopup = makePopupFloat(title: title, value: appSettings.exchangeRate, resultcb: { val in
-                appSettings.exchangeRate = val
-                appSettings.exchangeUpdate = false
-                appSettings.exchangeUpdateDate = Date(timeIntervalSince1970: 0)
-                self.updateLabels()
-            })
-            
-            present(exchangeRatePopup, animated: true, completion: {
-                tableView.deselectRow(at: indexPath, animated: true)
-            })
-        }
-    }
-    
     @IBAction func currencyUpdateCheck(_ sender: UISwitch) {
         appSettings.exchangeUpdate = sender.isOn
         if appSettings.exchangeUpdate {
@@ -158,13 +116,34 @@ class SettingsViewController: UITableViewController {
                 self.updateCurrenciesRate()
             }
         }
-
-        if segue.identifier == "currency-base" {
+        else if segue.identifier == "currency-base" {
             let currencyPicker = segue.destination as! CurrenciesViewController
             currencyPicker.selectedHandler = { iso in
                 appSettings.currencyBase = iso
                 self.updateLabels()
                 self.updateCurrenciesRate()
+            }
+        }
+        else if segue.identifier == "header-since" {
+            let datePicker = segue.destination as! DateMarkViewController
+            datePicker.setup(forDate: headerDateSince, min: nil, max: Date())
+        }
+        else if segue.identifier == "daily-max" {
+            let sumEdit = segue.destination as! SumViewController
+            sumEdit.setup(caption: "Daily budget", sum: appSettings.dailyMax, currency: appSettings.currencyBase)
+            sumEdit.onSumEntered = { val in
+                appSettings.dailyMax = val
+                self.updateLabels()
+            }
+        }
+        else if segue.identifier == "exchange-rate" {
+            let sumEdit = segue.destination as! SumViewController
+            sumEdit.setup(caption: "Exchange rate", sum: appSettings.exchangeRate, currency: appSettings.currency)
+            sumEdit.onSumEntered = { val in
+                appSettings.exchangeRate = val
+                appSettings.exchangeUpdate = false
+                appSettings.exchangeUpdateDate = Date(timeIntervalSince1970: 0)
+                self.updateLabels()
             }
         }
     }

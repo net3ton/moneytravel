@@ -11,22 +11,21 @@ import UIKit
 class SumViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var currencyLabel: UILabel!
-
+    @IBOutlet weak var keyboardField: MoneyKeyboardWithInput!
+    
     public var onSumEntered: ((Float) -> Void)?
     private var initSum: Float = 0.0
     private var initCurrency = "USD"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveSum))
-        textField.keyboardType = .decimalPad
-        textField.becomeFirstResponder()
         
-        textField.text = String.init(format: "%.02f", initSum)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveSum))
+        keyboardField.setInput(field: textField!)
+        keyboardField.setValue(initSum)
         currencyLabel.text = initCurrency
     }
-
+    
     public func setup(caption: String, sum: Float, currency: String) {
         navigationItem.title = caption
         initSum = sum
@@ -35,8 +34,6 @@ class SumViewController: UIViewController {
 
     @objc func saveSum() {
         navigationController?.popViewController(animated: true)
-
-        let fstr = textField.text ?? ""
-        onSumEntered?(Float(fstr) ?? 0.0)
+        onSumEntered?(keyboardField.getValue())
     }
 }
