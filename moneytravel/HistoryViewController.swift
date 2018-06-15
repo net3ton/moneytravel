@@ -31,7 +31,6 @@ class HistoryViewController: UIViewController {
         super.viewWillAppear(animated)
 
         updateHistoryView()
-        updateHeader()
     }
 
     //override func didReceiveMemoryWarning() {
@@ -58,7 +57,9 @@ class HistoryViewController: UIViewController {
     }
 
     private func updateHistoryView() {
-        historyDelegate?.data = appSpends.fetch(for: historyInterval)
+        let history = appSpends.fetch(for: historyInterval)
+        historyDelegate?.data = history
+        updateHeader(with: history)
 
         for constr in historyView.constraints {
             if constr.identifier == "height" {
@@ -89,12 +90,21 @@ class HistoryViewController: UIViewController {
         let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
         let view = sboard.instantiateViewController(withIdentifier: "hdate-picker") as! DateMarkViewController
 
-        view.setup(forDate: hdate, min: mindate)
+        view.setup(forDate: hdate, min: mindate, max: nil)
         navigationController?.pushViewController(view, animated: true)
     }
 
-    private func updateHeader() {
-        //navigationItem.title = "History"
+    private func updateHeader(with history: [DaySpends]) {
+        var sum: Float = 0.0
+        for dailySpend in history {
+            for sinfo in dailySpend.spends {
+                if sinfo.bcurrency == appSettings.currencyBase {
+                    sum += sinfo.bsum
+                }
+            }
+        }
+
+        navigationItem.title = sum_to_string(sum: sum, currency: appSettings.currencyBase)
     }
 }
 

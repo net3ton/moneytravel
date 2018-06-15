@@ -11,9 +11,9 @@ import UIKit
 class HistoryDate {
     private var mark: MarkModel?
     private var date: Date?
-    
+
     public func setDate(date: Date) {
-        self.date = date
+        self.date = Calendar.current.startOfDay(for: date)
         self.mark = nil
     }
 
@@ -39,8 +39,8 @@ class HistoryDate {
         if mark != nil {
             return mark!.date!
         }
-        
-        return Date()
+
+        return Calendar.current.startOfDay(for: Date())
     }
     
     public func getName() -> String {

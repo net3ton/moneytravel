@@ -325,8 +325,8 @@ class AppSpends {
     public func fetch(for interval: HistoryInterval) -> [DaySpends] {
         var history: [DaySpends] = []
 
-        var current = Calendar.current.startOfDay(for: interval.dateFrom.getDate())
-        let last = Calendar.current.startOfDay(for: interval.dateTo.getDate())
+        var current = interval.dateFrom.getDate()
+        let last = interval.dateTo.getDate()
 
         if current > last {
             return history
