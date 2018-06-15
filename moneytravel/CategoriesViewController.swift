@@ -83,6 +83,39 @@ class CategoriesViewController: UITableViewController {
 }
 
 
+class CategoriesSelectViewController: UITableViewController {
+    @IBOutlet weak var categoriesView: UICollectionView!
+
+    private var categoriesDelegate: CategoriesViewDelegate?
+    private var viewHeight: CGFloat = 100
+
+    public var onCateggorySelected: ((CategoryModel) -> Void)?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
+        
+        viewHeight = viewInfo.height
+        categoriesDelegate = CategoriesViewDelegate(cellSize: viewInfo.csize)
+        categoriesDelegate?.onCategoryPressed = onCategoryPressed
+        
+        categoriesView.register(CategoryViewCell.getNib(), forCellWithReuseIdentifier: CategoryViewCell.ID)
+        categoriesView.delegate = categoriesDelegate
+        categoriesView.dataSource = categoriesDelegate
+    }
+
+    private func onCategoryPressed(category: CategoryModel) {
+        navigationController?.popViewController(animated: true)
+        onCateggorySelected?(category)
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return viewHeight + 1.0
+    }
+}
+
+
 class CategoriesEditViewDelegate: CategoriesViewDelegate {
     public var onCategoryMoved: ((Int, Int) -> Void)?
 

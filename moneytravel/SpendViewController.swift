@@ -29,6 +29,8 @@ class SpendViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+        //navigationItem.backBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .done, target: nil, action: nil)
+        //navigationController?.navigationBar.backItem?.title = "Back"
         //navigationItem.title = "Spend record"
 
         updateInfo()
@@ -106,7 +108,7 @@ class SpendViewController: UITableViewController {
         }
         else if segue.identifier == "spend-sum" {
             let sumEdit = segue.destination as! SumViewController
-            sumEdit.setup(caption: "Sum", sum: spendInfo?.sum ?? 0, currency: spendInfo?.currency ?? "")
+            sumEdit.setup(caption: "Sum", sum: sum, currency: spendInfo?.currency ?? "")
             sumEdit.onSumEntered = { sum in
                 self.sum = sum
                 self.updateInfo()
@@ -118,6 +120,13 @@ class SpendViewController: UITableViewController {
             sumEdit.setup(caption: "Exchange rate", sum: exchangeRate, currency: spendInfo?.currency ?? "")
             sumEdit.onSumEntered = { rate in
                 self.exchangeRate = rate
+                self.updateInfo()
+            }
+        }
+        else if segue.identifier == "spend-category" {
+            let catSelect = segue.destination as! CategoriesSelectViewController
+            catSelect.onCateggorySelected = { category in
+                self.category = category
                 self.updateInfo()
             }
         }
