@@ -15,6 +15,7 @@ class DateMarkViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
 
     private var historyDate: HistoryDate = HistoryDate()
     private var minDate: Date?
+    private var maxDate: Date?
     private var customDate: Date = Date()
 
     private let CUSTOM = 0
@@ -28,20 +29,26 @@ class DateMarkViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(saveDate))
         navigationItem.title = "Date"
 
         datePicker.datePickerMode = .date
         datePicker.minimumDate = minDate
+        datePicker.maximumDate = maxDate
         updateDateText()
 
         markPicker.delegate = self
         markPicker.dataSource = self
     }
 
-    public func setup(forDate hdate: HistoryDate, min: Date?) {
+    //@objc func saveDate() {
+    //}
+    
+    public func setup(forDate hdate: HistoryDate, min: Date?, max: Date?) {
         historyDate = hdate
         customDate = hdate.getDate()
         minDate = min
+        maxDate = max
     }
 
     private func updateDateText() {
