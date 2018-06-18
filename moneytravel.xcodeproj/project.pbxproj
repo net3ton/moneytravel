@@ -22,6 +22,12 @@
 		2114F13820D0279200BB40CB /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13720D0279200BB40CB /* HistoryViewController.swift */; };
 		2114F13A20D126BD00BB40CB /* DateMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13920D126BD00BB40CB /* DateMarkViewController.swift */; };
 		2114F13C20D25D6900BB40CB /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13B20D25D6900BB40CB /* History.swift */; };
+		2114F13E20D50A6C00BB40CB /* TStampsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13D20D50A6C00BB40CB /* TStampsViewController.swift */; };
+		2114F14020D50CDF00BB40CB /* TStampViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13F20D50CDF00BB40CB /* TStampViewController.swift */; };
+		2114F14220D6789600BB40CB /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F14120D6789600BB40CB /* Categories.swift */; };
+		2114F14420D678FC00BB40CB /* Spends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F14320D678FC00BB40CB /* Spends.swift */; };
+		2114F14620D85ABC00BB40CB /* Timestamps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F14520D85ABC00BB40CB /* Timestamps.swift */; };
+		2114F14820D865AC00BB40CB /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F14720D865AC00BB40CB /* Stats.swift */; };
 		211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211A1F2C20BA1E4F004A793D /* MoneyInput.swift */; };
 		2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */; };
 		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
@@ -58,6 +64,12 @@
 		2114F13720D0279200BB40CB /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		2114F13920D126BD00BB40CB /* DateMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateMarkViewController.swift; sourceTree = "<group>"; };
 		2114F13B20D25D6900BB40CB /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		2114F13D20D50A6C00BB40CB /* TStampsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TStampsViewController.swift; sourceTree = "<group>"; };
+		2114F13F20D50CDF00BB40CB /* TStampViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TStampViewController.swift; sourceTree = "<group>"; };
+		2114F14120D6789600BB40CB /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		2114F14320D678FC00BB40CB /* Spends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spends.swift; sourceTree = "<group>"; };
+		2114F14520D85ABC00BB40CB /* Timestamps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamps.swift; sourceTree = "<group>"; };
+		2114F14720D865AC00BB40CB /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		211A1F2C20BA1E4F004A793D /* MoneyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInput.swift; sourceTree = "<group>"; };
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
@@ -111,12 +123,14 @@
 			isa = PBXGroup;
 			children = (
 				2172BD6B20B02AF400132D36 /* AppDelegate.swift */,
-				2172BD6D20B02AF400132D36 /* MainViewController.swift */,
-				2103DA2020C5C1D5003B027D /* SpendViewController.swift */,
-				2103DA2420C6832F003B027D /* CategoryViewController.swift */,
 				2174F4B320B5B83900B6E381 /* SettingsViewController.swift */,
 				2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */,
+				2172BD6D20B02AF400132D36 /* MainViewController.swift */,
+				2103DA2020C5C1D5003B027D /* SpendViewController.swift */,
 				2103DA2620C6BD92003B027D /* CategoriesViewController.swift */,
+				2103DA2420C6832F003B027D /* CategoryViewController.swift */,
+				2114F13D20D50A6C00BB40CB /* TStampsViewController.swift */,
+				2114F13F20D50CDF00BB40CB /* TStampViewController.swift */,
 				2114F13520CFC43400BB40CB /* StatsViewController.swift */,
 				2114F13720D0279200BB40CB /* HistoryViewController.swift */,
 				2103DA2820C6C679003B027D /* IconsViewController.swift */,
@@ -138,6 +152,10 @@
 				2174F4AE20B574E500B6E381 /* SpendViewCell.xib */,
 				2103DA1C20C46CEE003B027D /* SpendViewHeader.xib */,
 				2174F4A920B44B9800B6E381 /* Data.swift */,
+				2114F14320D678FC00BB40CB /* Spends.swift */,
+				2114F14120D6789600BB40CB /* Categories.swift */,
+				2114F14520D85ABC00BB40CB /* Timestamps.swift */,
+				2114F14720D865AC00BB40CB /* Stats.swift */,
 				2114F13B20D25D6900BB40CB /* History.swift */,
 				2174F4AB20B55DC600B6E381 /* Consts.swift */,
 				2103DA2A20C708CA003B027D /* Icons.swift */,
@@ -223,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */,
+				2114F14820D865AC00BB40CB /* Stats.swift in Sources */,
 				2114F13A20D126BD00BB40CB /* DateMarkViewController.swift in Sources */,
 				2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */,
 				2174F4B220B585E600B6E381 /* Settings.swift in Sources */,
@@ -238,12 +257,17 @@
 				2103DA3320C939E0003B027D /* DateViewController.swift in Sources */,
 				2114F13820D0279200BB40CB /* HistoryViewController.swift in Sources */,
 				2103DA3120C88005003B027D /* Colors.swift in Sources */,
+				2114F14420D678FC00BB40CB /* Spends.swift in Sources */,
 				2103DA2720C6BD92003B027D /* CategoriesViewController.swift in Sources */,
+				2114F14620D85ABC00BB40CB /* Timestamps.swift in Sources */,
+				2114F14220D6789600BB40CB /* Categories.swift in Sources */,
 				2174F4AF20B574E500B6E381 /* SpendView.swift in Sources */,
 				2114F13C20D25D6900BB40CB /* History.swift in Sources */,
 				2103DA2D20C720BC003B027D /* ColorsViewController.swift in Sources */,
 				2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */,
+				2114F14020D50CDF00BB40CB /* TStampViewController.swift in Sources */,
 				2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */,
+				2114F13E20D50A6C00BB40CB /* TStampsViewController.swift in Sources */,
 				2103DA2F20C74195003B027D /* TextViewController.swift in Sources */,
 				2103DA2B20C708CA003B027D /* Icons.swift in Sources */,
 				2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */,
