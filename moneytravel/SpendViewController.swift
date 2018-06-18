@@ -29,9 +29,7 @@ class SpendViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
-        //navigationItem.backBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .done, target: nil, action: nil)
-        //navigationController?.navigationBar.backItem?.title = "Back"
-        //navigationItem.title = "Spend record"
+        navigationItem.title = "Spend"
 
         updateInfo()
     }

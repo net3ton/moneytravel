@@ -19,6 +19,7 @@ class HistoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
 
         historyInterval.dateTo.setToday()
         historyInterval.dateFrom.setWeekAgo()
