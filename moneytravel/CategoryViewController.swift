@@ -13,9 +13,9 @@ class CategoryViewController: UITableViewController {
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var colorView: UIView!
 
-    private var name: String?
-    private var iconname: String?
-    private var color: UIColor?
+    private var name: String = ""
+    private var iconname: String = ""
+    private var color: UIColor = CATEGORY_DEFAULT
 
     private var categoryToSave: CategoryModel?
     
@@ -38,27 +38,27 @@ class CategoryViewController: UITableViewController {
         categoryToSave = category
 
         if let cat = category {
-            name = cat.name
-            iconname = cat.iconname
+            name = cat.name!
+            iconname = cat.iconname!
             color = cat.color
         }
     }
 
     private func updateInfo() {
         nameLabel.text = name
-        iconView.image = UIImage(named: iconname ?? "")
+        iconView.image = UIImage(named: iconname)
         colorView.backgroundColor = color
     }
 
     @objc func saveCategory() {
         if categoryToSave != nil {
-            categoryToSave!.name = name ?? ""
+            categoryToSave!.name = name
             categoryToSave!.iconname = iconname
-            categoryToSave!.color = color ?? CATEGORY_DEFAULT
+            categoryToSave!.color = color
             appCategories.save()
         }
         else {
-            appCategories.add(name: name ?? "", iconname: iconname ?? "", color: color ?? CATEGORY_DEFAULT)
+            appCategories.add(name: name, iconname: iconname, color: color)
         }
 
         navigationController?.popViewController(animated: true)
@@ -81,7 +81,7 @@ class CategoryViewController: UITableViewController {
         }
         else if segue.identifier == "category-name" {
             let nameEdit = segue.destination as! TextViewController
-            nameEdit.setup(caption: "Name", text: name ?? "")
+            nameEdit.setup(caption: "Name", text: name)
             nameEdit.onTextEntered = { text in
                 self.name = text
                 self.updateInfo()

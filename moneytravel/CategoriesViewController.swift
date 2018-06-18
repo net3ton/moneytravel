@@ -21,7 +21,8 @@ class CategoriesViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewCategory))
-        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+
         let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
 
         viewHeight = viewInfo.height
