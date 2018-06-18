@@ -29,6 +29,7 @@ class MainViewController: UIViewController {
         initSpends()
         
         showMore.layer.cornerRadius = 3.0
+        appTimestamps.fetch()
     }
 
     override func viewWillAppear(_ animated: Bool) {
