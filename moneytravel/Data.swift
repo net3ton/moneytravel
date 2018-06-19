@@ -33,6 +33,21 @@ func get_context() -> NSManagedObjectContext {
     return get_delegate().persistentContainer.viewContext
 }
 
+func top_view_controller(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    if let navigationController = controller as? UINavigationController {
+        return top_view_controller(controller: navigationController.visibleViewController)
+    }
+    if let tabController = controller as? UITabBarController {
+        if let selected = tabController.selectedViewController {
+            return top_view_controller(controller: selected)
+        }
+    }
+    if let presented = controller?.presentedViewController {
+        return top_view_controller(controller: presented)
+    }
+    return controller
+}
+
 private func int32_to_uicolor(_ val: Int32) -> UIColor {
     let r: CGFloat = CGFloat(val & 0xFF) / 255.0
     let g: CGFloat = CGFloat(val >> 8 & 0xFF) / 255.0

@@ -25,17 +25,13 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
 
         headerDateSince.setDate(date: appSettings.headerSince)
-
         updateLabels()
-        if needToUpdateCurrencyExchangeRate() {
-            updateCurrenciesRate()
-        }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+
+    //override func viewWillAppear(_ animated: Bool) {
+    //    super.viewWillAppear(animated)
+    //}
+
     func updateLabels() {
         currency.text = appSettings.currency
         currencyBase.text = appSettings.currencyBase
@@ -46,25 +42,6 @@ class SettingsViewController: UITableViewController {
         exchangeUpdate.isOn = appSettings.exchangeUpdate
         exchangeRateLabel.text = String(format: "1 %@ =", appSettings.currencyBase)
         exchangeUpdateLabel.text = getLastCurrencyExchangeRateUpdateString()
-    }
-
-    func updateCurrenciesRate() {
-        if appSettings.currency == appSettings.currencyBase {
-            appSettings.exchangeRate = 1.0
-            self.updateLabels()
-            return
-        }
-        
-        CurrencyExchangeRate.fetch(fromIso: appSettings.currencyBase, toIso: appSettings.currency, result: { rate in
-            if (rate > 0) {
-                appSettings.exchangeRate = rate
-                self.stampCurrencyExchangeRateUpdate()
-
-                DispatchQueue.main.async {
-                    self.updateLabels()
-                }
-            }
-        })
     }
 
     private func getLastCurrencyExchangeRateUpdateString() -> String {
@@ -81,26 +58,10 @@ class SettingsViewController: UITableViewController {
         return String.init(format: "Last update: %@", formatter.string(from: date))
     }
 
-    private func needToUpdateCurrencyExchangeRate() -> Bool {
-        if !appSettings.exchangeUpdate {
-            return false
-        }
-
-        guard let date = appSettings.exchangeUpdateDate else {
-            return true
-        }
-        
-        return date.timeIntervalSinceNow > (6 * 3600)
-    }
-
-    private func stampCurrencyExchangeRateUpdate() {
-        appSettings.exchangeUpdateDate = Date()
-    }
-
     @IBAction func currencyUpdateCheck(_ sender: UISwitch) {
         appSettings.exchangeUpdate = sender.isOn
         if appSettings.exchangeUpdate {
-            self.updateCurrenciesRate()
+            CurrencyExchangeRate.update()
         }
     }
     
@@ -113,7 +74,7 @@ class SettingsViewController: UITableViewController {
             currencyPicker.selectedHandler = { iso in
                 appSettings.currency = iso
                 self.updateLabels()
-                self.updateCurrenciesRate()
+                CurrencyExchangeRate.update()
             }
         }
         else if segue.identifier == "currency-base" {
@@ -121,7 +82,7 @@ class SettingsViewController: UITableViewController {
             currencyPicker.selectedHandler = { iso in
                 appSettings.currencyBase = iso
                 self.updateLabels()
-                self.updateCurrenciesRate()
+                CurrencyExchangeRate.update()
             }
         }
         else if segue.identifier == "header-since" {

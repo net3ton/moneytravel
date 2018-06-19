@@ -90,4 +90,47 @@ class CurrencyExchangeRate {
         
         task.resume()
     }
+
+    public static func check() {
+        if isNeedToUpdate() {
+            update()
+        }
+    }
+
+    public static func update() {
+        if appSettings.currency == appSettings.currencyBase {
+            appSettings.exchangeRate = 1.0
+            updateSettingsView()
+            return
+        }
+
+        fetch(fromIso: appSettings.currencyBase, toIso: appSettings.currency, result: { rate in
+            DispatchQueue.main.async {
+                if (rate > 0) {
+                    appSettings.exchangeRate = rate
+                    appSettings.exchangeUpdateDate = Date()
+                }
+
+                updateSettingsView()
+            }
+        })
+    }
+    
+    private static func isNeedToUpdate() -> Bool {
+        if !appSettings.exchangeUpdate {
+            return false
+        }
+
+        if let date = appSettings.exchangeUpdateDate {
+            return date.timeIntervalSinceNow < -(6 * 3600)
+        }
+
+        return true
+    }
+
+    private static func updateSettingsView() {
+        if let settings = top_view_controller() as? SettingsViewController {
+            settings.updateLabels()
+        }
+    }
 }
