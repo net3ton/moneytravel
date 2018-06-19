@@ -72,7 +72,8 @@ class AppCategories {
         category.name = name
         category.iconname = iconname
         category.color = color
-        
+        category.position = Int16(categories.count - 1)
+
         do {
             try context.save()
             categories.append(category)
