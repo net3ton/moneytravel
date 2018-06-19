@@ -71,6 +71,12 @@ class AppSettings {
 
         print("settings saved.")
     }
+
+    func saveExchangeRate(val: Float) {
+        exchangeRate = val
+        exchangeUpdateDate = Date()
+        save()
+    }
 }
 
 let appSettings = AppSettings()

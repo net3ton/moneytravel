@@ -99,7 +99,7 @@ class CurrencyExchangeRate {
 
     public static func update() {
         if appSettings.currency == appSettings.currencyBase {
-            appSettings.exchangeRate = 1.0
+            appSettings.saveExchangeRate(val: 1.0)
             updateSettingsView()
             return
         }
@@ -107,15 +107,14 @@ class CurrencyExchangeRate {
         fetch(fromIso: appSettings.currencyBase, toIso: appSettings.currency, result: { rate in
             DispatchQueue.main.async {
                 if (rate > 0) {
-                    appSettings.exchangeRate = rate
-                    appSettings.exchangeUpdateDate = Date()
+                    appSettings.saveExchangeRate(val: rate)
                 }
 
                 updateSettingsView()
             }
         })
     }
-    
+
     private static func isNeedToUpdate() -> Bool {
         if !appSettings.exchangeUpdate {
             return false
