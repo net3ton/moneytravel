@@ -53,7 +53,26 @@ class AppTimestamps {
             print("Failed to add time mark! ERROR: " + error.localizedDescription)
         }
     }
-    
+
+    public func find(date: Date) -> MarkModel? {
+        let ind = findIndex(date: date)
+        if ind != -1 {
+            return marks[ind]
+        }
+
+        return nil
+    }
+
+    public func findIndex(date: Date) -> Int {
+        for i in 0..<marks.count {
+            if marks[i].date == date {
+                return i
+            }
+        }
+
+        return -1
+    }
+
     public func save() {
         get_delegate().saveContext()
     }

@@ -9,12 +9,18 @@
 import UIKit
 
 class HistoryDate {
-    private var mark: MarkModel?
+    private var stamp: MarkModel?
     private var date: Date?
 
     public func setDate(date: Date) {
-        self.date = Calendar.current.startOfDay(for: date)
-        self.mark = nil
+        if let stamp = appTimestamps.find(date: date) {
+            self.stamp = stamp
+            self.date = nil
+        }
+        else {
+            self.date = Calendar.current.startOfDay(for: date)
+            self.stamp = nil
+        }
     }
 
     public func setToday() {
@@ -26,26 +32,26 @@ class HistoryDate {
         setDate(date: weekAgo!)
     }
 
-    public func setMark(mark: MarkModel) {
-        self.mark = mark
+    public func setStamp(stamp: MarkModel) {
+        self.stamp = stamp
         self.date = nil
     }
-    
+
     public func getDate() -> Date {
         if date != nil {
             return date!
         }
         
-        if mark != nil {
-            return mark!.date!
+        if stamp != nil {
+            return stamp!.date!
         }
 
         return Calendar.current.startOfDay(for: Date())
     }
     
     public func getName() -> String {
-        if mark != nil {
-            return mark!.name!
+        if stamp != nil {
+            return stamp!.name!
         }
         
         if date != nil {

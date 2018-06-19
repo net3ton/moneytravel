@@ -86,8 +86,12 @@ class SettingsViewController: UITableViewController {
             }
         }
         else if segue.identifier == "header-since" {
-            let datePicker = segue.destination as! DateMarkViewController
+            let datePicker = segue.destination as! DateStampViewController
             datePicker.setup(forDate: headerDateSince, min: nil, max: Date())
+            datePicker.onDatePicked = { hdate in
+                appSettings.headerSince = hdate.getDate()
+                self.updateLabels()
+            }
         }
         else if segue.identifier == "daily-max" {
             let sumEdit = segue.destination as! SumViewController

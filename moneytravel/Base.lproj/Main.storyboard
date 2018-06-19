@@ -346,10 +346,10 @@
             </objects>
             <point key="canvasLocation" x="1865" y="-1264"/>
         </scene>
-        <!--Date Mark View Controller-->
+        <!--Date Stamp View Controller-->
         <scene sceneID="U5p-QH-qvf">
             <objects>
-                <viewController storyboardIdentifier="hdate-picker" id="PrM-vR-pn4" customClass="DateMarkViewController" customModule="moneytravel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="hdate-picker" id="PrM-vR-pn4" customClass="DateStampViewController" customModule="moneytravel" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C67-0z-ehL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

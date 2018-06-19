@@ -15,14 +15,19 @@ class HistoryViewController: UIViewController {
     var dateRangeDelegate: DateViewDelegate?
     var historyDelegate: SpendViewDelegate?
 
-    var historyInterval: HistoryInterval = HistoryInterval()
+    static var historyInterval: HistoryInterval?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
 
-        historyInterval.dateTo.setToday()
-        historyInterval.dateFrom.setWeekAgo()
+        if HistoryViewController.historyInterval == nil {
+            let interval = HistoryInterval()
+            interval.dateTo.setToday()
+            interval.dateFrom.setWeekAgo()
+
+            HistoryViewController.historyInterval = interval
+        }
 
         initDateRange()
         initHistory()
@@ -58,7 +63,7 @@ class HistoryViewController: UIViewController {
     }
 
     private func updateHistoryView() {
-        let history = appSpends.fetch(for: historyInterval)
+        let history = appSpends.fetch(for: HistoryViewController.historyInterval!)
         historyDelegate?.data = history
         updateHeader(with: history)
 
@@ -75,7 +80,7 @@ class HistoryViewController: UIViewController {
     private func initDateRange() {
         dateRangeDelegate = DateViewDelegate()
         dateRangeDelegate?.onDatePressed = onDateSelect
-        dateRangeDelegate?.historyInterval = historyInterval
+        dateRangeDelegate?.historyInterval = HistoryViewController.historyInterval!
 
         dateRangeView.delegate = dateRangeDelegate
         dateRangeView.dataSource = dateRangeDelegate
@@ -89,7 +94,7 @@ class HistoryViewController: UIViewController {
 
     private func onDateSelect(hdate: HistoryDate, mindate: Date?) {
         let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
-        let view = sboard.instantiateViewController(withIdentifier: "hdate-picker") as! DateMarkViewController
+        let view = sboard.instantiateViewController(withIdentifier: "hdate-picker") as! DateStampViewController
 
         view.setup(forDate: hdate, min: mindate, max: nil)
         navigationController?.pushViewController(view, animated: true)

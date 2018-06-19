@@ -20,7 +20,7 @@
 		2114F13420CEF86400BB40CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */; };
 		2114F13620CFC43400BB40CB /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13520CFC43400BB40CB /* StatsViewController.swift */; };
 		2114F13820D0279200BB40CB /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13720D0279200BB40CB /* HistoryViewController.swift */; };
-		2114F13A20D126BD00BB40CB /* DateMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13920D126BD00BB40CB /* DateMarkViewController.swift */; };
+		2114F13A20D126BD00BB40CB /* DateStampViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13920D126BD00BB40CB /* DateStampViewController.swift */; };
 		2114F13C20D25D6900BB40CB /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13B20D25D6900BB40CB /* History.swift */; };
 		2114F13E20D50A6C00BB40CB /* TStampsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13D20D50A6C00BB40CB /* TStampsViewController.swift */; };
 		2114F14020D50CDF00BB40CB /* TStampViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13F20D50CDF00BB40CB /* TStampViewController.swift */; };
@@ -62,7 +62,7 @@
 		2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2114F13520CFC43400BB40CB /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		2114F13720D0279200BB40CB /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		2114F13920D126BD00BB40CB /* DateMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateMarkViewController.swift; sourceTree = "<group>"; };
+		2114F13920D126BD00BB40CB /* DateStampViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStampViewController.swift; sourceTree = "<group>"; };
 		2114F13B20D25D6900BB40CB /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		2114F13D20D50A6C00BB40CB /* TStampsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TStampsViewController.swift; sourceTree = "<group>"; };
 		2114F13F20D50CDF00BB40CB /* TStampViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TStampViewController.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 				2103DA2C20C720BC003B027D /* ColorsViewController.swift */,
 				2103DA2E20C74195003B027D /* TextViewController.swift */,
 				2103DA3220C939E0003B027D /* DateViewController.swift */,
-				2114F13920D126BD00BB40CB /* DateMarkViewController.swift */,
+				2114F13920D126BD00BB40CB /* DateStampViewController.swift */,
 				21FCDDAE20CBC9A50044567F /* SumViewController.swift */,
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
 				2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */,
@@ -242,7 +242,7 @@
 			files = (
 				2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */,
 				2114F14820D865AC00BB40CB /* Stats.swift in Sources */,
-				2114F13A20D126BD00BB40CB /* DateMarkViewController.swift in Sources */,
+				2114F13A20D126BD00BB40CB /* DateStampViewController.swift in Sources */,
 				2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */,
 				2174F4B220B585E600B6E381 /* Settings.swift in Sources */,
 				2103DA2920C6C679003B027D /* IconsViewController.swift in Sources */,

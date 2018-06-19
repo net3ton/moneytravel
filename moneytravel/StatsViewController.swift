@@ -46,7 +46,7 @@ class StatsViewController: UIViewController {
 
     private func onDateSelect(hdate: HistoryDate, mindate: Date?) {
         let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
-        let view = sboard.instantiateViewController(withIdentifier: "hdate-picker") as! DateMarkViewController
+        let view = sboard.instantiateViewController(withIdentifier: "hdate-picker") as! DateStampViewController
         
         view.setup(forDate: hdate, min: mindate, max: nil)
         navigationController?.pushViewController(view, animated: true)
