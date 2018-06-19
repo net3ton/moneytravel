@@ -8,6 +8,12 @@
 
 import UIKit
 
+class TStampViewCell: UITableViewCell {
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
+}
+
 class TStampsViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -45,13 +51,16 @@ class TStampsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm, dd LLLL yyyy"
+        let formatterDate = DateFormatter()
+        formatterDate.dateFormat = "HH:mm"
+        let formatterYear = DateFormatter()
+        formatterYear.dateFormat = "dd LLLL yyyy"
 
         let info = appTimestamps.marks[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TimeMarkCell", for: indexPath)
-        cell.textLabel?.text = info.name
-        cell.detailTextLabel?.text = formatter.string(from: info.date!)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TimeMarkCell", for: indexPath) as! TStampViewCell
+        cell.nameLabel.text = info.name
+        cell.dateLabel.text = formatterDate.string(from: info.date!)
+        cell.yearLabel.text = formatterYear.string(from: info.date!)
         cell.backgroundColor = info.color
         return cell
     }
