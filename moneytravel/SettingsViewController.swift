@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import GoogleSignIn
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: UITableViewController { //, GIDSignInUIDelegate {
     @IBOutlet weak var currency: UILabel!
     @IBOutlet weak var currencyBase: UILabel!
     @IBOutlet weak var dailyMax: UILabel!
@@ -19,10 +20,14 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var exchangeUpdate: UISwitch!
     @IBOutlet weak var exchangeUpdateLabel: UILabel!
 
+    @IBOutlet weak var googleDriveLabel: UILabel!
+    
     private var headerDateSince: HistoryDate = HistoryDate()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //GIDSignIn.sharedInstance().uiDelegate = self
 
         headerDateSince.setDate(date: appSettings.headerSince)
         updateLabels()
@@ -42,6 +47,8 @@ class SettingsViewController: UITableViewController {
         exchangeUpdate.isOn = appSettings.exchangeUpdate
         exchangeRateLabel.text = String(format: "1 %@ =", appSettings.currencyBase)
         exchangeUpdateLabel.text = getLastCurrencyExchangeRateUpdateString()
+
+        googleDriveLabel.text = appGoogleDrive.isLogined() ? "Sign out" : "Sign in"
     }
 
     private func getLastCurrencyExchangeRateUpdateString() -> String {
@@ -63,6 +70,25 @@ class SettingsViewController: UITableViewController {
         if appSettings.exchangeUpdate {
             CurrencyExchangeRate.update()
         }
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 3 && indexPath.row == 0 {
+            if appGoogleDrive.isLogined() {
+                appGoogleDrive.signOut()
+            }
+            else {
+                appGoogleDrive.signIn(vc: self)
+            }
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 3 {
+            return appGoogleDrive.isLogined() ? 2 : 1
+        }
+
+        return super.tableView(tableView, numberOfRowsInSection: section)
     }
     
     // MARK: - Navigation

@@ -220,7 +220,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="luh-hd-IbG">
-                                <rect key="frame" x="20" y="60" width="335" height="30"/>
+                                <rect key="frame" x="20" y="104" width="335" height="30"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="jgL-LB-huI">
                                         <rect key="frame" x="0.0" y="0.0" width="286.5" height="30"/>
@@ -629,31 +629,47 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Cloud" id="6Sf-B1-k4y">
+                            <tableViewSection headerTitle="Google Cloud" id="6Sf-B1-k4y">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="255-H6-6AF">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="WvC-L6-m5S" detailTextLabel="a6G-Gn-82I" style="IBUITableViewCellStyleValue1" id="255-H6-6AF">
                                         <rect key="frame" x="0.0" y="575.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="255-H6-6AF" id="wAF-W0-IHN">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AKI-IC-tQw">
-                                                    <rect key="frame" x="310" y="6" width="51" height="31"/>
-                                                </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Google Drive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkf-py-heB">
-                                                    <rect key="frame" x="16" y="11" width="99" height="21"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Google Drive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WvC-L6-m5S">
+                                                    <rect key="frame" x="16" y="12" width="99" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="sign in" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a6G-Gn-82I">
+                                                    <rect key="frame" x="290" y="12" width="50" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="AKI-IC-tQw" firstAttribute="centerY" secondItem="wAF-W0-IHN" secondAttribute="centerY" id="DPD-Cz-3c1"/>
-                                                <constraint firstItem="Vkf-py-heB" firstAttribute="leading" secondItem="wAF-W0-IHN" secondAttribute="leadingMargin" id="c41-bw-CjS"/>
-                                                <constraint firstAttribute="trailing" secondItem="AKI-IC-tQw" secondAttribute="trailing" constant="16" id="d7b-ou-033"/>
-                                                <constraint firstItem="Vkf-py-heB" firstAttribute="centerY" secondItem="wAF-W0-IHN" secondAttribute="centerY" id="d8z-0y-SIk"/>
-                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="OtZ-wW-u5V" style="IBUITableViewCellStyleDefault" id="ZgJ-tm-ft0">
+                                        <rect key="frame" x="0.0" y="619.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZgJ-tm-ft0" id="igt-vd-E5L">
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Export spreadsheet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OtZ-wW-u5V">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -672,6 +688,7 @@
                         <outlet property="exchangeRateLabel" destination="7zb-mA-qZp" id="11n-ip-aia"/>
                         <outlet property="exchangeUpdate" destination="F1X-6h-3ZE" id="k5s-gQ-A7G"/>
                         <outlet property="exchangeUpdateLabel" destination="HR7-28-Ozr" id="Mrh-FN-AmW"/>
+                        <outlet property="googleDriveLabel" destination="a6G-Gn-82I" id="1aL-Xo-WLr"/>
                         <outlet property="headerSince" destination="9TQ-0c-mFg" id="hZu-fZ-VW6"/>
                     </connections>
                 </tableViewController>
@@ -1522,6 +1539,6 @@
         <segue reference="HOb-f8-dUf"/>
         <segue reference="H1a-hr-aTw"/>
         <segue reference="OoV-2g-oq0"/>
-        <segue reference="suk-zx-JGQ"/>
+        <segue reference="C08-Ph-qZ5"/>
     </inferredMetricsTieBreakers>
 </document>
