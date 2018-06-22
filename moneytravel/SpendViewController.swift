@@ -15,7 +15,8 @@ class SpendViewController: UITableViewController {
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var categoryIcon: UIImageView!
-
+    @IBOutlet weak var currencyLabel: UILabel!
+    
     private var spendInfo: SpendModel?
 
     private var date: Date = Date()
@@ -52,6 +53,7 @@ class SpendViewController: UITableViewController {
         categoryLabel.text = category!.name
         categoryIcon.image = category!.icon
         dateLabel.text = formatter.string(from: date)
+        currencyLabel.text = currency
         sumLabel.text = sum_to_string(sum: sum, currency: currency)
         exchangeRateLabel.text = sum_to_string(sum: exchangeRate, currency: currency)
         commentLabel.text = comment
@@ -63,6 +65,7 @@ class SpendViewController: UITableViewController {
         spendInfo?.date = date
         spendInfo?.sum = sum
         spendInfo?.bsum = sum / exchangeRate
+        spendInfo?.currency = currency
         spendInfo?.comment = comment
         spendInfo?.category = category
 
@@ -125,6 +128,13 @@ class SpendViewController: UITableViewController {
             let catSelect = segue.destination as! CategoriesSelectViewController
             catSelect.onCateggorySelected = { category in
                 self.category = category
+                self.updateInfo()
+            }
+        }
+        else if segue.identifier == "spend-currency" {
+            let currencyPicker = segue.destination as! CurrenciesViewController
+            currencyPicker.selectedHandler = { iso in
+                self.currency = iso
                 self.updateInfo()
             }
         }
