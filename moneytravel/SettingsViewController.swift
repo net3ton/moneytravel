@@ -75,10 +75,21 @@ class SettingsViewController: UITableViewController { //, GIDSignInUIDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 3 && indexPath.row == 0 {
             if appGoogleDrive.isLogined() {
-                appGoogleDrive.signOut()
+                appGoogleDrive.signOut() {
+                    self.updateLabels()
+                    self.tableView.reloadData()
+                }
             }
             else {
-                appGoogleDrive.signIn(vc: self)
+                appGoogleDrive.signIn(vc: self) {
+                    self.updateLabels()
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        else if indexPath.section == 3 && indexPath.row == 1 {
+            appGoogleDrive.downloadFromRoot(filename: "credentials.plist") { data in
+                
             }
         }
     }
