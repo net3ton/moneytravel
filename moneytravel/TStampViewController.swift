@@ -96,6 +96,7 @@ class TStampViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mark-date" {
             let datePicker = segue.destination as! DateViewController
+            datePicker.setup(caption: "Date and Time", date: self.date)
             datePicker.onDatePicked = { date in
                 self.date = date
                 self.updateInfo()
