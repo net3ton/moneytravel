@@ -114,7 +114,7 @@ class MainViewController: UIViewController {
         let stats = appStats.getSumSince(date: appSettings.headerSince)
 
         titlebar.sum = stats.sum
-        titlebar.dayly = stats.sum / Float(stats.days)
+        titlebar.daily = stats.sum / Float(stats.days)
     }
 
     //override func didReceiveMemoryWarning() {

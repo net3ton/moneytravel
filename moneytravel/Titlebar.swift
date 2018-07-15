@@ -21,7 +21,7 @@ class Titlebar: UIView {
         }
     }
 
-    public var dayly: Float {
+    public var daily: Float {
         set {
             labelInfo.text = String(format: "%@ / day", num_to_string(sum: newValue))
         }
