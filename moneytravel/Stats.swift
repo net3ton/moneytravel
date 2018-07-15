@@ -16,14 +16,13 @@ class AppStats {
     init() {
     }
 
-    public func getSumSince(date: Date) -> Float {
+    public func getSumSince(date: Date) -> (sum: Float, days: Int) {
         let context = get_context()
         let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
 
-        //let dateDays = Calendar.current.dateComponents([.day], from: date, to: Date())
-        //let daysCount = Float(max(dateDays.day ?? 1, 1))
+        let daysCount = Calendar.current.dateComponents([.day], from: date, to: Date()).day! + 1
         var sum: Float = 0.0
-        
+
         do {
             fetchRequest.predicate = NSPredicate(format: "date >= %@", date as NSDate)
             let spends = try context.fetch(fetchRequest)
@@ -38,7 +37,7 @@ class AppStats {
             print("Failed to fetch spends for stats! ERROR: " + error.localizedDescription)
         }
 
-        return sum
+        return (sum: sum, days: max(1, daysCount))
     }
 }
 

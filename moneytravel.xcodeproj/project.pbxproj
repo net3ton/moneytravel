@@ -17,6 +17,7 @@
 		2103DA2F20C74195003B027D /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA2E20C74195003B027D /* TextViewController.swift */; };
 		2103DA3120C88005003B027D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA3020C88005003B027D /* Colors.swift */; };
 		2103DA3320C939E0003B027D /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA3220C939E0003B027D /* DateViewController.swift */; };
+		2104195120FB8321004B227D /* Titlebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104195020FB8321004B227D /* Titlebar.swift */; };
 		2114F13420CEF86400BB40CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */; };
 		2114F13620CFC43400BB40CB /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13520CFC43400BB40CB /* StatsViewController.swift */; };
 		2114F13820D0279200BB40CB /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13720D0279200BB40CB /* HistoryViewController.swift */; };
@@ -61,6 +62,7 @@
 		2103DA2E20C74195003B027D /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		2103DA3020C88005003B027D /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2103DA3220C939E0003B027D /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
+		2104195020FB8321004B227D /* Titlebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Titlebar.swift; sourceTree = "<group>"; };
 		2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2114F13520CFC43400BB40CB /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		2114F13720D0279200BB40CB /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				2172BD7720B02AF500132D36 /* Info.plist */,
 				2174F4A120B0417100B6E381 /* MoneyKeyboard.swift */,
 				211A1F2C20BA1E4F004A793D /* MoneyInput.swift */,
+				2104195020FB8321004B227D /* Titlebar.swift */,
 				2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */,
 				2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */,
 				2174F4AD20B574E500B6E381 /* SpendView.swift */,
@@ -291,6 +294,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
@@ -298,6 +302,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
@@ -365,6 +370,7 @@
 				2103DA2F20C74195003B027D /* TextViewController.swift in Sources */,
 				2103DA2B20C708CA003B027D /* Icons.swift in Sources */,
 				2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */,
+				2104195120FB8321004B227D /* Titlebar.swift in Sources */,
 				211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */,
 				2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */,
 			);

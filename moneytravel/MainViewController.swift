@@ -15,21 +15,22 @@ class MainViewController: UIViewController {
     @IBOutlet weak var categoriesView: UICollectionView!
     @IBOutlet weak var spendView: UITableView!
     @IBOutlet weak var showMore: UIButton!
-    
+
+    var titlebar = Titlebar()
     var categoriesDelegate: CategoriesViewDelegate?
     var spendDelegate: SpendViewDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         appSettings.load()
-        
+        appTimestamps.fetch()
+        showMore.layer.cornerRadius = 3.0
+        navigationItem.titleView = titlebar
+
         initKeyboard()
         initCategories()
         initSpends()
-        
-        showMore.layer.cornerRadius = 3.0
-        appTimestamps.fetch()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -110,10 +111,10 @@ class MainViewController: UIViewController {
     }
 
     private func updateHeader() {
-        let sum = appStats.getSumSince(date: appSettings.headerSince)
-        let sumString = sum_to_string(sum: sum, currency: appSettings.currencyBase)
+        let stats = appStats.getSumSince(date: appSettings.headerSince)
 
-        navigationItem.title = sumString
+        titlebar.sum = stats.sum
+        titlebar.dayly = stats.sum / Float(stats.days)
     }
 
     //override func didReceiveMemoryWarning() {
