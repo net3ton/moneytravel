@@ -12,6 +12,7 @@ class HistoryViewController: UIViewController {
     @IBOutlet weak var dateRangeView: UITableView!
     @IBOutlet weak var historyView: UITableView!
 
+    var titlebar = Titlebar()
     var dateRangeDelegate: DateViewDelegate?
     var historyDelegate: SpendViewDelegate?
 
@@ -19,6 +20,8 @@ class HistoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.titleView = titlebar
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
 
         if HistoryViewController.historyInterval == nil {
@@ -110,7 +113,8 @@ class HistoryViewController: UIViewController {
             }
         }
 
-        navigationItem.title = sum_to_string(sum: sum, currency: appSettings.currencyBase)
+        titlebar.sum = sum
+        titlebar.daily = sum / Float(history.count)
     }
 }
 
