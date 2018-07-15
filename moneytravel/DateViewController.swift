@@ -21,6 +21,7 @@ class DateViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveDate))
 
         datePicker.setDate(initDate, animated: true)
+        datePicker.minuteInterval = 5
         updateDateText()
     }
 

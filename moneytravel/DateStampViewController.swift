@@ -40,6 +40,7 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         datePicker.datePickerMode = .date
         datePicker.minimumDate = minDate
         datePicker.maximumDate = maxDate
+        datePicker.minuteInterval = 5
         updateDateText()
 
         markPicker.delegate = self
