@@ -220,7 +220,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="luh-hd-IbG">
-                                <rect key="frame" x="20" y="60" width="335" height="30"/>
+                                <rect key="frame" x="20" y="104" width="335" height="30"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="jgL-LB-huI">
                                         <rect key="frame" x="0.0" y="0.0" width="286.5" height="30"/>
@@ -659,11 +659,11 @@
                                         <rect key="frame" x="0.0" y="619.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZgJ-tm-ft0" id="igt-vd-E5L">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Export spreadsheet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OtZ-wW-u5V">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -671,6 +671,30 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="About" id="0tM-rc-oLM">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="06R-QD-T8j" style="IBUITableViewCellStyleDefault" id="kqH-33-4Mz">
+                                        <rect key="frame" x="0.0" y="719.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kqH-33-4Mz" id="bcI-3U-xeV">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Support developer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="06R-QD-T8j">
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="jIb-4N-Tfo" kind="show" id="fry-rO-rXJ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1539,6 +1563,67 @@
             </objects>
             <point key="canvasLocation" x="2790" y="133"/>
         </scene>
+        <!--About-->
+        <scene sceneID="V55-wh-CO5">
+            <objects>
+                <viewController title="About" id="jIb-4N-Tfo" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UHO-eG-3tD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="KI6-ms-Aq0">
+                                <rect key="frame" x="16" y="84" width="343" height="378"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZT-Sl-smY">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="240"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="240" id="fWp-Fu-uGv"/>
+                                        </constraints>
+                                        <string key="text">Thank you for using this app!
+
+When I've been travaling I've tried to find app, simple but usefull, for counting my spends. There are a lot of, but I couldn't find app sutable for me. They are ether too complex or too simple. So, I've made it myself.
+
+It will never get ads or locked functionality.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7n-gk-fo4">
+                                        <rect key="frame" x="0.0" y="256" width="343" height="30"/>
+                                        <state key="normal" title="Say thank you"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLU-AN-sTp">
+                                        <rect key="frame" x="0.0" y="302" width="343" height="30"/>
+                                        <state key="normal" title="Express gratitude"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JsK-at-aeX">
+                                        <rect key="frame" x="0.0" y="348" width="343" height="30"/>
+                                        <state key="normal" title="Just give a lot of money"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="JsK-at-aeX" firstAttribute="leading" secondItem="KI6-ms-Aq0" secondAttribute="leading" id="AsD-Wj-K59"/>
+                                    <constraint firstItem="gLU-AN-sTp" firstAttribute="leading" secondItem="KI6-ms-Aq0" secondAttribute="leading" id="D46-Rn-TfZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="JsK-at-aeX" secondAttribute="trailing" id="HLS-Oq-P26"/>
+                                    <constraint firstAttribute="trailing" secondItem="gLU-AN-sTp" secondAttribute="trailing" id="Lfj-4s-GlM"/>
+                                    <constraint firstAttribute="trailing" secondItem="o7n-gk-fo4" secondAttribute="trailing" id="NyU-Pv-WCX"/>
+                                    <constraint firstItem="o7n-gk-fo4" firstAttribute="leading" secondItem="KI6-ms-Aq0" secondAttribute="leading" id="keJ-RM-u2r"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8xl-u2-rxP" firstAttribute="trailing" secondItem="KI6-ms-Aq0" secondAttribute="trailing" constant="16" id="EaD-nQ-2bh"/>
+                            <constraint firstItem="KI6-ms-Aq0" firstAttribute="leading" secondItem="8xl-u2-rxP" secondAttribute="leading" constant="16" id="RNy-A3-Hyj"/>
+                            <constraint firstItem="KI6-ms-Aq0" firstAttribute="top" secondItem="8xl-u2-rxP" secondAttribute="top" constant="20" id="bVj-p7-ccs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8xl-u2-rxP"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c9T-KW-Cnm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2789.5999999999999" y="-1264.3178410794603"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lg8-dO-LXb">
             <objects>
@@ -1563,10 +1648,10 @@
         <image name="Settings" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="niY-mj-zTj"/>
+        <segue reference="QDa-Sh-xer"/>
         <segue reference="HOb-f8-dUf"/>
         <segue reference="rqO-wJ-jtM"/>
         <segue reference="P7c-aT-YMH"/>
-        <segue reference="XB3-7K-frL"/>
+        <segue reference="McE-vF-d69"/>
     </inferredMetricsTieBreakers>
 </document>
