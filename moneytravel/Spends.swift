@@ -130,6 +130,23 @@ class AppSpends {
         }
     }
 
+    public func fetchAll() -> [SpendModel] {
+        var result: [SpendModel] = []
+
+        let context = get_context()
+        let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
+
+        do {
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+            result = try context.fetch(fetchRequest)
+        }
+        catch let error {
+            print("Failed to fetch all spend records! ERROR: " + error.localizedDescription)
+        }
+
+        return result
+    }
+
     public func fetch(for interval: HistoryInterval) -> [DaySpends] {
         var history: [DaySpends] = []
         
@@ -172,7 +189,7 @@ class AppSpends {
         let context = get_context()
         let spendEntity = NSEntityDescription.entity(forEntityName: "Spend", in: context)
         
-        let spend = NSManagedObject(entity: spendEntity!, insertInto: context) as! SpendModel
+        let spend = SpendModel(entity: spendEntity!, insertInto: context)
         spend.category = category
         spend.comment = comment
         spend.date = Date()

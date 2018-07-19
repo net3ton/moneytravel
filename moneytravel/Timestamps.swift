@@ -24,6 +24,23 @@ class AppTimestamps {
             print("Failed to fetch time marks! ERROR: " + error.localizedDescription)
         }
     }
+
+    public func fetchAll() -> [MarkModel] {
+        var result: [MarkModel] = []
+        
+        let context = get_context()
+        let fetchRequest = NSFetchRequest<MarkModel>(entityName: "Mark")
+        
+        do {
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+            result = try context.fetch(fetchRequest)
+        }
+        catch let error {
+            print("Failed to fetch all time marks! ERROR: " + error.localizedDescription)
+        }
+        
+        return result
+    }
     
     private func addToMarks(_ stamp: MarkModel) {
         for i in 0..<marks.count {
@@ -40,7 +57,7 @@ class AppTimestamps {
         let context = get_context()
         let markEntity = NSEntityDescription.entity(forEntityName: "Mark", in: context)
         
-        let mark = NSManagedObject(entity: markEntity!, insertInto: context) as! MarkModel
+        let mark = MarkModel(entity: markEntity!, insertInto: context)
         mark.name = name
         mark.date = date
         mark.color = color

@@ -13,7 +13,9 @@ let appCategories = AppCategories()
 
 class AppCategories {
     private(set) var categories: [CategoryModel] = []
-    
+
+    public let unknown: CategoryModel? = nil
+
     init() {
         initBase()
     }
@@ -34,9 +36,6 @@ class AppCategories {
             ("Clothes", "Clothes"),
             ("Entertain", "Entertain"),
             ("Mobile", "Mobile"),
-            
-            //("Restaurant", "Restaurant"),
-            //("Games", "Games"),
         ]
         
         do {
@@ -44,12 +43,11 @@ class AppCategories {
             if count == 0 {
                 var pos: Int16 = 0
                 for (iconname, name) in catList {
-                    let category = NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
+                    let category = CategoryModel(entity: categoryEntity!, insertInto: context)
                     category.name = name
                     category.iconname = iconname
                     category.color = CATEGORY_DEFAULT
                     category.position = pos
-                    
                     pos += 1
                 }
                 
@@ -58,17 +56,35 @@ class AppCategories {
             
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "position", ascending: true)]
             categories = try context.fetch(fetchRequest)
+            invalidatePositions()
         }
         catch let error {
             print("Failed to init categories! ERROR: " + error.localizedDescription)
         }
     }
-    
+
+    public func fetchAll() -> [CategoryModel] {
+        var result: [CategoryModel] = []
+        
+        let context = get_context()
+        let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
+        
+        do {
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "position", ascending: true)]
+            result = try context.fetch(fetchRequest)
+        }
+        catch let error {
+            print("Failed to fetch all categories! ERROR: " + error.localizedDescription)
+        }
+        
+        return result
+    }
+
     public func add(name: String, iconname: String, color: UIColor) {
         let context = get_context()
         let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
         
-        let category = NSManagedObject(entity: categoryEntity!, insertInto: context) as! CategoryModel
+        let category = CategoryModel(entity: categoryEntity!, insertInto: context)
         category.name = name
         category.iconname = iconname
         category.color = color
@@ -112,7 +128,17 @@ class AppCategories {
             }
         }
     }
-    
+
+    public func getByPosition(_ pos: Int16?) -> CategoryModel? {
+        for cat in categories {
+            if cat.position == pos {
+                return cat
+            }
+        }
+
+        return unknown
+    }
+
     public func save() {
         get_delegate().saveContext()
     }
