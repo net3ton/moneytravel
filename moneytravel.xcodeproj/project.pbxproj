@@ -19,7 +19,6 @@
 		2103DA3320C939E0003B027D /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2103DA3220C939E0003B027D /* DateViewController.swift */; };
 		2104195120FB8321004B227D /* Titlebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2104195020FB8321004B227D /* Titlebar.swift */; };
 		2114F13420CEF86400BB40CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */; };
-		2114F13620CFC43400BB40CB /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13520CFC43400BB40CB /* StatsViewController.swift */; };
 		2114F13820D0279200BB40CB /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13720D0279200BB40CB /* HistoryViewController.swift */; };
 		2114F13A20D126BD00BB40CB /* DateStampViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13920D126BD00BB40CB /* DateStampViewController.swift */; };
 		2114F13C20D25D6900BB40CB /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F13B20D25D6900BB40CB /* History.swift */; };
@@ -46,6 +45,7 @@
 		2174F4B220B585E600B6E381 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B120B585E600B6E381 /* Settings.swift */; };
 		2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B320B5B83900B6E381 /* SettingsViewController.swift */; };
 		2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */; };
+		217648AE20FE29BF00F3488F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217648AD20FE29BF00F3488F /* AboutViewController.swift */; };
 		2199212720DC0F7C00CE1355 /* GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199212620DC0F7C00CE1355 /* GoogleDrive.swift */; };
 		21FCDDAF20CBC9A50044567F /* SumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCDDAE20CBC9A50044567F /* SumViewController.swift */; };
 		5135793554F743AF4C1CE493 /* Pods_moneytravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F921507761A61B02C61AB36B /* Pods_moneytravel.framework */; };
@@ -64,7 +64,6 @@
 		2103DA3220C939E0003B027D /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		2104195020FB8321004B227D /* Titlebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Titlebar.swift; sourceTree = "<group>"; };
 		2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		2114F13520CFC43400BB40CB /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		2114F13720D0279200BB40CB /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		2114F13920D126BD00BB40CB /* DateStampViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStampViewController.swift; sourceTree = "<group>"; };
 		2114F13B20D25D6900BB40CB /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -93,6 +92,7 @@
 		2174F4B120B585E600B6E381 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2174F4B320B5B83900B6E381 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewController.swift; sourceTree = "<group>"; };
+		217648AD20FE29BF00F3488F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		2199212620DC0F7C00CE1355 /* GoogleDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDrive.swift; sourceTree = "<group>"; };
 		21FCDDAE20CBC9A50044567F /* SumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumViewController.swift; sourceTree = "<group>"; };
 		86E3EB6618F4B8034CD26603 /* Pods-moneytravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneytravel.release.xcconfig"; path = "Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel.release.xcconfig"; sourceTree = "<group>"; };
@@ -145,12 +145,12 @@
 				2174F4B320B5B83900B6E381 /* SettingsViewController.swift */,
 				2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */,
 				2172BD6D20B02AF400132D36 /* MainViewController.swift */,
+				217648AD20FE29BF00F3488F /* AboutViewController.swift */,
 				2103DA2020C5C1D5003B027D /* SpendViewController.swift */,
 				2103DA2620C6BD92003B027D /* CategoriesViewController.swift */,
 				2103DA2420C6832F003B027D /* CategoryViewController.swift */,
 				2114F13D20D50A6C00BB40CB /* TStampsViewController.swift */,
 				2114F13F20D50CDF00BB40CB /* TStampViewController.swift */,
-				2114F13520CFC43400BB40CB /* StatsViewController.swift */,
 				2114F13720D0279200BB40CB /* HistoryViewController.swift */,
 				2103DA2820C6C679003B027D /* IconsViewController.swift */,
 				2103DA2C20C720BC003B027D /* ColorsViewController.swift */,
@@ -295,18 +295,22 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/Colours/Colours.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/XJYChart/XJYChart.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Colours.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XJYChart.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -350,7 +354,6 @@
 				2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */,
 				2174F4AA20B44B9800B6E381 /* Data.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,
-				2114F13620CFC43400BB40CB /* StatsViewController.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
 				2103DA3320C939E0003B027D /* DateViewController.swift in Sources */,
 				2114F13820D0279200BB40CB /* HistoryViewController.swift in Sources */,
@@ -368,6 +371,7 @@
 				2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */,
 				2114F13E20D50A6C00BB40CB /* TStampsViewController.swift in Sources */,
 				2103DA2F20C74195003B027D /* TextViewController.swift in Sources */,
+				217648AE20FE29BF00F3488F /* AboutViewController.swift in Sources */,
 				2103DA2B20C708CA003B027D /* Icons.swift in Sources */,
 				2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */,
 				2104195120FB8321004B227D /* Titlebar.swift in Sources */,
@@ -513,10 +517,7 @@
 				DEVELOPMENT_TEAM = 5324A38GMP;
 				INFOPLIST_FILE = moneytravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oskharkov.moneytravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -533,10 +534,7 @@
 				DEVELOPMENT_TEAM = 5324A38GMP;
 				INFOPLIST_FILE = moneytravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oskharkov.moneytravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

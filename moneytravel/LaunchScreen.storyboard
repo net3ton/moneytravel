@@ -22,7 +22,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="oI5-Sk-Qs2">
                         <barButtonItem key="leftBarButtonItem" title="Settings" image="Settings" id="gn3-gb-ilz"/>
-                        <barButtonItem key="rightBarButtonItem" title="Stats" image="Chart" id="YON-rh-9M2"/>
+                        <barButtonItem key="rightBarButtonItem" image="Place" id="YON-rh-9M2"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x1y-Ec-BOx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -49,7 +49,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Chart" width="30" height="30"/>
+        <image name="Place" width="30" height="30"/>
         <image name="Settings" width="30" height="30"/>
     </resources>
 </document>
