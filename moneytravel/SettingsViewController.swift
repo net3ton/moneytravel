@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import GoogleSignIn
 
-class SettingsViewController: UITableViewController { //, GIDSignInUIDelegate {
+class SettingsViewController: UITableViewController {
     @IBOutlet weak var currency: UILabel!
     @IBOutlet weak var currencyBase: UILabel!
     @IBOutlet weak var dailyMax: UILabel!
@@ -26,8 +25,6 @@ class SettingsViewController: UITableViewController { //, GIDSignInUIDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //GIDSignIn.sharedInstance().uiDelegate = self
 
         headerDateSince.setDate(date: appSettings.headerSince)
         updateLabels()
@@ -77,29 +74,14 @@ class SettingsViewController: UITableViewController { //, GIDSignInUIDelegate {
             if appGoogleDrive.isLogined() {
                 appGoogleDrive.signOut() {
                     self.updateLabels()
-                    self.tableView.reloadData()
                 }
             }
             else {
                 appGoogleDrive.signIn(vc: self) {
                     self.updateLabels()
-                    self.tableView.reloadData()
                 }
             }
         }
-        else if indexPath.section == 3 && indexPath.row == 1 {
-            appGoogleDrive.downloadFromRoot(filename: "credentials.plist") { data in
-                
-            }
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 3 {
-            return appGoogleDrive.isLogined() ? 2 : 1
-        }
-
-        return super.tableView(tableView, numberOfRowsInSection: section)
     }
     
     // MARK: - Navigation
