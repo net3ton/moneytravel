@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import Charts
 
 class HistoryViewController: UIViewController {
     @IBOutlet weak var dateRangeView: UITableView!
     @IBOutlet weak var historyView: UITableView!
-
+    @IBOutlet weak var barchartView: BarChartView!
+    
     var titlebar = Titlebar()
     var dateRangeDelegate: DateViewDelegate?
     var historyDelegate: SpendViewDelegate?
+    var history: [DaySpends] = []
 
     static var historyInterval: HistoryInterval?
 
@@ -23,6 +26,7 @@ class HistoryViewController: UIViewController {
 
         navigationItem.titleView = titlebar
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Export"), style: .plain, target: self, action: #selector(onExport))
 
         if HistoryViewController.historyInterval == nil {
             let interval = HistoryInterval()
@@ -46,6 +50,16 @@ class HistoryViewController: UIViewController {
     //    super.didReceiveMemoryWarning()
     //}
 
+    @IBAction func onSegmentChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            historyView.isHidden = false
+        }
+        else {
+            //historyView.removeFromSuperview()
+            historyView.isHidden = true
+        }
+    }
+
     private func initHistory() {
         historyDelegate = SpendViewDelegate()
         historyDelegate?.onSpendPressed = showSpendInfo
@@ -66,7 +80,8 @@ class HistoryViewController: UIViewController {
     }
 
     private func updateHistoryView() {
-        let history = appSpends.fetch(for: HistoryViewController.historyInterval!)
+        history = appSpends.fetch(for: HistoryViewController.historyInterval!)
+
         historyDelegate?.data = history
         updateHeader(with: history)
 
@@ -115,6 +130,27 @@ class HistoryViewController: UIViewController {
 
         titlebar.sum = sum
         titlebar.daily = sum / Float(history.count)
+    }
+
+    @objc func onExport() {
+        let export = UIAlertController(title: "Export", message: "selected interval", preferredStyle: .actionSheet);
+
+        export.addAction(UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
+        }))
+
+        export.addAction(UIAlertAction(title: "Google Drive (json)", style: .default, handler: { (action) in
+        }))
+
+        export.addAction(UIAlertAction(title: "iTunes Shared Folder (json)", style: .default, handler: { (action) in
+            let historyData = AppData()
+            historyData.fetchHistory(self.history)
+            historyData.exportToJSON(name: AppData.getExportName())
+        }))
+
+        export.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        export.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+
+        present(export, animated: true, completion: nil)
     }
 }
 
