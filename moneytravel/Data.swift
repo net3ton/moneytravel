@@ -116,6 +116,10 @@ public class CategoryModel: NSManagedObject, Codable {
         try container.encode(self.position, forKey: .position)
         try container.encode(self.removed, forKey: .removed)
     }
+
+    public func update(from: CategoryModel) {
+        self.name = from.name
+    }
 }
 
 extension CategoryModel {
@@ -290,9 +294,15 @@ class AppData: Codable {
     }
 
     public func fetchAllData() {
-        categories = appCategories.fetchAll()
-        timestamps = appTimestamps.fetchAll()
-        spends = appSpends.fetchAll()
+        categories = appCategories.fetchAll(removed: false)
+        timestamps = appTimestamps.fetchAll(removed: false)
+        spends = appSpends.fetchAll(removed: false)
+
+        for spend in spends {
+            if let cat = spend.category, !categories.contains(cat) {
+                categories.append(cat)
+            }
+        }
     }
 
     public func fetchHistory(_ history: [DaySpends]) {
@@ -327,21 +337,18 @@ class AppData: Codable {
         return formatter.string(from: Date())
     }
 
-    public func exportToData(name: String) {
+    public func exportToData() -> Data? {
         do {
             let plistEncoder = PropertyListEncoder()
             plistEncoder.outputFormat = .binary
 
-            let plistData = try plistEncoder.encode(self)
-
-            let docsPath = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-            let exportPath = docsPath.appendingPathComponent(String(format: "%@.data", name))
-
-            try plistData.write(to: exportPath)
+            return try plistEncoder.encode(self)
         }
         catch let error {
             print("Failed to export! ERROR: " + error.localizedDescription)
         }
+
+        return nil
     }
 
     public func exportToJSON(name: String) {
@@ -361,4 +368,29 @@ class AppData: Codable {
             print("Failed to export! ERROR: " + error.localizedDescription)
         }
     }
+
+    /*
+    private func findCategory(cats: [CategoryModel], uid: String) -> CategoryModel? {
+        for cat in cats {
+            if cat.uid == uid {
+                return cat
+            }
+        }
+
+        return nil
+    }
+
+    public func importToBase() {
+        let allCategories = appCategories.fetchAll(removed: true)
+
+        for cat in categories {
+            if let thiscat = findCategory(cats: allCategories, uid: cat.uid!) {
+                thiscat.update(from: cat)
+            }
+            else {
+                get_context().insert(cat)
+            }
+        }
+    }
+    */
 }

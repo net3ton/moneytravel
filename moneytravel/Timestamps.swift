@@ -13,19 +13,12 @@ let appTimestamps = AppTimestamps()
 
 class AppTimestamps {
     private (set) var marks: [MarkModel] = []
-    
+
     public func fetch() {
-        do {
-            let fetchRequest = NSFetchRequest<MarkModel>(entityName: "Mark")
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-            marks = try get_context().fetch(fetchRequest)
-        }
-        catch let error {
-            print("Failed to fetch time marks! ERROR: " + error.localizedDescription)
-        }
+        marks = fetchAll(removed: false)
     }
 
-    public func fetchAll() -> [MarkModel] {
+    public func fetchAll(removed: Bool) -> [MarkModel] {
         var result: [MarkModel] = []
         
         let context = get_context()
@@ -33,10 +26,12 @@ class AppTimestamps {
         
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+            fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
+
             result = try context.fetch(fetchRequest)
         }
         catch let error {
-            print("Failed to fetch all time marks! ERROR: " + error.localizedDescription)
+            print("Failed to fetch time marks! ERROR: " + error.localizedDescription)
         }
         
         return result
@@ -93,9 +88,9 @@ class AppTimestamps {
     public func save() {
         get_delegate().saveContext()
     }
-    
+
     public func delete(stamp: MarkModel) {
-        get_context().delete(stamp)
+        stamp.removed = true
         get_delegate().saveContext()
         
         if let ind = marks.index(of: stamp) {

@@ -120,7 +120,7 @@ class AppSpends {
             let dateend = calendar.date(byAdding: .day, value: 1, to: daySpends.date)
             
             do {
-                fetchRequest.predicate = NSPredicate(format: "date >= %@ && date <%@", daySpends.date as NSDate, dateend! as NSDate)
+                fetchRequest.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", daySpends.date as NSDate, dateend! as NSDate)
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 daySpends.spends = try context.fetch(fetchRequest)
             }
@@ -130,7 +130,7 @@ class AppSpends {
         }
     }
 
-    public func fetchAll() -> [SpendModel] {
+    public func fetchAll(removed: Bool) -> [SpendModel] {
         var result: [SpendModel] = []
 
         let context = get_context()
@@ -138,6 +138,8 @@ class AppSpends {
 
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+            fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
+
             result = try context.fetch(fetchRequest)
         }
         catch let error {
@@ -164,7 +166,7 @@ class AppSpends {
             let next = Calendar.current.date(byAdding: .day, value: 1, to: current)!
             
             do {
-                fetchRequest.predicate = NSPredicate(format: "date >= %@ && date <%@", current as NSDate, next as NSDate)
+                fetchRequest.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", current as NSDate, next as NSDate)
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let spends = try context.fetch(fetchRequest)
                 
@@ -197,7 +199,8 @@ class AppSpends {
         spend.currency = curIso
         spend.bsum = bsum
         spend.bcurrency = bcurIso
-        
+        //spend.uid = UUID().uuidString
+
         do {
             try context.save()
             daily[0].spends.insert(spend, at: 0)
@@ -206,7 +209,7 @@ class AppSpends {
             print("Failed to add spend. ERROR: " + error.localizedDescription)
         }
     }
-    
+
     private func find(spend: SpendModel) -> (day: DaySpends, ind: Int)? {
         for dayInfo in daily {
             if let ind = dayInfo.spends.index(of: spend) {
@@ -216,16 +219,16 @@ class AppSpends {
         
         return nil
     }
-    
+
     public func delete(spend: SpendModel) {
-        get_context().delete(spend)
+        spend.removed = true
         get_delegate().saveContext()
-        
+
         if let res = find(spend: spend) {
             res.day.spends.remove(at: res.ind)
         }
     }
-    
+
     public func update(spend: SpendModel) {
         get_delegate().saveContext()
         
@@ -247,7 +250,4 @@ class AppSpends {
             }
         }
     }
-    
-    //let comps = calendar.dateComponents([.day, .month, .year], from: Date())
-    //let today = calendar.date(from: DateComponents(year: comps.year, month: comps.month, day: comps.day))
 }

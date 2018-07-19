@@ -13,18 +13,13 @@ let appCategories = AppCategories()
 
 class AppCategories {
     private(set) var categories: [CategoryModel] = []
-
-    public let unknown: CategoryModel? = nil
+    private(set) var unknown: CategoryModel? = nil
 
     init() {
         initBase()
     }
     
     private func initBase() {
-        let context = get_context()
-        let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
-        let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
-        
         let catList = [
             ("Food", "Food"),
             ("House", "Rent"),
@@ -37,7 +32,11 @@ class AppCategories {
             ("Entertain", "Entertain"),
             ("Mobile", "Mobile"),
         ]
-        
+
+        let context = get_context()
+        let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
+        let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
+
         do {
             let count = try context.count(for: fetchRequest)
             if count == 0 {
@@ -53,17 +52,18 @@ class AppCategories {
                 
                 try context.save()
             }
-            
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "position", ascending: true)]
-            categories = try context.fetch(fetchRequest)
-            invalidatePositions()
         }
         catch let error {
             print("Failed to init categories! ERROR: " + error.localizedDescription)
         }
+
+        categories = fetchAll(removed: false)
+        if !categories.isEmpty {
+            unknown = categories[0]
+        }
     }
 
-    public func fetchAll() -> [CategoryModel] {
+    public func fetchAll(removed: Bool) -> [CategoryModel] {
         var result: [CategoryModel] = []
         
         let context = get_context()
@@ -71,10 +71,12 @@ class AppCategories {
         
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "position", ascending: true)]
+            fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
+
             result = try context.fetch(fetchRequest)
         }
         catch let error {
-            print("Failed to fetch all categories! ERROR: " + error.localizedDescription)
+            print("Failed to fetch categories! ERROR: " + error.localizedDescription)
         }
         
         return result
@@ -88,7 +90,7 @@ class AppCategories {
         category.name = name
         category.iconname = iconname
         category.color = color
-        category.position = Int16(categories.count - 1)
+        category.position = Int16(categories.count)
 
         do {
             try context.save()
@@ -141,5 +143,14 @@ class AppCategories {
 
     public func save() {
         get_delegate().saveContext()
+    }
+
+    public func delete(category: CategoryModel) {
+        category.removed = true
+        get_delegate().saveContext()
+
+        if let ind = categories.index(of: category) {
+            categories.remove(at: ind)
+        }
     }
 }

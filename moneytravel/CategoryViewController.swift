@@ -64,6 +64,28 @@ class CategoryViewController: UITableViewController {
         navigationController?.popViewController(animated: true)
     }
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return categoryToSave == nil ? 1 : 2
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 && indexPath.row == 0 && categoryToSave != nil {
+            let removeController = UIAlertController(title: nil, message: "Delete the category? It can't be undone", preferredStyle: .actionSheet);
+            
+            removeController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+                self.navigationController?.popViewController(animated: true)
+                appCategories.delete(category: self.categoryToSave!)
+            }))
+            removeController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            present(removeController, animated: true) {
+                if let selected = tableView.indexPathForSelectedRow {
+                    tableView.deselectRow(at: selected, animated: true)
+                }
+            }
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "category-icon" {
             let iconPicker = segue.destination as! IconsViewController

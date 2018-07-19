@@ -5,7 +5,7 @@
         <attribute name="iconname" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="removed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="removed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="spends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Spend" inverseName="category" inverseEntity="Spend" syncable="YES"/>
     </entity>
     <entity name="Info" representedClassName="InfoModel" syncable="YES" codeGenerationType="class">
@@ -16,7 +16,7 @@
         <attribute name="colorvalue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="removed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="removed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Spend" representedClassName="SpendModel" syncable="YES" codeGenerationType="category">
         <attribute name="bcurrency" attributeType="String" syncable="YES"/>
@@ -24,7 +24,7 @@
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currency" attributeType="String" syncable="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="removed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="removed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sum" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="spends" inverseEntity="Category" syncable="YES"/>
     </entity>

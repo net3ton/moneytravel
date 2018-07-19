@@ -189,7 +189,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zge-Un-RdH">
-                                        <rect key="frame" x="16" y="20" width="343" height="244"/>
+                                        <rect key="frame" x="16" y="20" width="343" height="502"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HbG-M0-LdV">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
@@ -245,6 +245,13 @@
                                                 </constraints>
                                                 <sections/>
                                             </tableView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEI-lm-cD2" customClass="BarChartView" customModule="Charts">
+                                                <rect key="frame" x="0.0" y="252" width="343" height="250"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="250" id="EGX-qg-ZAg"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -267,6 +274,7 @@
                         <viewLayoutGuide key="safeArea" id="eQg-kp-NkF"/>
                     </view>
                     <connections>
+                        <outlet property="barchartView" destination="rEI-lm-cD2" id="y22-ux-zry"/>
                         <outlet property="dateRangeView" destination="HbG-M0-LdV" id="jr5-O0-b85"/>
                         <outlet property="historyView" destination="hEu-58-iUe" id="hL2-zp-HzY"/>
                     </connections>
@@ -883,7 +891,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Permanently delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iDW-TL-E0A">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iDW-TL-E0A">
                                                     <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1086,7 +1094,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Permanently delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JcL-ks-EQB">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JcL-ks-EQB">
                                                     <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1270,6 +1278,27 @@
                                         <connections>
                                             <segue destination="h59-uX-1qA" kind="show" identifier="category-color" id="F7N-Ob-Jdy"/>
                                         </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="t2y-Ba-FrP">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="uae-xh-hnj" style="IBUITableViewCellStyleDefault" id="Keq-hy-1PG">
+                                        <rect key="frame" x="0.0" y="223.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Keq-hy-1PG" id="MJz-GD-za7">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uae-xh-hnj">
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.4823529412" green="0.4823529412" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1487,21 +1516,27 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="D8B-Uj-YWc">
-                                        <rect key="frame" x="16" y="16" width="343" height="562.5"/>
+                                        <rect key="frame" x="16" y="16" width="343" height="564"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZT-Sl-smY">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="296"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="263"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <string key="text">Thank you for using this app!
+                                                <mutableString key="text">Thank you for using this app!
 
-When I have been travaling I tried to find application for counting my spends. I wanted it simple and usefull, but could not find. Eventually I have made it myself.
+When I've been travelling I tried to find application for counting my spends. I wanted it simple and usefull and tried a lot of apps but couldn't found the one fitting my needs. So, eventually I've made it myself.
 
-This app will never get ads or locked functionality. Enjoy!  Alex Kharkov @net3ton  I would be very grateful to you for:</string>
-                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+This app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can connect me on twitter: @net3ton</mutableString>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" I would be very grateful to you for:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MIm-a1-zeV">
+                                                <rect key="frame" x="0.0" y="277" width="343" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noG-lN-VlT" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="310" width="343" height="44"/>
+                                                <rect key="frame" x="0.0" y="311.5" width="343" height="44"/>
                                                 <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="sK3-gJ-90w"/>
@@ -1513,14 +1548,14 @@ This app will never get ads or locked functionality. Enjoy!  Alex Kharkov 
                                                     <action selector="onRating:" destination="jIb-4N-Tfo" eventType="touchUpInside" id="WEo-NP-mJf"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" or even donate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3l-od-yid">
-                                                <rect key="frame" x="0.0" y="368" width="343" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" or even donate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3l-od-yid">
+                                                <rect key="frame" x="0.0" y="369.5" width="343" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5H-nJ-q6n" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="402.5" width="343" height="44"/>
+                                                <rect key="frame" x="0.0" y="404" width="343" height="44"/>
                                                 <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="q9a-2N-Iob"/>
@@ -1530,7 +1565,7 @@ This app will never get ads or locked functionality. Enjoy!  Alex Kharkov 
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CaK-9k-les" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="460.5" width="343" height="44"/>
+                                                <rect key="frame" x="0.0" y="462" width="343" height="44"/>
                                                 <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="jPx-nd-hXN"/>
@@ -1540,7 +1575,7 @@ This app will never get ads or locked functionality. Enjoy!  Alex Kharkov 
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hVv-NE-cF7" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="518.5" width="343" height="44"/>
+                                                <rect key="frame" x="0.0" y="520" width="343" height="44"/>
                                                 <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="3rf-27-ekt"/>
@@ -1612,8 +1647,8 @@ This app will never get ads or locked functionality. Enjoy!  Alex Kharkov 
     <inferredMetricsTieBreakers>
         <segue reference="niY-mj-zTj"/>
         <segue reference="HOb-f8-dUf"/>
-        <segue reference="rqO-wJ-jtM"/>
-        <segue reference="P7c-aT-YMH"/>
+        <segue reference="H1a-hr-aTw"/>
+        <segue reference="OoV-2g-oq0"/>
         <segue reference="suk-zx-JGQ"/>
     </inferredMetricsTieBreakers>
 </document>
