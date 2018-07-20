@@ -19,15 +19,6 @@ class SpendViewCell: UITableViewCell {
     @IBOutlet weak var sum: UILabel!
     @IBOutlet weak var sumBase: UILabel!
 
-    //override func awakeFromNib() {
-    //    super.awakeFromNib()
-    //}
-
-    //override func setSelected(_ selected: Bool, animated: Bool) {
-    //    super.setSelected(selected, animated: animated)
-    //    // Configure the view for the selected state
-    //}
-
     public static func getNib() -> UINib {
         return UINib.init(nibName: "SpendViewCell", bundle: nil)
     }
