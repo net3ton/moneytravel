@@ -189,7 +189,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zge-Un-RdH">
-                                        <rect key="frame" x="16" y="20" width="343" height="502"/>
+                                        <rect key="frame" x="16" y="20" width="343" height="568"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HbG-M0-LdV">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
@@ -230,28 +230,42 @@
                                                 <rect key="frame" x="0.0" y="108" width="343" height="29"/>
                                                 <segments>
                                                     <segment title="History"/>
-                                                    <segment title="Stats"/>
                                                     <segment title="Tendency"/>
+                                                    <segment title="Categories"/>
                                                 </segments>
                                                 <connections>
                                                     <action selector="onSegmentChanged:" destination="MJD-ZW-eud" eventType="valueChanged" id="YcG-GV-KbZ"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="hEu-58-iUe">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEI-lm-cD2" customClass="BarChartView" customModule="Charts">
                                                 <rect key="frame" x="0.0" y="144" width="343" height="100"/>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" identifier="height" id="EGX-qg-ZAg"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="snC-Mz-6gE" customClass="PieChartView" customModule="Charts">
+                                                <rect key="frame" x="0.0" y="252" width="343" height="100"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" identifier="height" id="B3H-c8-ymP"/>
+                                                </constraints>
+                                            </view>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="hEu-58-iUe">
+                                                <rect key="frame" x="0.0" y="360" width="343" height="100"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" identifier="height" id="YMg-i9-41x"/>
                                                 </constraints>
                                                 <sections/>
                                             </tableView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEI-lm-cD2" customClass="BarChartView" customModule="Charts">
-                                                <rect key="frame" x="0.0" y="252" width="343" height="250"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xyn-L3-czR">
+                                                <rect key="frame" x="0.0" y="468" width="343" height="100"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="250" id="EGX-qg-ZAg"/>
+                                                    <constraint firstAttribute="height" constant="100" identifier="height" id="trm-r9-TKt"/>
                                                 </constraints>
-                                            </view>
+                                            </tableView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -275,13 +289,15 @@
                     </view>
                     <connections>
                         <outlet property="barchartView" destination="rEI-lm-cD2" id="y22-ux-zry"/>
+                        <outlet property="categoryView" destination="xyn-L3-czR" id="HhU-wT-iBU"/>
                         <outlet property="dateRangeView" destination="HbG-M0-LdV" id="jr5-O0-b85"/>
                         <outlet property="historyView" destination="hEu-58-iUe" id="hL2-zp-HzY"/>
+                        <outlet property="piechartView" destination="snC-Mz-6gE" id="cKg-60-rEA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KeN-V5-efB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1865" y="-558"/>
+            <point key="canvasLocation" x="1864.8" y="-558.17091454272872"/>
         </scene>
         <!--Date Stamp View Controller-->
         <scene sceneID="U5p-QH-qvf">
