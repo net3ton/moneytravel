@@ -16,8 +16,8 @@ class DaySpends {
     init(forDate: Date) {
         date = forDate
     }
-    
-    public func getBudgetInfo() -> (baseSum: String, budgetProgress: Float, budgetLeft: String, budgetPlus: Bool) {
+
+    public func getSpendSum() -> Float {
         var bsum: Float = 0
         
         for spend in spends {
@@ -25,7 +25,12 @@ class DaySpends {
                 bsum += spend.bsum
             }
         }
-        
+
+        return bsum
+    }
+    
+    public func getBudgetInfo() -> (baseSum: String, budgetProgress: Float, budgetLeft: String, budgetPlus: Bool) {
+        let bsum = getSpendSum()
         let bsumStr = (bsum <= 0) ? "" : sum_to_string(sum: bsum, currency: appSettings.currencyBase)
         let budgetProgress: Float = bsum / appSettings.dailyMax
         let budgetPlus: Bool = appSettings.dailyMax >= bsum
