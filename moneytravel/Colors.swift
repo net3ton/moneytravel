@@ -8,7 +8,8 @@
 
 import UIKit
 
-let CATEGORY_DEFAULT = CATEGORY_COLORS[3]
+let CATEGORY_DEFAULT = UIColor(red:0.92, green:0.91, blue:0.91, alpha:1.0)
+let TIMESTAMP_DEFAULT = UIColor(red:0.91, green:0.90, blue:0.95, alpha:1.0)
 
 let CATEGORY_COLORS = [
     UIColor(red:0.67, green:0.67, blue:0.67, alpha:1.0),

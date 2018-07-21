@@ -15,14 +15,16 @@ class TStampViewController: UITableViewController {
 
     private var name: String = ""
     private var date: Date = Date()
-    private var color: UIColor = CATEGORY_DEFAULT
+    private var color: UIColor = TIMESTAMP_DEFAULT
 
+    private var saveButton: UIBarButtonItem?
     private var markToSave: MarkModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveMark))
+        saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveMark))
+        navigationItem.rightBarButtonItem = saveButton
         navigationItem.title = "Timestamp"
 
         colorView.layer.cornerRadius = 3
@@ -31,6 +33,11 @@ class TStampViewController: UITableViewController {
 
     @objc func backButton() {
         print("asd")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        saveButton?.isEnabled = !name.isEmpty
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,7 +69,7 @@ class TStampViewController: UITableViewController {
             markToSave!.name = name
             markToSave!.date = date
             markToSave!.color = color
-            appTimestamps.save()
+            appTimestamps.update(stamp: markToSave!)
         }
         else {
             appTimestamps.add(name: name, date: date, color: color)

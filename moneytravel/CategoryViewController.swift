@@ -17,16 +17,23 @@ class CategoryViewController: UITableViewController {
     private var iconname: String = ""
     private var color: UIColor = CATEGORY_DEFAULT
 
+    private var saveButton: UIBarButtonItem?
     private var categoryToSave: CategoryModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveCategory))
+
+        saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveCategory))
+        navigationItem.rightBarButtonItem = saveButton
         navigationItem.title = "Category"
 
         colorView.layer.cornerRadius = 3
         updateInfo()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        saveButton?.isEnabled = !name.isEmpty && !iconname.isEmpty
     }
 
     override func viewDidAppear(_ animated: Bool) {
