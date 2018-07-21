@@ -15,6 +15,7 @@ class TStampViewCell: UITableViewCell {
 }
 
 class TStampsViewController: UITableViewController {
+    private var data: [MarkModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,8 @@ class TStampsViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        data = appTimestamps.fetchAll()
         tableView.reloadData()
     }
 
@@ -47,7 +50,7 @@ class TStampsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appTimestamps.marks.count
+        return data.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,7 +59,7 @@ class TStampsViewController: UITableViewController {
         let formatterYear = DateFormatter()
         formatterYear.dateFormat = "dd LLLL yyyy"
 
-        let info = appTimestamps.marks[indexPath.row]
+        let info = data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "TimeMarkCell", for: indexPath) as! TStampViewCell
         cell.nameLabel.text = info.name
         cell.dateLabel.text = formatterDate.string(from: info.date!)
@@ -66,7 +69,7 @@ class TStampsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let info = appTimestamps.marks[indexPath.row]
+        let info = data[indexPath.row]
         showTimestampInfo(info: info)
     }
 }

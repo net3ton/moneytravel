@@ -108,7 +108,11 @@
                                 <segue destination="htg-54-DoI" kind="show" id="gGW-pN-ffr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Place" image="Place" id="wn1-iX-iVN"/>
+                        <barButtonItem key="rightBarButtonItem" title="Place" image="Place" id="wn1-iX-iVN">
+                            <connections>
+                                <action selector="onPlacePressed:" destination="BYZ-38-t0r" id="7df-fg-ZG9"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="categoriesView" destination="BKi-o4-oTO" id="9vP-gq-Bbo"/>

@@ -8,12 +8,34 @@
 
 import UIKit
 
+class HistoryInterval {
+    var dateFrom: HistoryDate = HistoryDate()
+    var dateTo: HistoryDate = HistoryDate()
+    
+    subscript(index: Int) -> (date: HistoryDate, minDate: Date?, label: String) {
+        get {
+            if index == 0 {
+                return (date: dateFrom, minDate: nil, label: "From")
+            }
+            
+            return (date: dateTo, minDate: dateFrom.getDate(), label: "To")
+        }
+    }
+    
+    var count: Int {
+        get {
+            return 2
+        }
+    }
+}
+
+
 class HistoryDate {
     private var stamp: MarkModel?
     private var date: Date?
 
     public func setDate(date: Date) {
-        if let stamp = appTimestamps.find(date: date) {
+        if let stamp = appTimestamps.find(for: date) {
             self.stamp = stamp
             self.date = nil
         }
@@ -23,6 +45,11 @@ class HistoryDate {
         }
     }
 
+    public func setNow() {
+        self.date = Date()
+        self.stamp = nil
+    }
+    
     public func setToday() {
         setDate(date: Date())
     }
@@ -30,6 +57,11 @@ class HistoryDate {
     public func setWeekAgo() {
         let weekAgo = Calendar.current.date(byAdding: .day, value: -6, to: Date())
         setDate(date: weekAgo!)
+    }
+
+    public func setDaysAgo(days: Int) {
+        let daysAgo = Calendar.current.date(byAdding: .day, value: -days, to: Date())
+        setDate(date: daysAgo!)
     }
 
     public func setStamp(stamp: MarkModel) {

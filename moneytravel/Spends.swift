@@ -9,17 +9,74 @@
 import UIKit
 import CoreData
 
+struct DaySpendsItem {
+    var spend: SpendModel?
+    var tmark: MarkModel?
+}
+
+
 class DaySpends {
-    public var date: Date
-    public var spends: [SpendModel] = []
-    
-    init(forDate: Date) {
-        date = forDate
+    private(set) var date: Date
+    private(set) var spends: [SpendModel]
+    private(set) var tmarks: [MarkModel]
+
+    //private(set) var items: [DaySpendsItem] = []
+
+    init(forDate: Date, spends: [SpendModel], tmarks: [MarkModel]) {
+        self.date = forDate
+        self.spends = spends
+        self.tmarks = tmarks
+    }
+
+    public func getItemsCount() -> Int {
+        return spends.count + tmarks.count
+    }
+
+    public func getItem(ind: Int) -> DaySpendsItem {
+        var items: [DaySpendsItem] = []
+
+        var spendInd = 0
+        var tmarkInd = 0
+
+        while spendInd < spends.count || tmarkInd < tmarks.count {
+            if spendInd >= spends.count {
+                let item = DaySpendsItem(spend: nil, tmark: tmarks[tmarkInd])
+                tmarkInd += 1
+
+                items.append(item)
+                continue
+            }
+
+            if tmarkInd >= tmarks.count {
+                let item = DaySpendsItem(spend: spends[spendInd], tmark: nil)
+                spendInd += 1
+                
+                items.append(item)
+                continue
+            }
+
+            if spends[spendInd].date! > tmarks[tmarkInd].date! {
+                let item = DaySpendsItem(spend: spends[spendInd], tmark: nil)
+                spendInd += 1
+                
+                items.append(item)
+                continue
+            }
+            else {
+                let item = DaySpendsItem(spend: nil, tmark: tmarks[tmarkInd])
+                tmarkInd += 1
+                
+                items.append(item)
+                continue
+            }
+        }
+
+        return items[ind]
     }
 
     public func getSpendSum() -> Float {
         var bsum: Float = 0
-        
+
         for spend in spends {
             if spend.bcurrency == appSettings.currencyBase {
                 bsum += spend.bsum
@@ -28,7 +85,7 @@ class DaySpends {
 
         return bsum
     }
-    
+
     public func getBudgetInfo() -> (baseSum: String, budgetProgress: Float, budgetLeft: String, budgetPlus: Bool) {
         let bsum = getSpendSum()
         let bsumStr = (bsum <= 0) ? "" : sum_to_string(sum: bsum, currency: appSettings.currencyBase)
@@ -62,10 +119,112 @@ class DaySpends {
         formatter.dateFormat = "dd LLLL"
         return formatter.string(from: date)
     }
-    
-    public func isThisDay(testdate: Date) -> Bool {
+
+    public func isThisDay(_ testdate: Date) -> Bool {
         let calendar = Calendar.current
         return calendar.isDate(testdate, inSameDayAs: date)
+    }
+
+    public func add(_ spend: SpendModel) {
+        for item in spends.enumerated() {
+            if spend.date! > item.element.date! {
+                spends.insert(spend, at: item.offset)
+                return
+            }
+        }
+
+        spends.append(spend)
+    }
+
+    public func add(_ tmark: MarkModel) {
+        for item in tmarks.enumerated() {
+            if tmark.date! > item.element.date! {
+                tmarks.insert(tmark, at: item.offset)
+                return
+            }
+        }
+        
+        tmarks.append(tmark)
+    }
+
+    public func delete(_ spend: SpendModel) {
+        if let ind = spends.index(of: spend) {
+            spends.remove(at: ind)
+        }
+    }
+    
+    public func delete(_ tmark: MarkModel) {
+        if let ind = tmarks.index(of: tmark) {
+            tmarks.remove(at: ind)
+        }
+    }
+}
+
+
+let lastSpends = LastSpends()
+
+class LastSpends {
+    private let DAYS_HISTORY = 3
+    private(set) var daily: [DaySpends] = []
+    
+    init() {
+        daily = fetchLast()
+    }
+
+    private func fetchLast() -> [DaySpends] {
+        let interval = HistoryInterval()
+        interval.dateTo.setNow()
+        interval.dateFrom.setDaysAgo(days: DAYS_HISTORY-1)
+
+        return appSpends.fetch(for: interval)
+    }
+
+    private func checkDays() {
+        if !daily[0].isThisDay(Date()) {
+            daily = fetchLast()
+        }
+    }
+
+    public func addSpend(_ spend: SpendModel) {
+        daily[0].add(spend)
+    }
+
+    public func addTMark(_ tmark: MarkModel) {
+        daily[0].add(tmark)
+    }
+
+    public func deleteSpend(_ spend: SpendModel) {
+        for dayInfo in daily {
+            dayInfo.delete(spend)
+        }
+    }
+
+    public func deleteTMark(_ tmark: MarkModel) {
+        for dayInfo in daily {
+            dayInfo.delete(tmark)
+        }
+    }
+
+    public func updateSpend(_ spend: SpendModel) {
+        deleteSpend(spend)
+
+        for dayInfo in daily {
+            if dayInfo.isThisDay(spend.date!) {
+                dayInfo.add(spend)
+                break
+            }
+        }
+    }
+
+    public func updateTMark(_ tmark: MarkModel) {
+        deleteTMark(tmark)
+        
+        for dayInfo in daily {
+            if dayInfo.isThisDay(tmark.date!) {
+                dayInfo.add(tmark)
+                break
+            }
+        }
     }
 }
 
@@ -73,68 +232,6 @@ class DaySpends {
 let appSpends = AppSpends()
 
 class AppSpends {
-    
-    private let DAYS_HISTORY = 3
-    private(set) var daily: [DaySpends]
-    
-    init() {
-        daily = [DaySpends]()
-        
-        checkDays()
-        fetchLast()
-    }
-
-    public func checkDays() {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
-        
-        for i in 0..<DAYS_HISTORY {
-            let day = calendar.date(byAdding: .day, value: -i, to: today)
-            let ind = getDaySpendsInd(date: day!)
-            if ind != i {
-                if ind != -1 {
-                    swap(&daily[i], &daily[ind])
-                }
-                else {
-                    daily.insert(DaySpends(forDate: day!), at: i)
-                }
-            }
-        }
-        
-        if daily.count > DAYS_HISTORY {
-            daily.removeLast(daily.count - DAYS_HISTORY)
-        }
-    }
-    
-    private func getDaySpendsInd(date: Date) -> Int {
-        for i in 0..<daily.count {
-            if daily[i].date == date {
-                return i
-            }
-        }
-        
-        return -1
-    }
-    
-    private func fetchLast() {
-        let context = get_context()
-        let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
-        let calendar = Calendar.current
-        
-        for daySpends in daily {
-            let dateend = calendar.date(byAdding: .day, value: 1, to: daySpends.date)
-            
-            do {
-                fetchRequest.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", daySpends.date as NSDate, dateend! as NSDate)
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-                daySpends.spends = try context.fetch(fetchRequest)
-            }
-            catch let error {
-                print("Failed to fetch spend record! ERROR: " + error.localizedDescription)
-            }
-        }
-    }
-
     public func fetchAll(removed: Bool) -> [SpendModel] {
         var result: [SpendModel] = []
 
@@ -165,34 +262,36 @@ class AppSpends {
         }
         
         let context = get_context()
-        let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
+        let fetchSpends = NSFetchRequest<SpendModel>(entityName: "Spend")
+        let fetchMarks = NSFetchRequest<MarkModel>(entityName: "Mark")
         
         while current <= last {
             let next = Calendar.current.date(byAdding: .day, value: 1, to: current)!
             
             do {
-                fetchRequest.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", current as NSDate, next as NSDate)
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-                let spends = try context.fetch(fetchRequest)
+                fetchSpends.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", current as NSDate, next as NSDate)
+                fetchSpends.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+                let spends = try context.fetch(fetchSpends)
                 
-                let daySpends = DaySpends(forDate: current)
-                daySpends.spends = spends
+                fetchMarks.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", current as NSDate, next as NSDate)
+                fetchMarks.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+                let tmarks = try context.fetch(fetchMarks)
+                
+                let daySpends = DaySpends(forDate: current, spends: spends, tmarks: tmarks)
                 history.append(daySpends)
             }
             catch let error {
-                print("Failed to fetch spend record! ERROR: " + error.localizedDescription)
+                print("Failed to fetch history! ERROR: " + error.localizedDescription)
             }
-            
+
             current = next
         }
-        
+
         history.reverse()
         return history
     }
     
     public func add(category: CategoryModel, sum: Float, curIso: String, bsum: Float, bcurIso: String, comment: String) {
-        checkDays()
-        
         let context = get_context()
         let spendEntity = NSEntityDescription.entity(forEntityName: "Spend", in: context)
         
@@ -208,51 +307,21 @@ class AppSpends {
 
         do {
             try context.save()
-            daily[0].spends.insert(spend, at: 0)
+            lastSpends.addSpend(spend)
         }
         catch let error {
             print("Failed to add spend. ERROR: " + error.localizedDescription)
         }
     }
 
-    private func find(spend: SpendModel) -> (day: DaySpends, ind: Int)? {
-        for dayInfo in daily {
-            if let ind = dayInfo.spends.index(of: spend) {
-                return (day: dayInfo, ind: ind)
-            }
-        }
-        
-        return nil
-    }
-
     public func delete(spend: SpendModel) {
         spend.removed = true
         get_delegate().saveContext()
-
-        if let res = find(spend: spend) {
-            res.day.spends.remove(at: res.ind)
-        }
+        lastSpends.deleteSpend(spend)
     }
 
     public func update(spend: SpendModel) {
         get_delegate().saveContext()
-        
-        if let res = find(spend: spend) {
-            res.day.spends.remove(at: res.ind)
-        }
-        
-        for dayInfo in daily {
-            if dayInfo.isThisDay(testdate: spend.date!) {
-                for i in 0..<dayInfo.spends.count {
-                    if dayInfo.spends[i].date! < spend.date! {
-                        dayInfo.spends.insert(spend, at: i)
-                        return
-                    }
-                }
-                
-                dayInfo.spends.append(spend)
-                return
-            }
-        }
+        lastSpends.updateSpend(spend)
     }
 }

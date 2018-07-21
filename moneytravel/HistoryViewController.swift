@@ -111,7 +111,6 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         barchartView.rightAxis.axisLineColor = COLOR_SPEND_HEADER
 
         barchartView.leftAxis.axisMinimum = 0
-        //barchartView.leftAxis.axisMaximum = 15
         barchartView.leftAxis.gridColor = COLOR_SPEND_HEADER
         barchartView.leftAxis.valueFormatter = AxisLeftFormatter()
         barchartView.leftAxis.addLimitLine(target)
@@ -223,6 +222,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         piechartView.legend.enabled = false
         piechartView.noDataText = "Empty"
         piechartView.data = PieChartData(dataSets: [chartDataSet])
+        piechartView.isUserInteractionEnabled = true
 
         for constr in piechartView.constraints {
             if constr.identifier == "height" {
@@ -260,10 +260,9 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
     private func initHistory() {
         historyDelegate = SpendViewDelegate()
         historyDelegate?.onSpendPressed = showSpendInfo
+        historyDelegate?.onTMarkPressed = showTMarkInfo
+        historyDelegate?.initClasses(for: historyView)
 
-        historyView.register(SpendViewCell.getNib(), forCellReuseIdentifier: SpendViewCell.ID)
-        historyView.register(SpendViewHeader.self, forHeaderFooterViewReuseIdentifier: SpendViewHeader.ID)
-        historyView.register(SpendViewFooter.self, forHeaderFooterViewReuseIdentifier: SpendViewFooter.ID)
         historyView.delegate = historyDelegate
         historyView.dataSource = historyDelegate
     }
@@ -273,6 +272,14 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         let view = sboard.instantiateViewController(withIdentifier: "spend-info") as! SpendViewController
         
         view.setup(sinfo: spend)
+        navigationController?.pushViewController(view, animated: true)
+    }
+
+    private func showTMarkInfo(tmark: MarkModel) {
+        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
+        let view = sboard.instantiateViewController(withIdentifier: "tmark-info") as! TStampViewController
+        
+        view.setup(mark: tmark)
         navigationController?.pushViewController(view, animated: true)
     }
 
@@ -366,28 +373,6 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         export.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
 
         present(export, animated: true, completion: nil)
-    }
-}
-
-
-class HistoryInterval {
-    var dateFrom: HistoryDate = HistoryDate()
-    var dateTo: HistoryDate = HistoryDate()
-
-    subscript(index: Int) -> (date: HistoryDate, minDate: Date?, label: String) {
-        get {
-            if index == 0 {
-                return (date: dateFrom, minDate: nil, label: "From")
-            }
-            
-            return (date: dateTo, minDate: dateFrom.getDate(), label: "To")
-        }
-    }
-
-    var count: Int {
-        get {
-            return 2
-        }
     }
 }
 

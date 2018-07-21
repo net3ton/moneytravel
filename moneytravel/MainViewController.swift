@@ -24,7 +24,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         appSettings.load()
-        appTimestamps.fetch()
         showMore.layer.cornerRadius = 3.0
         navigationItem.titleView = titlebar
 
@@ -44,10 +43,14 @@ class MainViewController: UIViewController {
         categoriesView.reloadData()
     }
 
+    //override func didReceiveMemoryWarning() {
+    //    super.didReceiveMemoryWarning()
+    //}
+
     private func initKeyboard() {
         keysView.setInput(field: sumView)
     }
-    
+
     private func initCategories() {
         let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
 
@@ -68,14 +71,12 @@ class MainViewController: UIViewController {
     private func initSpends() {
         spendDelegate = SpendViewDelegate()
         spendDelegate?.onSpendPressed = showSpendInfo
-        spendDelegate?.data = appSpends.daily
+        spendDelegate?.onTMarkPressed = showTMarkInfo
+        spendDelegate?.data = lastSpends.daily
+        spendDelegate?.initClasses(for: spendView)
 
-        spendView.register(SpendViewCell.getNib(), forCellReuseIdentifier: SpendViewCell.ID)
-        spendView.register(SpendViewHeader.self, forHeaderFooterViewReuseIdentifier: SpendViewHeader.ID)
-        spendView.register(SpendViewFooter.self, forHeaderFooterViewReuseIdentifier: SpendViewFooter.ID)
         spendView.delegate = spendDelegate
         spendView.dataSource = spendDelegate
-        //updateSpendsView()
     }
 
     private func showSpendInfo(spend: SpendModel) {
@@ -85,7 +86,15 @@ class MainViewController: UIViewController {
         view.setup(sinfo: spend)
         navigationController?.pushViewController(view, animated: true)
     }
-    
+
+    private func showTMarkInfo(tmark: MarkModel) {
+        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
+        let view = sboard.instantiateViewController(withIdentifier: "tmark-info") as! TStampViewController
+        
+        view.setup(mark: tmark)
+        navigationController?.pushViewController(view, animated: true)
+    }
+
     private func updateSpendsView() {
         for constr in spendView.constraints {
             if constr.identifier == "height" {
@@ -117,15 +126,21 @@ class MainViewController: UIViewController {
         titlebar.daily = stats.sum / Float(stats.days)
     }
 
-    //override func didReceiveMemoryWarning() {
-    //    super.didReceiveMemoryWarning()
-    //}
-    
-    /*
-     self.view.layoutIfNeeded()
-     UIView.animateWithDuration(1, animations: {
-     self.sampleConstraint.constant = 20
-     self.view.layoutIfNeeded()
-     })
-    */
+    @IBAction func onPlacePressed(_ sender: UIBarButtonItem) {
+        let popup = UIAlertController(title: "New Timestamp", message: "", preferredStyle: .alert)
+        popup.addTextField { (textField) in
+            textField.text = ""
+        }
+
+        popup.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+            let name = popup.textFields?.first?.text ?? ""
+            if !name.isEmpty {
+                appTimestamps.add(name: name)
+                self.updateSpendsView()
+            }
+        })
+
+        popup.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(popup, animated: true)
+    }
 }

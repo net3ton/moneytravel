@@ -24,6 +24,18 @@ class SpendViewCell: UITableViewCell {
     }
 }
 
+class StampViewCell: UITableViewCell {
+    public static let ID = "StampCell"
+    public static let HEIGHT: CGFloat = 36.0
+
+    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var name: UILabel!
+
+    public static func getNib() -> UINib {
+        return UINib.init(nibName: "StampViewCell", bundle: nil)
+    }
+}
+
 class SpendViewHeader: UITableViewHeaderFooterView {
     public static let ID = "SpendHeader"
     public weak var content: SpendViewHeaderContent!
@@ -59,14 +71,24 @@ class SpendViewFooter: UITableViewHeaderFooterView {
     public static let ID = "SpendFooter"
 }
 
+
 class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     public var onSpendPressed: ((SpendModel) -> Void)?
+    public var onTMarkPressed: ((MarkModel) -> Void)?
     public var data: [DaySpends] = []
+
+    func initClasses(for tableView: UITableView) {
+        tableView.register(SpendViewCell.getNib(), forCellReuseIdentifier: SpendViewCell.ID)
+        tableView.register(StampViewCell.getNib(), forCellReuseIdentifier: StampViewCell.ID)
+        tableView.register(SpendViewHeader.self, forHeaderFooterViewReuseIdentifier: SpendViewHeader.ID)
+        tableView.register(SpendViewFooter.self, forHeaderFooterViewReuseIdentifier: SpendViewFooter.ID)
+    }
 
     func getContentHeight() -> CGFloat {
         var height: CGFloat = 0.0
         for spendsInfo in data {
             height += CGFloat(spendsInfo.spends.count) * SpendViewCell.HEIGHT
+            height += CGFloat(spendsInfo.tmarks.count) * StampViewCell.HEIGHT
         }
 
         height += CGFloat(data.count) * SpendViewCell.HEIGHT_HEADER
@@ -79,24 +101,41 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data[section].spends.count
+        return data[section].getItemsCount()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let spend = data[indexPath.section].spends[indexPath.row]
-        let comment = spend.comment ?? ""
+        let item = data[indexPath.section].getItem(ind: indexPath.row)
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: SpendViewCell.ID, for: indexPath) as! SpendViewCell
-        cell.icon.image = spend.category?.icon
-        cell.comment.text = comment.isEmpty ? spend.category?.name : comment
-        cell.sum.text = spend.getSumString()
-        cell.sumBase.text = spend.getBaseSumString()
-        cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
-        return cell
+        if let spend = item.spend {
+            let comment = spend.comment ?? ""
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: SpendViewCell.ID, for: indexPath) as! SpendViewCell
+            cell.icon.image = spend.category?.icon
+            cell.comment.text = comment.isEmpty ? spend.category?.name : comment
+            cell.sum.text = spend.getSumString()
+            cell.sumBase.text = spend.getBaseSumString()
+            cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
+            return cell
+        }
+        else if let tmark = item.tmark {
+            let cell = tableView.dequeueReusableCell(withIdentifier: StampViewCell.ID, for: indexPath) as! StampViewCell
+            cell.name.text = tmark.name
+            cell.backView.backgroundColor = tmark.color
+            cell.backView.layer.cornerRadius = 3
+            return cell
+        }
+
+        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return SpendViewCell.HEIGHT
+        let item = data[indexPath.section].getItem(ind: indexPath.row)
+        if item.spend != nil {
+            return SpendViewCell.HEIGHT
+        }
+
+        return StampViewCell.HEIGHT
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -128,6 +167,13 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        onSpendPressed?(data[indexPath.section].spends[indexPath.row])
+        let item = data[indexPath.section].getItem(ind: indexPath.row)
+        
+        if let spend = item.spend {
+            onSpendPressed?(spend)
+        }
+        else if let tmark = item.tmark {
+            onTMarkPressed?(tmark)
+        }
     }
 }

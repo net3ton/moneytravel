@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="StampViewCell" customModule="moneytravel" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m52-K5-Zlc">
+                    <rect key="frame" x="0.0" y="3" width="320" height="30"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qj-Ng-flB">
+                            <rect key="frame" x="51" y="0.0" width="269" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="2qj-Ng-flB" secondAttribute="trailing" id="anM-iu-2JS"/>
+                        <constraint firstAttribute="bottom" secondItem="2qj-Ng-flB" secondAttribute="bottom" id="ere-ZL-VE1"/>
+                        <constraint firstItem="2qj-Ng-flB" firstAttribute="leading" secondItem="m52-K5-Zlc" secondAttribute="leading" constant="51" id="mTs-Li-NWA"/>
+                        <constraint firstItem="2qj-Ng-flB" firstAttribute="top" secondItem="m52-K5-Zlc" secondAttribute="top" id="o9z-3e-7I3"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="m52-K5-Zlc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Z77-Qb-4yY"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="m52-K5-Zlc" secondAttribute="bottom" constant="3" id="gAv-EH-1I1"/>
+                <constraint firstItem="m52-K5-Zlc" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="k27-NV-5YK"/>
+                <constraint firstItem="m52-K5-Zlc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="3" id="lDA-Wb-m94"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="backView" destination="m52-K5-Zlc" id="Vws-FR-a7M"/>
+                <outlet property="name" destination="2qj-Ng-flB" id="cJ8-jp-avV"/>
+            </connections>
+        </view>
+    </objects>
+</document>

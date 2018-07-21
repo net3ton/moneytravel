@@ -20,6 +20,8 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     private var maxDate: Date?
     private var customDate: Date = Date()
 
+    private var timestamps: [MarkModel] = appTimestamps.fetchAll()
+
     private let CUSTOM = 0
     private let TODAY = 1
 
@@ -70,8 +72,11 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
 
     private func updateMark() {
-        let ind = appTimestamps.findIndex(date: historyDate.getDate())
-        if ind != -1 {
+        let index = timestamps.index { (tstamp) -> Bool in
+            return tstamp.date == historyDate.getDate()
+        }
+
+        if let ind = index {
             markPicker.selectRow(ind + PREMARKS.count, inComponent: 0, animated: false)
         }
     }
@@ -89,7 +94,7 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return PREMARKS.count + appTimestamps.marks.count
+        return PREMARKS.count + timestamps.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -97,7 +102,7 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             return PREMARKS[row]
         }
 
-        return appTimestamps.marks[row - PREMARKS.count].name
+        return timestamps[row - PREMARKS.count].name
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -108,7 +113,7 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             historyDate.setDate(date: Date())
         }
         else {
-            historyDate.setStamp(stamp: appTimestamps.marks[row - PREMARKS.count])
+            historyDate.setStamp(stamp: timestamps[row - PREMARKS.count])
         }
 
         updateDateText()
