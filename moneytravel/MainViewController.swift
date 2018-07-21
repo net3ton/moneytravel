@@ -72,7 +72,6 @@ class MainViewController: UIViewController {
         spendDelegate = SpendViewDelegate()
         spendDelegate?.onSpendPressed = showSpendInfo
         spendDelegate?.onTMarkPressed = showTMarkInfo
-        spendDelegate?.data = lastSpends.daily
         spendDelegate?.initClasses(for: spendView)
 
         spendView.delegate = spendDelegate
@@ -96,6 +95,9 @@ class MainViewController: UIViewController {
     }
 
     private func updateSpendsView() {
+        lastSpends.checkDays()
+        spendDelegate?.data = lastSpends.daily
+
         for constr in spendView.constraints {
             if constr.identifier == "height" {
                 constr.constant = spendDelegate!.getContentHeight()

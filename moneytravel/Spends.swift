@@ -179,7 +179,7 @@ class LastSpends {
         return appSpends.fetch(for: interval)
     }
 
-    private func checkDays() {
+    public func checkDays() {
         if !daily[0].isThisDay(Date()) {
             daily = fetchLast()
         }
