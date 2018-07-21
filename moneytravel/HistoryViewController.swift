@@ -28,6 +28,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
 
     var titlebar = Titlebar()
     var history: [DaySpends] = []
+    var mode: EHistoryMode = .History
 
     static var historyInterval: HistoryInterval?
 
@@ -61,7 +62,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         updateBarChartView()
         updatePieChartView()
 
-        changeMode(to: .History)
+        changeMode(to: mode)
     }
 
     //override func didReceiveMemoryWarning() {
@@ -186,6 +187,8 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
             }
         }
 
+        categoryView.reloadData()
+
         var chartData: [PieChartDataEntry] = []
         var chartColors: [UIColor] = []
 
@@ -232,7 +235,8 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
     }
 
     @IBAction func onSegmentChanged(_ sender: UISegmentedControl) {
-        changeMode(to: EHistoryMode(rawValue: sender.selectedSegmentIndex) ?? .History)
+        mode = EHistoryMode(rawValue: sender.selectedSegmentIndex) ?? .History
+        changeMode(to: mode)
     }
 
     private func changeMode(to mode: EHistoryMode) {
