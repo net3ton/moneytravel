@@ -168,6 +168,10 @@ class LastSpends {
     private(set) var daily: [DaySpends] = []
     
     init() {
+        reload()
+    }
+
+    public func reload() {
         daily = fetchLast()
     }
 
@@ -186,11 +190,21 @@ class LastSpends {
     }
 
     public func addSpend(_ spend: SpendModel) {
-        daily[0].add(spend)
+        for dayInfo in daily {
+            if dayInfo.isThisDay(spend.date!) {
+                dayInfo.add(spend)
+                break
+            }
+        }
     }
 
     public func addTMark(_ tmark: MarkModel) {
-        daily[0].add(tmark)
+        for dayInfo in daily {
+            if dayInfo.isThisDay(tmark.date!) {
+                dayInfo.add(tmark)
+                break
+            }
+        }
     }
 
     public func deleteSpend(_ spend: SpendModel) {
@@ -207,24 +221,12 @@ class LastSpends {
 
     public func updateSpend(_ spend: SpendModel) {
         deleteSpend(spend)
-
-        for dayInfo in daily {
-            if dayInfo.isThisDay(spend.date!) {
-                dayInfo.add(spend)
-                break
-            }
-        }
+        addSpend(spend)
     }
 
     public func updateTMark(_ tmark: MarkModel) {
         deleteTMark(tmark)
-        
-        for dayInfo in daily {
-            if dayInfo.isThisDay(tmark.date!) {
-                dayInfo.add(tmark)
-                break
-            }
-        }
+        addTMark(tmark)
     }
 }
 
@@ -293,14 +295,14 @@ class AppSpends {
         let spendEntity = NSEntityDescription.entity(forEntityName: "Spend", in: context)
         
         let spend = SpendModel(entity: spendEntity!, insertInto: context)
-        spend.category = category
+        spend.catid = category.uid
         spend.comment = comment
         spend.date = Date()
         spend.sum = sum
         spend.currency = curIso
         spend.bsum = bsum
         spend.bcurrency = bcurIso
-        spend.uid = UUID().uuidString
+        spend.uid = getUID()
 
         do {
             try context.save()

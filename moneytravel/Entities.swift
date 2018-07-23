@@ -11,27 +11,7 @@ import CoreData
 
 extension CodingUserInfoKey {
     static let context = CodingUserInfoKey(rawValue: "context")!
-    static let helper = CodingUserInfoKey(rawValue: "helper")!
 }
-
-class DecoderHepler {
-    private var categories: [CategoryModel] = []
-
-    public func addCategory(cat: CategoryModel) {
-        categories.append(cat)
-    }
-
-    public func getCategory(by uid: String) -> CategoryModel? {
-        for cat in categories {
-            if cat.uid == uid {
-                return cat
-            }
-        }
-        
-        return nil
-    }
-}
-
 
 @objc(CategoryModel)
 public class CategoryModel: NSManagedObject, Codable {
@@ -50,21 +30,18 @@ public class CategoryModel: NSManagedObject, Codable {
     
     // Decodable
     public required init(from decoder: Decoder) throws {
-        guard let helper = decoder.userInfo[.helper] as? DecoderHepler  else { fatalError() }
         guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else { fatalError() }
         guard let entity = NSEntityDescription.entity(forEntityName: "Category", in: context) else { fatalError() }
         super.init(entity: entity, insertInto: nil)
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         self.uid = try values.decode(String.self, forKey: .uid)
         self.name = try values.decode(String.self, forKey: .name)
         self.iconname = try values.decode(String.self, forKey: .iconname)
         self.colorvalue = try values.decode(Int32.self, forKey: .colorvalue)
         self.position = try values.decode(Int16.self, forKey: .position)
         self.removed = try values.decode(Bool.self, forKey: .removed)
-
-        helper.addCategory(cat: self)
     }
     
     // Encodable
@@ -82,7 +59,10 @@ public class CategoryModel: NSManagedObject, Codable {
 
 extension CategoryModel {
     var icon: UIImage? {
-        return UIImage(named: iconname!)
+        if let iconn = iconname {
+            return UIImage(named: iconn)
+        }
+        return nil
     }
     
     var color: UIColor {
@@ -107,7 +87,7 @@ public class MarkModel: NSManagedObject, Codable {
         case name
         case date
         case colorvalue = "color"
-        case comment = "comm"
+        //case comment = "comm"
         case removed = "rem"
     }
     
@@ -123,7 +103,7 @@ public class MarkModel: NSManagedObject, Codable {
         self.name = try values.decode(String.self, forKey: .name)
         self.date = try values.decode(Date.self, forKey: .date)
         self.colorvalue = try values.decode(Int32.self, forKey: .colorvalue)
-        self.comment = try values.decode(String.self, forKey: .comment)
+        //self.comment = try values.decode(String.self, forKey: .comment)
         self.removed = try values.decode(Bool.self, forKey: .removed)
     }
     
@@ -135,7 +115,7 @@ public class MarkModel: NSManagedObject, Codable {
         try container.encode(self.name, forKey: .name)
         try container.encode(self.date, forKey: .date)
         try container.encode(self.colorvalue, forKey: .colorvalue)
-        try container.encode(self.comment, forKey: .comment)
+        //try container.encode(self.comment, forKey: .comment)
         try container.encode(self.removed, forKey: .removed)
     }
 }
@@ -172,7 +152,6 @@ public class SpendModel: NSManagedObject, Codable {
     
     // Decodable
     public required init(from decoder: Decoder) throws {
-        guard let helper = decoder.userInfo[.helper] as? DecoderHepler  else { fatalError() }
         guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else { fatalError() }
         guard let entity = NSEntityDescription.entity(forEntityName: "Spend", in: context) else { fatalError() }
         super.init(entity: entity, insertInto: nil)
@@ -181,15 +160,13 @@ public class SpendModel: NSManagedObject, Codable {
         
         self.uid = try values.decode(String.self, forKey: .uid)
         self.date = try values.decode(Date.self, forKey: .date)
+        self.catid = try values.decode(String.self, forKey: .category)
         self.sum = try values.decode(Float.self, forKey: .sum)
         self.currency = try values.decode(String.self, forKey: .currency)
         self.bsum = try values.decode(Float.self, forKey: .bsum)
         self.bcurrency = try values.decode(String.self, forKey: .bcurrency)
         self.comment = try values.decode(String.self, forKey: .comment)
         self.removed = try values.decode(Bool.self, forKey: .removed)
-        
-        let catUid = try values.decode(String.self, forKey: .category)
-        self.category = helper.getCategory(by: catUid)
     }
     
     // Encodable
@@ -198,18 +175,21 @@ public class SpendModel: NSManagedObject, Codable {
         
         try container.encode(self.uid, forKey: .uid)
         try container.encode(self.date, forKey: .date)
+        try container.encode(self.catid, forKey: .category)
         try container.encode(self.sum, forKey: .sum)
         try container.encode(self.currency, forKey: .currency)
         try container.encode(self.bsum, forKey: .bsum)
         try container.encode(self.bcurrency, forKey: .bcurrency)
         try container.encode(self.comment, forKey: .comment)
         try container.encode(self.removed, forKey: .removed)
-        
-        try container.encode(self.category?.uid, forKey: .category)
     }
 }
 
 extension SpendModel {
+    var category: CategoryModel? {
+        return appCategories.getCategory(by: catid!)
+    }
+
     public func getSumString() -> String {
         return sum_to_string(sum: sum, currency: currency!)
     }

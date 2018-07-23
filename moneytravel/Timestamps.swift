@@ -36,7 +36,8 @@ class AppTimestamps {
         mark.name = name
         mark.date = date
         mark.color = color
-        mark.uid = UUID().uuidString
+        mark.comment = ""
+        mark.uid = getUID()
         
         do {
             try context.save()

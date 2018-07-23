@@ -67,7 +67,7 @@ class SpendViewController: UITableViewController {
         spendInfo?.bsum = sum / exchangeRate
         spendInfo?.currency = currency
         spendInfo?.comment = comment
-        spendInfo?.category = category
+        spendInfo?.catid = category?.uid
 
         appSpends.update(spend: spendInfo!)
     }

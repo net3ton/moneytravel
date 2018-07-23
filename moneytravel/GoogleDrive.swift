@@ -144,7 +144,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
                 return
             }
 
-            print("[Google Drive] File updated.")
+            print("[Google Drive] File updated: " + String(data.count))
             completion(true)
         }
     }

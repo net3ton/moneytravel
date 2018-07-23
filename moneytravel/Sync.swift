@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 let appSync = AppSync()
 
@@ -37,7 +38,7 @@ class AppSync {
             }
 
             if error == .none || error == .notFoundError {
-                self.syncUpload(to: fileId)
+                //self.syncUpload(to: fileId)
             }
             else {
                 print("[Sync] failed to download sync base!")
@@ -77,5 +78,27 @@ class AppSync {
         print("[Sync] timestamps: "  + String(appdata.timestamps.count))
         print("[Sync] categories: "  + String(appdata.categories.count))
         print("[Sync] spends: "  + String(appdata.spends.count))
+
+        let context = get_context()
+        //context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        context.mergePolicy = NSOverwriteMergePolicy
+
+        for tstamp in appdata.timestamps {
+            context.insert(tstamp)
+        }
+        for cat in appdata.categories {
+            context.insert(cat)
+        }
+        for spend in appdata.spends {
+            context.insert(spend)
+        }
+
+        get_delegate().saveContext()
+        print("[Sync] saved.")
+
+        DispatchQueue.main.async {
+            appCategories.reload()
+            lastSpends.reload()
+        }
     }
 }

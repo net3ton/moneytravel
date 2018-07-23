@@ -87,28 +87,10 @@ class AppData: Codable {
             }
         }
     }
-    
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-
-        self.baseId = try values.decode(String.self, forKey: .baseId)
-        self.baseVer = try values.decode(Int32.self, forKey: .baseVer)
-
-        self.categories = try values.decode([CategoryModel].self, forKey: .categories)
-        self.timestamps = try values.decode([MarkModel].self, forKey: .timestamps)
-
-        // should be the last
-        self.spends = try values.decode([SpendModel].self, forKey: .spends)
-    }
 
     static public func loadFromData(_ data: Data) -> AppData? {
-        let context = get_context()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
         let plistDecoder = PropertyListDecoder()
-        plistDecoder.userInfo[.context] = context
-        plistDecoder.userInfo[.helper] = DecoderHepler()
+        plistDecoder.userInfo[.context] = get_context()
 
         do {
             return try plistDecoder.decode(AppData.self, from: data)

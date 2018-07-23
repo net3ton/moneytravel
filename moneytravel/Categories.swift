@@ -9,29 +9,30 @@
 import UIKit
 import CoreData
 
+let DEFAULT_CATEGORIES = [
+    ("Food", "Products", "UID-Prods"),          // Products
+    ("House", "Rent", "UID-Rent"),              // Rent
+    ("Transport", "Transport", "UID-Trans"),    // Transport
+    ("Canteen", "Dinner", "UID-Dinner"),        // Dinner
+    ("Cafe", "Cafe", "UID-Cafe"),               // Cafe
+    ("Museum", "Museums", "UID-Museums"),       // Museums
+    ("Gift", "Gifts", "UID-Gifts"),             // Gifts
+    ("Clothes", "Clothes", "UID-Clothes"),      // Clothes
+    ("Entertain", "Entertain", "UID-Relax"),    // Relax
+    ("Mobile", "Mobile", "UID-Mobile"),         // Mobile
+]
+
 let appCategories = AppCategories()
 
 class AppCategories {
     private(set) var categories: [CategoryModel] = []
 
     init() {
-        initBase()
+        initCategories()
+        reload()
     }
-    
-    private func initBase() {
-        let catList = [
-            ("Food", "Food", "UID-Food"),
-            ("House", "Rent", "UID-Rent"),
-            ("Transport", "Transport", "UID-Transport"),
-            ("Canteen", "Canteen", "UID-Canteen"),
-            ("Cafe", "Cafe", "UID-Cafe"),
-            ("Museum", "Museums", "UID-Museum"),
-            ("Gift", "Gifts", "UID-Gifts"),
-            ("Clothes", "Clothes", "UID-Clothes"),
-            ("Entertain", "Entertain", "UID-Enertain"),
-            ("Mobile", "Mobile", "UID-Mobile"),
-        ]
 
+    private func initCategories() {
         let context = get_context()
         let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
         let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
@@ -40,7 +41,7 @@ class AppCategories {
             let count = try context.count(for: fetchRequest)
             if count == 0 {
                 var pos: Int16 = 0
-                for (iconname, name, uid) in catList {
+                for (iconname, name, uid) in DEFAULT_CATEGORIES {
                     let category = CategoryModel(entity: categoryEntity!, insertInto: context)
                     category.name = name
                     category.iconname = iconname
@@ -56,10 +57,12 @@ class AppCategories {
         catch let error {
             print("Failed to init categories! ERROR: " + error.localizedDescription)
         }
-
-        categories = fetchAll(removed: false)
     }
 
+    public func reload() {
+        categories = fetchAll(removed: false)
+    }
+    
     public func fetchAll(removed: Bool) -> [CategoryModel] {
         let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
         
@@ -85,7 +88,7 @@ class AppCategories {
         category.iconname = iconname
         category.color = color
         category.position = Int16(categories.count)
-        category.uid = UUID().uuidString
+        category.uid = getUID()
 
         do {
             try context.save()
@@ -124,6 +127,16 @@ class AppCategories {
                 categories[i].position = ind
             }
         }
+    }
+
+    public func getCategory(by uid: String) -> CategoryModel? {
+        for cat in categories {
+            if cat.uid == uid {
+                return cat
+            }
+        }
+
+        return nil
     }
 
     public func save() {
