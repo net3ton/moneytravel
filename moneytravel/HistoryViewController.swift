@@ -368,8 +368,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         }))
 
         export.addAction(UIAlertAction(title: "iTunes Shared Folder (json)", style: .default, handler: { (action) in
-            let historyData = AppData()
-            historyData.fetchHistory(self.history)
+            let historyData = AppData(history: self.history)
             historyData.exportToJSON(name: AppData.getExportName())
         }))
 

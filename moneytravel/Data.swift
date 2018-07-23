@@ -1,5 +1,5 @@
 //
-//  Categories.swift
+//  Data.swift
 //  moneytravel
 //
 //  Created by Aleksandr Kharkov on 22/05/2018.
@@ -9,255 +9,11 @@
 import UIKit
 import CoreData
 
-func num_to_string(sum: Float) -> String {
-    let formatter = NumberFormatter()
-    formatter.usesGroupingSeparator = true
-    formatter.groupingSeparator = "\u{00a0}" // non-breaking space
-    formatter.groupingSize = 3
-    formatter.maximumFractionDigits = 2
-    formatter.minimumFractionDigits = 2
-    formatter.minimumIntegerDigits = 1
+let appInfo = AppInfo()
 
-    return formatter.string(from: NSNumber(value: sum)) ?? "0.00"
-}
-
-func sum_to_string(sum: Float, currency: String) -> String {
-    return String.init(format: "%@ %@", num_to_string(sum: sum), currency)
-}
-
-func get_delegate() -> AppDelegate {
-    return UIApplication.shared.delegate as! AppDelegate
-}
-
-func get_context() -> NSManagedObjectContext {
-    return get_delegate().persistentContainer.viewContext
-}
-
-func top_view_controller(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
-    if let navigationController = controller as? UINavigationController {
-        return top_view_controller(controller: navigationController.visibleViewController)
-    }
-    if let tabController = controller as? UITabBarController {
-        if let selected = tabController.selectedViewController {
-            return top_view_controller(controller: selected)
-        }
-    }
-    if let presented = controller?.presentedViewController {
-        return top_view_controller(controller: presented)
-    }
-    return controller
-}
-
-private func int32_to_uicolor(_ val: Int32) -> UIColor {
-    let r: CGFloat = CGFloat(val & 0xFF) / 255.0
-    let g: CGFloat = CGFloat(val >> 8 & 0xFF) / 255.0
-    let b: CGFloat = CGFloat(val >> 16 & 0xFF) / 255.0
-    let a: CGFloat = CGFloat(val >> 24 & 0xFF) / 255.0
-
-    return UIColor(displayP3Red: r, green: g, blue: b, alpha: a)
-}
-
-private func uicolor_to_int32(_ val: UIColor) -> Int32 {
-    var r : CGFloat = 0
-    var g : CGFloat = 0
-    var b : CGFloat = 0
-    var a: CGFloat = 0
-    val.getRed(&r, green: &g, blue: &b, alpha: &a)
-
-    let ir = Int32(r * 255)
-    let ig = Int32(g * 255) << 8
-    let ib = Int32(b * 255) << 16
-    let ia = Int32(a * 255) << 24
-    return ia + ib + ig + ir
-}
-
-
-extension CodingUserInfoKey {
-    static let context = CodingUserInfoKey(rawValue: "context")!
-}
-
-
-@objc(CategoryModel)
-public class CategoryModel: NSManagedObject, Codable {
-    public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertInto: context)
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case name
-        case iconname = "icon"
-        case colorvalue = "color"
-        case position = "pos"
-        case removed = "rem"
-    }
-
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else { fatalError() }
-        guard let entity = NSEntityDescription.entity(forEntityName: "Category", in: context) else { fatalError() }
-        super.init(entity: entity, insertInto: nil)
-
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.name = try values.decode(String.self, forKey: .name)
-        self.iconname = try values.decode(String.self, forKey: .iconname)
-        self.colorvalue = try values.decode(Int32.self, forKey: .colorvalue)
-        self.position = try values.decode(Int16.self, forKey: .position)
-        self.removed = try values.decode(Bool.self, forKey: .removed)
-    }
-
-    // Encodable
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try container.encode(self.name, forKey: .name)
-        try container.encode(self.iconname, forKey: .iconname)
-        try container.encode(self.colorvalue, forKey: .colorvalue)
-        try container.encode(self.position, forKey: .position)
-        try container.encode(self.removed, forKey: .removed)
-    }
-
-    public func update(from: CategoryModel) {
-        self.name = from.name
-    }
-}
-
-extension CategoryModel {
-    var icon: UIImage? {
-        return UIImage(named: iconname!)
-    }
-
-    var color: UIColor {
-        get {
-            return int32_to_uicolor(colorvalue)
-        }
-        set {
-            colorvalue = uicolor_to_int32(newValue)
-        }
-    }
-}
-
-
-@objc(MarkModel)
-public class MarkModel: NSManagedObject, Codable {
-    public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertInto: context)
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case name
-        case date
-        case colorvalue = "color"
-        case removed = "rem"
-    }
-
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else { fatalError() }
-        guard let entity = NSEntityDescription.entity(forEntityName: "Mark", in: context) else { fatalError() }
-        super.init(entity: entity, insertInto: nil)
-
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-
-        self.name = try values.decode(String.self, forKey: .name)
-        self.date = try values.decode(Date.self, forKey: .date)
-        self.colorvalue = try values.decode(Int32.self, forKey: .colorvalue)
-        self.removed = try values.decode(Bool.self, forKey: .removed)
-    }
-
-    // Encodable
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try container.encode(self.name, forKey: .name)
-        try container.encode(self.date, forKey: .date)
-        try container.encode(self.colorvalue, forKey: .colorvalue)
-        try container.encode(self.removed, forKey: .removed)
-    }
-}
-
-extension MarkModel {
-    var color: UIColor {
-        get {
-            return int32_to_uicolor(colorvalue)
-        }
-        set {
-            colorvalue = uicolor_to_int32(newValue)
-        }
-    }
-}
-
-
-@objc(SpendModel)
-public class SpendModel: NSManagedObject, Codable {
-    public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertInto: context)
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case date
-        case category = "cat"
-        case sum
-        case currency = "iso"
-        case bsum
-        case bcurrency = "biso"
-        case comment = "comm"
-        case removed = "rem"
-    }
-
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else { fatalError() }
-        guard let entity = NSEntityDescription.entity(forEntityName: "Spend", in: context) else { fatalError() }
-        super.init(entity: entity, insertInto: nil)
-
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-
-        self.date = try values.decode(Date.self, forKey: .date)
-        self.sum = try values.decode(Float.self, forKey: .sum)
-        self.currency = try values.decode(String.self, forKey: .currency)
-        self.bsum = try values.decode(Float.self, forKey: .bsum)
-        self.bcurrency = try values.decode(String.self, forKey: .bcurrency)
-        self.comment = try values.decode(String.self, forKey: .comment)
-        self.removed = try values.decode(Bool.self, forKey: .removed)
-        
-        let catPosition = try values.decode(Int16.self, forKey: .category)
-        self.category = appCategories.getByPosition(catPosition)
-    }
-
-    // Encodable
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try container.encode(self.date, forKey: .date)
-        try container.encode(self.category?.position, forKey: .category)
-        try container.encode(self.sum, forKey: .sum)
-        try container.encode(self.currency, forKey: .currency)
-        try container.encode(self.bsum, forKey: .bsum)
-        try container.encode(self.bcurrency, forKey: .bcurrency)
-        try container.encode(self.comment, forKey: .comment)
-        try container.encode(self.removed, forKey: .removed)
-    }
-}
-
-extension SpendModel {
-    public func getSumString() -> String {
-        return sum_to_string(sum: sum, currency: currency!)
-    }
-
-    public func getBaseSumString() -> String {
-        return sum_to_string(sum: bsum, currency: bcurrency!)
-    }
-}
-
-
-class AppData: Codable {
-    private var baseVer: Int32 = 0
-    private var baseId: String = ""
-
-    private var categories: [CategoryModel] = []
-    private var timestamps: [MarkModel] = []
-    private var spends: [SpendModel] = []
+class AppInfo {
+    private(set) var baseVer: Int32 = 0
+    private(set) var baseId: String = ""
 
     init() {
         initData()
@@ -268,11 +24,11 @@ class AppData: Codable {
         baseId = UUID().uuidString
     }
 
-    public func initData() {
+    private func initData() {
         let context = get_context()
         let infoEntity = NSEntityDescription.entity(forEntityName: "Info", in: context)
         let fetchRequest = NSFetchRequest<InfoModel>(entityName: "Info")
-
+        
         do {
             let infos = try context.fetch(fetchRequest)
             if infos.isEmpty {
@@ -289,26 +45,41 @@ class AppData: Codable {
             }
         }
         catch let error {
-            print("Failed to init data! ERROR: " + error.localizedDescription)
+            print("Failed to init application info! ERROR: " + error.localizedDescription)
         }
     }
+}
 
-    public func fetchAllData() {
-        categories = appCategories.fetchAll(removed: false)
-        timestamps = appTimestamps.fetchAll(removed: false)
-        spends = appSpends.fetchAll(removed: false)
 
-        for spend in spends {
-            if let cat = spend.category, !categories.contains(cat) {
-                categories.append(cat)
-            }
-        }
+class AppData: Codable {
+    private(set) var baseVer: Int32
+    private(set) var baseId: String
+
+    private(set) var categories: [CategoryModel]
+    private(set) var timestamps: [MarkModel]
+    private(set) var spends: [SpendModel]
+
+    init() {
+        baseVer = appInfo.baseVer
+        baseId = appInfo.baseId
+
+        categories = appCategories.fetchAll(removed: true)
+        timestamps = appTimestamps.fetchAll(removed: true)
+        spends = appSpends.fetchAll(removed: true)
     }
 
-    public func fetchHistory(_ history: [DaySpends]) {
+    init(history: [DaySpends]) {
+        baseVer = appInfo.baseVer
+        baseId = appInfo.baseId
+
+        categories = []
+        timestamps = []
+        spends = []
+
         for daily in history {
             spends.append(contentsOf: daily.spends)
-
+            timestamps.append(contentsOf: daily.tmarks)
+            
             for spend in daily.spends {
                 if let cat = spend.category, !categories.contains(cat) {
                     categories.append(cat)
@@ -316,10 +87,28 @@ class AppData: Codable {
             }
         }
     }
+    
+    // Decodable
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
 
-    static public func load(from data: Data) -> AppData? {
+        self.baseId = try values.decode(String.self, forKey: .baseId)
+        self.baseVer = try values.decode(Int32.self, forKey: .baseVer)
+
+        self.categories = try values.decode([CategoryModel].self, forKey: .categories)
+        self.timestamps = try values.decode([MarkModel].self, forKey: .timestamps)
+
+        // should be the last
+        self.spends = try values.decode([SpendModel].self, forKey: .spends)
+    }
+
+    static public func loadFromData(_ data: Data) -> AppData? {
+        let context = get_context()
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
         let plistDecoder = PropertyListDecoder()
-        plistDecoder.userInfo[.context] = get_context()
+        plistDecoder.userInfo[.context] = context
+        plistDecoder.userInfo[.helper] = DecoderHepler()
 
         do {
             return try plistDecoder.decode(AppData.self, from: data)
@@ -329,12 +118,6 @@ class AppData: Codable {
         }
 
         return nil
-    }
-
-    static public func getExportName() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        return formatter.string(from: Date())
     }
 
     public func exportToData() -> Data? {
@@ -349,6 +132,12 @@ class AppData: Codable {
         }
 
         return nil
+    }
+
+    static public func getExportName() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        return formatter.string(from: Date())
     }
 
     public func exportToJSON(name: String) {
@@ -368,29 +157,4 @@ class AppData: Codable {
             print("Failed to export! ERROR: " + error.localizedDescription)
         }
     }
-
-    /*
-    private func findCategory(cats: [CategoryModel], uid: String) -> CategoryModel? {
-        for cat in cats {
-            if cat.uid == uid {
-                return cat
-            }
-        }
-
-        return nil
-    }
-
-    public func importToBase() {
-        let allCategories = appCategories.fetchAll(removed: true)
-
-        for cat in categories {
-            if let thiscat = findCategory(cats: allCategories, uid: cat.uid!) {
-                thiscat.update(from: cat)
-            }
-            else {
-                get_context().insert(cat)
-            }
-        }
-    }
-    */
 }

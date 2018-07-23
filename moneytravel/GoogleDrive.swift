@@ -12,6 +12,13 @@ import GoogleAPIClientForREST
 
 let appGoogleDrive = GoogleDrive()
 
+enum EGoogleDriveError {
+    case none
+    case notFoundError
+    case downloadError
+    case lookupError
+}
+
 class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
     private let sheetsService = GTLRSheetsService()
     private let driveService = GTLRDriveService()
@@ -47,7 +54,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         return GIDSignIn.sharedInstance().hasAuthInKeychain()
     }
 
-    public func downloadFromRoot(filename: String, completion: @escaping ((Data?) -> Void)) {
+    public func downloadFromRoot(filename: String, completion: @escaping ((Data?, String?, EGoogleDriveError) -> Void)) {
         let querySearch = GTLRDriveQuery_FilesList.query()
         querySearch.q = String.init(format: "name = '%@' and 'root' in parents", filename)
         querySearch.spaces = "drive"
@@ -56,12 +63,11 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         driveService.executeQuery(querySearch) { (ticket, result, error) -> Void in
             if error != nil {
                 print("[Google Drive] Failed to find file! Error: " + error!.localizedDescription)
-                completion(nil)
+                completion(nil, nil, .lookupError)
                 return
             }
 
             var fileId: String = ""
-
             if let filesList = result as? GTLRDrive_FileList {
                 if let files = filesList.files {
                     if !files.isEmpty {
@@ -72,65 +78,77 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
             }
 
             if fileId.isEmpty {
-                print("[Google Drive] Failed to find file!")
-                completion(nil)
+                print("[Google Drive] File not found!")
+                completion(nil, nil, .notFoundError)
                 return
             }
 
-            let queryGet = GTLRDriveQuery_FilesGet.query(withFileId: fileId)
+            let queryGet = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: fileId)
 
             self.driveService.executeQuery(queryGet) { (ticket, result, error) -> Void in
                 if error != nil {
                     print("[Google Drive] Failed to download file! Error: " + error!.localizedDescription)
-                    completion(nil)
+                    completion(nil, fileId, .downloadError)
                     return
                 }
 
                 if let file = result as? GTLRDataObject {
-                    print("File size = " + String(file.data.count))
-                    completion(file.data)
+                    print("[Google Drive] File size: " + String(file.data.count))
+                    completion(file.data, fileId, .none)
                     return
                 }
 
                 print("[Google Drive] Failed to download file!")
-                completion(nil)
+                completion(nil, fileId, .downloadError)
             }
         }
     }
 
-    public func uploadToRoot(data: Data, filename: String) {
-        
-    }
-    
-    /*
-    public func uploadPhoto(image: UIImage) {
+    public func uploadToRoot(data: Data, filename: String, completion: @escaping ((Bool) -> Void)) {
         let file = GTLRDrive_File()
-        file.name = "some name"
-        file.descriptionProperty = "Uploaded from Google Drive IOS"
-        file.mimeType = "image/png"
+        file.name = filename
+        file.descriptionProperty = "TravelMoney sync data"
+        file.mimeType = "application/x-binary"
 
-        let data = UIImagePNGRepresentation(image)
-
-        let uploadParameters = GTLRUploadParameters(data: data!, mimeType: file.mimeType!)
+        let uploadParameters = GTLRUploadParameters(data: data, mimeType: file.mimeType!)
         uploadParameters.shouldUploadWithSingleRequest = true
 
         let query = GTLRDriveQuery_FilesCreate.query(withObject: file, uploadParameters: uploadParameters)
-        query.fields = "id"
-        //let waitIndicator = self.showWaitIndicator("Uploading To Google Drive")
-        
+        //query.fields = "id"
+
         driveService.executeQuery(query) { (ticket, insertedFile, error) -> Void in
-            let myFile = insertedFile as? GTLDriveFile
-            //waitIndicator.dismissWithClickedButtonIndex(0, animated: true)
-            if error == nil {
-                println("File ID \(myFile?.identifier)")
-            } else {
-                println("An Error Occurred! \(error)")
+            if let error = error {
+                print("[Google Drive] Failed to upload file! Error: " + error.localizedDescription)
+                completion(false)
+                return
             }
-            
+
+            //let file = insertedFile as? GTLRDrive_File
+            //print("[Google Drive] File upload complete, id: " + file?.identifier)
+
+            print("[Google Drive] File uploaded: " + String(data.count))
+            completion(true)
         }
     }
-    */
-    
+
+    public func updateFile(data: Data, fileid: String, completion: @escaping ((Bool) -> Void)) {
+        let uploadParameters = GTLRUploadParameters(data: data, mimeType: "application/x-binary")
+        uploadParameters.shouldUploadWithSingleRequest = true
+
+        let query = GTLRDriveQuery_FilesUpdate.query(withObject: GTLRDrive_File(), fileId: fileid, uploadParameters: uploadParameters)
+        
+        driveService.executeQuery(query) { (ticket, result, error) -> Void in
+            if let error = error {
+                print("[Google Drive] Failed to update file! Error: " + error.localizedDescription)
+                completion(false)
+                return
+            }
+
+            print("[Google Drive] File updated.")
+            completion(true)
+        }
+    }
+
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print("[Google Drive] Failed to sign in! ERROR: " + error.localizedDescription)

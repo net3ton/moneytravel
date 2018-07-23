@@ -233,22 +233,19 @@ let appSpends = AppSpends()
 
 class AppSpends {
     public func fetchAll(removed: Bool) -> [SpendModel] {
-        var result: [SpendModel] = []
-
-        let context = get_context()
         let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
 
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
             fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
 
-            result = try context.fetch(fetchRequest)
+            return try get_context().fetch(fetchRequest)
         }
         catch let error {
             print("Failed to fetch all spend records! ERROR: " + error.localizedDescription)
         }
 
-        return result
+        return []
     }
 
     public func fetch(for interval: HistoryInterval) -> [DaySpends] {
@@ -303,7 +300,7 @@ class AppSpends {
         spend.currency = curIso
         spend.bsum = bsum
         spend.bcurrency = bcurIso
-        //spend.uid = UUID().uuidString
+        spend.uid = UUID().uuidString
 
         do {
             try context.save()

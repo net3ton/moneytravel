@@ -13,22 +13,19 @@ let appTimestamps = AppTimestamps()
 
 class AppTimestamps {
     public func fetchAll(removed: Bool = false) -> [MarkModel] {
-        var result: [MarkModel] = []
-        
-        let context = get_context()
         let fetchRequest = NSFetchRequest<MarkModel>(entityName: "Mark")
         
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
             fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
 
-            result = try context.fetch(fetchRequest)
+            return try get_context().fetch(fetchRequest)
         }
         catch let error {
             print("Failed to fetch timestamps! ERROR: " + error.localizedDescription)
         }
         
-        return result
+        return []
     }
 
     public func add(name: String, date: Date, color: UIColor) {
@@ -39,6 +36,7 @@ class AppTimestamps {
         mark.name = name
         mark.date = date
         mark.color = color
+        mark.uid = UUID().uuidString
         
         do {
             try context.save()
@@ -50,21 +48,7 @@ class AppTimestamps {
     }
 
     public func add(name: String) {
-        let context = get_context()
-        let markEntity = NSEntityDescription.entity(forEntityName: "Mark", in: context)
-        
-        let mark = MarkModel(entity: markEntity!, insertInto: context)
-        mark.name = name
-        mark.date = Date()
-        mark.color = TIMESTAMP_DEFAULT
-        
-        do {
-            try context.save()
-            lastSpends.addTMark(mark)
-        }
-        catch let error {
-            print("Failed to add timestamp! ERROR: " + error.localizedDescription)
-        }
+        add(name: name, date: Date(), color: TIMESTAMP_DEFAULT)
     }
     
     public func find(for date: Date) -> MarkModel? {

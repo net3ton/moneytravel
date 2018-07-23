@@ -13,7 +13,6 @@ let appCategories = AppCategories()
 
 class AppCategories {
     private(set) var categories: [CategoryModel] = []
-    private(set) var unknown: CategoryModel? = nil
 
     init() {
         initBase()
@@ -21,16 +20,16 @@ class AppCategories {
     
     private func initBase() {
         let catList = [
-            ("Food", "Food"),
-            ("House", "Rent"),
-            ("Transport", "Transport"),
-            ("Canteen", "Canteen"),
-            ("Cafe", "Cafe"),
-            ("Museum", "Museums"),
-            ("Gift", "Gifts"),
-            ("Clothes", "Clothes"),
-            ("Entertain", "Entertain"),
-            ("Mobile", "Mobile"),
+            ("Food", "Food", "UID-Food"),
+            ("House", "Rent", "UID-Rent"),
+            ("Transport", "Transport", "UID-Transport"),
+            ("Canteen", "Canteen", "UID-Canteen"),
+            ("Cafe", "Cafe", "UID-Cafe"),
+            ("Museum", "Museums", "UID-Museum"),
+            ("Gift", "Gifts", "UID-Gifts"),
+            ("Clothes", "Clothes", "UID-Clothes"),
+            ("Entertain", "Entertain", "UID-Enertain"),
+            ("Mobile", "Mobile", "UID-Mobile"),
         ]
 
         let context = get_context()
@@ -41,12 +40,13 @@ class AppCategories {
             let count = try context.count(for: fetchRequest)
             if count == 0 {
                 var pos: Int16 = 0
-                for (iconname, name) in catList {
+                for (iconname, name, uid) in catList {
                     let category = CategoryModel(entity: categoryEntity!, insertInto: context)
                     category.name = name
                     category.iconname = iconname
                     category.color = CATEGORY_DEFAULT
                     category.position = pos
+                    category.uid = uid
                     pos += 1
                 }
                 
@@ -58,28 +58,22 @@ class AppCategories {
         }
 
         categories = fetchAll(removed: false)
-        if !categories.isEmpty {
-            unknown = categories[0]
-        }
     }
 
     public func fetchAll(removed: Bool) -> [CategoryModel] {
-        var result: [CategoryModel] = []
-        
-        let context = get_context()
         let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
         
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "position", ascending: true)]
             fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
 
-            result = try context.fetch(fetchRequest)
+            return try get_context().fetch(fetchRequest)
         }
         catch let error {
             print("Failed to fetch categories! ERROR: " + error.localizedDescription)
         }
-        
-        return result
+
+        return []
     }
 
     public func add(name: String, iconname: String, color: UIColor) {
@@ -91,6 +85,7 @@ class AppCategories {
         category.iconname = iconname
         category.color = color
         category.position = Int16(categories.count)
+        category.uid = UUID().uuidString
 
         do {
             try context.save()
@@ -129,16 +124,6 @@ class AppCategories {
                 categories[i].position = ind
             }
         }
-    }
-
-    public func getByPosition(_ pos: Int16?) -> CategoryModel? {
-        for cat in categories {
-            if cat.position == pos {
-                return cat
-            }
-        }
-
-        return unknown
     }
 
     public func save() {

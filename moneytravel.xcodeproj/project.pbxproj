@@ -48,6 +48,9 @@
 		217648AE20FE29BF00F3488F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217648AD20FE29BF00F3488F /* AboutViewController.swift */; };
 		2199212720DC0F7C00CE1355 /* GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199212620DC0F7C00CE1355 /* GoogleDrive.swift */; };
 		21D1A8A021035B7E0033B419 /* StampViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21D1A89F21035B7E0033B419 /* StampViewCell.xib */; };
+		21D1A8A22104D9070033B419 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A12104D9070033B419 /* Sync.swift */; };
+		21D1A8A42105E2EA0033B419 /* Funcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A32105E2EA0033B419 /* Funcs.swift */; };
+		21D1A8A62105E3B90033B419 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A52105E3B90033B419 /* Entities.swift */; };
 		21FCDDAF20CBC9A50044567F /* SumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCDDAE20CBC9A50044567F /* SumViewController.swift */; };
 		5135793554F743AF4C1CE493 /* Pods_moneytravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F921507761A61B02C61AB36B /* Pods_moneytravel.framework */; };
 /* End PBXBuildFile section */
@@ -96,6 +99,9 @@
 		217648AD20FE29BF00F3488F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		2199212620DC0F7C00CE1355 /* GoogleDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDrive.swift; sourceTree = "<group>"; };
 		21D1A89F21035B7E0033B419 /* StampViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StampViewCell.xib; sourceTree = "<group>"; };
+		21D1A8A12104D9070033B419 /* Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
+		21D1A8A32105E2EA0033B419 /* Funcs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
+		21D1A8A52105E3B90033B419 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		21FCDDAE20CBC9A50044567F /* SumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumViewController.swift; sourceTree = "<group>"; };
 		86E3EB6618F4B8034CD26603 /* Pods-moneytravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneytravel.release.xcconfig"; path = "Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel.release.xcconfig"; sourceTree = "<group>"; };
 		A63F8C7ECDE3868633526887 /* Pods-moneytravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneytravel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,7 +180,10 @@
 				2174F4AE20B574E500B6E381 /* SpendViewCell.xib */,
 				2103DA1C20C46CEE003B027D /* SpendViewHeader.xib */,
 				21D1A89F21035B7E0033B419 /* StampViewCell.xib */,
+				21D1A8A32105E2EA0033B419 /* Funcs.swift */,
+				21D1A8A52105E3B90033B419 /* Entities.swift */,
 				2174F4A920B44B9800B6E381 /* Data.swift */,
+				21D1A8A12104D9070033B419 /* Sync.swift */,
 				2114F14320D678FC00BB40CB /* Spends.swift */,
 				2114F14120D6789600BB40CB /* Categories.swift */,
 				2114F14520D85ABC00BB40CB /* Timestamps.swift */,
@@ -353,6 +362,7 @@
 				21FCDDAF20CBC9A50044567F /* SumViewController.swift in Sources */,
 				2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */,
 				2174F4AA20B44B9800B6E381 /* Data.swift in Sources */,
+				21D1A8A42105E2EA0033B419 /* Funcs.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
 				2103DA3320C939E0003B027D /* DateViewController.swift in Sources */,
@@ -364,8 +374,10 @@
 				2114F14220D6789600BB40CB /* Categories.swift in Sources */,
 				2199212720DC0F7C00CE1355 /* GoogleDrive.swift in Sources */,
 				2174F4AF20B574E500B6E381 /* SpendView.swift in Sources */,
+				21D1A8A22104D9070033B419 /* Sync.swift in Sources */,
 				2114F13C20D25D6900BB40CB /* History.swift in Sources */,
 				2103DA2D20C720BC003B027D /* ColorsViewController.swift in Sources */,
+				21D1A8A62105E3B90033B419 /* Entities.swift in Sources */,
 				2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */,
 				2114F14020D50CDF00BB40CB /* TStampViewController.swift in Sources */,
 				2174F4A720B4448E00B6E381 /* CategoryViewCell.swift in Sources */,
