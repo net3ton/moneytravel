@@ -16,6 +16,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tE-bG-LaQ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.18039215689999999" green="0.31372549020000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="elP-fi-6FI"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m52-K5-Zlc">
                     <rect key="frame" x="0.0" y="3" width="320" height="30"/>
                     <subviews>
@@ -34,17 +41,33 @@
                         <constraint firstItem="2qj-Ng-flB" firstAttribute="top" secondItem="m52-K5-Zlc" secondAttribute="top" id="o9z-3e-7I3"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTD-KK-4y2">
+                    <rect key="frame" x="0.0" y="35" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.18039215689999999" green="0.31372549020000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Iry-FL-ZBo"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="uX9-3g-uvi"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="7tE-bG-LaQ" secondAttribute="trailing" id="1Hq-uz-DCe"/>
+                <constraint firstItem="PTD-KK-4y2" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="EhI-p3-Xlk"/>
+                <constraint firstItem="7tE-bG-LaQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JZW-65-dXZ"/>
+                <constraint firstAttribute="trailing" secondItem="PTD-KK-4y2" secondAttribute="trailing" id="K1x-4C-IhZ"/>
                 <constraint firstItem="m52-K5-Zlc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Z77-Qb-4yY"/>
+                <constraint firstItem="7tE-bG-LaQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="eDX-bf-AuQ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="m52-K5-Zlc" secondAttribute="bottom" constant="3" id="gAv-EH-1I1"/>
                 <constraint firstItem="m52-K5-Zlc" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="k27-NV-5YK"/>
                 <constraint firstItem="m52-K5-Zlc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="3" id="lDA-Wb-m94"/>
+                <constraint firstItem="PTD-KK-4y2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vec-lb-cTn"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="backLine1" destination="7tE-bG-LaQ" id="Pfy-g6-7eP"/>
+                <outlet property="backLine2" destination="PTD-KK-4y2" id="sV2-s5-Jex"/>
                 <outlet property="backView" destination="m52-K5-Zlc" id="Vws-FR-a7M"/>
                 <outlet property="name" destination="2qj-Ng-flB" id="cJ8-jp-avV"/>
             </connections>

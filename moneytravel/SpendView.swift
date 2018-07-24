@@ -30,6 +30,20 @@ class StampViewCell: UITableViewCell {
 
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var backLine1: UIView!
+    @IBOutlet weak var backLine2: UIView!
+    
+    public var color: UIColor {
+        set {
+            backView.backgroundColor = newValue
+            backView.layer.cornerRadius = 3
+            backLine1.backgroundColor = newValue
+            backLine2.backgroundColor = newValue
+        }
+        get {
+            return UIColor.white
+        }
+    }
 
     public static func getNib() -> UINib {
         return UINib.init(nibName: "StampViewCell", bundle: nil)
@@ -121,8 +135,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         else if let tmark = item.tmark {
             let cell = tableView.dequeueReusableCell(withIdentifier: StampViewCell.ID, for: indexPath) as! StampViewCell
             cell.name.text = tmark.name
-            cell.backView.backgroundColor = tmark.color
-            cell.backView.layer.cornerRadius = 3
+            cell.color = tmark.color
             return cell
         }
 
