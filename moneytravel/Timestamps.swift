@@ -28,7 +28,7 @@ class AppTimestamps {
         return []
     }
 
-    public func add(name: String, date: Date, color: UIColor) {
+    public func add(name: String, date: Date, color: UIColor, comment: String) {
         let context = get_context()
         let markEntity = NSEntityDescription.entity(forEntityName: "Mark", in: context)
         
@@ -36,7 +36,7 @@ class AppTimestamps {
         mark.name = name
         mark.date = date
         mark.color = color
-        mark.comment = ""
+        mark.comment = comment
         mark.uid = getUID()
         
         do {
@@ -49,7 +49,7 @@ class AppTimestamps {
     }
 
     public func add(name: String) {
-        add(name: name, date: Date(), color: TIMESTAMP_DEFAULT)
+        add(name: name, date: Date(), color: TIMESTAMP_DEFAULT, comment: "")
     }
     
     public func find(for date: Date) -> MarkModel? {

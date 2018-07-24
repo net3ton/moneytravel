@@ -11,9 +11,11 @@ import UIKit
 class TStampViewController: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var colorView: UIView!
 
     private var name: String = ""
+    private var comment: String = ""
     private var date: Date = Date()
     private var color: UIColor = TIMESTAMP_DEFAULT
 
@@ -49,17 +51,19 @@ class TStampViewController: UITableViewController {
         markToSave = mark
         
         if let mk = mark {
-            name = mk.name!
-            date = mk.date!
+            name = mk.name ?? ""
+            comment = mk.comment ?? ""
+            date = mk.date ?? Date()
             color = mk.color
         }
     }
 
     private func updateInfo() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm, dd LLLL yyyy"
+        formatter.dateFormat = "HH:mm, dd LLLL"
 
         nameLabel.text = name
+        commentLabel.text = comment
         dateLabel.text = formatter.string(from: date)
         colorView.backgroundColor = color
     }
@@ -68,11 +72,12 @@ class TStampViewController: UITableViewController {
         if markToSave != nil {
             markToSave!.name = name
             markToSave!.date = date
+            markToSave!.comment = comment
             markToSave!.color = color
             appTimestamps.update(stamp: markToSave!)
         }
         else {
-            appTimestamps.add(name: name, date: date, color: color)
+            appTimestamps.add(name: name, date: date, color: color, comment: comment)
         }
 
         navigationController?.popViewController(animated: true)
@@ -121,6 +126,14 @@ class TStampViewController: UITableViewController {
             nameEdit.setup(caption: "Name", text: name)
             nameEdit.onTextEntered = { text in
                 self.name = text
+                self.updateInfo()
+            }
+        }
+        else if segue.identifier == "mark-comment" {
+            let nameEdit = segue.destination as! TextViewController
+            nameEdit.setup(caption: "Comment", text: comment)
+            nameEdit.onTextEntered = { text in
+                self.comment = text
                 self.updateInfo()
             }
         }

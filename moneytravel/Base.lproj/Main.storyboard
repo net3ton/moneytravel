@@ -1070,8 +1070,35 @@
                                             <segue destination="HmL-D8-EC0" kind="show" identifier="mark-date" id="OoV-2g-oq0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="xCc-Er-Uo6">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ohg-yG-XQh" detailTextLabel="zfs-ac-BXS" style="IBUITableViewCellStyleValue1" id="IdZ-mP-jww">
                                         <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IdZ-mP-jww" id="I1Z-Bf-I86">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ohg-yG-XQh">
+                                                    <rect key="frame" x="16" y="12" width="75" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zfs-ac-BXS">
+                                                    <rect key="frame" x="296" y="12" width="44" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="biA-Ax-vOv" kind="show" identifier="mark-comment" id="eXu-lg-dbX"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="xCc-Er-Uo6">
+                                        <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xCc-Er-Uo6" id="e3m-IV-rm8">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -1108,7 +1135,7 @@
                             <tableViewSection id="0xf-FE-GeU">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="JcL-ks-EQB" style="IBUITableViewCellStyleDefault" id="5Wq-1a-Ugs">
-                                        <rect key="frame" x="0.0" y="223.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="267.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Wq-1a-Ugs" id="kZQ-WE-GgG">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -1134,6 +1161,7 @@
                     </tableView>
                     <connections>
                         <outlet property="colorView" destination="s0B-n6-VrP" id="rH8-lq-oEo"/>
+                        <outlet property="commentLabel" destination="zfs-ac-BXS" id="jEP-u4-G36"/>
                         <outlet property="dateLabel" destination="ebJ-Zc-etb" id="g6O-HI-Fkn"/>
                         <outlet property="nameLabel" destination="wob-jC-3Cb" id="TBj-Mo-xzm"/>
                     </connections>
@@ -1541,11 +1569,11 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZT-Sl-smY">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="263"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <mutableString key="text">Thank you for using this app!
+                                                <string key="text">Thank you for using this app!
 
 When I've been travelling I tried to find application for counting my spends. I wanted it simple and usefull and tried a lot of apps but couldn't found the one fitting my needs. So, eventually I've made it myself.
 
-This app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can connect me on twitter: @net3ton</mutableString>
+This app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can connect me on twitter: @net3ton</string>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -1667,7 +1695,7 @@ This app will never get any kind of ads or locked functionality. Enjoy!  Che
     <inferredMetricsTieBreakers>
         <segue reference="niY-mj-zTj"/>
         <segue reference="HOb-f8-dUf"/>
-        <segue reference="H1a-hr-aTw"/>
+        <segue reference="eXu-lg-dbX"/>
         <segue reference="OoV-2g-oq0"/>
         <segue reference="suk-zx-JGQ"/>
     </inferredMetricsTieBreakers>
