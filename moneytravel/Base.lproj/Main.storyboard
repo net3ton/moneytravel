@@ -142,7 +142,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="luh-hd-IbG">
-                                <rect key="frame" x="20" y="60" width="335" height="30"/>
+                                <rect key="frame" x="20" y="104" width="335" height="30"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="jgL-LB-huI">
                                         <rect key="frame" x="0.0" y="0.0" width="286.5" height="30"/>
@@ -193,7 +193,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zge-Un-RdH">
-                                        <rect key="frame" x="16" y="20" width="343" height="568"/>
+                                        <rect key="frame" x="16" y="20" width="343" height="592"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HbG-M0-LdV">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
@@ -263,8 +263,14 @@
                                                 </constraints>
                                                 <sections/>
                                             </tableView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" HINT: Select a day to see details, pinch to scale" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CM-ed-3G1">
+                                                <rect key="frame" x="0.0" y="468" width="343" height="16"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xyn-L3-czR">
-                                                <rect key="frame" x="0.0" y="468" width="343" height="100"/>
+                                                <rect key="frame" x="0.0" y="492" width="343" height="100"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" identifier="height" id="trm-r9-TKt"/>
@@ -295,6 +301,7 @@
                         <outlet property="barchartView" destination="rEI-lm-cD2" id="y22-ux-zry"/>
                         <outlet property="categoryView" destination="xyn-L3-czR" id="HhU-wT-iBU"/>
                         <outlet property="dateRangeView" destination="HbG-M0-LdV" id="jr5-O0-b85"/>
+                        <outlet property="helpLabel" destination="5CM-ed-3G1" id="amw-Dh-RhQ"/>
                         <outlet property="historyView" destination="hEu-58-iUe" id="hL2-zp-HzY"/>
                         <outlet property="piechartView" destination="snC-Mz-6gE" id="cKg-60-rEA"/>
                     </connections>
@@ -620,11 +627,11 @@
                                         <rect key="frame" x="0.0" y="675.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kqH-33-4Mz" id="bcI-3U-xeV">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Support developer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="06R-QD-T8j">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1222,7 +1229,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K9U-nC-d2H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="967" y="925"/>
+            <point key="canvasLocation" x="966" y="925"/>
         </scene>
         <!--Category View Controller-->
         <scene sceneID="ghy-Kf-eHw">
@@ -1693,10 +1700,10 @@ This app will never get any kind of ads or locked functionality. Enjoy!  Che
         <image name="Settings" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="niY-mj-zTj"/>
+        <segue reference="VQN-rU-OQc"/>
         <segue reference="HOb-f8-dUf"/>
         <segue reference="eXu-lg-dbX"/>
         <segue reference="OoV-2g-oq0"/>
-        <segue reference="suk-zx-JGQ"/>
+        <segue reference="C08-Ph-qZ5"/>
     </inferredMetricsTieBreakers>
 </document>

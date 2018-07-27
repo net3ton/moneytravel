@@ -21,13 +21,15 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var categoryView: UITableView!
     @IBOutlet weak var barchartView: BarChartView!
     @IBOutlet weak var piechartView: PieChartView!
-
+    @IBOutlet weak var helpLabel: UILabel!
+    
     var dateRangeDelegate: DateViewDelegate?
     var historyDelegate: SpendViewDelegate?
     var categoryDelegate: CategoryViewDelegate?
 
     var titlebar = Titlebar()
     var history: [DaySpends] = []
+    var selectedDay: Int = -1
     var mode: EHistoryMode = .History
 
     static var historyInterval: HistoryInterval?
@@ -55,6 +57,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        selectedDay = -1
         history = appSpends.fetch(for: HistoryViewController.historyInterval!)
         updateHeader(with: history)
         dateRangeView.reloadData()
@@ -69,21 +72,39 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
     //    super.didReceiveMemoryWarning()
     //}
 
-    /// ChartViewDelegate
+    /// ChartViewDelegate (bar chart click)
     internal func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        showHistoryDay(ind: Int(entry.x))
+        helpLabel.isHidden = true
+        selectedDay = Int(entry.x)
+        showHistoryDay(ind: selectedDay)
+    }
+
+    private func showHistoryDay(ind: Int) {
+        let day = historyDay(ind: ind)
+        showHistory(days: (day != nil) ? [day!] : [])
+    }
+    
+    private func historyDay(ind: Int) -> DaySpends? {
+        if ind < 0 || ind >= history.count {
+            return nil
+        }
+
+        let invertedInd = history.count - ind - 1
+        return history[invertedInd]
     }
 
     private func updateBarChartView() {
         var chartData: [BarChartDataEntry] = []
         var chartLabels: [String] = []
         for i in 0..<history.count {
-            let entry = BarChartDataEntry(x: Double(i), y: Double(history[i].getSpendSum()))
-            chartData.append(entry)
+            if let historyData = historyDay(ind: i) {
+                let entry = BarChartDataEntry(x: Double(i), y: Double(historyData.getSpendSum()))
+                chartData.append(entry)
 
-            let form = DateFormatter()
-            form.dateFormat = "dd.MM"
-            chartLabels.append(form.string(from: history[i].date))
+                let form = DateFormatter()
+                form.dateFormat = "dd.MM"
+                chartLabels.append(form.string(from: historyData.date))
+            }
         }
 
         class ValueFormatter: IValueFormatter {
@@ -225,7 +246,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         piechartView.legend.enabled = false
         piechartView.noDataText = "Empty"
         piechartView.data = PieChartData(dataSets: [chartDataSet])
-        piechartView.isUserInteractionEnabled = true
+        //piechartView.isUserInteractionEnabled = true
 
         for constr in piechartView.constraints {
             if constr.identifier == "height" {
@@ -242,22 +263,30 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
     private func changeMode(to mode: EHistoryMode) {
         switch mode {
         case .Tendency:
-            historyView.isHidden = false
-            categoryView.isHidden = true
             barchartView.isHidden = false
-            piechartView.isHidden = true
-            showHistoryDay(ind: 0)
-        case .Categories:
-            historyView.isHidden = true
-            categoryView.isHidden = false
-            barchartView.isHidden = true
-            piechartView.isHidden = false
-        default:
             historyView.isHidden = false
+            showHistoryDay(ind: selectedDay)
+            helpLabel.isHidden = (selectedDay != -1)
+
+            categoryView.isHidden = true
+            piechartView.isHidden = true
+
+        case .Categories:
+            categoryView.isHidden = false
+            piechartView.isHidden = false
+
+            historyView.isHidden = true
+            barchartView.isHidden = true
+            helpLabel.isHidden = true
+
+        default: // .History
+            historyView.isHidden = false
+            showHistory(days: history)
+
             categoryView.isHidden = true
             barchartView.isHidden = true
             piechartView.isHidden = true
-            updateHistoryView()
+            helpLabel.isHidden = true
         }
     }
 
@@ -285,15 +314,6 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         
         view.setup(mark: tmark)
         navigationController?.pushViewController(view, animated: true)
-    }
-
-    private func updateHistoryView() {
-        showHistory(days: history)
-    }
-
-    private func showHistoryDay(ind: Int) {
-        let days: [DaySpends] = (ind >= 0 && ind < history.count) ? [history[ind]] : []
-        showHistory(days: days)
     }
 
     private func showHistory(days: [DaySpends]) {
@@ -355,7 +375,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         }
 
         titlebar.sum = sum
-        titlebar.daily = sum / Float(history.count)
+        titlebar.days = history.count
     }
 
     @objc func onExport() {
