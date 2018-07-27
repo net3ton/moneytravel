@@ -236,7 +236,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
 
         chartDataSet.valueLineColor = COLOR_TEXT_BLUE
 
-        chartDataSet.sliceSpace = 2
+        chartDataSet.sliceSpace = 1
         chartDataSet.yValuePosition = .outsideSlice
         chartDataSet.valueLinePart1OffsetPercentage = 0.85
         //chartDataSet.valueLinePart1Length = 0.2
@@ -246,7 +246,27 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         piechartView.legend.enabled = false
         piechartView.noDataText = "Empty"
         piechartView.data = PieChartData(dataSets: [chartDataSet])
-        //piechartView.isUserInteractionEnabled = true
+        piechartView.rotationWithTwoFingers = true
+
+        /// info
+        let titleParagraphStyle = NSMutableParagraphStyle()
+        titleParagraphStyle.alignment = .center
+        
+        let dictMain = [
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16),
+            NSAttributedStringKey.paragraphStyle: titleParagraphStyle
+        ]
+
+        let dictDays = [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12),
+            NSAttributedStringKey.paragraphStyle: titleParagraphStyle
+        ]
+        
+        let pieInfo: NSMutableAttributedString = NSMutableAttributedString()
+        pieInfo.append(NSAttributedString(string: titlebar.sumStr + "\n", attributes: dictMain))
+        pieInfo.append(NSAttributedString(string: titlebar.daysStr, attributes: dictDays))
+
+        piechartView.centerAttributedText = pieInfo
 
         for constr in piechartView.constraints {
             if constr.identifier == "height" {

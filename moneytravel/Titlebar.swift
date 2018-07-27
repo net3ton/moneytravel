@@ -18,6 +18,10 @@ class Titlebar: UIView {
         }
     }
 
+    public var sumStr: String {
+        return labelCaption.text ?? ""
+    }
+    
     public var days: Int = 1 {
         didSet {
             days = max(days, 1)
@@ -25,6 +29,10 @@ class Titlebar: UIView {
             let daily: Float = sum / Float(days)
             labelInfo.text = String(format: "%@ / day (%i days)", num_to_string(sum: daily), days)
         }
+    }
+
+    public var daysStr: String {
+        return String(format: "%i days", days)
     }
 
     init() {
