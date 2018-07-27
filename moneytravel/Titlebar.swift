@@ -12,21 +12,18 @@ class Titlebar: UIView {
     private var labelCaption = UILabel()
     private var labelInfo = UILabel()
 
-    public var sum: Float {
-        set {
-            labelCaption.text = sum_to_string(sum: newValue, currency: appSettings.currencyBase)
-        }
-        get {
-            return 0
+    public var sum: Float = 0.0 {
+        didSet {
+            labelCaption.text = sum_to_string(sum: sum, currency: appSettings.currencyBase)
         }
     }
 
-    public var daily: Float {
-        set {
-            labelInfo.text = String(format: "%@ / day", num_to_string(sum: newValue))
-        }
-        get {
-            return 0
+    public var days: Int = 1 {
+        didSet {
+            days = max(days, 1)
+
+            let daily: Float = sum / Float(days)
+            labelInfo.text = String(format: "%@ / day (%i days)", num_to_string(sum: daily), days)
         }
     }
 
