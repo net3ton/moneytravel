@@ -627,11 +627,11 @@
                                         <rect key="frame" x="0.0" y="675.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kqH-33-4Mz" id="bcI-3U-xeV">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Support developer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="06R-QD-T8j">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1567,96 +1567,83 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NPy-cA-jFX">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="D8B-Uj-YWc">
+                                <rect key="frame" x="16" y="84" width="343" height="563"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="D8B-Uj-YWc">
-                                        <rect key="frame" x="16" y="16" width="343" height="564"/>
-                                        <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZT-Sl-smY">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="263"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <string key="text">Thank you for using this app!
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZT-Sl-smY">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="262"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Thank you for using this app!
 
 When I've been travelling I tried to find application for counting my spends. I wanted it simple and usefull and tried a lot of apps but couldn't found the one fitting my needs. So, eventually I've made it myself.
 
 This app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can connect me on twitter: @net3ton</string>
-                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" I would be very grateful to you for:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MIm-a1-zeV">
-                                                <rect key="frame" x="0.0" y="277" width="343" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noG-lN-VlT" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="311.5" width="343" height="44"/>
-                                                <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="sK3-gJ-90w"/>
-                                                </constraints>
-                                                <state key="normal" title="Rate the app" image="Rating">
-                                                    <color key="titleColor" red="0.23137254900000001" green="0.57647058819999997" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="onRating:" destination="jIb-4N-Tfo" eventType="touchUpInside" id="WEo-NP-mJf"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" or even donate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3l-od-yid">
-                                                <rect key="frame" x="0.0" y="369.5" width="343" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5H-nJ-q6n" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="404" width="343" height="44"/>
-                                                <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="q9a-2N-Iob"/>
-                                                </constraints>
-                                                <state key="normal" title="Thank you!" image="Donate1">
-                                                    <color key="titleColor" red="0.23137254900000001" green="0.57647058819999997" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CaK-9k-les" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="462" width="343" height="44"/>
-                                                <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="jPx-nd-hXN"/>
-                                                </constraints>
-                                                <state key="normal" title="Love it very much!" image="Donate2">
-                                                    <color key="titleColor" red="0.23137254900000001" green="0.57647058819999997" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hVv-NE-cF7" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="520" width="343" height="44"/>
-                                                <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="3rf-27-ekt"/>
-                                                </constraints>
-                                                <state key="normal" title="You are my hero!" image="Donate3">
-                                                    <color key="titleColor" red="0.23137254900000001" green="0.57647058819999997" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" I would be very grateful to you for:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MIm-a1-zeV">
+                                        <rect key="frame" x="0.0" y="276" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noG-lN-VlT" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="310.5" width="343" height="44"/>
+                                        <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="sK3-gJ-90w"/>
+                                        </constraints>
+                                        <state key="normal" title="Rate the app" image="Rating">
+                                            <color key="titleColor" red="0.23137254900000001" green="0.57647058819999997" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onRating:" destination="jIb-4N-Tfo" eventType="touchUpInside" id="WEo-NP-mJf"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text=" or even donate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3l-od-yid">
+                                        <rect key="frame" x="0.0" y="368.5" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5H-nJ-q6n" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="403" width="343" height="44"/>
+                                        <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="q9a-2N-Iob"/>
+                                        </constraints>
+                                        <state key="normal" title="Thank you!" image="Donate1">
+                                            <color key="titleColor" red="0.23137254900000001" green="0.57647058819999997" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CaK-9k-les" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="461" width="343" height="44"/>
+                                        <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="jPx-nd-hXN"/>
+                                        </constraints>
+                                        <state key="normal" title="Love it very much!" image="Donate2">
+                                            <color key="titleColor" red="0.23137254900000001" green="0.57647058819999997" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hVv-NE-cF7" customClass="DonateButton" customModule="moneytravel" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="519" width="343" height="44"/>
+                                        <color key="backgroundColor" red="0.90200000000000002" green="1" blue="0.94499999999999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="3rf-27-ekt"/>
+                                        </constraints>
+                                        <state key="normal" title="You are my hero!" image="Donate3">
+                                            <color key="titleColor" red="0.23137254900000001" green="0.57647058819999997" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="D8B-Uj-YWc" secondAttribute="bottom" id="90Z-5S-EXL"/>
-                                    <constraint firstItem="D8B-Uj-YWc" firstAttribute="width" secondItem="NPy-cA-jFX" secondAttribute="width" constant="-32" id="ZQh-Xd-xDU"/>
-                                    <constraint firstAttribute="trailing" secondItem="D8B-Uj-YWc" secondAttribute="trailing" constant="16" id="jdr-8a-qEH"/>
-                                    <constraint firstItem="D8B-Uj-YWc" firstAttribute="top" secondItem="NPy-cA-jFX" secondAttribute="top" constant="16" id="nuw-un-8OU"/>
-                                    <constraint firstItem="D8B-Uj-YWc" firstAttribute="leading" secondItem="NPy-cA-jFX" secondAttribute="leading" constant="16" id="s83-cK-a9w"/>
-                                </constraints>
-                            </scrollView>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="NPy-cA-jFX" firstAttribute="top" secondItem="8xl-u2-rxP" secondAttribute="top" id="5xr-1V-kdO"/>
-                            <constraint firstItem="NPy-cA-jFX" firstAttribute="leading" secondItem="8xl-u2-rxP" secondAttribute="leading" id="B3a-20-2ui"/>
-                            <constraint firstItem="NPy-cA-jFX" firstAttribute="trailing" secondItem="8xl-u2-rxP" secondAttribute="trailing" id="utI-Vl-9rP"/>
-                            <constraint firstItem="NPy-cA-jFX" firstAttribute="bottom" secondItem="8xl-u2-rxP" secondAttribute="bottom" id="yYg-hf-BwL"/>
+                            <constraint firstItem="D8B-Uj-YWc" firstAttribute="leading" secondItem="8xl-u2-rxP" secondAttribute="leading" constant="16" id="5zz-DM-8FV"/>
+                            <constraint firstItem="D8B-Uj-YWc" firstAttribute="top" secondItem="8xl-u2-rxP" secondAttribute="top" constant="20" id="M03-yi-aCA"/>
+                            <constraint firstItem="8xl-u2-rxP" firstAttribute="trailing" secondItem="D8B-Uj-YWc" secondAttribute="trailing" constant="16" id="xK1-f9-F2x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8xl-u2-rxP"/>
                     </view>

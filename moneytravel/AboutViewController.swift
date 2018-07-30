@@ -23,7 +23,6 @@ class AboutViewController: UIViewController {
         buttonDonate2.price = "5.00 USD"
         buttonDonate3.price = "20.00 USD"
 
-        textAbout.translatesAutoresizingMaskIntoConstraints = true
         textAbout.sizeToFit()
         textAbout.isScrollEnabled = false
     }
