@@ -15,7 +15,7 @@ enum EHistoryMode: Int {
     case Categories = 2
 }
 
-class HistoryViewController: UIViewController, ChartViewDelegate {
+class HistoryViewController: UIViewController {
     @IBOutlet weak var dateRangeView: UITableView!
     @IBOutlet weak var historyView: UITableView!
     @IBOutlet weak var categoryView: UITableView!
@@ -72,215 +72,12 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
     //    super.didReceiveMemoryWarning()
     //}
 
-    /// ChartViewDelegate (bar chart click)
-    internal func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        helpLabel.isHidden = true
-        selectedDay = Int(entry.x)
-        showHistoryDay(ind: selectedDay)
-    }
-
-    private func showHistoryDay(ind: Int) {
-        let day = historyDay(ind: ind)
-        showHistory(days: (day != nil) ? [day!] : [])
-    }
-    
-    private func historyDay(ind: Int) -> DaySpends? {
-        if ind < 0 || ind >= history.count {
-            return nil
-        }
-
-        let invertedInd = history.count - ind - 1
-        return history[invertedInd]
-    }
-
-    private func updateBarChartView() {
-        var chartData: [BarChartDataEntry] = []
-        var chartLabels: [String] = []
-        for i in 0..<history.count {
-            if let historyData = historyDay(ind: i) {
-                let entry = BarChartDataEntry(x: Double(i), y: Double(historyData.getSpendSum()))
-                chartData.append(entry)
-
-                let form = DateFormatter()
-                form.dateFormat = "dd.MM"
-                chartLabels.append(form.string(from: historyData.date))
-            }
-        }
-
-        class ValueFormatter: IValueFormatter {
-            func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-                return num_to_string(sum: Float(value))
-            }
-        }
-
-        let chartDataSet = BarChartDataSet(values: chartData, label: nil)
-        chartDataSet.colors = [COLOR_SPEND1, COLOR_SPEND_HEADER]
-        chartDataSet.highlightColor = UIColor.red
-        chartDataSet.valueFormatter = ValueFormatter()
-
-        class AxisLeftFormatter: IAxisValueFormatter {
-            func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-                return num_to_string(sum: Float(value))
-            }
-        }
-
-        let target = ChartLimitLine(limit: Double(appSettings.dailyMax))
-        target.label = "Budget"
-        target.lineColor = COLOR_TEXT_BLUE
-
-        barchartView.rightAxis.drawLabelsEnabled = false
-        barchartView.rightAxis.drawGridLinesEnabled = false
-        barchartView.rightAxis.axisLineColor = COLOR_SPEND_HEADER
-
-        barchartView.leftAxis.axisMinimum = 0
-        barchartView.leftAxis.gridColor = COLOR_SPEND_HEADER
-        barchartView.leftAxis.valueFormatter = AxisLeftFormatter()
-        barchartView.leftAxis.addLimitLine(target)
-
-        class AxisXFormatter: IAxisValueFormatter {
-            private var labels: [String]!
-
-            init(_ labels: [String]) {
-                self.labels = labels
-            }
-
-            func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-                return labels[Int(value)]
-            }
-        }
-
-        barchartView.chartDescription?.enabled = false
-        barchartView.xAxis.drawGridLinesEnabled = false
-        barchartView.xAxis.valueFormatter = AxisXFormatter(chartLabels)
-        barchartView.xAxis.labelPosition = .bottom
-        barchartView.xAxis.granularity = 1
-
-        barchartView.delegate = self
-
-        barchartView.legend.enabled = false
-        barchartView.noDataText = "Empty"
-        barchartView.maxVisibleCount = 10
-        barchartView.doubleTapToZoomEnabled = false
-
-        barchartView.data = BarChartData(dataSets: [chartDataSet])
-
-        for constr in barchartView.constraints {
-            if constr.identifier == "height" {
-                constr.constant = barchartView.bounds.width / 1.5
-            }
-        }
-    }
-
-    private func collectCategoryInfo(from days: [DaySpends]) -> [CategoryInfo] {
-        var summary = [CategoryModel:Float]()
-        for daily in days {
-            for spend in daily.spends {
-                if let category = spend.category {
-                    let spendSum = summary[category]
-                    summary[category] = spend.bsum + ((spendSum != nil) ? spendSum! : 0.0)
-                }
-            }
-        }
-
-        let sortedSummary = summary.sorted { (item1, item2) -> Bool in
-            return item1.value > item2.value
-        }
-
-        var categoryData: [CategoryInfo] = []
-        for item in sortedSummary.enumerated() {
-            let ind = CGFloat(item.offset + 1)
-            let color = UIColor(red:(1.0 - ind * 0.06), green:(1.0 - ind * 0.02), blue:(1.0 - ind * 0.06), alpha:1.0)
-            let daily = item.element.value / Float(days.count)
-            let info = CategoryInfo(category: item.element.key, sum: item.element.value, daily: daily, color: color)
-            categoryData.append(info)
-        }
-
-        return categoryData
-    }
-
-    private func updatePieChartView() {
-        let categoryData = collectCategoryInfo(from: history)
-        categoryDelegate?.data = categoryData
-
-        for constr in categoryView.constraints {
-            if constr.identifier == "height" {
-                constr.constant = categoryDelegate!.getContentHeight()
-            }
-        }
-
-        categoryView.reloadData()
-
-        var chartData: [PieChartDataEntry] = []
-        var chartColors: [UIColor] = []
-
-        for i in 0..<categoryData.count {
-            /// make small values max distributed
-            let item = (i % 2 == 0) ? categoryData[i/2] : categoryData[categoryData.count - i/2 - 1]
-            let entry = PieChartDataEntry(value: Double(item.sum), label: item.category.name ?? "")
-            chartData.append(entry)
-            chartColors.append(item.color)
-        }
-
-        class ValueFormatter: IValueFormatter {
-            func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-                return num_to_string(sum: Float(value))
-            }
-        }
-
-        let chartDataSet = PieChartDataSet(values: chartData, label: nil)
-        chartDataSet.valueFormatter = ValueFormatter()
-
-        chartDataSet.colors = chartColors
-        chartDataSet.entryLabelColor = UIColor.black
-        chartDataSet.valueColors = [COLOR_TEXT_BLUE]
-
-        chartDataSet.valueLineColor = COLOR_TEXT_BLUE
-
-        chartDataSet.sliceSpace = 1
-        chartDataSet.yValuePosition = .outsideSlice
-        chartDataSet.valueLinePart1OffsetPercentage = 0.85
-        //chartDataSet.valueLinePart1Length = 0.2
-        //chartDataSet.valueLinePart2Length = 0.4
-
-        piechartView.chartDescription?.enabled = false
-        piechartView.legend.enabled = false
-        piechartView.noDataText = "Empty"
-        piechartView.data = PieChartData(dataSets: [chartDataSet])
-        piechartView.rotationWithTwoFingers = true
-
-        /// info
-        let titleParagraphStyle = NSMutableParagraphStyle()
-        titleParagraphStyle.alignment = .center
-        
-        let dictMain = [
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16),
-            NSAttributedStringKey.paragraphStyle: titleParagraphStyle
-        ]
-
-        let dictDays = [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12),
-            NSAttributedStringKey.paragraphStyle: titleParagraphStyle
-        ]
-        
-        let pieInfo: NSMutableAttributedString = NSMutableAttributedString()
-        pieInfo.append(NSAttributedString(string: titlebar.sumStr + "\n", attributes: dictMain))
-        pieInfo.append(NSAttributedString(string: titlebar.daysStr, attributes: dictDays))
-
-        piechartView.centerAttributedText = pieInfo
-
-        for constr in piechartView.constraints {
-            if constr.identifier == "height" {
-                constr.constant = piechartView.bounds.width / 1.2
-            }
-        }
-    }
-
     @IBAction func onSegmentChanged(_ sender: UISegmentedControl) {
         mode = EHistoryMode(rawValue: sender.selectedSegmentIndex) ?? .History
         changeMode(to: mode)
     }
 
-    private func changeMode(to mode: EHistoryMode) {
+    func changeMode(to mode: EHistoryMode) {
         switch mode {
         case .Tendency:
             barchartView.isHidden = false
@@ -310,36 +107,24 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         }
     }
 
-    private func initHistory() {
-        historyDelegate = SpendViewDelegate()
-        historyDelegate?.onSpendPressed = showSpendInfo
-        historyDelegate?.onTMarkPressed = showTMarkInfo
-        historyDelegate?.initClasses(for: historyView)
-
-        historyView.delegate = historyDelegate
-        historyView.dataSource = historyDelegate
-    }
-
-    private func showSpendInfo(spend: SpendModel) {
-        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
-        let view = sboard.instantiateViewController(withIdentifier: "spend-info") as! SpendViewController
+    func historyDay(ind: Int) -> DaySpends? {
+        if ind < 0 || ind >= history.count {
+            return nil
+        }
         
-        view.setup(sinfo: spend)
-        navigationController?.pushViewController(view, animated: true)
+        let invertedInd = history.count - ind - 1
+        return history[invertedInd]
     }
-
-    private func showTMarkInfo(tmark: MarkModel) {
-        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
-        let view = sboard.instantiateViewController(withIdentifier: "tmark-info") as! TStampViewController
-        
-        view.setup(mark: tmark)
-        navigationController?.pushViewController(view, animated: true)
+    
+    func showHistoryDay(ind: Int) {
+        let day = historyDay(ind: ind)
+        showHistory(days: (day != nil) ? [day!] : [])
     }
-
-    private func showHistory(days: [DaySpends]) {
+    
+    func showHistory(days: [DaySpends]) {
         let shouldUpdateConstraint = (days.count != historyDelegate!.data.count)
         historyDelegate!.data = days
-
+        
         for constr in historyView.constraints {
             if constr.identifier == "height" {
                 let newHeight = historyDelegate!.getContentHeight()
@@ -352,8 +137,34 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         
         historyView.reloadData()
     }
+    
+    func initHistory() {
+        historyDelegate = SpendViewDelegate()
+        historyDelegate?.onSpendPressed = showSpendInfo
+        historyDelegate?.onTMarkPressed = showTMarkInfo
+        historyDelegate?.initClasses(for: historyView)
 
-    private func initDateRange() {
+        historyView.delegate = historyDelegate
+        historyView.dataSource = historyDelegate
+    }
+
+    func showSpendInfo(spend: SpendModel) {
+        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
+        let view = sboard.instantiateViewController(withIdentifier: "spend-info") as! SpendViewController
+        
+        view.setup(sinfo: spend)
+        navigationController?.pushViewController(view, animated: true)
+    }
+
+    func showTMarkInfo(tmark: MarkModel) {
+        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
+        let view = sboard.instantiateViewController(withIdentifier: "tmark-info") as! TStampViewController
+        
+        view.setup(mark: tmark)
+        navigationController?.pushViewController(view, animated: true)
+    }
+
+    func initDateRange() {
         dateRangeDelegate = DateViewDelegate()
         dateRangeDelegate?.onDatePressed = onDateSelect
         dateRangeDelegate?.historyInterval = HistoryViewController.historyInterval!
@@ -368,7 +179,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         }
     }
 
-    private func onDateSelect(hdate: HistoryDate, mindate: Date?) {
+    func onDateSelect(hdate: HistoryDate, mindate: Date?) {
         let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
         let view = sboard.instantiateViewController(withIdentifier: "hdate-picker") as! DateStampViewController
 
@@ -376,7 +187,7 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         navigationController?.pushViewController(view, animated: true)
     }
 
-    private func initCategories() {
+    func initCategories() {
         categoryDelegate = CategoryViewDelegate()
 
         categoryView.register(SpendViewCell.getNib(), forCellReuseIdentifier: SpendViewCell.ID)
@@ -384,14 +195,10 @@ class HistoryViewController: UIViewController, ChartViewDelegate {
         categoryView.dataSource = categoryDelegate
     }
 
-    private func updateHeader(with history: [DaySpends]) {
+    func updateHeader(with history: [DaySpends]) {
         var sum: Float = 0.0
         for dailySpend in history {
-            for sinfo in dailySpend.spends {
-                if sinfo.bcurrency == appSettings.currencyBase {
-                    sum += sinfo.bsum
-                }
-            }
+            sum += dailySpend.getSpendBaseSum()
         }
 
         titlebar.sum = sum
