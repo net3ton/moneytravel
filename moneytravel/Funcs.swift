@@ -18,21 +18,42 @@ func getUID() -> String {
     return String(format:"'%08X%08X'", p2, p1)
 }
 
-func num_to_string(sum: Float) -> String {
+private func num_to_string(sum: Float, fraction: Int) -> String {
     let formatter = NumberFormatter()
     formatter.usesGroupingSeparator = true
     formatter.groupingSeparator = "\u{00a0}" // non-breaking space
     formatter.groupingSize = 3
-    formatter.maximumFractionDigits = 2
-    formatter.minimumFractionDigits = 2
+    formatter.maximumFractionDigits = fraction
+    formatter.minimumFractionDigits = fraction
     formatter.minimumIntegerDigits = 1
     
     return formatter.string(from: NSNumber(value: sum)) ?? "0.00"
 }
 
+func num_to_string(sum: Float) -> String {
+    return num_to_string(sum: sum, fraction: 2)
+}
+
+func bnum_to_string(sum: Float) -> String {
+    return num_to_string(sum: sum, fraction: 2)
+}
+
+func sum_to_string(sum: Float) -> String {
+    return String.init(format: "%@ %@", num_to_string(sum: sum), appSettings.currency)
+}
+
 func sum_to_string(sum: Float, currency: String) -> String {
     return String.init(format: "%@ %@", num_to_string(sum: sum), currency)
 }
+
+func bsum_to_string(sum: Float) -> String {
+    return String.init(format: "%@ %@", bnum_to_string(sum: sum), appSettings.currencyBase)
+}
+
+func bsum_to_string(sum: Float, currency: String) -> String {
+    return String.init(format: "%@ %@", bnum_to_string(sum: sum), currency)
+}
+
 
 func get_delegate() -> AppDelegate {
     return UIApplication.shared.delegate as! AppDelegate

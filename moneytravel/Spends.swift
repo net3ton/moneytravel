@@ -70,11 +70,11 @@ class DaySpends {
 
     public func getBudgetInfo() -> (baseSum: String, budgetProgress: Float, budgetLeft: String, budgetPlus: Bool) {
         let bsum = getSpendBaseSum()
-        let bsumStr = (bsum <= 0) ? "" : sum_to_string(sum: bsum, currency: appSettings.currencyBase)
+        let bsumStr = (bsum <= 0) ? "" : bsum_to_string(sum: bsum)
         let budgetProgress: Float = bsum / appSettings.dailyMax
         let budgetPlus: Bool = appSettings.dailyMax >= bsum
         let budgetLeft: Float = (appSettings.dailyMax - bsum) * appSettings.exchangeRate
-        let budgetLeftStr = String.init(format: "Budget left: %@", sum_to_string(sum: budgetLeft, currency: appSettings.currency))
+        let budgetLeftStr = String.init(format: "Budget left: %@", sum_to_string(sum: budgetLeft))
         
         return (baseSum: bsumStr, budgetProgress: budgetProgress, budgetLeft: budgetLeftStr, budgetPlus: budgetPlus)
     }

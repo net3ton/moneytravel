@@ -13,6 +13,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var currencyBase: UILabel!
     @IBOutlet weak var dailyMax: UILabel!
     @IBOutlet weak var headerSince: UILabel!
+    @IBOutlet weak var zeroNumber: UILabel!
     
     @IBOutlet weak var exchangeRateLabel: UILabel!
     @IBOutlet weak var exchangeRate: UILabel!
@@ -20,6 +21,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var exchangeUpdateLabel: UILabel!
 
     @IBOutlet weak var googleDriveLabel: UILabel!
+    @IBOutlet weak var googleDriveSyncLabel: UILabel!
     
     private var headerDateSince: HistoryDate = HistoryDate()
 
@@ -37,10 +39,10 @@ class SettingsViewController: UITableViewController {
     func updateLabels() {
         currency.text = appSettings.currency
         currencyBase.text = appSettings.currencyBase
-        dailyMax.text = sum_to_string(sum: appSettings.dailyMax, currency: appSettings.currencyBase)
+        dailyMax.text = bsum_to_string(sum: appSettings.dailyMax)
         headerSince.text = headerDateSince.getName()
 
-        exchangeRate.text = sum_to_string(sum: appSettings.exchangeRate, currency: appSettings.currency)
+        exchangeRate.text = sum_to_string(sum: appSettings.exchangeRate)
         exchangeUpdate.isOn = appSettings.exchangeUpdate
         exchangeRateLabel.text = String(format: "1 %@ =", appSettings.currencyBase)
         exchangeUpdateLabel.text = getLastCurrencyExchangeRateUpdateString()

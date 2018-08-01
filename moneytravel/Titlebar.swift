@@ -14,7 +14,7 @@ class Titlebar: UIView {
 
     public var sum: Float = 0.0 {
         didSet {
-            labelCaption.text = sum_to_string(sum: sum, currency: appSettings.currencyBase)
+            labelCaption.text = bsum_to_string(sum: sum)
         }
     }
 
@@ -27,7 +27,7 @@ class Titlebar: UIView {
             days = max(days, 1)
 
             let daily: Float = sum / Float(days)
-            labelInfo.text = String(format: "%@ / day (%i days)", num_to_string(sum: daily), days)
+            labelInfo.text = String(format: "%@ / day (%i days)", bnum_to_string(sum: daily), days)
         }
     }
 

@@ -33,18 +33,18 @@ extension HistoryViewController: ChartViewDelegate {
         
         class ValueFormatter: IValueFormatter {
             func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-                return num_to_string(sum: Float(value))
+                return bnum_to_string(sum: Float(value))
             }
         }
         
         let chartDataSet = BarChartDataSet(values: chartData, label: nil)
-        chartDataSet.colors = [COLOR_BAR1, COLOR_BAR2, COLOR_BAR3, COLOR_BAR4]
+        chartDataSet.colors = [COLOR_BAR1, COLOR_BAR2]
         chartDataSet.highlightColor = UIColor.red
         chartDataSet.valueFormatter = ValueFormatter()
         
         class AxisLeftFormatter: IAxisValueFormatter {
             func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-                return num_to_string(sum: Float(value))
+                return bnum_to_string(sum: Float(value))
             }
         }
         
@@ -147,7 +147,7 @@ extension HistoryViewController: ChartViewDelegate {
         
         class ValueFormatter: IValueFormatter {
             func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-                return num_to_string(sum: Float(value))
+                return bnum_to_string(sum: Float(value))
             }
         }
         

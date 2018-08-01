@@ -293,8 +293,8 @@ class CategoryViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: SpendViewCell.ID, for: indexPath) as! SpendViewCell
         cell.icon.image = info.category.icon
         cell.comment.text = info.category.name
-        cell.sum.text = sum_to_string(sum: info.sum, currency: appSettings.currencyBase)
-        cell.sumBase.text = num_to_string(sum: info.daily) + " / day"
+        cell.sum.text = bsum_to_string(sum: info.sum)
+        cell.sumBase.text = bnum_to_string(sum: info.daily) + " / day"
         cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SPEND2 : COLOR_SPEND1
         return cell
     }

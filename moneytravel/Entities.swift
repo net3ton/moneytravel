@@ -252,6 +252,6 @@ extension SpendModel {
     }
     
     public func getBaseSumString() -> String {
-        return sum_to_string(sum: bsum, currency: bcurrency!)
+        return bsum_to_string(sum: bsum, currency: bcurrency!)
     }
 }
