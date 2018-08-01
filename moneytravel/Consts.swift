@@ -22,3 +22,6 @@ let COLOR_SPEND_HEADER = UIColor(red: 0.714, green: 0.976, blue: 0.788, alpha: 1
 let COLOR_SPEND_FOOTER = UIColor.white
 
 let COLOR_TEXT_BLUE = UIColor(red: 0.180, green: 0.314, blue: 0.467, alpha: 1.0)
+
+let COLOR_BAR1 = UIColor(red: 0.714, green: 0.976, blue: 0.788, alpha: 1.0)
+let COLOR_BAR2 = UIColor(red: 0.571, green: 0.780, blue: 0.630, alpha:1.0)
