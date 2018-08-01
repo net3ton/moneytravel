@@ -20,6 +20,8 @@ let DEFAULT_CATEGORIES = [
     ("Clothes", "Clothes", "UID-Clothes"),      // Clothes
     ("Entertain", "Entertain", "UID-Relax"),    // Relax
     ("Mobile", "Mobile", "UID-Mobile"),         // Mobile
+    ("Pills", "Health", "UID-Health"),          // Health
+    ("Taxes", "Bills", "UID-Bills"),            // Bills
 ]
 
 let appCategories = AppCategories()
@@ -139,11 +141,17 @@ class AppCategories {
         return nil
     }
 
-    public func save() {
+    public func shouldUpdate(uid: String, ver: Int16) -> Bool {
+        return should_update_record(entity: "Category", uid: uid, ver: ver)
+    }
+
+    public func update(category: CategoryModel) {
+        category.version += 1
         get_delegate().saveContext()
     }
 
     public func delete(category: CategoryModel) {
+        category.version += 1
         category.removed = true
         get_delegate().saveContext()
 

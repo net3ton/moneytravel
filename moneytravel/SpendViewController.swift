@@ -23,7 +23,7 @@ class SpendViewController: UITableViewController {
     private var sum: Float = 0.0
     private var exchangeRate: Float = 1.0
     private var currency: String = "USD"
-    private var comment: String = ""
+    private var comment: String?
     private var category: CategoryModel?
 
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class SpendViewController: UITableViewController {
         sum = sinfo.sum
         exchangeRate = sinfo.sum / sinfo.bsum
         currency = sinfo.currency!
-        comment = sinfo.comment!
+        comment = sinfo.comment
         category = sinfo.category
     }
     
@@ -93,9 +93,9 @@ class SpendViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "spend-comment" {
             let nameEdit = segue.destination as! TextViewController
-            nameEdit.setup(caption: "Comment", text: comment)
+            nameEdit.setup(caption: "Comment", text: comment ?? "")
             nameEdit.onTextEntered = { text in
-                self.comment = text
+                self.comment = text.isEmpty ? nil : text
                 self.updateInfo()
             }
         }

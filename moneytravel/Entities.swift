@@ -25,6 +25,7 @@ public class CategoryModel: NSManagedObject, Codable {
         case iconname = "icon"
         case colorvalue = "color"
         case position = "pos"
+        case version = "ver"
         case removed = "rem"
     }
     
@@ -41,7 +42,14 @@ public class CategoryModel: NSManagedObject, Codable {
         self.iconname = try values.decode(String.self, forKey: .iconname)
         self.colorvalue = try values.decode(Int32.self, forKey: .colorvalue)
         self.position = try values.decode(Int16.self, forKey: .position)
-        self.removed = try values.decode(Bool.self, forKey: .removed)
+        
+        if let version = try values.decodeIfPresent(Int16.self, forKey: .version) {
+            self.version = version
+        }
+        
+        if let removed = try values.decodeIfPresent(Bool.self, forKey: .removed) {
+            self.removed = removed
+        }
     }
     
     // Encodable
@@ -53,7 +61,14 @@ public class CategoryModel: NSManagedObject, Codable {
         try container.encode(self.iconname, forKey: .iconname)
         try container.encode(self.colorvalue, forKey: .colorvalue)
         try container.encode(self.position, forKey: .position)
-        try container.encode(self.removed, forKey: .removed)
+
+        if self.version > 0 {
+            try container.encode(self.version, forKey: .version)
+        }
+
+        if self.removed {
+            try container.encode(self.removed, forKey: .removed)
+        }
     }
 }
 
@@ -87,7 +102,8 @@ public class MarkModel: NSManagedObject, Codable {
         case name
         case date
         case colorvalue = "color"
-        //case comment = "comm"
+        case comment = "comm"
+        case version = "ver"
         case removed = "rem"
     }
     
@@ -103,8 +119,18 @@ public class MarkModel: NSManagedObject, Codable {
         self.name = try values.decode(String.self, forKey: .name)
         self.date = try values.decode(Date.self, forKey: .date)
         self.colorvalue = try values.decode(Int32.self, forKey: .colorvalue)
-        //self.comment = try values.decode(String.self, forKey: .comment)
-        self.removed = try values.decode(Bool.self, forKey: .removed)
+        
+        if let comment = try values.decodeIfPresent(String.self, forKey: .comment) {
+            self.comment = comment
+        }
+
+        if let version = try values.decodeIfPresent(Int16.self, forKey: .version) {
+            self.version = version
+        }
+        
+        if let removed = try values.decodeIfPresent(Bool.self, forKey: .removed) {
+            self.removed = removed
+        }
     }
     
     // Encodable
@@ -115,8 +141,18 @@ public class MarkModel: NSManagedObject, Codable {
         try container.encode(self.name, forKey: .name)
         try container.encode(self.date, forKey: .date)
         try container.encode(self.colorvalue, forKey: .colorvalue)
-        //try container.encode(self.comment, forKey: .comment)
-        try container.encode(self.removed, forKey: .removed)
+        
+        if let comment = self.comment, !comment.isEmpty {
+            try container.encode(comment, forKey: .comment)
+        }
+
+        if self.version > 0 {
+            try container.encode(self.version, forKey: .version)
+        }
+        
+        if self.removed {
+            try container.encode(self.removed, forKey: .removed)
+        }
     }
 }
 
@@ -147,6 +183,7 @@ public class SpendModel: NSManagedObject, Codable {
         case bsum
         case bcurrency = "biso"
         case comment = "comm"
+        case version = "ver"
         case removed = "rem"
     }
     
@@ -165,8 +202,18 @@ public class SpendModel: NSManagedObject, Codable {
         self.currency = try values.decode(String.self, forKey: .currency)
         self.bsum = try values.decode(Float.self, forKey: .bsum)
         self.bcurrency = try values.decode(String.self, forKey: .bcurrency)
-        self.comment = try values.decode(String.self, forKey: .comment)
-        self.removed = try values.decode(Bool.self, forKey: .removed)
+
+        if let comment = try values.decodeIfPresent(String.self, forKey: .comment) {
+            self.comment = comment
+        }
+
+        if let version = try values.decodeIfPresent(Int16.self, forKey: .version) {
+            self.version = version
+        }
+
+        if let removed = try values.decodeIfPresent(Bool.self, forKey: .removed) {
+            self.removed = removed
+        }
     }
     
     // Encodable
@@ -180,8 +227,18 @@ public class SpendModel: NSManagedObject, Codable {
         try container.encode(self.currency, forKey: .currency)
         try container.encode(self.bsum, forKey: .bsum)
         try container.encode(self.bcurrency, forKey: .bcurrency)
-        try container.encode(self.comment, forKey: .comment)
-        try container.encode(self.removed, forKey: .removed)
+
+        if let comment = self.comment, !comment.isEmpty {
+            try container.encode(comment, forKey: .comment)
+        }
+
+        if self.version > 0 {
+            try container.encode(self.version, forKey: .version)
+        }
+
+        if self.removed {
+            try container.encode(self.removed, forKey: .removed)
+        }
     }
 }
 

@@ -15,7 +15,7 @@ class TStampViewController: UITableViewController {
     @IBOutlet weak var colorView: UIView!
 
     private var name: String = ""
-    private var comment: String = ""
+    private var comment: String?
     private var date: Date = Date()
     private var color: UIColor = TIMESTAMP_DEFAULT
 
@@ -51,9 +51,9 @@ class TStampViewController: UITableViewController {
         markToSave = mark
         
         if let mk = mark {
-            name = mk.name ?? ""
-            comment = mk.comment ?? ""
-            date = mk.date ?? Date()
+            name = mk.name!
+            comment = mk.comment
+            date = mk.date!
             color = mk.color
         }
     }
@@ -131,9 +131,9 @@ class TStampViewController: UITableViewController {
         }
         else if segue.identifier == "mark-comment" {
             let nameEdit = segue.destination as! TextViewController
-            nameEdit.setup(caption: "Comment", text: comment)
+            nameEdit.setup(caption: "Comment", text: comment ?? "")
             nameEdit.onTextEntered = { text in
-                self.comment = text
+                self.comment = text.isEmpty ? nil : text
                 self.updateInfo()
             }
         }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName="CategoryModel" syncable="YES" codeGenerationType="category">
-        <attribute name="colorvalue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="colorvalue" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="iconname" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="position" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="removed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uid" attributeType="String" syncable="YES"/>
+        <attribute name="version" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="uid"/>
@@ -18,12 +19,13 @@
         <attribute name="version" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Mark" representedClassName="MarkModel" syncable="YES" codeGenerationType="category">
-        <attribute name="colorvalue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="colorvalue" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="removed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uid" attributeType="String" syncable="YES"/>
+        <attribute name="version" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="uid"/>
@@ -33,13 +35,14 @@
     <entity name="Spend" representedClassName="SpendModel" syncable="YES" codeGenerationType="category">
         <attribute name="bcurrency" attributeType="String" syncable="YES"/>
         <attribute name="bsum" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="catid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catid" attributeType="String" syncable="YES"/>
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currency" attributeType="String" syncable="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="removed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sum" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uid" attributeType="String" syncable="YES"/>
+        <attribute name="version" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="uid"/>
@@ -47,9 +50,9 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Category" positionX="-5643" positionY="-4878" width="128" height="135"/>
+        <element name="Category" positionX="-5643" positionY="-4878" width="128" height="150"/>
         <element name="Info" positionX="-5706" positionY="-4797" width="128" height="75"/>
-        <element name="Mark" positionX="-5724" positionY="-4815" width="128" height="135"/>
-        <element name="Spend" positionX="-5805" positionY="-4869" width="128" height="180"/>
+        <element name="Mark" positionX="-5724" positionY="-4815" width="128" height="150"/>
+        <element name="Spend" positionX="-5805" positionY="-4869" width="128" height="195"/>
     </elements>
 </model>

@@ -80,21 +80,36 @@ class AppSync {
         print("[Sync] spends: "  + String(appdata.spends.count))
 
         let context = get_context()
-        //context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         context.mergePolicy = NSOverwriteMergePolicy
 
+        var tstampCount = 0
+        var catCount = 0
+        var spendCount = 0
+
         for tstamp in appdata.timestamps {
-            context.insert(tstamp)
+            if appTimestamps.shouldUpdate(uid: tstamp.uid!, ver: tstamp.version) {
+                context.insert(tstamp)
+                tstampCount += 1
+            }
         }
         for cat in appdata.categories {
-            context.insert(cat)
+            if appCategories.shouldUpdate(uid: cat.uid!, ver: cat.version) {
+                context.insert(cat)
+                catCount += 1
+            }
         }
         for spend in appdata.spends {
-            context.insert(spend)
+            if appSpends.shouldUpdate(uid: spend.uid!, ver: spend.version) {
+                context.insert(spend)
+                spendCount += 1
+            }
         }
 
         get_delegate().saveContext()
         print("[Sync] saved.")
+        print("[Sync] timestamps updated: " + String(tstampCount))
+        print("[Sync] categories updated: " + String(catCount))
+        print("[Sync] spends updated: " + String(spendCount))
 
         DispatchQueue.main.async {
             appCategories.reload()

@@ -28,7 +28,7 @@ class AppTimestamps {
         return []
     }
 
-    public func add(name: String, date: Date, color: UIColor, comment: String) {
+    public func add(name: String, date: Date, color: UIColor, comment: String?) {
         let context = get_context()
         let markEntity = NSEntityDescription.entity(forEntityName: "Mark", in: context)
         
@@ -49,7 +49,7 @@ class AppTimestamps {
     }
 
     public func add(name: String) {
-        add(name: name, date: Date(), color: TIMESTAMP_DEFAULT, comment: "")
+        add(name: name, date: Date(), color: TIMESTAMP_DEFAULT, comment: nil)
     }
     
     public func find(for date: Date) -> MarkModel? {
@@ -70,14 +70,19 @@ class AppTimestamps {
         return nil
     }
 
-    public func delete(stamp: MarkModel) {
-        stamp.removed = true
-        get_delegate().saveContext()
-        lastSpends.reload()
+    public func shouldUpdate(uid: String, ver: Int16) -> Bool {
+        return should_update_record(entity: "Mark", uid: uid, ver: ver)
     }
 
     public func update(stamp: MarkModel) {
-        //stamp.version += 1
+        stamp.version += 1
+        get_delegate().saveContext()
+        lastSpends.reload()
+    }
+    
+    public func delete(stamp: MarkModel) {
+        stamp.version += 1
+        stamp.removed = true
         get_delegate().saveContext()
         lastSpends.reload()
     }

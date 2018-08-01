@@ -224,7 +224,7 @@ class AppSpends {
         return history
     }
     
-    public func add(category: CategoryModel, sum: Float, curIso: String, bsum: Float, bcurIso: String, comment: String) {
+    public func add(category: CategoryModel, sum: Float, curIso: String, bsum: Float, bcurIso: String, comment: String?) {
         let context = get_context()
         let spendEntity = NSEntityDescription.entity(forEntityName: "Spend", in: context)
         
@@ -247,14 +247,19 @@ class AppSpends {
         }
     }
 
-    public func delete(spend: SpendModel) {
-        spend.removed = true
+    public func shouldUpdate(uid: String, ver: Int16) -> Bool {
+        return should_update_record(entity: "Spend", uid: uid, ver: ver)
+    }
+    
+    public func update(spend: SpendModel) {
+        spend.version += 1
         get_delegate().saveContext()
         lastSpends.reload()
     }
-
-    public func update(spend: SpendModel) {
-        //spend.version += 1
+    
+    public func delete(spend: SpendModel) {
+        spend.version += 1
+        spend.removed = true
         get_delegate().saveContext()
         lastSpends.reload()
     }

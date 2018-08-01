@@ -42,6 +42,20 @@ func get_context() -> NSManagedObjectContext {
     return get_delegate().persistentContainer.viewContext
 }
 
+func should_update_record(entity: String, uid: String, ver: Int16) -> Bool {
+    let fetchSpend = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+    fetchSpend.predicate = NSPredicate(format: "uid == %@ && version >= %d", uid, ver)
+    
+    do {
+        return try get_context().count(for: fetchSpend) == 0
+    }
+    catch let error {
+        print("Failed to check record version! ERROR: " + error.localizedDescription)
+    }
+    
+    return false
+}
+
 func top_view_controller(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
     if let navigationController = controller as? UINavigationController {
         return top_view_controller(controller: navigationController.visibleViewController)
