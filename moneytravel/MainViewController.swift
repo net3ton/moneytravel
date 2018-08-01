@@ -125,7 +125,7 @@ class MainViewController: UIViewController {
         let stats = appStats.getSumSince(date: appSettings.headerSince)
 
         titlebar.sum = stats.sum
-        titlebar.daily = stats.sum / Float(stats.days)
+        titlebar.days = stats.days
     }
 
     @IBAction func onPlacePressed(_ sender: UIBarButtonItem) {
