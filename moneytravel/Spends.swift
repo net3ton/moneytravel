@@ -12,6 +12,18 @@ import CoreData
 struct DaySpendsItem {
     var spend: SpendModel?
     var tmark: MarkModel?
+
+    var date: Date {
+        if let spend = spend {
+            return spend.date!
+        }
+
+        if let tmark = tmark {
+            return tmark.date!
+        }
+
+        return Date()
+    }
 }
 
 
@@ -20,61 +32,31 @@ class DaySpends {
     private(set) var spends: [SpendModel]
     private(set) var tmarks: [MarkModel]
 
-    //private(set) var items: [DaySpendsItem] = []
+    private(set) var items: [DaySpendsItem]
 
     init(forDate: Date, spends: [SpendModel], tmarks: [MarkModel]) {
         self.date = forDate
         self.spends = spends
         self.tmarks = tmarks
-    }
+        self.items = []
 
-    public func getItemsCount() -> Int {
-        return spends.count + tmarks.count
-    }
-
-    public func getItem(ind: Int) -> DaySpendsItem {
-        var items: [DaySpendsItem] = []
-
-        var spendInd = 0
-        var tmarkInd = 0
-
-        while spendInd < spends.count || tmarkInd < tmarks.count {
-            if spendInd >= spends.count {
-                let item = DaySpendsItem(spend: nil, tmark: tmarks[tmarkInd])
-                tmarkInd += 1
-
-                items.append(item)
-                continue
-            }
-
-            if tmarkInd >= tmarks.count {
-                let item = DaySpendsItem(spend: spends[spendInd], tmark: nil)
-                spendInd += 1
-                
-                items.append(item)
-                continue
-            }
-
-            if spends[spendInd].date! > tmarks[tmarkInd].date! {
-                let item = DaySpendsItem(spend: spends[spendInd], tmark: nil)
-                spendInd += 1
-                
-                items.append(item)
-                continue
-            }
-            else {
-                let item = DaySpendsItem(spend: nil, tmark: tmarks[tmarkInd])
-                tmarkInd += 1
-                
-                items.append(item)
-                continue
-            }
+        for spend in spends {
+            self.items.append(DaySpendsItem(spend: spend, tmark: nil))
+        }
+        for tmark in tmarks {
+            self.items.append(DaySpendsItem(spend: nil, tmark: tmark))
         }
 
-        return items[ind]
+        sortItems()
     }
 
-    public func getSpendSum() -> Float {
+    private func sortItems() {
+        items.sort { (item1, item2) -> Bool in
+            return item1.date > item2.date
+        }
+    }
+
+    public func getSpendBaseSum() -> Float {
         var bsum: Float = 0
 
         for spend in spends {
@@ -87,7 +69,7 @@ class DaySpends {
     }
 
     public func getBudgetInfo() -> (baseSum: String, budgetProgress: Float, budgetLeft: String, budgetPlus: Bool) {
-        let bsum = getSpendSum()
+        let bsum = getSpendBaseSum()
         let bsumStr = (bsum <= 0) ? "" : sum_to_string(sum: bsum, currency: appSettings.currencyBase)
         let budgetProgress: Float = bsum / appSettings.dailyMax
         let budgetPlus: Bool = appSettings.dailyMax >= bsum
@@ -125,38 +107,17 @@ class DaySpends {
         return calendar.isDate(testdate, inSameDayAs: date)
     }
 
-    public func add(_ spend: SpendModel) {
-        for item in spends.enumerated() {
-            if spend.date! > item.element.date! {
-                spends.insert(spend, at: item.offset)
-                return
-            }
+    ///
+
+    public func add(spend: SpendModel?, tmark: MarkModel?) {
+        if let spend = spend {
+            spends.insert(spend, at: 0)
+        }
+        if let tmark = tmark {
+            tmarks.insert(tmark, at: 0)
         }
 
-        spends.append(spend)
-    }
-
-    public func add(_ tmark: MarkModel) {
-        for item in tmarks.enumerated() {
-            if tmark.date! > item.element.date! {
-                tmarks.insert(tmark, at: item.offset)
-                return
-            }
-        }
-        
-        tmarks.append(tmark)
-    }
-
-    public func delete(_ spend: SpendModel) {
-        if let ind = spends.index(of: spend) {
-            spends.remove(at: ind)
-        }
-    }
-    
-    public func delete(_ tmark: MarkModel) {
-        if let ind = tmarks.index(of: tmark) {
-            tmarks.remove(at: ind)
-        }
+        items.insert(DaySpendsItem(spend: spend, tmark: tmark), at: 0)
     }
 }
 
@@ -190,43 +151,8 @@ class LastSpends {
     }
 
     public func addSpend(_ spend: SpendModel) {
-        for dayInfo in daily {
-            if dayInfo.isThisDay(spend.date!) {
-                dayInfo.add(spend)
-                break
-            }
-        }
-    }
-
-    public func addTMark(_ tmark: MarkModel) {
-        for dayInfo in daily {
-            if dayInfo.isThisDay(tmark.date!) {
-                dayInfo.add(tmark)
-                break
-            }
-        }
-    }
-
-    public func deleteSpend(_ spend: SpendModel) {
-        for dayInfo in daily {
-            dayInfo.delete(spend)
-        }
-    }
-
-    public func deleteTMark(_ tmark: MarkModel) {
-        for dayInfo in daily {
-            dayInfo.delete(tmark)
-        }
-    }
-
-    public func updateSpend(_ spend: SpendModel) {
-        deleteSpend(spend)
-        addSpend(spend)
-    }
-
-    public func updateTMark(_ tmark: MarkModel) {
-        deleteTMark(tmark)
-        addTMark(tmark)
+        checkDays()
+        daily[0].add(spend: spend, tmark: nil)
     }
 }
 
@@ -316,11 +242,12 @@ class AppSpends {
     public func delete(spend: SpendModel) {
         spend.removed = true
         get_delegate().saveContext()
-        lastSpends.deleteSpend(spend)
+        lastSpends.reload()
     }
 
     public func update(spend: SpendModel) {
+        //spend.version += 1
         get_delegate().saveContext()
-        lastSpends.updateSpend(spend)
+        lastSpends.reload()
     }
 }

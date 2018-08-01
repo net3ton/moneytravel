@@ -115,18 +115,19 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data[section].getItemsCount()
+        return data[section].items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = data[indexPath.section].getItem(ind: indexPath.row)
+        let item = data[indexPath.section].items[indexPath.row]
 
         if let spend = item.spend {
             let comment = spend.comment ?? ""
+            let category = spend.category
 
             let cell = tableView.dequeueReusableCell(withIdentifier: SpendViewCell.ID, for: indexPath) as! SpendViewCell
-            cell.icon.image = spend.category?.icon
-            cell.comment.text = comment.isEmpty ? spend.category?.name : comment
+            cell.icon.image = category?.icon
+            cell.comment.text = comment.isEmpty ? category?.name : comment
             cell.sum.text = spend.getSumString()
             cell.sumBase.text = spend.getBaseSumString()
             cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
@@ -143,7 +144,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let item = data[indexPath.section].getItem(ind: indexPath.row)
+        let item = data[indexPath.section].items[indexPath.row]
         if item.spend != nil {
             return SpendViewCell.HEIGHT
         }
@@ -180,7 +181,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = data[indexPath.section].getItem(ind: indexPath.row)
+        let item = data[indexPath.section].items[indexPath.row]
         
         if let spend = item.spend {
             onSpendPressed?(spend)

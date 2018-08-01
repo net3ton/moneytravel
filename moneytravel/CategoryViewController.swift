@@ -62,7 +62,7 @@ class CategoryViewController: UITableViewController {
             categoryToSave!.name = name
             categoryToSave!.iconname = iconname
             categoryToSave!.color = color
-            appCategories.save()
+            appCategories.update(category: categoryToSave!)
         }
         else {
             appCategories.add(name: name, iconname: iconname, color: color)

@@ -41,7 +41,7 @@ class AppTimestamps {
         
         do {
             try context.save()
-            lastSpends.addTMark(mark)
+            lastSpends.reload()
         }
         catch let error {
             print("Failed to add timestamp! ERROR: " + error.localizedDescription)
@@ -73,11 +73,12 @@ class AppTimestamps {
     public func delete(stamp: MarkModel) {
         stamp.removed = true
         get_delegate().saveContext()
-        lastSpends.deleteTMark(stamp)
+        lastSpends.reload()
     }
 
     public func update(stamp: MarkModel) {
+        //stamp.version += 1
         get_delegate().saveContext()
-        lastSpends.updateTMark(stamp)
+        lastSpends.reload()
     }
 }
