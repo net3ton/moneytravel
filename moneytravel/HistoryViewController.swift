@@ -206,22 +206,32 @@ class HistoryViewController: UIViewController {
     }
 
     @objc func onExport() {
-        let export = UIAlertController(title: "Export selected interval", message: nil, preferredStyle: .actionSheet);
+        let export = UIAlertController(title: "Export selected history to:", message: nil, preferredStyle: .actionSheet);
+        
+        let spreadsheet = UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
+        })
+        
+        let googleJSON = UIAlertAction(title: "Google Drive (json)", style: .default, handler: { (action) in
+        })
 
-        export.addAction(UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
-        }))
-
-        export.addAction(UIAlertAction(title: "Google Drive (json)", style: .default, handler: { (action) in
-        }))
-
-        export.addAction(UIAlertAction(title: "iTunes Shared Folder (json)", style: .default, handler: { (action) in
+        let localJSON = UIAlertAction(title: "iTunes Shared Folder (json)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
             historyData.exportToJSON(name: AppData.getExportName())
-        }))
+        })
 
+        spreadsheet.setValue(UIImage(named: "Google"), forKey: "image")
+        spreadsheet.setValue(0, forKey: "titleTextAlignment")
+        googleJSON.setValue(UIImage(named: "Google"), forKey: "image")
+        googleJSON.setValue(0, forKey: "titleTextAlignment")
+        localJSON.setValue(UIImage(named: "iTunes"), forKey: "image")
+        localJSON.setValue(0, forKey: "titleTextAlignment")
+
+        export.addAction(spreadsheet)
+        export.addAction(googleJSON)
+        export.addAction(localJSON)
         export.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         export.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-
+        
         present(export, animated: true, completion: nil)
     }
 }
