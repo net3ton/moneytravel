@@ -179,40 +179,48 @@ class AppSpends {
     public func fetch(for interval: HistoryInterval) -> [DaySpends] {
         var history: [DaySpends] = []
         
-        var current = interval.dateFrom.getDate()
+        let first = interval.dateFrom.getDate()
         let last = interval.dateTo.getDate()
-        
-        if current > last {
+
+        if first > last {
             return history
         }
-        
+
+        var current = last
+        if last == Calendar.current.startOfDay(for: last) {
+            current = Calendar.current.date(byAdding: .day, value: 1, to: last)!
+        }
+
         let context = get_context()
         let fetchSpends = NSFetchRequest<SpendModel>(entityName: "Spend")
         let fetchMarks = NSFetchRequest<MarkModel>(entityName: "Mark")
-        
-        while current <= last {
-            let next = Calendar.current.date(byAdding: .day, value: 1, to: current)!
-            
+
+        while current > first {
+            let prevDay = Calendar.current.date(byAdding: .second, value: -1, to: current)!
+            var from = Calendar.current.startOfDay(for: prevDay)
+            if from < first {
+                from = first
+            }
+
             do {
-                fetchSpends.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", current as NSDate, next as NSDate)
+                fetchSpends.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", from as NSDate, current as NSDate)
                 fetchSpends.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let spends = try context.fetch(fetchSpends)
                 
-                fetchMarks.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", current as NSDate, next as NSDate)
+                fetchMarks.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", from as NSDate, current as NSDate)
                 fetchMarks.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let tmarks = try context.fetch(fetchMarks)
                 
-                let daySpends = DaySpends(forDate: current, spends: spends, tmarks: tmarks)
+                let daySpends = DaySpends(forDate: from, spends: spends, tmarks: tmarks)
                 history.append(daySpends)
             }
             catch let error {
                 print("Failed to fetch history! ERROR: " + error.localizedDescription)
             }
-
-            current = next
+            
+            current = from
         }
 
-        history.reverse()
         return history
     }
     
