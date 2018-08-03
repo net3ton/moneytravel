@@ -14,25 +14,30 @@ class DateViewController: UIViewController {
 
     public var onDatePicked: ((Date) -> Void)?
     private var initDate: Date = Date()
+    private var timeOnly: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveDate))
 
+        datePicker.datePickerMode = timeOnly ? .time : .dateAndTime
         datePicker.setDate(initDate, animated: true)
         datePicker.minuteInterval = 5
+        
         updateDateText()
     }
 
-    public func setup(caption: String, date: Date) {
+    public func setup(caption: String, date: Date, timeOnly: Bool = false) {
         navigationItem.title = caption
-        initDate = date
+        self.initDate = date
+        self.timeOnly = timeOnly
     }
 
     private func updateDateText() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm, dd LLLL"
+        formatter.dateFormat = timeOnly ? "HH:mm" : "HH:mm, dd LLLL"
+
         textField.text = formatter.string(from: datePicker.date)
     }
 
