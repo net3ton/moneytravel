@@ -15,7 +15,7 @@ class SumViewController: UIViewController {
     
     public var onSumEntered: ((Float) -> Void)?
     private var initSum: Float = 0.0
-    private var initCurrency = "USD"
+    private var initCurrency: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +24,10 @@ class SumViewController: UIViewController {
         keyboardField.setInput(field: textField!)
         keyboardField.setValue(initSum)
         currencyLabel.text = initCurrency
+        currencyLabel.isHidden = (initCurrency == nil)
     }
     
-    public func setup(caption: String, sum: Float, currency: String) {
+    public func setup(caption: String, sum: Float, currency: String?) {
         navigationItem.title = caption
         initSum = sum
         initCurrency = currency

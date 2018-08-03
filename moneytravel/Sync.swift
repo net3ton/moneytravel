@@ -66,6 +66,8 @@ class AppSync {
     private func syncComplete(_ success: Bool) {
         if success {
             self.dateToSync = Calendar.current.date(byAdding: .hour, value: 3, to: Date())!
+            appSettings.googleSyncDate = Date()
+            appSettings.save()
             print("[Sync] ok.")
         }
         else {

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class MainViewController: UIViewController {
-    @IBOutlet weak var sumView: UITextField!
+    @IBOutlet weak var sumView: MoneyTextField!
     @IBOutlet weak var keysView: MoneyKeyboardWithInput!
     @IBOutlet weak var categoriesView: UICollectionView!
     @IBOutlet weak var spendView: UITableView!
@@ -38,6 +38,9 @@ class MainViewController: UIViewController {
         if let selected = spendView.indexPathForSelectedRow {
             spendView.deselectRow(at: selected, animated: true)
         }
+
+        sumView.multilier = appSettings.inputMulStr
+        //sumView.placeholder = "Enter sum in " + appSettings.currency
 
         updateSpendsView()
         categoriesView.reloadData()
@@ -113,7 +116,7 @@ class MainViewController: UIViewController {
             return
         }
 
-        let sum = keysView.getValue()
+        let sum = keysView.getValue() * Float(appSettings.inputMul)
         let bsum = sum / appSettings.exchangeRate
 
         appSpends.add(category: cat, sum: sum, curIso: appSettings.currency, bsum: bsum, bcurIso: appSettings.currencyBase, comment: "")

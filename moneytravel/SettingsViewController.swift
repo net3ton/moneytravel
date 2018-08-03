@@ -13,13 +13,16 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var currencyBase: UILabel!
     @IBOutlet weak var dailyMax: UILabel!
     @IBOutlet weak var headerSince: UILabel!
-    @IBOutlet weak var zeroNumber: UILabel!
+    @IBOutlet weak var dayStartTime: UILabel!
+    @IBOutlet weak var inputMul: UILabel!
     
     @IBOutlet weak var exchangeRateLabel: UILabel!
     @IBOutlet weak var exchangeRate: UILabel!
     @IBOutlet weak var exchangeUpdate: UISwitch!
     @IBOutlet weak var exchangeUpdateLabel: UILabel!
-
+    @IBOutlet weak var fractionCurrent: UISwitch!
+    @IBOutlet weak var fractionBase: UISwitch!
+    
     @IBOutlet weak var googleDriveLabel: UILabel!
     @IBOutlet weak var googleDriveSyncLabel: UILabel!
     
@@ -41,13 +44,21 @@ class SettingsViewController: UITableViewController {
         currencyBase.text = appSettings.currencyBase
         dailyMax.text = bsum_to_string(sum: appSettings.dailyMax)
         headerSince.text = headerDateSince.getName()
+        inputMul.text = appSettings.inputMulStr ?? "none"
 
         exchangeRate.text = sum_to_string(sum: appSettings.exchangeRate)
         exchangeUpdate.isOn = appSettings.exchangeUpdate
         exchangeRateLabel.text = String(format: "1 %@ =", appSettings.currencyBase)
         exchangeUpdateLabel.text = getLastCurrencyExchangeRateUpdateString()
+        fractionCurrent.isOn = appSettings.fractionCurrent
+        fractionBase.isOn = appSettings.fractionBase
 
         googleDriveLabel.text = appGoogleDrive.isLogined() ? "Sign out" : "Sign in"
+        googleDriveSyncLabel.text = getLastGoogleSyncString()
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        dayStartTime.text = formatter.string(from: appSettings.dayStartTime)
     }
 
     private func getLastCurrencyExchangeRateUpdateString() -> String {
@@ -64,6 +75,16 @@ class SettingsViewController: UITableViewController {
         return String.init(format: "Last update: %@", formatter.string(from: date))
     }
 
+    private func getLastGoogleSyncString() -> String {
+        guard let date = appSettings.googleSyncDate else {
+            return "Last sync: never"
+        }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm, dd.MM.yyyy"
+        return String.init(format: "Last sync: %@", formatter.string(from: date))
+    }
+
     @IBAction func currencyUpdateCheck(_ sender: UISwitch) {
         appSettings.exchangeUpdate = sender.isOn
         if appSettings.exchangeUpdate {
@@ -71,8 +92,18 @@ class SettingsViewController: UITableViewController {
         }
     }
 
+    @IBAction func fractionCurrentCheck(_ sender: UISwitch) {
+        appSettings.fractionCurrent = sender.isOn
+        updateLabels()
+    }
+
+    @IBAction func fractionBaseCheck(_ sender: UISwitch) {
+        appSettings.fractionBase = sender.isOn
+        updateLabels()
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3 && indexPath.row == 0 {
+        if indexPath.section == 4 && indexPath.row == 0 {
             if appGoogleDrive.isLogined() {
                 appGoogleDrive.signOut() {
                     self.updateLabels()
@@ -129,6 +160,24 @@ class SettingsViewController: UITableViewController {
                 appSettings.exchangeRate = val
                 appSettings.exchangeUpdate = false
                 appSettings.exchangeUpdateDate = Date(timeIntervalSince1970: 0)
+                self.updateLabels()
+            }
+        }
+        else if segue.identifier == "input-mul" {
+            let mulEdit = segue.destination as! SumViewController
+            mulEdit.setup(caption: "Input multiplier", sum: Float(appSettings.inputMul), currency: nil)
+            mulEdit.onSumEntered = { val in
+                appSettings.inputMul = Int(val)
+                self.updateLabels()
+            }
+        }
+        else if segue.identifier == "day-start" {
+            let timePicker = segue.destination as! DateViewController
+            timePicker.setup(caption: "Day start time", date: appSettings.dayStartTime, timeOnly: true)
+            timePicker.onDatePicked = { val in
+                let minutes = Calendar.current.component(.minute, from: val)
+                let hours = Calendar.current.component(.hour, from: val)
+                appSettings.dayStart = hours * 3600 + minutes * 60
                 self.updateLabels()
             }
         }

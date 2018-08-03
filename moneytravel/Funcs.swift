@@ -18,7 +18,7 @@ func getUID() -> String {
     return String(format:"'%08X%08X'", p2, p1)
 }
 
-private func num_to_string(sum: Float, fraction: Int) -> String {
+func num_to_string(sum: Float, fraction: Int) -> String {
     let formatter = NumberFormatter()
     formatter.usesGroupingSeparator = true
     formatter.groupingSeparator = "\u{00a0}" // non-breaking space
@@ -31,11 +31,11 @@ private func num_to_string(sum: Float, fraction: Int) -> String {
 }
 
 func num_to_string(sum: Float) -> String {
-    return num_to_string(sum: sum, fraction: 2)
+    return num_to_string(sum: sum, fraction: appSettings.fractionCurrent ? 2 : 0)
 }
 
 func bnum_to_string(sum: Float) -> String {
-    return num_to_string(sum: sum, fraction: 2)
+    return num_to_string(sum: sum, fraction: appSettings.fractionBase ? 2 : 0)
 }
 
 func sum_to_string(sum: Float) -> String {
