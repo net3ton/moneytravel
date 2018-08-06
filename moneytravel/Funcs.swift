@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 func getUID() -> String {
-    let timestamp =  Int((Date().timeIntervalSince1970 * 1000000.0).rounded())
+    let timestamp =  UInt((Date().timeIntervalSince1970 * 1000000.0).rounded())
     
     let p1: UInt32 = UInt32(timestamp & 0xFFFFFFFF)
     let p2: UInt32 = UInt32(timestamp >> 32) | UInt32(arc4random() << 16)
