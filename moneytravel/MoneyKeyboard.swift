@@ -32,6 +32,7 @@ import UIKit
 
     private var selectedCell: Position?
     public var onPressedHandler: ((String) -> Void)?
+    public var fractionEnabled: Bool = true
     
     override func draw(_ rect: CGRect) {
         let fontSize: CGFloat = 30.0
@@ -52,11 +53,11 @@ import UIKit
 
         for ix in 0...(COUNTX-1) {
             for iy in 0...(COUNTY-1) {
-                
-                let isSelected = (selectedCell != nil && ix == selectedCell!.x && iy == selectedCell!.y)
-                let rect = CGRect(x: CGFloat(ix) * xsize, y: CGFloat(iy) * ysize, width: xsize - 2, height: ysize - 2)
 
-                cnx?.setFillColor(isSelected ? COLOR_KEYS_SELECT.cgColor : COLOR_KEYS.cgColor)
+                let rect = CGRect(x: CGFloat(ix) * xsize, y: CGFloat(iy) * ysize, width: xsize - 2, height: ysize - 2)
+                let color = getKeyColor(pos: Position(x: ix, y: iy))
+
+                cnx?.setFillColor(color)
                 cnx?.addPath(UIBezierPath(roundedRect: rect, cornerRadius: 3.0).cgPath)
                 cnx?.fillPath()
 
@@ -78,6 +79,28 @@ import UIKit
         }
     }
 
+    private func getKeyColor(pos: Position) -> CGColor {
+        if !isKeyEnabled(pos: pos) {
+            return COLOR_KEYS_DISABLED.cgColor
+        }
+
+        if let sel = selectedCell {
+            if pos == sel {
+                return COLOR_KEYS_SELECT.cgColor
+            }
+        }
+
+        return COLOR_KEYS.cgColor
+    }
+    
+    private func isKeyEnabled(pos: Position) -> Bool {
+        if !fractionEnabled && CHARS[pos.y][pos.x] == "." {
+            return false
+        }
+
+        return true
+    }
+    
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.beginTracking(touch, with: event)
         return true
@@ -98,9 +121,10 @@ import UIKit
         }
 
         if let sel = selectedCell {
-            let enteredChar = CHARS[sel.y][sel.x]
-            onPressedHandler?(enteredChar)
-            //sendActions(for: .valueChanged)
+            if isKeyEnabled(pos: sel) {
+                let enteredChar = CHARS[sel.y][sel.x]
+                onPressedHandler?(enteredChar)
+            }
         }
 
         selectedCell = nil

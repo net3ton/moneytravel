@@ -16,6 +16,7 @@ class SumViewController: UIViewController {
     public var onSumEntered: ((Float) -> Void)?
     private var initSum: Float = 0.0
     private var initCurrency: String?
+    private var initFraction: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +24,16 @@ class SumViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveSum))
         keyboardField.setInput(field: textField!)
         keyboardField.setValue(initSum)
+        keyboardField.fractionEnabled = initFraction
         currencyLabel.text = initCurrency
         currencyLabel.isHidden = (initCurrency == nil)
     }
     
-    public func setup(caption: String, sum: Float, currency: String?) {
+    public func setup(caption: String, sum: Float, currency: String?, fraction: Bool = true) {
         navigationItem.title = caption
         initSum = sum
         initCurrency = currency
+        initFraction = fraction
     }
 
     @objc func saveSum() {
