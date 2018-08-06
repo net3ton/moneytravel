@@ -31,7 +31,7 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        headerDateSince.setDate(date: appSettings.headerSince)
+        headerDateSince.setDate(appSettings.headerSince)
         updateLabels()
     }
 
@@ -165,7 +165,7 @@ class SettingsViewController: UITableViewController {
         }
         else if segue.identifier == "input-mul" {
             let mulEdit = segue.destination as! SumViewController
-            mulEdit.setup(caption: "Input multiplier", sum: Float(appSettings.inputMul), currency: nil)
+            mulEdit.setup(caption: "Input multiplier", sum: Float(appSettings.inputMul), currency: nil, fraction: false)
             mulEdit.onSumEntered = { val in
                 appSettings.inputMul = Int(val)
                 self.updateLabels()

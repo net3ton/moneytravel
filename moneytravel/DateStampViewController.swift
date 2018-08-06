@@ -85,7 +85,7 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         customDate = sender.date
         markPicker.selectRow(CUSTOM, inComponent: 0, animated: true)
         
-        historyDate.setDate(date: customDate)
+        historyDate.setDate(customDate)
         updateDateText()
     }
 
@@ -107,13 +107,13 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row == 0 {
-            historyDate.setDate(date: customDate)
+            historyDate.setDate(customDate)
         }
         else if row == 1 {
-            historyDate.setDate(date: Date())
+            historyDate.setToday()
         }
         else {
-            historyDate.setStamp(stamp: timestamps[row - PREMARKS.count])
+            historyDate.setStamp(timestamps[row - PREMARKS.count])
         }
 
         updateDateText()

@@ -138,7 +138,7 @@ class LastSpends {
 
     private func fetchLast() -> [DaySpends] {
         let interval = HistoryInterval()
-        interval.dateTo.setNow()
+        interval.dateTo.setToday()
         interval.dateFrom.setDaysAgo(days: DAYS_HISTORY-1)
 
         return appSpends.fetch(for: interval)
@@ -175,32 +175,24 @@ class AppSpends {
 
         return []
     }
-
+    
     public func fetch(for interval: HistoryInterval) -> [DaySpends] {
         var history: [DaySpends] = []
         
-        let first = interval.dateFrom.getDate()
-        let last = interval.dateTo.getDate()
+        let first = interval.dateFrom.getDateFrom()
+        let last = interval.dateTo.getDateTo()
 
         if first > last {
             return history
         }
-
-        var current = last
-        if last == Calendar.current.startOfDay(for: last) {
-            current = Calendar.current.date(byAdding: .day, value: 1, to: last)!
-        }
-
+        
         let context = get_context()
         let fetchSpends = NSFetchRequest<SpendModel>(entityName: "Spend")
         let fetchMarks = NSFetchRequest<MarkModel>(entityName: "Mark")
 
+        var current = last
         while current > first {
-            let prevDay = Calendar.current.date(byAdding: .second, value: -1, to: current)!
-            var from = Calendar.current.startOfDay(for: prevDay)
-            if from < first {
-                from = first
-            }
+            let from = HistoryDate.getPrevDate(current)
 
             do {
                 fetchSpends.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", from as NSDate, current as NSDate)

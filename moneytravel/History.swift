@@ -8,6 +8,8 @@
 
 import UIKit
 
+fileprivate let DAY_SECONDS = 24 * 3600
+
 class HistoryInterval {
     var dateFrom: HistoryDate = HistoryDate()
     var dateTo: HistoryDate = HistoryDate()
@@ -34,68 +36,88 @@ class HistoryDate {
     private var stamp: MarkModel?
     private var date: Date?
 
-    public func setDate(date: Date) {
+    public func setStamp(_ stamp: MarkModel) {
+        self.stamp = stamp
+        self.date = nil
+    }
+
+    public func setDate(_ date: Date) {
         if let stamp = appTimestamps.find(for: date) {
-            self.stamp = stamp
-            self.date = nil
+            setStamp(stamp)
         }
         else {
             self.date = Calendar.current.startOfDay(for: date)
             self.stamp = nil
         }
     }
-
-    public func setNow() {
-        self.date = Date()
-        self.stamp = nil
-    }
     
     public func setToday() {
-        setDate(date: Date())
+        setDate(Date())
     }
 
     public func setWeekAgo() {
-        let weekAgo = Calendar.current.date(byAdding: .day, value: -6, to: Date())
-        setDate(date: weekAgo!)
+        setDaysAgo(days: 6)
     }
 
     public func setDaysAgo(days: Int) {
         let daysAgo = Calendar.current.date(byAdding: .day, value: -days, to: Date())
-        setDate(date: daysAgo!)
-    }
-
-    public func setStamp(stamp: MarkModel) {
-        self.stamp = stamp
-        self.date = nil
+        setDate(daysAgo!)
     }
 
     public func getDate() -> Date {
-        if date != nil {
-            return date!
-        }
-        
         if stamp != nil {
             return stamp!.date!
         }
 
-        return Calendar.current.startOfDay(for: Date())
+        if date != nil {
+            return date!
+        }
+
+        return Date()
     }
-    
+
     public func getName() -> String {
         if stamp != nil {
             return stamp!.name!
         }
         
-        if date != nil {
-            if Calendar.current.isDateInToday(date!) {
+        if let date = date {
+            if Calendar.current.isDateInToday(date) {
                 return "Today"
             }
 
             let formatter = DateFormatter()
             formatter.dateFormat = "dd LLLL yyyy"
-            return formatter.string(from: date!)
+            return formatter.string(from: date)
         }
         
         return ""
+    }
+
+    public func getDateFrom() -> Date {
+        if date != nil {
+            return date! + TimeInterval(appSettings.dayStart)
+        }
+
+        return getDate()
+    }
+
+    public func getDateTo() -> Date {
+        if date != nil {
+            return date! + TimeInterval(appSettings.dayStart + DAY_SECONDS)
+        }
+
+        return getDate()
+    }
+    
+    static public func getPrevDate(_ date: Date) -> Date {
+        let day = Calendar.current.startOfDay(for: date)
+        let point = day + TimeInterval(appSettings.dayStart)
+        
+        if point >= date {
+            return point - TimeInterval(DAY_SECONDS)
+        }
+        
+        return point
     }
 }
