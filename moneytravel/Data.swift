@@ -80,6 +80,7 @@ class AppData: Codable {
             spends.append(contentsOf: daily.spends)
             timestamps.append(contentsOf: daily.tmarks)
             
+            /// FIX
             for spend in daily.spends {
                 if let cat = spend.category, !categories.contains(cat) {
                     categories.append(cat)
@@ -116,13 +117,7 @@ class AppData: Codable {
         return nil
     }
 
-    static public func getExportName() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        return formatter.string(from: Date())
-    }
-
-    public func exportToJSON(name: String) {
+    public func saveToJSON(name: String) {
         do {
             let jsonEncoder = JSONEncoder()
             jsonEncoder.dateEncodingStrategy = .iso8601
@@ -136,7 +131,69 @@ class AppData: Codable {
             try jsonData.write(to: exportPath)
         }
         catch let error {
-            print("Failed to export! ERROR: " + error.localizedDescription)
+            print("Failed to export to JSON! ERROR: " + error.localizedDescription)
+        }
+    }
+
+    private func prepareCSVLine(values: [String], sep: String) -> Data? {
+        var line = ""
+        
+        for (ind, val) in values.enumerated() {
+            line += val
+            
+            if ind == values.count - 1 {
+                line += "\n"
+            }
+            else {
+                line += sep
+            }
+        }
+
+        return line.data(using: .utf8)
+    }
+    
+    public func exportToCSV() -> Data {
+        let SEP = ","
+        var data = Data()
+        
+        let header = ["Date", "Time", "Sum", "Currency", appSettings.currencyBase, "Category", "Comment"]
+        if let headerData = prepareCSVLine(values: header, sep: SEP) {
+            data.append(headerData)
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        
+        for spend in spends {
+            var line: [String] = []
+
+            line.append(dateFormatter.string(from: spend.date!))
+            line.append(timeFormatter.string(from: spend.date!))
+            line.append(String(format: "%0.03f", spend.sum))
+            line.append(spend.currency!)
+            line.append(String(format: "%0.03f", spend.bsum))
+            line.append(spend.category!.name!)
+            line.append(spend.comment!)
+
+            if let lineData = prepareCSVLine(values: line, sep: SEP) {
+                data.append(lineData)
+            }
+        }
+
+        return data
+    }
+    
+    public func saveToCSV(name: String) {
+        do {
+            let docsPath = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+            let exportPath = docsPath.appendingPathComponent(String(format: "%@.csv", name))
+            
+            try exportToCSV().write(to: exportPath)
+        }
+        catch let error {
+            print("Failed to export to CVS! ERROR: " + error.localizedDescription)
         }
     }
 }
