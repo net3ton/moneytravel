@@ -19,6 +19,11 @@ enum EGoogleDriveError {
     case lookupError
 }
 
+enum EGoogleDriveMimeType: String {
+    case binary = "application/x-binary"
+    case csv = "text/csv"
+}
+
 class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
     private let sheetsService = GTLRSheetsService()
     private let driveService = GTLRDriveService()
@@ -104,17 +109,16 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         }
     }
 
-    public func uploadToRoot(data: Data, filename: String, completion: @escaping ((Bool) -> Void)) {
+    public func uploadToRoot(data: Data, filename: String, description: String? = nil, mime: EGoogleDriveMimeType, completion: @escaping ((Bool) -> Void)) {
         let file = GTLRDrive_File()
         file.name = filename
-        file.descriptionProperty = "TravelMoney sync data"
-        file.mimeType = "application/x-binary"
+        file.descriptionProperty = description
+        file.mimeType = mime.rawValue
 
         let uploadParameters = GTLRUploadParameters(data: data, mimeType: file.mimeType!)
         uploadParameters.shouldUploadWithSingleRequest = true
 
         let query = GTLRDriveQuery_FilesCreate.query(withObject: file, uploadParameters: uploadParameters)
-        //query.fields = "id"
 
         driveService.executeQuery(query) { (ticket, insertedFile, error) -> Void in
             if let error = error {
@@ -123,16 +127,13 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
                 return
             }
 
-            //let file = insertedFile as? GTLRDrive_File
-            //print("[Google Drive] File upload complete, id: " + file?.identifier)
-
             print("[Google Drive] File uploaded: " + String(data.count))
             completion(true)
         }
     }
 
-    public func updateFile(data: Data, fileid: String, completion: @escaping ((Bool) -> Void)) {
-        let uploadParameters = GTLRUploadParameters(data: data, mimeType: "application/x-binary")
+    public func updateFile(data: Data, fileid: String, mime: EGoogleDriveMimeType, completion: @escaping ((Bool) -> Void)) {
+        let uploadParameters = GTLRUploadParameters(data: data, mimeType: mime.rawValue)
         uploadParameters.shouldUploadWithSingleRequest = true
 
         let query = GTLRDriveQuery_FilesUpdate.query(withObject: GTLRDrive_File(), fileId: fileid, uploadParameters: uploadParameters)
@@ -146,6 +147,97 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
 
             print("[Google Drive] File updated: " + String(data.count))
             completion(true)
+        }
+    }
+
+    public func makeSpreadsheet(name: String, history: [DaySpends]) {
+        let sheetProps = GTLRSheets_SpreadsheetProperties()
+        sheetProps.title = name
+
+        let sheet = GTLRSheets_Spreadsheet()
+        sheet.properties = sheetProps
+
+        let query = GTLRSheetsQuery_SpreadsheetsCreate.query(withObject: sheet)
+        sheetsService.executeQuery(query) { (ticket, result, error) in
+            if let error = error {
+                print("[Google Spreadsheets] Failed to create spreadsheet! Error: " + error.localizedDescription)
+                return
+            }
+
+            let sheet = result as! GTLRSheets_Spreadsheet
+            let id = sheet.spreadsheetId
+            
+            // cells
+            let googleSheet = GoogleSheet()
+            googleSheet.appendRow(bgcolor: UIColor.white)
+            googleSheet.addString("Date/Time")
+            googleSheet.addString("Sum")
+            googleSheet.addString("Currency")
+            googleSheet.addString(appSettings.currencyBase)
+            googleSheet.addString("Category")
+            googleSheet.addString("Comment")
+            
+            for info in history {
+                if info.spends.isEmpty {
+                    continue
+                }
+                
+                googleSheet.appendRow(bgcolor: COLOR_SPEND_HEADER)
+                googleSheet.addDate(info.date)
+                googleSheet.addString("")
+                googleSheet.addString("")
+                googleSheet.addString("")
+                googleSheet.addString("")
+                googleSheet.addString("")
+                
+                for (ind, spend) in info.spends.enumerated() {
+                    googleSheet.appendRow(bgcolor: (ind % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2)
+                    googleSheet.addTime(spend.date!)
+                    googleSheet.addFloat(spend.sum)
+                    googleSheet.addString(spend.currency!)
+                    googleSheet.addFloat(spend.bsum)
+                    googleSheet.addString(spend.category!.name!)
+                    googleSheet.addString(spend.comment!)
+                }
+            }
+
+            // properties
+            let gridProps = GTLRSheets_GridProperties()
+            gridProps.frozenRowCount = 1
+            
+            let sheetProps = GTLRSheets_SheetProperties()
+            sheetProps.gridProperties = gridProps
+            sheetProps.title = "Sheet1"
+            
+            let reqProps = GTLRSheets_UpdateSheetPropertiesRequest()
+            reqProps.properties = sheetProps
+            reqProps.fields = "*"
+
+            // batch
+            let batchCells = GTLRSheets_Request()
+            batchCells.updateCells = googleSheet.getUpdateCellsRequest()
+            
+            let batchProps = GTLRSheets_Request()
+            batchProps.updateSheetProperties = reqProps
+
+            let requestBatch = GTLRSheets_BatchUpdateSpreadsheetRequest()
+            requestBatch.requests = []
+            requestBatch.requests?.append(batchCells)
+            //requestBatch.requests?.append(batchProps)
+            
+            let queryBatch = GTLRSheetsQuery_SpreadsheetsBatchUpdate.query(withObject: requestBatch, spreadsheetId: id!)
+            self.sheetsService.executeQuery(queryBatch) { (ticket, result, error) in
+                if let error = error {
+                    print("[Google Spreadsheets] Failed to update spreadsheet! Error: " + error.localizedDescription)
+                    return
+                }
+                
+                if let response = result as? GTLRSheets_UpdateValuesResponse {
+                    print(response.json!)
+                }
+                
+                print("[Google Spreadsheets] export complete.")
+            }
         }
     }
 

@@ -204,19 +204,31 @@ class HistoryViewController: UIViewController {
         titlebar.sum = sum
         titlebar.days = history.count
     }
-
+    
     @objc func onExport() {
+        func getExportFileName() -> String {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd_HH-mm"
+            return String(format: "MoneyTravel_%@.csv", formatter.string(from: Date()))
+        }
+        
         let export = UIAlertController(title: "Export selected history to:", message: nil, preferredStyle: .actionSheet);
         
         let spreadsheet = UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
+            appGoogleDrive.makeSpreadsheet(name: "MoneyTravel", history: self.history)
         })
         
-        let googleJSON = UIAlertAction(title: "Google Drive (json)", style: .default, handler: { (action) in
+        let googleJSON = UIAlertAction(title: "Google Drive (cvs)", style: .default, handler: { (action) in
+            let historyData = AppData(history: self.history)
+            let dataCVS = historyData.exportToCSV()
+
+            appGoogleDrive.uploadToRoot(data: dataCVS, filename: getExportFileName(), mime: .csv, completion: { (success) in
+            })
         })
 
-        let localJSON = UIAlertAction(title: "iTunes Shared Folder (json)", style: .default, handler: { (action) in
+        let localJSON = UIAlertAction(title: "iTunes Shared Folder (cvs)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
-            historyData.exportToJSON(name: AppData.getExportName())
+            historyData.saveToCSV(name: getExportFileName())
         })
 
         spreadsheet.setValue(UIImage(named: "Google"), forKey: "image")

@@ -13,6 +13,7 @@ let appSync = AppSync()
 
 class AppSync {
     public static let NAME_SYNC = "moneytravel.sync"
+    public static let DESC_SYNC = "TravelMoney sync data"
     private var dateToSync = Date()
 
     public func sync() {
@@ -51,12 +52,12 @@ class AppSync {
 
         if let data = AppData().exportToData() {
             if let fid = fileId {
-                appGoogleDrive.updateFile(data: data, fileid: fid) { (success) in
+                appGoogleDrive.updateFile(data: data, fileid: fid, mime: .binary) { (success) in
                     self.syncComplete(success)
                 }
             }
             else {
-                appGoogleDrive.uploadToRoot(data: data, filename: AppSync.NAME_SYNC) { (success) in
+                appGoogleDrive.uploadToRoot(data: data, filename: AppSync.NAME_SYNC, description: AppSync.DESC_SYNC, mime: .binary) { (success) in
                     self.syncComplete(success)
                 }
             }
