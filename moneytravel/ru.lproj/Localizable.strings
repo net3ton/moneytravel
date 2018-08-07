@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  moneytravel
+
+  Created by Aleksandr Kharkov on 06/08/2018.
+  Copyright © 2018 Oleksandr Kharkov. All rights reserved.
+*/
+
+"NONE" = "нет";
+"SIGN_IN" = "Войти";
+"SIGN_OUT" = "Выйти";
+"LAST_UPDATE" = "Last update:";
+"LAST_SYNC" = "Last sync:";
+"NEVER" = "never";
+"MANUAL" = "manual set";
