@@ -215,7 +215,11 @@ class HistoryViewController: UIViewController {
         let export = UIAlertController(title: "Export selected history to:", message: nil, preferredStyle: .actionSheet);
         
         let spreadsheet = UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
-            appGoogleDrive.makeSpreadsheet(name: "MoneyTravel", history: self.history)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy.MM.dd HH:mm"
+            let sheetName = String(format: "MoneyTravel (%@)", formatter.string(from: Date()))
+            
+            appGoogleDrive.makeSpreadsheet(name: sheetName, history: self.history)
         })
         
         let googleJSON = UIAlertAction(title: "Google Drive (cvs)", style: .default, handler: { (action) in

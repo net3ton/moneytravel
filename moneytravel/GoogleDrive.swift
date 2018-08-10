@@ -170,25 +170,35 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
             // cells
             let googleSheet = GoogleSheet()
             googleSheet.appendRow(bgcolor: UIColor.white)
-            googleSheet.addString("Date/Time")
-            googleSheet.addString("Sum")
-            googleSheet.addString("Currency")
-            googleSheet.addString(appSettings.currencyBase)
-            googleSheet.addString("Category")
-            googleSheet.addString("Comment")
+            googleSheet.addString("Date/Time", align: .center)
+            googleSheet.addString("Sum", align: .center)
+            googleSheet.addString("Currency", align: .center)
+            googleSheet.addString(appSettings.currencyBase, align: .center)
+            googleSheet.addString("Category", align: .center)
+            googleSheet.addString("Comment", align: .center)
+            
+            var sumFormula = ""
             
             for info in history {
                 if info.spends.isEmpty {
                     continue
                 }
-                
+
                 googleSheet.appendRow(bgcolor: COLOR_SPEND_HEADER)
+                
+                let cellOne = gs_cell_address(column: 3, row: googleSheet.getCurrentRow() + 1)
+                let cellTwo = gs_cell_address(column: 3, row: googleSheet.getCurrentRow() + info.spends.count)
+                
                 googleSheet.addDate(info.date)
-                googleSheet.addString("")
-                googleSheet.addString("")
-                googleSheet.addString("")
-                googleSheet.addString("")
-                googleSheet.addString("")
+                googleSheet.addEmpty(count: 2)
+                googleSheet.addFormula(String(format: "=SUM(%@:%@)", cellOne, cellTwo))
+                googleSheet.addEmpty(count: 2)
+                googleSheet.setBordersAll(top: .dashed)
+
+                if !sumFormula.isEmpty {
+                    sumFormula += ","
+                }
+                sumFormula += gs_cell_address(column: 3, row: googleSheet.getCurrentRow())
                 
                 for (ind, spend) in info.spends.enumerated() {
                     googleSheet.appendRow(bgcolor: (ind % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2)
@@ -201,17 +211,25 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
                 }
             }
 
+            googleSheet.appendRow(bgcolor: UIColor.white)
+
+            googleSheet.appendRow(bgcolor: COLOR_CAT)
+            googleSheet.addEmpty(count: 3)
+            googleSheet.addFormula(String(format: "=SUM(%@)", sumFormula))
+            googleSheet.addEmpty(count: 2)
+            googleSheet.setBordersAll(top: .solid)
+            
             // properties
             let gridProps = GTLRSheets_GridProperties()
             gridProps.frozenRowCount = 1
             
             let sheetProps = GTLRSheets_SheetProperties()
             sheetProps.gridProperties = gridProps
-            sheetProps.title = "Sheet1"
+            sheetProps.title = "MoneyTravel"
             
             let reqProps = GTLRSheets_UpdateSheetPropertiesRequest()
             reqProps.properties = sheetProps
-            reqProps.fields = "*"
+            reqProps.fields = "gridProperties.frozenRowCount"
 
             // batch
             let batchCells = GTLRSheets_Request()
@@ -223,7 +241,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
             let requestBatch = GTLRSheets_BatchUpdateSpreadsheetRequest()
             requestBatch.requests = []
             requestBatch.requests?.append(batchCells)
-            //requestBatch.requests?.append(batchProps)
+            requestBatch.requests?.append(batchProps)
             
             let queryBatch = GTLRSheetsQuery_SpreadsheetsBatchUpdate.query(withObject: requestBatch, spreadsheetId: id!)
             self.sheetsService.executeQuery(queryBatch) { (ticket, result, error) in

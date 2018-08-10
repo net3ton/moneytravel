@@ -10,14 +10,38 @@ import UIKit
 import GoogleSignIn
 import GoogleAPIClientForREST
 
+enum EGoogleSheetAlign: String {
+    case center = "CENTER"
+    case left = "LEFT"
+    case right = "RIGHT"
+}
+
+enum EGoogleSheetBorder {
+    case dashed
+    case solid
+}
+
+func gs_column_letter(_ index: Int) -> String {
+    let code = UnicodeScalar(65 + index % 26)!
+    return String(code)
+}
+
+func gs_cell_address(column: Int, row: Int) -> String {
+    return String(format: "%@%i", gs_column_letter(column), row)
+}
+
 class GoogleSheet {
     private var cells = GTLRSheets_UpdateCellsRequest()
     private var columnsCount = 0
 
     private var backColor: GTLRSheets_Color!
+
     private var numFormat: GTLRSheets_NumberFormat!
     private var dateFormat: GTLRSheets_NumberFormat!
     private var timeFormat: GTLRSheets_NumberFormat!
+
+    private var dashedBorder: GTLRSheets_Border!
+    private var solidBorder: GTLRSheets_Border!
     
     init() {
         cells.range = GTLRSheets_GridRange()
@@ -36,6 +60,16 @@ class GoogleSheet {
         timeFormat.type = "DATE"
         timeFormat.pattern = "hh:mm"
 
+        dashedBorder = GTLRSheets_Border()
+        dashedBorder.style = "DASHED"
+        dashedBorder.width = 1
+        dashedBorder.color = makeColor(UIColor.black)
+
+        solidBorder = GTLRSheets_Border()
+        solidBorder.style = "SOLID"
+        solidBorder.width = 1
+        solidBorder.color = makeColor(UIColor.black)
+        
         //dateFormat.pattern = "hh:mm:ss am/pm, ddd mmm dd yyyy"  // 02:05:07 PM, Sun Apr 03 2018
     }
 
@@ -61,52 +95,63 @@ class GoogleSheet {
 
         return cells
     }
-
-    public func addString(_ value: String) {
+    
+    public func addString(_ value: String, align: EGoogleSheetAlign? = nil) {
+        addValue(valString: value, valFormula: nil, align: align)
+    }
+    
+    public func addFormula(_ value: String, align: EGoogleSheetAlign? = nil) {
+        addValue(valString: nil, valFormula: value, align: align)
+    }
+    
+    public func addEmpty( count: Int) {
+        for _ in 0..<count {
+            addString("")
+        }
+    }
+    
+    public func addValue(valString: String?, valFormula: String?, align: EGoogleSheetAlign? = nil) {
         let cellValue = GTLRSheets_ExtendedValue()
-        cellValue.stringValue = value
+        cellValue.formulaValue = valFormula
+        cellValue.stringValue = valString
         
         let cellFormat = GTLRSheets_CellFormat()
         cellFormat.backgroundColor = backColor
-        //cellFormat.horizontalAlignment = "CENTER"
-
+        
+        if let align = align {
+            cellFormat.horizontalAlignment = align.rawValue
+        }
+        
         let cellData = GTLRSheets_CellData()
         cellData.userEnteredFormat = cellFormat
         cellData.userEnteredValue = cellValue
-
+        
         appendCell(cellData)
     }
     
     public func addFloat(_ value: Float) {
-        let cellValue = GTLRSheets_ExtendedValue()
-        cellValue.numberValue = value as NSNumber
-
-        let cellFormat = GTLRSheets_CellFormat()
-        cellFormat.backgroundColor = backColor
-        cellFormat.numberFormat = numFormat
-        //cellFormat.horizontalAlignment = "CENTER"
-        
-        let cellData = GTLRSheets_CellData()
-        cellData.userEnteredFormat = cellFormat
-        cellData.userEnteredValue = cellValue
-    
-        appendCell(cellData)
+        addNumber(Double(value), format: numFormat)
     }
     
     public func addDate(_ value: Date) {
-        /*
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-
-        addString(dateFormatter.string(from: value))
-        */
-
+        addNumber(makeSerialDateFormat(value), format: dateFormat)
+    }
+    
+    public func addTime(_ value: Date) {
+        addNumber(makeSerialDateFormat(value), format: timeFormat)
+    }
+    
+    public func addNumber(_ value: Double, format: GTLRSheets_NumberFormat, align: EGoogleSheetAlign? = nil) {
         let cellValue = GTLRSheets_ExtendedValue()
-        cellValue.numberValue = value.timeIntervalSince1970 as NSNumber
+        cellValue.numberValue = value as NSNumber
         
         let cellFormat = GTLRSheets_CellFormat()
         cellFormat.backgroundColor = backColor
-        cellFormat.numberFormat = dateFormat
+        cellFormat.numberFormat = format
+        
+        if let align = align {
+            cellFormat.horizontalAlignment = align.rawValue
+        }
         
         let cellData = GTLRSheets_CellData()
         cellData.userEnteredFormat = cellFormat
@@ -114,27 +159,45 @@ class GoogleSheet {
         
         appendCell(cellData)
     }
-    
-    public func addTime(_ value: Date) {
-        /*
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
-        
-        addString(timeFormatter.string(from: value))
-        */
 
-        let cellValue = GTLRSheets_ExtendedValue()
-        cellValue.numberValue = value.timeIntervalSince1970 as NSNumber
+    private func getSheetBorder(top: EGoogleSheetBorder? = nil, bottom: EGoogleSheetBorder? = nil) -> GTLRSheets_Borders {
+        let cellBorders = GTLRSheets_Borders()
         
-        let cellFormat = GTLRSheets_CellFormat()
-        cellFormat.backgroundColor = backColor
-        cellFormat.numberFormat = timeFormat
+        if top == .dashed {
+            cellBorders.top = dashedBorder
+        }
+        else if top == .solid {
+            cellBorders.top = solidBorder
+        }
         
-        let cellData = GTLRSheets_CellData()
-        cellData.userEnteredFormat = cellFormat
-        cellData.userEnteredValue = cellValue
+        if bottom == .dashed {
+            cellBorders.bottom = dashedBorder
+        }
+        else if bottom == .solid {
+            cellBorders.bottom = solidBorder
+        }
+
+        return cellBorders
+    }
+    
+    public func setBorders(top: EGoogleSheetBorder? = nil, bottom: EGoogleSheetBorder? = nil) {
+        cells.rows?.last?.values?.last?.userEnteredFormat?.borders = getSheetBorder(top: top, bottom: bottom)
+    }
+    
+    public func setBordersAll(top: EGoogleSheetBorder? = nil, bottom: EGoogleSheetBorder? = nil) {
+        let borders = getSheetBorder(top: top, bottom: bottom)
         
-        appendCell(cellData)
+        for values in cells.rows!.last!.values! {
+            values.userEnteredFormat?.borders = borders
+        }
+    }
+    
+    public func getCurrentRow() -> Int {
+        return cells.rows!.count
+    }
+
+    public func getCurrentColumn() -> Int {
+        return cells.rows!.last!.values!.count
     }
     
     private func makeColor(_ val: UIColor) -> GTLRSheets_Color {
@@ -151,5 +214,19 @@ class GoogleSheet {
         color.blue = b as NSNumber
         return color
     }
-    
+
+    private func makeSerialDateFormat(_ val: Date) -> Double {
+        var dateComponents = DateComponents()
+        dateComponents.year = 1899
+        dateComponents.month = 12
+        dateComponents.day = 30
+
+        let startDate = Calendar.current.date(from: dateComponents)
+        let startTime = Calendar.current.startOfDay(for: val)
+
+        let daysCount = Calendar.current.dateComponents([.day], from: startDate!, to: val).day!
+        let secondsCount = Calendar.current.dateComponents([.second], from: startTime, to: val).second!
+
+        return Double(daysCount) + Double(secondsCount) / (24 * 3600)
+    }
 }
