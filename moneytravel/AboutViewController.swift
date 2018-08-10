@@ -19,12 +19,24 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        buttonDonate1.price = "1.00 USD"
-        buttonDonate2.price = "5.00 USD"
-        buttonDonate3.price = "20.00 USD"
-
+        buttonDonate1.price = appPurchases.getProductPrice(item: .donate1)
+        buttonDonate2.price = appPurchases.getProductPrice(item: .donate2)
+        buttonDonate3.price = appPurchases.getProductPrice(item: .donate3)
+        
         textAbout.sizeToFit()
         textAbout.isScrollEnabled = false
+    }
+
+    @IBAction func onDonate1(_ sender: DonateButton) {
+        appPurchases.makePurchase(item: .donate1)
+    }
+
+    @IBAction func onDonate2(_ sender: DonateButton) {
+        appPurchases.makePurchase(item: .donate2)
+    }
+
+    @IBAction func onDonate3(_ sender: DonateButton) {
+        appPurchases.makePurchase(item: .donate3)
     }
 
     @IBAction func onRating(_ sender: DonateButton) {

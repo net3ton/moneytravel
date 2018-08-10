@@ -55,6 +55,8 @@
 		21D1A8A22104D9070033B419 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A12104D9070033B419 /* Sync.swift */; };
 		21D1A8A42105E2EA0033B419 /* Funcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A32105E2EA0033B419 /* Funcs.swift */; };
 		21D1A8A62105E3B90033B419 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A52105E3B90033B419 /* Entities.swift */; };
+		21E71804211DAE4700F677C9 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E71803211DAE4700F677C9 /* Purchases.swift */; };
+		21E71806211DB31000F677C9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E71805211DB31000F677C9 /* StoreKit.framework */; };
 		21FCDDAF20CBC9A50044567F /* SumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCDDAE20CBC9A50044567F /* SumViewController.swift */; };
 		5135793554F743AF4C1CE493 /* Pods_moneytravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F921507761A61B02C61AB36B /* Pods_moneytravel.framework */; };
 /* End PBXBuildFile section */
@@ -111,6 +113,8 @@
 		21D1A8A12104D9070033B419 /* Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
 		21D1A8A32105E2EA0033B419 /* Funcs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
 		21D1A8A52105E3B90033B419 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		21E71803211DAE4700F677C9 /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
+		21E71805211DB31000F677C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		21FCDDAE20CBC9A50044567F /* SumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumViewController.swift; sourceTree = "<group>"; };
 		86E3EB6618F4B8034CD26603 /* Pods-moneytravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneytravel.release.xcconfig"; path = "Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel.release.xcconfig"; sourceTree = "<group>"; };
 		A63F8C7ECDE3868633526887 /* Pods-moneytravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneytravel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel.debug.xcconfig"; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5135793554F743AF4C1CE493 /* Pods_moneytravel.framework in Frameworks */,
+				21E71806211DB31000F677C9 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +137,7 @@
 		152B9F40FCA762F377279DE4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21E71805211DB31000F677C9 /* StoreKit.framework */,
 				F921507761A61B02C61AB36B /* Pods_moneytravel.framework */,
 			);
 			name = Frameworks;
@@ -205,6 +211,7 @@
 				2103DA2A20C708CA003B027D /* Icons.swift */,
 				2103DA3020C88005003B027D /* Colors.swift */,
 				2174F4B120B585E600B6E381 /* Settings.swift */,
+				21E71803211DAE4700F677C9 /* Purchases.swift */,
 				2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */,
 				2199212620DC0F7C00CE1355 /* GoogleDrive.swift */,
 				216F0C0E2119F348006DB302 /* GoogleSheet.swift */,
@@ -256,6 +263,11 @@
 				TargetAttributes = {
 					2172BD6720B02AF400132D36 = {
 						CreatedOnToolsVersion = 9.3.1;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -380,6 +392,7 @@
 				21D1A8A42105E2EA0033B419 /* Funcs.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,
 				216F0C0F2119F348006DB302 /* GoogleSheet.swift in Sources */,
+				21E71804211DAE4700F677C9 /* Purchases.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
 				2103DA3320C939E0003B027D /* DateViewController.swift in Sources */,
 				2114F13820D0279200BB40CB /* HistoryViewController.swift in Sources */,
