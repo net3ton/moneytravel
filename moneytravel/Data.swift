@@ -171,9 +171,9 @@ class AppData: Codable {
 
             line.append(dateFormatter.string(from: spend.date!))
             line.append(timeFormatter.string(from: spend.date!))
-            line.append(String(format: "%0.03f", spend.sum))
+            line.append(String(format: "%0.02f", spend.sum))
             line.append(spend.currency!)
-            line.append(String(format: "%0.03f", spend.bsum))
+            line.append(String(format: "%0.05f", spend.bsum))
             line.append(spend.category!.name!)
             line.append(spend.comment!)
 
