@@ -150,7 +150,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         }
     }
 
-    public func makeSpreadsheet(name: String, history: [DaySpends]) {
+    public func makeSpreadsheet(name: String, history: [DaySpends], completion: @escaping ((Bool) -> Void)) {
         let sheetProps = GTLRSheets_SpreadsheetProperties()
         sheetProps.title = name
 
@@ -161,6 +161,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         sheetsService.executeQuery(query) { (ticket, result, error) in
             if let error = error {
                 print("[Google Spreadsheets] Failed to create spreadsheet! Error: " + error.localizedDescription)
+                completion(false)
                 return
             }
 
@@ -247,14 +248,12 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
             self.sheetsService.executeQuery(queryBatch) { (ticket, result, error) in
                 if let error = error {
                     print("[Google Spreadsheets] Failed to update spreadsheet! Error: " + error.localizedDescription)
+                    completion(false)
                     return
                 }
                 
-                if let response = result as? GTLRSheets_UpdateValuesResponse {
-                    print(response.json!)
-                }
-                
                 print("[Google Spreadsheets] export complete.")
+                completion(true)
             }
         }
     }
