@@ -46,7 +46,7 @@ class SettingsViewController: UITableViewController {
         headerSince.text = headerDateSince.getName()
         inputMul.text = appSettings.inputMulStr ?? "none"
 
-        exchangeRate.text = sum_to_string(sum: appSettings.exchangeRate)
+        exchangeRate.text = String.init(format: "%@ %@", num_to_string(sum: appSettings.exchangeRate, fraction: 2), appSettings.currency)
         exchangeUpdate.isOn = appSettings.exchangeUpdate
         exchangeRateLabel.text = String(format: "1 %@ =", appSettings.currencyBase)
         exchangeUpdateLabel.text = getLastCurrencyExchangeRateUpdateString()
