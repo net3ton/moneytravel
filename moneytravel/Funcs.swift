@@ -114,3 +114,9 @@ func uicolor_to_int32(_ val: UIColor) -> Int32 {
     let ia = Int32(a * 255) << 24
     return ia + ib + ig + ir
 }
+
+extension String {
+    public var localized: String {
+        return NSLocalizedString(self, tableName: "Localizable", value: "**\(self)**", comment: "")
+    }
+}
