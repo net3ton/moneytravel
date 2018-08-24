@@ -24,7 +24,7 @@ SIZES = {
 
 ICON_FOLDER = "moneytravel/Assets.xcassets/AppIcon.appiconset"
 
-img = Image.open("moneytravel/Assets.xcassets/AppIcon.appiconset/icon-1024.jpg")
+img = Image.open("moneytravel/Assets.xcassets/AppIcon.appiconset/icon-1024.png")
 for size, name in SIZES:
     icon = img.resize((size, size), Image.ANTIALIAS)
     icon.save(os.path.join(ICON_FOLDER, name))

@@ -165,7 +165,6 @@
 		2172BD6A20B02AF400132D36 /* moneytravel */ = {
 			isa = PBXGroup;
 			children = (
-				2161B9F92120C50100FCC6BD /* moneytravel.entitlements */,
 				2172BD6B20B02AF400132D36 /* AppDelegate.swift */,
 				2174F4B320B5B83900B6E381 /* SettingsViewController.swift */,
 				2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */,
@@ -187,6 +186,7 @@
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
 				2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */,
 				2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */,
+				2161B9F92120C50100FCC6BD /* moneytravel.entitlements */,
 				216F0C0A21188F29006DB302 /* Localizable.strings */,
 				2172BD7220B02AF500132D36 /* Assets.xcassets */,
 				2172BD7720B02AF500132D36 /* Info.plist */,
