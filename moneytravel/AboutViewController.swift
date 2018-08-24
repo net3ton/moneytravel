@@ -107,7 +107,7 @@ fileprivate func openUrl(_ urlString: String) {
         }
 
         if let priceLabel = self.priceLabel {
-            priceLabel.frame = CGRect(x: self.bounds.width - 108, y: self.bounds.origin.y, width: 100, height: self.bounds.height)
+            priceLabel.frame = CGRect(x: self.bounds.width - 188, y: self.bounds.origin.y, width: 180, height: self.bounds.height)
             priceLabel.textAlignment = .right
         }
     }

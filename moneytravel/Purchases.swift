@@ -24,21 +24,24 @@ class AppPurchases: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObs
     
     public var onPurchaseDone: ((EPurchase) -> Void)?
     
-    override init() {
-        super.init()
-        
+    public func start() {
+        print("[purchases] init")
+
         addItem(.donate1)
         addItem(.donate2)
         addItem(.donate3)
+
+        SKPaymentQueue.default().add(self)
         fetchProducts()
     }
     
-    public func addItem(_ item: EPurchase) {
+    private func addItem(_ item: EPurchase) {
         ids.append(item.rawValue)
     }
     
     public func fetchProducts() {
         if prods.isEmpty && productRequest == nil {
+            print("[purchases] fetching products...")
             productRequest = SKProductsRequest(productIdentifiers: Set<String>(ids))
             productRequest?.delegate = self
             productRequest?.start()
@@ -51,7 +54,7 @@ class AppPurchases: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObs
         }
 
         if let prod = prods[item.rawValue] {
-            SKPaymentQueue.default().add(self)
+            print("[purchases] purchase:", item.rawValue)
             SKPaymentQueue.default().add(SKPayment(product: prod))
         }
     }
@@ -70,7 +73,12 @@ class AppPurchases: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObs
     }
 
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        for ids in response.invalidProductIdentifiers {
+            print("[purchases] invalid ids:", ids)
+        }
+        
         for product in response.products {
+            print("[purchases] ok ids:", product.productIdentifier)
             prods[product.productIdentifier] = product
         }
         
@@ -79,15 +87,19 @@ class AppPurchases: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObs
 
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for trans in transactions {
-            SKPaymentQueue.default().finishTransaction(trans)
-            
             if trans.transactionState == .purchased {
                 let productId = trans.payment.productIdentifier
-                print("purchased:", productId)
+                print("[purchases] done:", productId)
                 
                 if let item = EPurchase(rawValue: productId) {
                     onPurchaseDone?(item)
                 }
+                
+                SKPaymentQueue.default().finishTransaction(trans)
+            }
+            else if trans.transactionState == .failed {
+                print("[purchases] failed:", trans.error?.localizedDescription ?? "")
+                SKPaymentQueue.default().finishTransaction(trans)
             }
         }
     }
