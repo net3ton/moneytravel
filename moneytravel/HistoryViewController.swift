@@ -205,6 +205,12 @@ class HistoryViewController: UIViewController {
         titlebar.days = history.count
     }
     
+    private func showMessage(title: String, message: String) {
+        let msg = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        msg.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(msg, animated: true, completion: nil)
+    }
+    
     @objc func onExport() {
         func getExportFileName() -> String {
             let formatter = DateFormatter()
@@ -212,39 +218,83 @@ class HistoryViewController: UIViewController {
             return String(format: "MoneyTravel_%@.csv", formatter.string(from: Date()))
         }
         
-        let export = UIAlertController(title: "Export selected history to:", message: nil, preferredStyle: .actionSheet);
+        let export = UIAlertController(title: "Export selected history to:", message: nil, preferredStyle: .actionSheet)
         
         let spreadsheet = UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy.MM.dd HH:mm"
             let sheetName = String(format: "MoneyTravel (%@)", formatter.string(from: Date()))
             
-            appGoogleDrive.makeSpreadsheet(name: sheetName, history: self.history)
+            appGoogleDrive.makeSpreadsheet(name: sheetName, history: self.history) { (success) in
+                let messageOk = "Spreadsheed created."
+                let messageFaild = "An error occurred while exporting to spreadsheed."
+                
+                let titleOk = "Export complete"
+                let titleFailed = "Export failed"
+                
+                self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
+            }
         })
         
-        let googleJSON = UIAlertAction(title: "Google Drive (cvs)", style: .default, handler: { (action) in
+        let googleCSV = UIAlertAction(title: "Google Drive (cvs)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
-            let dataCVS = historyData.exportToCSV()
+            let dataCSV = historyData.exportToCSV()
+            let fileName = getExportFileName()
 
-            appGoogleDrive.uploadToRoot(data: dataCVS, filename: getExportFileName(), mime: .csv, completion: { (success) in
-            })
+            appGoogleDrive.uploadToRoot(data: dataCSV, filename: fileName, mime: .csv) { (success) in
+                let messageOk = "CSV file uploaded to google drive."
+                let messageFaild = "An error occurred while uploading to google drive."
+                
+                let titleOk = "Export complete"
+                let titleFailed = "Export failed"
+                
+                self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
+            }
         })
 
-        let localJSON = UIAlertAction(title: "iTunes Shared Folder (cvs)", style: .default, handler: { (action) in
+        let icloudCSV = UIAlertAction(title: "iCloud (cvs)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
-            historyData.saveToCSV(name: getExportFileName())
+            let fileName = getExportFileName()
+            
+            let success = historyData.saveToCSV(name: fileName, location: .icloud)
+            
+            let messageOk = "CSV file created in iCloud."
+            let messageFaild = "An error occurred while exporting."
+            
+            let titleOk = "Export complete"
+            let titleFailed = "Export failed"
+            
+            self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
+        })
+        
+        let localCSV = UIAlertAction(title: "iTunes Shared Folder (cvs)", style: .default, handler: { (action) in
+            let historyData = AppData(history: self.history)
+            let fileName = getExportFileName()
+            
+            let success = historyData.saveToCSV(name: fileName, location: .sharedFolder)
+            
+            let messageOk = "CSV file created in iTunes shared folder."
+            let messageFaild = "An error occurred while exporting."
+            
+            let titleOk = "Export complete"
+            let titleFailed = "Export failed"
+            
+            self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
         })
 
         spreadsheet.setValue(UIImage(named: "Google"), forKey: "image")
         spreadsheet.setValue(0, forKey: "titleTextAlignment")
-        googleJSON.setValue(UIImage(named: "Google"), forKey: "image")
-        googleJSON.setValue(0, forKey: "titleTextAlignment")
-        localJSON.setValue(UIImage(named: "iTunes"), forKey: "image")
-        localJSON.setValue(0, forKey: "titleTextAlignment")
+        googleCSV.setValue(UIImage(named: "Google"), forKey: "image")
+        googleCSV.setValue(0, forKey: "titleTextAlignment")
+        icloudCSV.setValue(UIImage(named: "iCloud"), forKey: "image")
+        icloudCSV.setValue(0, forKey: "titleTextAlignment")
+        localCSV.setValue(UIImage(named: "iTunes"), forKey: "image")
+        localCSV.setValue(0, forKey: "titleTextAlignment")
 
         export.addAction(spreadsheet)
-        export.addAction(googleJSON)
-        export.addAction(localJSON)
+        export.addAction(googleCSV)
+        export.addAction(icloudCSV)
+        export.addAction(localCSV)
         export.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         export.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         
