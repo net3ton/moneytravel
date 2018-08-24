@@ -26,6 +26,9 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var googleDriveLabel: UILabel!
     @IBOutlet weak var googleDriveSyncLabel: UILabel!
     
+    @IBOutlet weak var icloudEnabled: UISwitch!
+    @IBOutlet weak var icloudSyncLabel: UILabel!
+    
     private var headerDateSince: HistoryDate = HistoryDate()
 
     override func viewDidLoad() {
@@ -53,8 +56,10 @@ class SettingsViewController: UITableViewController {
         fractionCurrent.isOn = appSettings.fractionCurrent
         fractionBase.isOn = appSettings.fractionBase
 
+        icloudEnabled.isOn = appSettings.icloudSyncEnabled
+        icloudSyncLabel.text = getLastSyncString(appSettings.icloudSyncDate)
         googleDriveLabel.text = appGoogleDrive.isLogined() ? "Sign out" : "Sign in"
-        googleDriveSyncLabel.text = getLastGoogleSyncString()
+        googleDriveSyncLabel.text = getLastSyncString(appSettings.googleSyncDate)
 
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
@@ -75,8 +80,8 @@ class SettingsViewController: UITableViewController {
         return String.init(format: "Last update: %@", formatter.string(from: date))
     }
 
-    private func getLastGoogleSyncString() -> String {
-        guard let date = appSettings.googleSyncDate else {
+    private func getLastSyncString(_ syncDate: Date?) -> String {
+        guard let date = syncDate else {
             return "Last sync: never"
         }
 
@@ -103,11 +108,17 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 4 && indexPath.row == 0 {
+        if indexPath.section == 4 && indexPath.row == 1 {
             if appGoogleDrive.isLogined() {
-                appGoogleDrive.signOut() {
-                    self.updateLabels()
-                }
+                
+                let msg = UIAlertController(title: "Sign out from Google Drive", message: "This operation will disable sync with Google Drive.", preferredStyle: .alert)
+                msg.addAction(UIAlertAction(title: "Proceed", style: .default) { (action) in
+                    appGoogleDrive.signOut() {
+                        self.updateLabels()
+                    }
+                })
+                msg.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                self.present(msg, animated: true, completion: nil)
             }
             else {
                 appGoogleDrive.signIn(vc: self) {

@@ -40,6 +40,8 @@ class AppSettings {
     var fractionCurrent: Bool = ConfDefaults.FRACTION_CURRENT
     var fractionBase: Bool = ConfDefaults.FRACTION_BASE
     
+    var icloudSyncEnabled: Bool = ConfDefaults.ICLOUD_SYNC_ENABLED
+    var icloudSyncDate: Date?
     var googleSyncDate: Date?
     
     struct ConfNames {
@@ -58,6 +60,8 @@ class AppSettings {
         static let FRACTION_CURRENT = "fraction-current"
         static let FRACTION_BASE = "fraction-base"
         
+        static let ICLOUD_SYNC_ENABLED = "icloud-sync-enabled"
+        static let ICLOUD_SYNC_DATE = "icloud-sync-date"
         static let GOOGLE_SYNC_DATE = "google-sync-date"
     }
     
@@ -75,6 +79,8 @@ class AppSettings {
 
         static let FRACTION_CURRENT: Bool = true
         static let FRACTION_BASE: Bool = true
+        
+        static let ICLOUD_SYNC_ENABLED: Bool = true
     }
     
     func load() {
@@ -95,6 +101,8 @@ class AppSettings {
         fractionCurrent = conf.object(forKey: ConfNames.FRACTION_CURRENT) as? Bool ?? ConfDefaults.FRACTION_CURRENT
         fractionBase = conf.object(forKey: ConfNames.FRACTION_BASE) as? Bool ?? ConfDefaults.FRACTION_BASE
         
+        icloudSyncEnabled = conf.object(forKey: ConfNames.ICLOUD_SYNC_ENABLED) as? Bool ?? ConfDefaults.ICLOUD_SYNC_ENABLED
+        icloudSyncDate = conf.object(forKey: ConfNames.ICLOUD_SYNC_DATE) as? Date
         googleSyncDate = conf.object(forKey: ConfNames.GOOGLE_SYNC_DATE) as? Date
     }
 
@@ -116,6 +124,8 @@ class AppSettings {
         conf.set(fractionCurrent, forKey: ConfNames.FRACTION_CURRENT)
         conf.set(fractionBase, forKey: ConfNames.FRACTION_BASE)
         
+        conf.set(icloudSyncEnabled, forKey: ConfNames.ICLOUD_SYNC_ENABLED)
+        conf.set(icloudSyncDate, forKey: ConfNames.ICLOUD_SYNC_DATE)
         conf.set(googleSyncDate, forKey: ConfNames.GOOGLE_SYNC_DATE)
 
         print("settings saved.")
