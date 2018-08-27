@@ -21,7 +21,7 @@ class TStampsViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTimestamp))
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "BACK".loc(), style: .plain, target: nil, action: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {

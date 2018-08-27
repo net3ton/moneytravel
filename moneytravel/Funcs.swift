@@ -116,7 +116,7 @@ func uicolor_to_int32(_ val: UIColor) -> Int32 {
 }
 
 extension String {
-    public var localized: String {
+    public func loc() -> String {
         return NSLocalizedString(self, tableName: "Localizable", value: "**\(self)**", comment: "")
     }
 }

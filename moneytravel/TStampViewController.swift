@@ -25,16 +25,12 @@ class TStampViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveMark))
+        saveButton = UIBarButtonItem(title: "SAVE".loc(), style: .plain, target: self, action: #selector(saveMark))
         navigationItem.rightBarButtonItem = saveButton
-        navigationItem.title = "Timestamp"
+        navigationItem.title = "TIMESTAMP".loc()
 
         colorView.layer.cornerRadius = 3
         updateInfo()
-    }
-
-    @objc func backButton() {
-        print("asd")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -89,13 +85,13 @@ class TStampViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 && markToSave != nil {
-            let removeController = UIAlertController(title: nil, message: "Delete the timestamp? It can't be undone", preferredStyle: .actionSheet);
+            let removeController = UIAlertController(title: nil, message: "DELETE_TSTAMP".loc(), preferredStyle: .actionSheet);
 
-            removeController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+            removeController.addAction(UIAlertAction(title: "DELETE".loc(), style: .destructive, handler: { (action) in
                 self.navigationController?.popViewController(animated: true)
                 appTimestamps.delete(stamp: self.markToSave!)
             }))
-            removeController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            removeController.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
 
             present(removeController, animated: true) {
                 if let selected = tableView.indexPathForSelectedRow {
@@ -108,7 +104,7 @@ class TStampViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mark-date" {
             let datePicker = segue.destination as! DateViewController
-            datePicker.setup(caption: "Date and Time", date: self.date)
+            datePicker.setup(caption: "DATE_TIME".loc(), date: self.date)
             datePicker.onDatePicked = { date in
                 self.date = date
                 self.updateInfo()
@@ -123,7 +119,7 @@ class TStampViewController: UITableViewController {
         }
         else if segue.identifier == "mark-name" {
             let nameEdit = segue.destination as! TextViewController
-            nameEdit.setup(caption: "Name", text: name)
+            nameEdit.setup(caption: "NAME".loc(), text: name)
             nameEdit.onTextEntered = { text in
                 self.name = text
                 self.updateInfo()
@@ -131,7 +127,7 @@ class TStampViewController: UITableViewController {
         }
         else if segue.identifier == "mark-comment" {
             let nameEdit = segue.destination as! TextViewController
-            nameEdit.setup(caption: "Comment", text: comment ?? "")
+            nameEdit.setup(caption: "COMMENT".loc(), text: comment ?? "")
             nameEdit.onTextEntered = { text in
                 self.comment = text.isEmpty ? nil : text
                 self.updateInfo()

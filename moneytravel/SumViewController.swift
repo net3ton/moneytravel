@@ -21,7 +21,7 @@ class SumViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveSum))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SAVE".loc(), style: .plain, target: self, action: #selector(saveSum))
         keyboardField.setInput(field: textField!)
         keyboardField.setValue(initSum)
         keyboardField.fractionEnabled = initFraction

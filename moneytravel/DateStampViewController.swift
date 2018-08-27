@@ -26,18 +26,18 @@ class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     private let TODAY = 1
 
     private let PREMARKS = [
-        "Custom",
-        "Today"
+        "T_CUSTOM".loc(),
+        "T_TODAY".loc()
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if onDatePicked != nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveDate))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SAVE".loc(), style: .plain, target: self, action: #selector(saveDate))
         }
 
-        navigationItem.title = "Date"
+        navigationItem.title = "DATE".loc()
 
         datePicker.datePickerMode = .date
         datePicker.minimumDate = minDate

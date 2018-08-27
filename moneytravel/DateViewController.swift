@@ -19,7 +19,7 @@ class DateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveDate))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SAVE".loc(), style: .plain, target: self, action: #selector(saveDate))
 
         datePicker.datePickerMode = timeOnly ? .time : .dateAndTime
         datePicker.setDate(initDate, animated: true)

@@ -29,8 +29,8 @@ class SpendViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
-        navigationItem.title = "Spend"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SAVE".loc(), style: .plain, target: self, action: #selector(save))
+        navigationItem.title = "EXPENSE".loc()
 
         updateInfo()
     }
@@ -74,13 +74,13 @@ class SpendViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 {
-            let removeController = UIAlertController(title: nil, message: "Delete the record? It can't be undone", preferredStyle: .actionSheet);
+            let removeController = UIAlertController(title: nil, message: "DELETE_MSG".loc(), preferredStyle: .actionSheet);
 
-            removeController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+            removeController.addAction(UIAlertAction(title: "DELETE".loc(), style: .destructive, handler: { (action) in
                 self.navigationController?.popViewController(animated: true)
                 appSpends.delete(spend: self.spendInfo!)
             }))
-            removeController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            removeController.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
 
             present(removeController, animated: true) {
                 if let selected = tableView.indexPathForSelectedRow {
@@ -93,7 +93,7 @@ class SpendViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "spend-comment" {
             let nameEdit = segue.destination as! TextViewController
-            nameEdit.setup(caption: "Comment", text: comment ?? "")
+            nameEdit.setup(caption: "COMMENT".loc(), text: comment ?? "")
             nameEdit.onTextEntered = { text in
                 self.comment = text.isEmpty ? nil : text
                 self.updateInfo()
@@ -101,7 +101,7 @@ class SpendViewController: UITableViewController {
         }
         else if segue.identifier == "spend-date" {
             let dateEdit = segue.destination as! DateViewController
-            dateEdit.setup(caption: "Date and Time", date: date)
+            dateEdit.setup(caption: "DATE_TIME".loc(), date: date)
             dateEdit.onDatePicked = { date in
                 self.date = date
                 self.updateInfo()
@@ -109,7 +109,7 @@ class SpendViewController: UITableViewController {
         }
         else if segue.identifier == "spend-sum" {
             let sumEdit = segue.destination as! SumViewController
-            sumEdit.setup(caption: "Sum", sum: sum, currency: spendInfo?.currency ?? "")
+            sumEdit.setup(caption: "SUM".loc(), sum: sum, currency: spendInfo?.currency ?? "")
             sumEdit.onSumEntered = { sum in
                 self.sum = sum
                 self.updateInfo()
@@ -118,7 +118,7 @@ class SpendViewController: UITableViewController {
         else if segue.identifier == "spend-exchange" {
             let sumEdit = segue.destination as! SumViewController
             let exchangeRate = (spendInfo?.sum ?? 0.0) / (spendInfo?.bsum ?? 1.0)
-            sumEdit.setup(caption: "Exchange rate", sum: exchangeRate, currency: spendInfo?.currency ?? "")
+            sumEdit.setup(caption: "EXCHANGE_RATE".loc(), sum: exchangeRate, currency: spendInfo?.currency ?? "")
             sumEdit.onSumEntered = { rate in
                 self.exchangeRate = rate
                 self.updateInfo()

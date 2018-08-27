@@ -56,7 +56,7 @@ class SettingsViewController: UITableViewController {
         currencyBase.text = appSettings.currencyBase
         dailyMax.text = bsum_to_string(sum: appSettings.dailyMax)
         headerSince.text = headerDateSince.getName()
-        inputMul.text = appSettings.inputMulStr ?? "none"
+        inputMul.text = appSettings.inputMulStr ?? "NONE".loc()
 
         exchangeRate.text = String.init(format: "%@ %@", num_to_string(sum: appSettings.exchangeRate, fraction: 2), appSettings.currency)
         exchangeUpdate.isOn = appSettings.exchangeUpdate
@@ -67,7 +67,7 @@ class SettingsViewController: UITableViewController {
 
         icloudEnabled.isOn = appSettings.icloudSyncEnabled
         icloudSyncLabel.text = getLastSyncString(appSettings.icloudSyncDate)
-        googleDriveLabel.text = appGoogleDrive.isLogined() ? "Sign out" : "Sign in"
+        googleDriveLabel.text = appGoogleDrive.isLogined() ? "SIGN_OUT".loc() : "SIGN_IN".loc()
         googleDriveSyncLabel.text = getLastSyncString(appSettings.googleSyncDate)
 
         let formatter = DateFormatter()
@@ -83,26 +83,26 @@ class SettingsViewController: UITableViewController {
     
     private func getLastCurrencyExchangeRateUpdateString() -> String {
         guard let date = appSettings.exchangeUpdateDate else {
-            return "Last update: never"
+            return String.init(format: "%@ %@", "LAST_UPDATE".loc(), "NEVER".loc())
         }
 
         if date.timeIntervalSince1970 == 0 {
-            return "Last update: manual set"
+            return String.init(format: "%@ %@", "LAST_UPDATE".loc(), "MANUAL".loc())
         }
 
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm, dd.MM.yyyy"
-        return String.init(format: "Last update: %@", formatter.string(from: date))
+        return String.init(format: "%@ %@", "LAST_UPDATE".loc(), formatter.string(from: date))
     }
 
     private func getLastSyncString(_ syncDate: Date?) -> String {
         guard let date = syncDate else {
-            return "Last sync: never"
+            return String.init(format: "%@ %@", "LAST_SYNC".loc(), "NEVER".loc())
         }
 
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm, dd.MM.yyyy"
-        return String.init(format: "Last sync: %@", formatter.string(from: date))
+        return String.init(format: "%@ %@", "LAST_SYNC".loc(), formatter.string(from: date))
     }
 
     @IBAction func currencyUpdateCheck(_ sender: UISwitch) {
@@ -126,13 +126,13 @@ class SettingsViewController: UITableViewController {
         if indexPath.section == 4 && indexPath.row == 1 {
             if appGoogleDrive.isLogined() {
                 
-                let msg = UIAlertController(title: "Sign out from Google Drive", message: "This operation will disable sync with Google Drive.", preferredStyle: .alert)
-                msg.addAction(UIAlertAction(title: "Proceed", style: .default) { (action) in
+                let msg = UIAlertController(title: "GOOGLE_OUT_TITLE".loc(), message: "GOOGLE_OUT_MSG".loc(), preferredStyle: .alert)
+                msg.addAction(UIAlertAction(title: "PROCEED".loc(), style: .default) { (action) in
                     appGoogleDrive.signOut() {
                         self.updateLabels()
                     }
                 })
-                msg.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                msg.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
                 self.present(msg, animated: true) {
                     self.deselectAll()
                 }
@@ -175,7 +175,7 @@ class SettingsViewController: UITableViewController {
         }
         else if segue.identifier == "daily-max" {
             let sumEdit = segue.destination as! SumViewController
-            sumEdit.setup(caption: "Daily budget", sum: appSettings.dailyMax, currency: appSettings.currencyBase)
+            sumEdit.setup(caption: "DAILY_BUDGET".loc(), sum: appSettings.dailyMax, currency: appSettings.currencyBase)
             sumEdit.onSumEntered = { val in
                 appSettings.dailyMax = val
                 self.updateLabels()
@@ -183,7 +183,7 @@ class SettingsViewController: UITableViewController {
         }
         else if segue.identifier == "exchange-rate" {
             let sumEdit = segue.destination as! SumViewController
-            sumEdit.setup(caption: "Exchange rate", sum: appSettings.exchangeRate, currency: appSettings.currency)
+            sumEdit.setup(caption: "EXCHANGE_RATE".loc(), sum: appSettings.exchangeRate, currency: appSettings.currency)
             sumEdit.onSumEntered = { val in
                 appSettings.exchangeRate = val
                 appSettings.exchangeUpdate = false
@@ -193,7 +193,7 @@ class SettingsViewController: UITableViewController {
         }
         else if segue.identifier == "input-mul" {
             let mulEdit = segue.destination as! SumViewController
-            mulEdit.setup(caption: "Input multiplier", sum: Float(appSettings.inputMul), currency: nil, fraction: false)
+            mulEdit.setup(caption: "INPUT_MULT".loc(), sum: Float(appSettings.inputMul), currency: nil, fraction: false)
             mulEdit.onSumEntered = { val in
                 appSettings.inputMul = Int(val)
                 self.updateLabels()
@@ -201,7 +201,7 @@ class SettingsViewController: UITableViewController {
         }
         else if segue.identifier == "day-start" {
             let timePicker = segue.destination as! DateViewController
-            timePicker.setup(caption: "Day start time", date: appSettings.dayStartTime, timeOnly: true)
+            timePicker.setup(caption: "DAY_START_TIME".loc(), date: appSettings.dayStartTime, timeOnly: true)
             timePicker.onDatePicked = { val in
                 let minutes = Calendar.current.component(.minute, from: val)
                 let hours = Calendar.current.component(.hour, from: val)

@@ -23,9 +23,9 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveCategory))
+        saveButton = UIBarButtonItem(title: "SAVE".loc(), style: .plain, target: self, action: #selector(saveCategory))
         navigationItem.rightBarButtonItem = saveButton
-        navigationItem.title = "Category"
+        navigationItem.title = "CATEGORY".loc()
 
         colorView.layer.cornerRadius = 3
         updateInfo()
@@ -77,13 +77,13 @@ class CategoryViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 && categoryToSave != nil {
-            let removeController = UIAlertController(title: nil, message: "Delete the category? It can't be undone", preferredStyle: .actionSheet);
+            let removeController = UIAlertController(title: nil, message: "DELETE_CAT".loc(), preferredStyle: .actionSheet);
             
-            removeController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+            removeController.addAction(UIAlertAction(title: "DELETE".loc(), style: .destructive, handler: { (action) in
                 self.navigationController?.popViewController(animated: true)
                 appCategories.delete(category: self.categoryToSave!)
             }))
-            removeController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            removeController.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
             
             present(removeController, animated: true) {
                 if let selected = tableView.indexPathForSelectedRow {
@@ -110,7 +110,7 @@ class CategoryViewController: UITableViewController {
         }
         else if segue.identifier == "category-name" {
             let nameEdit = segue.destination as! TextViewController
-            nameEdit.setup(caption: "Name", text: name)
+            nameEdit.setup(caption: "NAME".loc(), text: name)
             nameEdit.onTextEntered = { text in
                 self.name = text
                 self.updateInfo()

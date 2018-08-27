@@ -13,3 +13,31 @@
 "LAST_SYNC" = "Last sync:";
 "NEVER" = "never";
 "MANUAL" = "manual set";
+
+"EXPENSE" = "Expense";
+"CATEGORY" = "Category";
+"TIMESTAMP" = "Timestamp";
+"DATE" = "Date";
+
+"PROCEED" = "Proceed";
+"CANCEL" = "Cancel";
+"SAVE" = "Save";
+"DELETE" = "Delete";
+"BACK" = "Back";
+
+"DELETE_MSG" = "Delete the record? It can't be undone";
+"DELETE_CAT" = "Delete the category? It can't be undone";
+"DELETE_TSTAMP" = "Delete the timestamp? It can't be undone";
+"GOOGLE_OUT_TITLE" = "Sign out from Google Drive";
+"GOOGLE_OUT_MSG" = "This operation will disable sync with Google Drive.";
+
+"DAILY_BUDGET" = "Daily budget";
+"EXCHANGE_RATE" = "Exchange rate";
+"INPUT_MULT" = "Input multiplier";
+"DAY_START_TIME" = "Day start time";
+"DATE_TIME" = "Date and time";
+"COMMENT" = "Comment";
+"SUM" = "Sum";
+"NAME" = "Name";
+"T_CUSTOM" = "Custom";
+"T_TODAY" = "Today";
