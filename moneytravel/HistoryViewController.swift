@@ -236,7 +236,7 @@ class HistoryViewController: UIViewController {
             }
         })
         
-        let googleCSV = UIAlertAction(title: "Google Drive (cvs)", style: .default, handler: { (action) in
+        let googleCSV = UIAlertAction(title: "Google Drive (csv)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
             let dataCSV = historyData.exportToCSV()
             let fileName = getExportFileName()
@@ -252,7 +252,7 @@ class HistoryViewController: UIViewController {
             }
         })
 
-        let icloudCSV = UIAlertAction(title: "iCloud (cvs)", style: .default, handler: { (action) in
+        let icloudCSV = UIAlertAction(title: "iCloud (csv)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
             let fileName = getExportFileName()
             
@@ -267,7 +267,7 @@ class HistoryViewController: UIViewController {
             self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
         })
         
-        let localCSV = UIAlertAction(title: "iTunes Shared Folder (cvs)", style: .default, handler: { (action) in
+        let localCSV = UIAlertAction(title: "iTunes Shared Folder (csv)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
             let fileName = getExportFileName()
             
