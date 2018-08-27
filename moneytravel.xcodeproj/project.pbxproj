@@ -29,6 +29,7 @@
 		2114F14620D85ABC00BB40CB /* Timestamps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F14520D85ABC00BB40CB /* Timestamps.swift */; };
 		2114F14820D865AC00BB40CB /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F14720D865AC00BB40CB /* Stats.swift */; };
 		211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211A1F2C20BA1E4F004A793D /* MoneyInput.swift */; };
+		2140D34C2133D2AC00921060 /* DonateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2140D34B2133D2AC00921060 /* DonateButton.swift */; };
 		2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */; };
 		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
 		216F0C00211109B8006DB302 /* HistoryViewController+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F0BFF211109B8006DB302 /* HistoryViewController+Charts.swift */; };
@@ -84,6 +85,7 @@
 		2114F14520D85ABC00BB40CB /* Timestamps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamps.swift; sourceTree = "<group>"; };
 		2114F14720D865AC00BB40CB /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		211A1F2C20BA1E4F004A793D /* MoneyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInput.swift; sourceTree = "<group>"; };
+		2140D34B2133D2AC00921060 /* DonateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateButton.swift; sourceTree = "<group>"; };
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
 		2161B9F92120C50100FCC6BD /* moneytravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = moneytravel.entitlements; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				211A1F2C20BA1E4F004A793D /* MoneyInput.swift */,
 				216F0C01211312E5006DB302 /* MoneyTextField.swift */,
 				2104195020FB8321004B227D /* Titlebar.swift */,
+				2140D34B2133D2AC00921060 /* DonateButton.swift */,
 				2174F4A520B4448E00B6E381 /* CategoryViewCell.swift */,
 				2174F4A620B4448E00B6E381 /* CategoryViewCell.xib */,
 				2174F4AD20B574E500B6E381 /* SpendView.swift */,
@@ -383,6 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2140D34C2133D2AC00921060 /* DonateButton.swift in Sources */,
 				2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */,
 				2114F14820D865AC00BB40CB /* Stats.swift in Sources */,
 				2114F13A20D126BD00BB40CB /* DateStampViewController.swift in Sources */,
