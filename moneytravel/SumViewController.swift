@@ -24,7 +24,7 @@ class SumViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SAVE".loc(), style: .plain, target: self, action: #selector(saveSum))
         keyboardField.setInput(field: textField!)
         keyboardField.setValue(initSum)
-        keyboardField.fractionEnabled = initFraction
+        keyboardField.enableKey(key: ".", enabled: initFraction)
         currencyLabel.text = initCurrency
         currencyLabel.isHidden = (initCurrency == nil)
     }
