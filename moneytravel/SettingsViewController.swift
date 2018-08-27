@@ -43,6 +43,14 @@ class SettingsViewController: UITableViewController {
         appPurchases.fetchProducts()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParentViewController {
+            appSettings.save()
+        }
+    }
+    
     func updateLabels() {
         currency.text = appSettings.currency
         currencyBase.text = appSettings.currencyBase
@@ -67,6 +75,12 @@ class SettingsViewController: UITableViewController {
         dayStartTime.text = formatter.string(from: appSettings.dayStartTime)
     }
 
+    private func deselectAll() {
+        if let selected = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selected, animated: true)
+        }
+    }
+    
     private func getLastCurrencyExchangeRateUpdateString() -> String {
         guard let date = appSettings.exchangeUpdateDate else {
             return "Last update: never"
@@ -119,7 +133,9 @@ class SettingsViewController: UITableViewController {
                     }
                 })
                 msg.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                self.present(msg, animated: true, completion: nil)
+                self.present(msg, animated: true) {
+                    self.deselectAll()
+                }
             }
             else {
                 appGoogleDrive.signIn(vc: self) {
@@ -192,14 +208,6 @@ class SettingsViewController: UITableViewController {
                 appSettings.dayStart = hours * 3600 + minutes * 60
                 self.updateLabels()
             }
-        }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if self.isMovingFromParentViewController {
-            appSettings.save()
         }
     }
 }
