@@ -70,7 +70,10 @@ class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cat = appCategories.categories[indexPath.row]
         let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = cat.color //COLOR_CAT
+
+        UIView.animate(withDuration: 0.5) {
+            cell?.contentView.backgroundColor = cat.color //COLOR_CAT
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
