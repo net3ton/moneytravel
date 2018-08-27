@@ -29,7 +29,7 @@ class AppSync {
         appGoogleDrive.downloadFromRoot(filename: AppSync.NAME_SYNC) { (fileData, fileId, error) in
             if let fdata = fileData {
                 if let appdata = AppData.loadFromData(fdata) {
-                    self.importData(appdata)
+                    //self.importData(appdata)
                     print("[Sync] data imported.")
                 }
                 else {
@@ -39,7 +39,7 @@ class AppSync {
             }
 
             if error == .none || error == .notFoundError {
-                //self.syncUpload(to: fileId)
+                self.syncUpload(to: fileId)
             }
             else {
                 print("[Sync] failed to download sync base!")
@@ -76,7 +76,7 @@ class AppSync {
         }
     }
 
-    private func importData(_ appdata: AppData) {
+    private func importData1(_ appdata: AppData) {
         print("[Sync] base: "  + appdata.baseId)
         print("[Sync] timestamps: "  + String(appdata.timestamps.count))
         print("[Sync] categories: "  + String(appdata.categories.count))

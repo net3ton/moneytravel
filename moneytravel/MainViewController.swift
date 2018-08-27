@@ -132,11 +132,22 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func onPlacePressed(_ sender: UIBarButtonItem) {
+        showHistory();
+    }
+
+    private func showHistory() {
+        let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
+        let view = sboard.instantiateViewController(withIdentifier: "history")
+        navigationController?.pushViewController(view, animated: true)
+    }
+    
+    /*
+    private func addTimestamp() {
         let popup = UIAlertController(title: "New Timestamp", message: "", preferredStyle: .alert)
         popup.addTextField { (textField) in
             textField.text = ""
         }
-
+        
         popup.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
             let name = popup.textFields?.first?.text ?? ""
             if !name.isEmpty {
@@ -144,8 +155,9 @@ class MainViewController: UIViewController {
                 self.updateSpendsView()
             }
         })
-
+        
         popup.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(popup, animated: true)
     }
+    */
 }

@@ -44,11 +44,13 @@ class Titlebar: UIView {
         labelCaption.font = UIFont.boldSystemFont(ofSize: 18)
         labelCaption.textAlignment = .center
         labelCaption.frame = CGRect(x: 0, y: 4, width: width, height: 20)
+        labelCaption.alpha = 0.7
         self.addSubview(labelCaption)
 
         labelInfo.font = UIFont.systemFont(ofSize: 12)
         labelInfo.textAlignment = .center
         labelInfo.frame = CGRect(x: 0, y: height - 15, width: width, height: 15)
+        labelInfo.alpha = 0.7
         self.addSubview(labelInfo)
     }
 
