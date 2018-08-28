@@ -24,7 +24,7 @@ class AppStats {
         var sum: Float = 0.0
 
         do {
-            fetchRequest.predicate = NSPredicate(format: "date >= %@", date as NSDate)
+            fetchRequest.predicate = NSPredicate(format: "date >= %@ && removed == NO", date as NSDate)
             let spends = try context.fetch(fetchRequest)
 
             for sinfo in spends {
