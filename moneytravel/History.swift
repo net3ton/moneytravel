@@ -110,14 +110,26 @@ class HistoryDate {
         return getDate()
     }
     
-    static public func getPrevDate(_ date: Date) -> Date {
+    static public func getPrevDate(_ date: Date, limited: Date) -> Date {
         let day = Calendar.current.startOfDay(for: date)
-        let point = day + TimeInterval(appSettings.dayStart)
+        var point = day + TimeInterval(appSettings.dayStart)
         
         if point >= date {
-            return point - TimeInterval(DAY_SECONDS)
+            point -= TimeInterval(DAY_SECONDS)
+        }
+        
+        if point < limited {
+            point = limited
         }
         
         return point
+    }
+    
+    static public func isSameDay(_ date: Date, to basedate: Date) -> Bool {
+        return Calendar.current.isDate(date - TimeInterval(appSettings.dayStart), inSameDayAs: basedate)
+    }
+    
+    static public func normalize(_ date: Date) -> Date {
+        return Calendar.current.startOfDay(for: date - TimeInterval(appSettings.dayStart))
     }
 }

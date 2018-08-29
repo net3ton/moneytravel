@@ -119,8 +119,7 @@ class DaySpends {
     }
 
     public func isThisDay(_ testdate: Date) -> Bool {
-        let calendar = Calendar.current
-        return calendar.isDate(testdate, inSameDayAs: date)
+        return HistoryDate.isSameDay(testdate, to: date)
     }
 
     ///
@@ -143,6 +142,7 @@ let lastSpends = LastSpends()
 class LastSpends {
     private let DAYS_HISTORY = 3
     private(set) var daily: [DaySpends] = []
+    private var changed = false
     
     init() {
         reload()
@@ -150,6 +150,7 @@ class LastSpends {
 
     public func reload() {
         daily = fetchLast()
+        changed = true
     }
 
     private func fetchLast() -> [DaySpends] {
@@ -162,13 +163,19 @@ class LastSpends {
 
     public func checkDays() {
         if !daily[0].isThisDay(Date()) {
-            daily = fetchLast()
+            reload()
         }
     }
 
     public func addSpend(_ spend: SpendModel) {
         checkDays()
         daily[0].add(spend: spend, tmark: nil)
+    }
+    
+    public func isReloaded() -> Bool {
+        let res = changed
+        changed = false
+        return res
     }
 }
 
@@ -198,7 +205,7 @@ class AppSpends {
         let first = interval.dateFrom.getDateFrom()
         let last = interval.dateTo.getDateTo()
 
-        if first > last {
+        if first >= last {
             return history
         }
         
@@ -208,8 +215,8 @@ class AppSpends {
 
         var current = last
         while current > first {
-            let from = HistoryDate.getPrevDate(current)
-
+            let from = HistoryDate.getPrevDate(current, limited: first)
+            
             do {
                 fetchSpends.predicate = NSPredicate(format: "date >= %@ && date <%@ && removed == NO", from as NSDate, current as NSDate)
                 fetchSpends.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
@@ -219,7 +226,7 @@ class AppSpends {
                 fetchMarks.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let tmarks = try context.fetch(fetchMarks)
                 
-                let daySpends = DaySpends(forDate: from, spends: spends, tmarks: tmarks)
+                let daySpends = DaySpends(forDate: HistoryDate.normalize(from), spends: spends, tmarks: tmarks)
                 history.append(daySpends)
             }
             catch let error {
