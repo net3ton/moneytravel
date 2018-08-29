@@ -107,7 +107,10 @@ class MainViewController: UIViewController {
             }
         }
 
-        spendView.reloadData()
+        if lastSpends.isReloaded() {
+            spendView.reloadData()
+        }
+
         updateHeader()
     }
 
@@ -120,6 +123,8 @@ class MainViewController: UIViewController {
         let bsum = sum / appSettings.exchangeRate
 
         appSpends.add(category: cat, sum: sum, curIso: appSettings.currency, bsum: bsum, bcurIso: appSettings.currencyBase, comment: "")
+        spendView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+        
         updateSpendsView()
         keysView.clear()
     }

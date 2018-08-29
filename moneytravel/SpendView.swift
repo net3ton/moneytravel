@@ -122,6 +122,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = data[indexPath.section].items[indexPath.row]
+        let count = data[indexPath.section].items.count
 
         if let spend = item.spend {
             let comment = spend.comment ?? ""
@@ -132,7 +133,7 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
             cell.comment.text = comment.isEmpty ? category?.name : comment
             cell.sum.text = spend.getSumString()
             cell.sumBase.text = spend.getBaseSumString()
-            cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
+            cell.backgroundColor = ((count - indexPath.row) % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
             return cell
         }
         else if let tmark = item.tmark {
