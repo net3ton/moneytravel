@@ -75,6 +75,9 @@ class MainViewController: UIViewController {
         spendDelegate = SpendViewDelegate()
         spendDelegate?.onSpendPressed = showSpendInfo
         spendDelegate?.onTMarkPressed = showTMarkInfo
+        spendDelegate?.onHeaderPressed = {
+            self.spendView.reloadData()
+        }
         spendDelegate?.initClasses(for: spendView)
 
         spendView.delegate = spendDelegate

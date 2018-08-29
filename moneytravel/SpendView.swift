@@ -91,6 +91,7 @@ class SpendViewFooter: UITableViewHeaderFooterView {
 class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     public var onSpendPressed: ((SpendModel) -> Void)?
     public var onTMarkPressed: ((MarkModel) -> Void)?
+    public var onHeaderPressed: (() -> Void)?
     public var data: [DaySpends] = []
 
     func initClasses(for tableView: UITableView) {
@@ -162,13 +163,21 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SpendViewHeader.ID) as! SpendViewHeader
         header.content.date.text = dayInfo.getDateString()
         header.content.dateName.text = dayInfo.getDateSubname()
-        header.content.sum.text = budgetInfo.budgetLeft
+        header.content.sum.text = appSettings.budgetTotal ? budgetInfo.budgetTotal : budgetInfo.budgetLeft
         header.content.sum.textColor = budgetInfo.budgetPlus ? UIColor.black : UIColor.red
         header.content.sumBase.text = budgetInfo.baseSum
         header.content.dayProgress.progress = budgetInfo.budgetProgress
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onHeaderTap))
+        header.addGestureRecognizer(tapRecognizer)
         return header
     }
-
+    
+    @objc func onHeaderTap() {
+        appSettings.budgetTotal = !appSettings.budgetTotal
+        onHeaderPressed?()
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return SpendViewCell.HEIGHT_HEADER
     }

@@ -142,6 +142,9 @@ class HistoryViewController: UIViewController {
         historyDelegate = SpendViewDelegate()
         historyDelegate?.onSpendPressed = showSpendInfo
         historyDelegate?.onTMarkPressed = showTMarkInfo
+        historyDelegate?.onHeaderPressed = {
+            self.historyView.reloadData()
+        }
         historyDelegate?.initClasses(for: historyView)
 
         historyView.delegate = historyDelegate

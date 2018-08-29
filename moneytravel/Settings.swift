@@ -40,6 +40,8 @@ class AppSettings {
     var fractionCurrent: Bool = ConfDefaults.FRACTION_CURRENT
     var fractionBase: Bool = ConfDefaults.FRACTION_BASE
     
+    var budgetTotal: Bool = ConfDefaults.BUDGET_TOTAL
+    
     var icloudSyncEnabled: Bool = ConfDefaults.ICLOUD_SYNC_ENABLED
     var icloudSyncDate: Date?
     var googleSyncDate: Date?
@@ -59,6 +61,8 @@ class AppSettings {
         
         static let FRACTION_CURRENT = "fraction-current"
         static let FRACTION_BASE = "fraction-base"
+        
+        static let BUDGET_TOTAL = "budget-mode"
         
         static let ICLOUD_SYNC_ENABLED = "icloud-sync-enabled"
         static let ICLOUD_SYNC_DATE = "icloud-sync-date"
@@ -80,6 +84,8 @@ class AppSettings {
         static let FRACTION_CURRENT: Bool = true
         static let FRACTION_BASE: Bool = true
         
+        static let BUDGET_TOTAL: Bool = true
+        
         static let ICLOUD_SYNC_ENABLED: Bool = true
     }
     
@@ -100,6 +106,8 @@ class AppSettings {
 
         fractionCurrent = conf.object(forKey: ConfNames.FRACTION_CURRENT) as? Bool ?? ConfDefaults.FRACTION_CURRENT
         fractionBase = conf.object(forKey: ConfNames.FRACTION_BASE) as? Bool ?? ConfDefaults.FRACTION_BASE
+        
+        budgetTotal = conf.object(forKey: ConfNames.BUDGET_TOTAL) as? Bool ?? ConfDefaults.BUDGET_TOTAL
         
         icloudSyncEnabled = conf.object(forKey: ConfNames.ICLOUD_SYNC_ENABLED) as? Bool ?? ConfDefaults.ICLOUD_SYNC_ENABLED
         icloudSyncDate = conf.object(forKey: ConfNames.ICLOUD_SYNC_DATE) as? Date
@@ -123,6 +131,8 @@ class AppSettings {
 
         conf.set(fractionCurrent, forKey: ConfNames.FRACTION_CURRENT)
         conf.set(fractionBase, forKey: ConfNames.FRACTION_BASE)
+        
+        conf.set(budgetTotal, forKey: ConfNames.BUDGET_TOTAL)
         
         conf.set(icloudSyncEnabled, forKey: ConfNames.ICLOUD_SYNC_ENABLED)
         conf.set(icloudSyncDate, forKey: ConfNames.ICLOUD_SYNC_DATE)
