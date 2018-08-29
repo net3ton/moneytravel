@@ -27,12 +27,12 @@ class Titlebar: UIView {
             days = max(days, 1)
 
             let daily: Float = sum / Float(days)
-            labelInfo.text = String(format: "%@ / day (%i days)", bnum_to_string(sum: daily), days)
+            labelInfo.text = String(format: "%@ / %@ (%i %@)", bnum_to_string(sum: daily), "DAY".loc(), days, "DAYS".loc())
         }
     }
 
     public var daysStr: String {
-        return String(format: "%i days", days)
+        return String(format: "%i %@", days, "DAYS".loc())
     }
 
     init() {

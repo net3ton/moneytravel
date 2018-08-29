@@ -38,7 +38,7 @@ class HistoryViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.titleView = titlebar
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "BACK".loc(), style: .plain, target: nil, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Export"), style: .plain, target: self, action: #selector(onExport))
 
         if HistoryViewController.historyInterval == nil {
@@ -205,10 +205,13 @@ class HistoryViewController: UIViewController {
         titlebar.days = history.count
     }
     
-    private func showMessage(title: String, message: String) {
-        let msg = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        msg.addAction(UIAlertAction(title: "Ok", style: .default))
-        self.present(msg, animated: true, completion: nil)
+    private func showExportMessage(_ success: Bool, _ messageOk: String, _ messageError: String) {
+        let title = success ? "EXPORT_OK".loc() : "EXPORT_ERROR".loc()
+        let message = success ? messageOk : messageError
+        
+        let alert = UIAlertController(title: title, message: "\n" + message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK".loc(), style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func onExport() {
@@ -218,7 +221,7 @@ class HistoryViewController: UIViewController {
             return String(format: "MoneyTravel_%@.csv", formatter.string(from: Date()))
         }
         
-        let export = UIAlertController(title: "Export selected history to:", message: nil, preferredStyle: .actionSheet)
+        let export = UIAlertController(title: "EXPORT_TO_TITLE".loc(), message: nil, preferredStyle: .actionSheet)
         
         let spreadsheet = UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
             let formatter = DateFormatter()
@@ -226,13 +229,7 @@ class HistoryViewController: UIViewController {
             let sheetName = String(format: "MoneyTravel (%@)", formatter.string(from: Date()))
             
             appGoogleDrive.makeSpreadsheet(name: sheetName, history: self.history) { (success) in
-                let messageOk = "Spreadsheed created."
-                let messageFaild = "An error occurred while exporting to spreadsheed."
-                
-                let titleOk = "Export complete"
-                let titleFailed = "Export failed"
-                
-                self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
+                self.showExportMessage(success, "EXPORT_SHT_OK".loc(), "EXPORT_SHT_ERROR".loc())
             }
         })
         
@@ -242,44 +239,22 @@ class HistoryViewController: UIViewController {
             let fileName = getExportFileName()
 
             appGoogleDrive.uploadToRoot(data: dataCSV, filename: fileName, mime: .csv) { (success) in
-                let messageOk = "CSV file uploaded to google drive."
-                let messageFaild = "An error occurred while uploading to google drive."
-                
-                let titleOk = "Export complete"
-                let titleFailed = "Export failed"
-                
-                self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
+                self.showExportMessage(success, "EXPORT_GOOGLE_OK".loc(), "EXPORT_GOOGLE_ERROR".loc())
             }
         })
 
         let icloudCSV = UIAlertAction(title: "iCloud (csv)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
-            let fileName = getExportFileName()
-            
-            let success = historyData.saveToCSV(name: fileName, location: .icloud)
-            
-            let messageOk = "CSV file created in iCloud."
-            let messageFaild = "An error occurred while exporting."
-            
-            let titleOk = "Export complete"
-            let titleFailed = "Export failed"
-            
-            self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
+            let success = historyData.saveToCSV(name: getExportFileName(), location: .icloud)
+
+            self.showExportMessage(success, "EXPORT_ICLOUD_OK".loc(), "EXPORT_ICLOUD_ERROR".loc())
         })
         
         let localCSV = UIAlertAction(title: "iTunes Shared Folder (csv)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
-            let fileName = getExportFileName()
-            
-            let success = historyData.saveToCSV(name: fileName, location: .sharedFolder)
-            
-            let messageOk = "CSV file created in iTunes shared folder."
-            let messageFaild = "An error occurred while exporting."
-            
-            let titleOk = "Export complete"
-            let titleFailed = "Export failed"
-            
-            self.showMessage(title: success ? titleOk : titleFailed, message: success ? messageOk : messageFaild)
+            let success = historyData.saveToCSV(name: getExportFileName(), location: .sharedFolder)
+
+            self.showExportMessage(success, "EXPORT_LOCAL_OK".loc(), "EXPORT_LOCAL_ERROR".loc())
         })
 
         spreadsheet.setValue(UIImage(named: "Google"), forKey: "image")
@@ -295,7 +270,7 @@ class HistoryViewController: UIViewController {
         export.addAction(googleCSV)
         export.addAction(icloudCSV)
         export.addAction(localCSV)
-        export.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        export.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
         export.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         
         present(export, animated: true, completion: nil)
@@ -370,7 +345,7 @@ class CategoryViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource
         cell.icon.image = info.category.icon
         cell.comment.text = info.category.name
         cell.sum.text = bsum_to_string(sum: info.sum)
-        cell.sumBase.text = bnum_to_string(sum: info.daily) + " / day"
+        cell.sumBase.text = bnum_to_string(sum: info.daily) + "PER_DAY".loc()
         cell.backgroundColor = (indexPath.row % 2 == 1) ? COLOR_SPEND2 : COLOR_SPEND1
         return cell
     }

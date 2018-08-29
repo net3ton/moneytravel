@@ -89,8 +89,8 @@ class DaySpends {
         let budgetProgress: Float = bsum / appSettings.dailyMax
         let budgetPlus: Bool = appSettings.dailyMax >= bsum
         let budgetLeft: Float = (appSettings.dailyMax - bsum) * appSettings.exchangeRate
-        let budgetLeftStr = String.init(format: "Budget left: %@", sum_to_string(sum: budgetLeft))
-        let budgetTotalStr = String.init(format: "Total: %@", sum_to_string(sum: getSpendSum()))
+        let budgetLeftStr = String.init(format: "%@ %@", "BUDGET_LEFT".loc(), sum_to_string(sum: budgetLeft))
+        let budgetTotalStr = String.init(format: "%@ %@", "BUDGET_TOTAL".loc(), sum_to_string(sum: getSpendSum()))
         
         return (baseSum: bsumStr, budgetProgress: budgetProgress, budgetLeft: budgetLeftStr, budgetTotal: budgetTotalStr, budgetPlus: budgetPlus)
     }
@@ -99,12 +99,12 @@ class DaySpends {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         if date == today {
-            return "Today"
+            return "T_TODAY".loc()
         }
         
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today)
         if date == yesterday {
-            return "Yesterday"
+            return "T_YESTERDAY".loc()
         }
         
         let formatter = DateFormatter()

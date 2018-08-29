@@ -49,7 +49,7 @@ extension HistoryViewController: ChartViewDelegate {
         }
         
         let target = ChartLimitLine(limit: Double(appSettings.dailyMax))
-        target.label = "Budget"
+        target.label = "BUDGET".loc()
         target.lineColor = COLOR_TEXT_BLUE
         
         barchartView.rightAxis.drawLabelsEnabled = false
@@ -82,7 +82,7 @@ extension HistoryViewController: ChartViewDelegate {
         barchartView.delegate = self
         
         barchartView.legend.enabled = false
-        barchartView.noDataText = "Empty"
+        barchartView.noDataText = "EMPTY".loc()
         barchartView.maxVisibleCount = 10
         barchartView.doubleTapToZoomEnabled = false
         

@@ -9,7 +9,58 @@
 "NONE" = "нет";
 "SIGN_IN" = "Войти";
 "SIGN_OUT" = "Выйти";
-"LAST_UPDATE" = "Last update:";
-"LAST_SYNC" = "Last sync:";
-"NEVER" = "never";
-"MANUAL" = "manual set";
+"LAST_UPDATE" = "Последнее обновление:";
+"LAST_SYNC" = "Последняя синхронизация:";
+"NEVER" = "никогда";
+"MANUAL" = "ручное";
+
+"EXPENSE" = "Трата";
+"CATEGORY" = "Категория";
+"TIMESTAMP" = "Метка";
+"DATE" = "Дата";
+
+"PROCEED" = "Продолжить";
+"CANCEL" = "Отмена";
+"SAVE" = "Сохранить";
+"DELETE" = "Удалить";
+"BACK" = "Назад";
+"OK" = "Ok";
+
+"DELETE_MSG" = "Удалить запись? Действие нельзя будет отменить";
+"DELETE_CAT" = "Удалить категорию? Действие нельзя будет отменить";
+"DELETE_TSTAMP" = "Удалить метку? Действие нельзя будет отменить";
+"GOOGLE_OUT_TITLE" = "Выход из Google Drive";
+"GOOGLE_OUT_MSG" = "Синхронизация с Google Drive будет отключена.";
+
+"DAILY_BUDGET" = "Дневной бюджет";
+"EXCHANGE_RATE" = "Курс обмена";
+"INPUT_MULT" = "Множитель ввода";
+"DAY_START_TIME" = "Время начала нового дня";
+"DATE_TIME" = "Дата и время";
+"COMMENT" = "Комментарий";
+"SUM" = "Сумма";
+"NAME" = "Название";
+"ICON" = "Иконка";
+"COLOR" = "Цвет";
+"T_CUSTOM" = "Custom";
+"T_TODAY" = "Сегодня";
+"T_YESTERDAY" = "Вчера";
+"EMPTY" = "Пусто";
+"BUDGET" = "Бюджет";
+"BUDGET_LEFT" = "Осталось:";
+"BUDGET_TOTAL" = "Всего:";
+"PER_DAY" = " / день";
+"DAY" = "день";
+"DAYS" = "дней";
+
+"EXPORT_TO_TITLE" = "Экспортировать выбранную историю:";
+"EXPORT_OK" = "Экспорт завершен";
+"EXPORT_ERROR" = "Ошибка экспорта!";
+"EXPORT_SHT_OK" = "Spreadsheed created.";
+"EXPORT_SHT_ERROR" = "An error occurred while exporting to spreadsheed.";
+"EXPORT_GOOGLE_OK" = "CSV file uploaded to google drive.";
+"EXPORT_GOOGLE_ERROR" = "An error occurred while uploading to google drive.";
+"EXPORT_ICLOUD_OK" = "CSV file created in iCloud.";
+"EXPORT_ICLOUD_ERROR" = "An error occurred while exporting.";
+"EXPORT_LOCAL_OK" = "CSV file created in iTunes shared folder.";
+"EXPORT_LOCAL_ERROR" = "An error occurred while exporting.";

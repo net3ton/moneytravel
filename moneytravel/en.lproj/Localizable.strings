@@ -24,6 +24,7 @@
 "SAVE" = "Save";
 "DELETE" = "Delete";
 "BACK" = "Back";
+"OK" = "Ok";
 
 "DELETE_MSG" = "Delete the record? It can't be undone";
 "DELETE_CAT" = "Delete the category? It can't be undone";
@@ -39,5 +40,27 @@
 "COMMENT" = "Comment";
 "SUM" = "Sum";
 "NAME" = "Name";
+"ICON" = "Icon";
+"COLOR" = "Color";
 "T_CUSTOM" = "Custom";
 "T_TODAY" = "Today";
+"T_YESTERDAY" = "Yesterday";
+"EMPTY" = "Empty";
+"BUDGET" = "Budget";
+"BUDGET_LEFT" = "Budget left:";
+"BUDGET_TOTAL" = "Total:";
+"PER_DAY" = " / day";
+"DAY" = "day";
+"DAYS" = "days";
+
+"EXPORT_TO_TITLE" = "Export selected history to:";
+"EXPORT_OK" = "Export complete";
+"EXPORT_ERROR" = "Export failed";
+"EXPORT_SHT_OK" = "Spreadsheed created.";
+"EXPORT_SHT_ERROR" = "An error occurred while exporting to spreadsheed.";
+"EXPORT_GOOGLE_OK" = "CSV file uploaded to google drive.";
+"EXPORT_GOOGLE_ERROR" = "An error occurred while uploading to google drive.";
+"EXPORT_ICLOUD_OK" = "CSV file created in iCloud.";
+"EXPORT_ICLOUD_ERROR" = "An error occurred while exporting.";
+"EXPORT_LOCAL_OK" = "CSV file created in iTunes shared folder.";
+"EXPORT_LOCAL_ERROR" = "An error occurred while exporting.";
