@@ -206,6 +206,7 @@ class SettingsViewController: UITableViewController {
                 let minutes = Calendar.current.component(.minute, from: val)
                 let hours = Calendar.current.component(.hour, from: val)
                 appSettings.dayStart = hours * 3600 + minutes * 60
+                lastSpends.reload()
                 self.updateLabels()
             }
         }
