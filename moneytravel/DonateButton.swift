@@ -46,7 +46,7 @@ import UIKit
         }
         
         if let txtLabel = self.titleLabel {
-            txtLabel.frame = CGRect(x: 50, y: self.bounds.origin.y, width: self.bounds.width / 2, height: self.bounds.height)
+            txtLabel.frame = CGRect(x: 50, y: self.bounds.origin.y, width: self.bounds.width - 100, height: self.bounds.height)
             txtLabel.textAlignment = .left
         }
         
