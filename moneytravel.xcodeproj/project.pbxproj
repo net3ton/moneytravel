@@ -30,6 +30,7 @@
 		2114F14820D865AC00BB40CB /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2114F14720D865AC00BB40CB /* Stats.swift */; };
 		211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211A1F2C20BA1E4F004A793D /* MoneyInput.swift */; };
 		2140D34C2133D2AC00921060 /* DonateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2140D34B2133D2AC00921060 /* DonateButton.swift */; };
+		2140D35221374D4A00921060 /* ICloudDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2140D35121374D4A00921060 /* ICloudDrive.swift */; };
 		2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */; };
 		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
 		216F0C00211109B8006DB302 /* HistoryViewController+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F0BFF211109B8006DB302 /* HistoryViewController+Charts.swift */; };
@@ -86,6 +87,9 @@
 		2114F14720D865AC00BB40CB /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		211A1F2C20BA1E4F004A793D /* MoneyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInput.swift; sourceTree = "<group>"; };
 		2140D34B2133D2AC00921060 /* DonateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateButton.swift; sourceTree = "<group>"; };
+		2140D34E2137150100921060 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		2140D3502137151400921060 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		2140D35121374D4A00921060 /* ICloudDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudDrive.swift; sourceTree = "<group>"; };
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
 		2161B9F92120C50100FCC6BD /* moneytravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = moneytravel.entitlements; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 				2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */,
 				2199212620DC0F7C00CE1355 /* GoogleDrive.swift */,
 				216F0C0E2119F348006DB302 /* GoogleSheet.swift */,
+				2140D35121374D4A00921060 /* ICloudDrive.swift */,
 			);
 			path = moneytravel;
 			sourceTree = "<group>";
@@ -426,6 +431,7 @@
 				217648AE20FE29BF00F3488F /* AboutViewController.swift in Sources */,
 				2103DA2B20C708CA003B027D /* Icons.swift in Sources */,
 				2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */,
+				2140D35221374D4A00921060 /* ICloudDrive.swift in Sources */,
 				2104195120FB8321004B227D /* Titlebar.swift in Sources */,
 				211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */,
 				2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */,
@@ -448,6 +454,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2172BD7020B02AF400132D36 /* Base */,
+				2140D34E2137150100921060 /* en */,
+				2140D3502137151400921060 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

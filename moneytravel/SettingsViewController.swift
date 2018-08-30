@@ -65,7 +65,7 @@ class SettingsViewController: UITableViewController {
         fractionCurrent.isOn = appSettings.fractionCurrent
         fractionBase.isOn = appSettings.fractionBase
 
-        icloudEnabled.isOn = appSettings.icloudSyncEnabled
+        icloudEnabled.isOn = appSettings.isICloudEnabled()
         icloudSyncLabel.text = getLastSyncString(appSettings.icloudSyncDate)
         googleDriveLabel.text = appGoogleDrive.isLogined() ? "SIGN_OUT".loc() : "SIGN_IN".loc()
         googleDriveSyncLabel.text = getLastSyncString(appSettings.googleSyncDate)
@@ -122,6 +122,23 @@ class SettingsViewController: UITableViewController {
         updateLabels()
     }
 
+    @IBAction func icloudCheck(_ sender: UISwitch) {
+        if sender.isOn && !appICloudDrive.isEnabled() {
+            sender.isOn = false
+            
+            let msg = UIAlertController(title: nil, message: "ICLOUD_DISABLED".loc(), preferredStyle: .alert)
+            msg.addAction(UIAlertAction(title: "OK".loc(), style: .default))
+            self.present(msg, animated: true)
+            return
+        }
+
+        appSettings.icloudSyncEnabled = sender.isOn
+        
+        if sender.isOn {
+            appSync.makeSyncICloud()
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 4 && indexPath.row == 1 {
             if appGoogleDrive.isLogined() {

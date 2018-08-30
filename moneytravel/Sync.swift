@@ -14,65 +14,94 @@ let appSync = AppSync()
 class AppSync {
     public static let NAME_SYNC = "moneytravel.sync"
     public static let DESC_SYNC = "TravelMoney sync data"
-    private var dateToSync = Date()
+    private var googleToSync = Date()
 
-    public func sync() {
-        if appGoogleDrive.isLogined() && dateToSync < Date() {
-            makeSync()
+    public func syncGoogle() {
+        if appGoogleDrive.isLogined() && googleToSync < Date() {
+            makeGoogleSync()
         }
     }
 
-    private func makeSync() {
-        print("[Sync] syncing...")
-        self.dateToSync = Calendar.current.date(byAdding: .minute, value: 5, to: Date())!
+    public func syncICloud() {
+        if appSettings.isICloudEnabled() {
+            makeSyncICloud()
+        }
+    }
+
+    public func makeSyncICloud() {
+        print("[Sync iCloud] syncing...")
+        
+        let fileData = appICloudDrive.loadFromFile(AppSync.NAME_SYNC)
+        if let fdata = fileData {
+            if let appdata = AppData.loadFromData(fdata) {
+                //self.importData(appdata)
+                print("[Sync iCloud] data imported.")
+            }
+            else {
+                print("[Sync iCloud] failed to load data!")
+            }
+        }
+
+        if let data = AppData().exportToData() {
+            if appICloudDrive.saveToFile(AppSync.NAME_SYNC, data: data) {
+                appSettings.icloudSyncDate = Date()
+                appSettings.save()
+                print("[Sync iCloud] ok.")
+            }
+        }
+    }
+    
+    private func makeGoogleSync() {
+        print("[Sync Google] syncing...")
+        googleToSync = Calendar.current.date(byAdding: .minute, value: 5, to: Date())!
 
         appGoogleDrive.downloadFromRoot(filename: AppSync.NAME_SYNC) { (fileData, fileId, error) in
             if let fdata = fileData {
                 if let appdata = AppData.loadFromData(fdata) {
-                    self.importData(appdata)
-                    print("[Sync] data imported.")
+                    //self.importData(appdata)
+                    print("[Sync Google] data imported.")
                 }
                 else {
-                    print("[Sync] failed to load data!")
+                    print("[Sync Google] failed to load data!")
                     return
                 }
             }
 
             if error == .none || error == .notFoundError {
-                //self.syncUpload(to: fileId)
+                self.syncGoogleUpload(to: fileId)
             }
             else {
-                print("[Sync] failed to download sync base!")
+                print("[Sync Google] failed to download sync base!")
             }
         }
     }
     
-    private func syncUpload(to fileId: String?) {
-        print("[Sync] uploading...")
+    private func syncGoogleUpload(to fileId: String?) {
+        print("[Sync Google] uploading...")
 
         if let data = AppData().exportToData() {
             if let fid = fileId {
                 appGoogleDrive.updateFile(data: data, fileid: fid, mime: .binary) { (success) in
-                    self.syncComplete(success)
+                    self.syncGoogleComplete(success)
                 }
             }
             else {
                 appGoogleDrive.uploadToRoot(data: data, filename: AppSync.NAME_SYNC, description: AppSync.DESC_SYNC, mime: .binary) { (success) in
-                    self.syncComplete(success)
+                    self.syncGoogleComplete(success)
                 }
             }
         }
     }
 
-    private func syncComplete(_ success: Bool) {
+    private func syncGoogleComplete(_ success: Bool) {
         if success {
-            self.dateToSync = Calendar.current.date(byAdding: .hour, value: 3, to: Date())!
+            googleToSync = Calendar.current.date(byAdding: .hour, value: 3, to: Date())!
             appSettings.googleSyncDate = Date()
             appSettings.save()
-            print("[Sync] ok.")
+            print("[Sync Google] ok.")
         }
         else {
-            print("[Sync] failed to upload sync base!")
+            print("[Sync Google] failed to upload sync base!")
         }
     }
 

@@ -191,16 +191,13 @@ class AppData: Codable {
         return data
     }
     
-    
-    
     public func saveToCSV(name: String, location: EExportLocation) -> Bool {
-        guard let path = (location == .icloud) ? getiCloudPath() : getSharedPath() else {
+        guard let path = (location == .icloud) ? appICloudDrive.getDocumentsPath() : getSharedPath() else {
             return false
         }
 
         do {
             let exportPath = path.appendingPathComponent(name)
-            
             try exportToCSV().write(to: exportPath)
         }
         catch let error {
@@ -213,25 +210,5 @@ class AppData: Codable {
     
     private func getSharedPath() -> URL? {
         return FileManager().urls(for: .documentDirectory, in: .userDomainMask).first
-    }
-
-    private func getiCloudPath() -> URL? {
-        guard let icloudUrl = FileManager().url(forUbiquityContainerIdentifier: nil) else {
-            return nil
-        }
-        
-        let docsUrl = icloudUrl.appendingPathComponent("Documents")
-        
-        do {
-            if (!FileManager().fileExists(atPath: docsUrl.path)) {
-                try FileManager().createDirectory(at: docsUrl, withIntermediateDirectories: true, attributes: nil)
-            }
-        }
-        catch let error {
-            print("Failed to create Documents in iCloud! ERROR: " + error.localizedDescription)
-            return nil
-        }
-        
-        return docsUrl
     }
 }

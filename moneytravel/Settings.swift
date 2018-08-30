@@ -159,6 +159,10 @@ class AppSettings {
         let today = Calendar.current.startOfDay(for: Date())
         return today + TimeInterval(dayStart)
     }
+
+    func isICloudEnabled() -> Bool {
+        return icloudSyncEnabled && appICloudDrive.isEnabled()
+    }
 }
 
 let appSettings = AppSettings()
