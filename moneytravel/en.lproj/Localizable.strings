@@ -31,6 +31,7 @@
 "DELETE_TSTAMP" = "Delete the timestamp? It can't be undone";
 "GOOGLE_OUT_TITLE" = "Sign out from Google Drive";
 "GOOGLE_OUT_MSG" = "This operation will disable sync with Google Drive.";
+"ICLOUD_DISABLED" = "You should enable iCloud in system settings first.";
 
 "DAILY_BUDGET" = "Daily budget";
 "EXCHANGE_RATE" = "Exchange rate";

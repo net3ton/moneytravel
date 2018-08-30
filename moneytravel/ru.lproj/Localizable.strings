@@ -31,6 +31,7 @@
 "DELETE_TSTAMP" = "Удалить метку? Действие нельзя будет отменить";
 "GOOGLE_OUT_TITLE" = "Выход из Google Drive";
 "GOOGLE_OUT_MSG" = "Синхронизация с Google Drive будет отключена.";
+"ICLOUD_DISABLED" = "Включите iCloud в системных настройках.";
 
 "DAILY_BUDGET" = "Дневной бюджет";
 "EXCHANGE_RATE" = "Курс обмена";
@@ -56,11 +57,11 @@
 "EXPORT_TO_TITLE" = "Экспортировать выбранную историю:";
 "EXPORT_OK" = "Экспорт завершен";
 "EXPORT_ERROR" = "Ошибка экспорта!";
-"EXPORT_SHT_OK" = "Spreadsheed created.";
-"EXPORT_SHT_ERROR" = "An error occurred while exporting to spreadsheed.";
-"EXPORT_GOOGLE_OK" = "CSV file uploaded to google drive.";
-"EXPORT_GOOGLE_ERROR" = "An error occurred while uploading to google drive.";
-"EXPORT_ICLOUD_OK" = "CSV file created in iCloud.";
-"EXPORT_ICLOUD_ERROR" = "An error occurred while exporting.";
-"EXPORT_LOCAL_OK" = "CSV file created in iTunes shared folder.";
-"EXPORT_LOCAL_ERROR" = "An error occurred while exporting.";
+"EXPORT_SHT_OK" = "Таблица создана.";
+"EXPORT_SHT_ERROR" = "Не удалось создать таблицу.";
+"EXPORT_GOOGLE_OK" = "CSV файл загружен на google drive.";
+"EXPORT_GOOGLE_ERROR" = "Не удалось загрузить CSV файл на google drive.";
+"EXPORT_ICLOUD_OK" = "CSV файл создан в iCloud.";
+"EXPORT_ICLOUD_ERROR" = "Не удалось создать CSV файл в iCloud.";
+"EXPORT_LOCAL_OK" = "CSV файл создан в iTunes shared folder.";
+"EXPORT_LOCAL_ERROR" = "Не удалось создать CSV файл в iTunes shared folder.";
