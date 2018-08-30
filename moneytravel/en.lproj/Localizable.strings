@@ -53,6 +53,8 @@
 "PER_DAY" = " / day";
 "DAY" = "day";
 "DAYS" = "days";
+"D_FROM" = "From";
+"D_TO" = "To";
 
 "EXPORT_TO_TITLE" = "Export selected history to:";
 "EXPORT_OK" = "Export complete";
@@ -65,3 +67,17 @@
 "EXPORT_ICLOUD_ERROR" = "An error occurred while exporting.";
 "EXPORT_LOCAL_OK" = "CSV file created in iTunes shared folder.";
 "EXPORT_LOCAL_ERROR" = "An error occurred while exporting.";
+
+/* Categories */
+"CAT_PRODUCTS" = "Products";
+"CAT_RENT" = "Rent";
+"CAT_TRANSPORT" = "Transport";
+"CAT_DINNER" = "Dinner";
+"CAT_CAFE" = "Cafe";
+"CAT_MUSEUMS" = "Museums";
+"CAT_GIFTS" = "Gifts";
+"CAT_CLOTHES" = "Clothes";
+"CAT_ENTERTAIN" = "Entertain";
+"CAT_MOBILE" = "Mobile";
+"CAT_HEALTH" = "Health";
+"CAT_BILLS" = "Bills";

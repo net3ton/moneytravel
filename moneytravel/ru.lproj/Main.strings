@@ -1,24 +1,179 @@
+/* Class = "UITableViewController"; title = "Settings"; ObjectID = "htg-54-DoI"; */
+"htg-54-DoI.title" = "Настройки";
 
-/* Class = "UILabel"; text = "Support developer"; ObjectID = "06R-QD-T8j"; */
-"06R-QD-T8j.text" = "Support developer";
+/* Class = "UITableViewSection"; headerTitle = "General"; ObjectID = "7iC-c6-tWO"; */
+"7iC-c6-tWO.headerTitle" = "Общие";
+
+/* Class = "UILabel"; text = "Daily budget"; ObjectID = "D8r-4t-qMV"; */
+"D8r-4t-qMV.text" = "Дневной бюджет";
+
+/* Class = "UILabel"; text = "Header sum since"; ObjectID = "6ab-cz-bYK"; */
+"6ab-cz-bYK.text" = "Сумма в шапке";
+
+/* Class = "UILabel"; text = "Day start time"; ObjectID = "sm8-aL-FkM"; */
+"sm8-aL-FkM.text" = "Время начала дня";
+
+/* Class = "UILabel"; text = "Input multiplier"; ObjectID = "jGf-Xu-aWW"; */
+"jGf-Xu-aWW.text" = "Множитель ввода";
+
+/* Class = "UITableViewSection"; headerTitle = "Currency"; ObjectID = "HZR-ti-cBe"; */
+"HZR-ti-cBe.headerTitle" = "Валюта";
+
+/* Class = "UITableViewController"; title = "Currencies"; ObjectID = "vol-wE-IGc"; */
+"vol-wE-IGc.title" = "Валюта";
 
 /* Class = "UILabel"; text = "Current"; ObjectID = "0Kx-Qr-Cnn"; */
-"0Kx-Qr-Cnn.text" = "Current";
+"0Kx-Qr-Cnn.text" = "Текущая";
 
-/* Class = "UILabel"; text = "Color"; ObjectID = "0WL-8H-iGh"; */
-"0WL-8H-iGh.text" = "Color";
+/* Class = "UILabel"; text = "Base"; ObjectID = "FcV-lK-xTh"; */
+"FcV-lK-xTh.text" = "Базовая";
+
+/* Class = "UILabel"; text = "Automatic update"; ObjectID = "4ZU-QA-YBU"; */
+"4ZU-QA-YBU.text" = "Обновлять курс";
+
+/* Class = "UILabel"; text = "Show fraction part (base)"; ObjectID = "GP3-L3-aSZ"; */
+"GP3-L3-aSZ.text" = "Дробная часть (базовая)";
+
+/* Class = "UILabel"; text = "Show fraction part (current)"; ObjectID = "Soe-fr-b1A"; */
+"Soe-fr-b1A.text" = "Дробная часть (текущая)";
+
+/* Class = "UITableViewSection"; headerTitle = "Manage"; ObjectID = "hW2-dF-s5b"; */
+"hW2-dF-s5b.headerTitle" = "Управление";
+
+/* Class = "UILabel"; text = "Categories"; ObjectID = "CGk-pB-6Qd"; */
+"CGk-pB-6Qd.text" = "Категории";
+
+/* Class = "UILabel"; text = "Timestamps"; ObjectID = "Zj7-0T-hnf"; */
+"Zj7-0T-hnf.text" = "Временные метки";
+
+/* Class = "UITableViewSection"; headerTitle = "Cloud Sync"; ObjectID = "6Sf-B1-k4y"; */
+"6Sf-B1-k4y.headerTitle" = "Синхронизация";
 
 /* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "0tM-rc-oLM"; */
-"0tM-rc-oLM.headerTitle" = "About";
+"0tM-rc-oLM.headerTitle" = "О программе";
+
+/* Class = "UILabel"; text = "Support developer"; ObjectID = "06R-QD-T8j"; */
+"06R-QD-T8j.text" = "Поддержать разработчика";
+
+
+
+/* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[0] = "History"; ObjectID = "5nB-6e-KhY"; */
+"5nB-6e-KhY.segmentTitles[0]" = "История";
+
+/* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[1] = "Tendency"; ObjectID = "5nB-6e-KhY"; */
+"5nB-6e-KhY.segmentTitles[1]" = "Тенденция";
+
+/* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[2] = "Categories"; ObjectID = "5nB-6e-KhY"; */
+"5nB-6e-KhY.segmentTitles[2]" = "Категории";
+
+
+/* Class = "UIViewController"; title = "About"; ObjectID = "jIb-4N-Tfo"; */
+"jIb-4N-Tfo.title" = "О программе";
+
+/* Class = "UITextView"; text = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lack travel specific functionality. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can contact me on twitter: @net3ton"; ObjectID = "yZT-Sl-smY"; */
+"yZT-Sl-smY.text" = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lack travel specific functionality. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can contact me on twitter: @net3ton";
+
+/* Class = "UILabel"; text = " I would be very grateful to you for:"; ObjectID = "MIm-a1-zeV"; */
+"MIm-a1-zeV.text" = " Я буду очень благодарен если вы:";
+
+/* Class = "UIButton"; normalTitle = "Rate the app"; ObjectID = "noG-lN-VlT"; */
+"noG-lN-VlT.normalTitle" = "Оцените приложение";
+
+/* Class = "UILabel"; text = " or even donate:"; ObjectID = "g3l-od-yid"; */
+"g3l-od-yid.text" = " или даже поддержите:";
+
+/* Class = "UIButton"; normalTitle = "Thank you!"; ObjectID = "a5H-nJ-q6n"; */
+"a5H-nJ-q6n.normalTitle" = "Спасибо!";
+
+/* Class = "UIButton"; normalTitle = "Love it very much!"; ObjectID = "CaK-9k-les"; */
+"CaK-9k-les.normalTitle" = "Очень нравится!";
+
+/* Class = "UIButton"; normalTitle = "You are my hero!"; ObjectID = "hVv-NE-cF7"; */
+"hVv-NE-cF7.normalTitle" = "Делай ещё!";
+
+
+/* Class = "UITextField"; placeholder = "Enter sum"; ObjectID = "F7n-Dy-wHl"; */
+"F7n-Dy-wHl.placeholder" = "Сумма";
+
+/* Class = "UIButton"; normalTitle = "Show more"; ObjectID = "j21-ic-8te"; */
+"j21-ic-8te.normalTitle" = "Показать ещё";
+
+
+/* Class = "UITableViewSection"; headerTitle = "Properties"; ObjectID = "rZc-Iw-94P"; */
+"rZc-Iw-94P.headerTitle" = "Параметры";
+
+/* Class = "UILabel"; text = "Category"; ObjectID = "PL5-Cx-6Hu"; */
+"PL5-Cx-6Hu.text" = "Категория";
+
+/* Class = "UILabel"; text = "Sum"; ObjectID = "yY7-Z1-KvS"; */
+"yY7-Z1-KvS.text" = "Сумма";
+
+/* Class = "UILabel"; text = "Currency"; ObjectID = "6o8-Qt-vNb"; */
+"6o8-Qt-vNb.text" = "Валюта";
+
+/* Class = "UILabel"; text = "Exchange rate"; ObjectID = "Om2-lM-LLb"; */
+"Om2-lM-LLb.text" = "Курс обмена";
 
 /* Class = "UILabel"; text = "Date and time"; ObjectID = "1NS-v0-2FB"; */
-"1NS-v0-2FB.text" = "Date and time";
+"1NS-v0-2FB.text" = "Дата и время";
+
+/* Class = "UILabel"; text = "Comment"; ObjectID = "feN-gF-O5I"; */
+"feN-gF-O5I.text" = "Комментарий";
+
+/* Class = "UILabel"; text = "Delete"; ObjectID = "iDW-TL-E0A"; */
+"iDW-TL-E0A.text" = "Удалить";
+
+
+/* Class = "UITableViewSection"; headerTitle = "Properties"; ObjectID = "Vjc-Lx-Ro6"; */
+"Vjc-Lx-Ro6.headerTitle" = "Параметры";
+
+/* Class = "UITableViewController"; title = "Categories"; ObjectID = "IxR-zl-AMF"; */
+"IxR-zl-AMF.title" = "Категории";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "fkh-A4-9by"; */
+"fkh-A4-9by.text" = "Название";
+
+/* Class = "UILabel"; text = "Icon"; ObjectID = "aN8-VT-j2n"; */
+"aN8-VT-j2n.text" = "Иконка";
+
+/* Class = "UILabel"; text = "Color"; ObjectID = "QV6-8z-KTL"; */
+"QV6-8z-KTL.text" = "Цвет";
+
+/* Class = "UILabel"; text = "Delete"; ObjectID = "uae-xh-hnj"; */
+"uae-xh-hnj.text" = "Удалить";
+
+
+/* Class = "UITableViewController"; title = "Timestamps"; ObjectID = "mGk-VB-WI4"; */
+"mGk-VB-WI4.title" = "Метки";
+
+/* Class = "UITableViewSection"; headerTitle = "Properties"; ObjectID = "fCW-so-prL"; */
+"fCW-so-prL.headerTitle" = "Параметры";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "RIs-NU-ILd"; */
+"RIs-NU-ILd.text" = "Название";
+
+/* Class = "UILabel"; text = "Color"; ObjectID = "0WL-8H-iGh"; */
+"0WL-8H-iGh.text" = "Цвет";
+
+/* Class = "UILabel"; text = "Date and time"; ObjectID = "6ys-Is-d4M"; */
+"6ys-Is-d4M.text" = "Дата и время";
+
+/* Class = "UILabel"; text = "Comment"; ObjectID = "ohg-yG-XQh"; */
+"ohg-yG-XQh.text" = "Комментарий";
+
+/* Class = "UILabel"; text = "Delete"; ObjectID = "JcL-ks-EQB"; */
+"JcL-ks-EQB.text" = "Удалить";
+
+
+/* Class = "UITableViewSection"; headerTitle = "Categories"; ObjectID = "NHB-kn-1pD"; */
+"NHB-kn-1pD.headerTitle" = "Категории";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "iaH-dK-vqB"; */
+"iaH-dK-vqB.title" = "Назад";
+
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "4U6-S6-cQi"; */
 "4U6-S6-cQi.text" = "Detail";
-
-/* Class = "UILabel"; text = "Automatic update"; ObjectID = "4ZU-QA-YBU"; */
-"4ZU-QA-YBU.text" = "Automatic update";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "4eb-vy-pcE"; */
 "4eb-vy-pcE.text" = "Detail";
@@ -28,30 +183,6 @@
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "5ho-YB-2TT"; */
 "5ho-YB-2TT.text" = "Title";
-
-/* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[0] = "History"; ObjectID = "5nB-6e-KhY"; */
-"5nB-6e-KhY.segmentTitles[0]" = "History";
-
-/* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[1] = "Tendency"; ObjectID = "5nB-6e-KhY"; */
-"5nB-6e-KhY.segmentTitles[1]" = "Tendency";
-
-/* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[2] = "Categories"; ObjectID = "5nB-6e-KhY"; */
-"5nB-6e-KhY.segmentTitles[2]" = "Categories";
-
-/* Class = "UITableViewSection"; headerTitle = "Cloud Sync"; ObjectID = "6Sf-B1-k4y"; */
-"6Sf-B1-k4y.headerTitle" = "Cloud Sync";
-
-/* Class = "UILabel"; text = "Header sum since"; ObjectID = "6ab-cz-bYK"; */
-"6ab-cz-bYK.text" = "Header sum since";
-
-/* Class = "UILabel"; text = "Currency"; ObjectID = "6o8-Qt-vNb"; */
-"6o8-Qt-vNb.text" = "Currency";
-
-/* Class = "UILabel"; text = "Date and time"; ObjectID = "6ys-Is-d4M"; */
-"6ys-Is-d4M.text" = "Date and time";
-
-/* Class = "UITableViewSection"; headerTitle = "General"; ObjectID = "7iC-c6-tWO"; */
-"7iC-c6-tWO.headerTitle" = "General";
 
 /* Class = "UILabel"; text = "1 USD ="; ObjectID = "7zb-mA-qZp"; */
 "7zb-mA-qZp.text" = "1 USD =";
@@ -65,41 +196,17 @@
 /* Class = "UINavigationItem"; title = "Money Travel"; ObjectID = "Au5-lh-gNu"; */
 "Au5-lh-gNu.title" = "Money Travel";
 
-/* Class = "UILabel"; text = "Categories"; ObjectID = "CGk-pB-6Qd"; */
-"CGk-pB-6Qd.text" = "Categories";
-
 /* Class = "UILabel"; text = "Detail"; ObjectID = "CMP-H7-7b3"; */
 "CMP-H7-7b3.text" = "Detail";
-
-/* Class = "UIButton"; normalTitle = "Love it very much!"; ObjectID = "CaK-9k-les"; */
-"CaK-9k-les.normalTitle" = "Love it very much!";
-
-/* Class = "UILabel"; text = "Daily budget"; ObjectID = "D8r-4t-qMV"; */
-"D8r-4t-qMV.text" = "Daily budget";
 
 /* Class = "UILabel"; text = "iCloud"; ObjectID = "EHI-cY-VZY"; */
 "EHI-cY-VZY.text" = "iCloud";
 
-/* Class = "UITextField"; placeholder = "Enter sum"; ObjectID = "F7n-Dy-wHl"; */
-"F7n-Dy-wHl.placeholder" = "Enter sum";
-
-/* Class = "UILabel"; text = "Base"; ObjectID = "FcV-lK-xTh"; */
-"FcV-lK-xTh.text" = "Base";
-
 /* Class = "UILabel"; text = "Label"; ObjectID = "G6P-Uw-feY"; */
 "G6P-Uw-feY.text" = "Label";
 
-/* Class = "UILabel"; text = "Show fraction part (base)"; ObjectID = "GP3-L3-aSZ"; */
-"GP3-L3-aSZ.text" = "Show fraction part (base)";
-
 /* Class = "UILabel"; text = "Last updated: 06.06.2018"; ObjectID = "HR7-28-Ozr"; */
 "HR7-28-Ozr.text" = "Last updated: 06.06.2018";
-
-/* Class = "UITableViewSection"; headerTitle = "Currency"; ObjectID = "HZR-ti-cBe"; */
-"HZR-ti-cBe.headerTitle" = "Currency";
-
-/* Class = "UITableViewController"; title = "Categories"; ObjectID = "IxR-zl-AMF"; */
-"IxR-zl-AMF.title" = "Categories";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "J88-a4-gOy"; */
 "J88-a4-gOy.text" = "Detail";
@@ -107,62 +214,29 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "Jb9-f0-KFZ"; */
 "Jb9-f0-KFZ.text" = "Label";
 
-/* Class = "UILabel"; text = "Delete"; ObjectID = "JcL-ks-EQB"; */
-"JcL-ks-EQB.text" = "Delete";
-
-/* Class = "UILabel"; text = " I would be very grateful to you for:"; ObjectID = "MIm-a1-zeV"; */
-"MIm-a1-zeV.text" = " I would be very grateful to you for:";
-
 /* Class = "UIViewController"; title = "History"; ObjectID = "MJD-ZW-eud"; */
 "MJD-ZW-eud.title" = "History";
 
 /* Class = "UILabel"; text = "00:00"; ObjectID = "My8-Hr-zM4"; */
 "My8-Hr-zM4.text" = "00:00";
 
-/* Class = "UITableViewSection"; headerTitle = "Categories"; ObjectID = "NHB-kn-1pD"; */
-"NHB-kn-1pD.headerTitle" = "Categories";
-
-/* Class = "UILabel"; text = "Exchange rate"; ObjectID = "Om2-lM-LLb"; */
-"Om2-lM-LLb.text" = "Exchange rate";
-
-/* Class = "UILabel"; text = "Category"; ObjectID = "PL5-Cx-6Hu"; */
-"PL5-Cx-6Hu.text" = "Category";
-
 /* Class = "UILabel"; text = "USD"; ObjectID = "QUm-a2-MFN"; */
 "QUm-a2-MFN.text" = "USD";
-
-/* Class = "UILabel"; text = "Color"; ObjectID = "QV6-8z-KTL"; */
-"QV6-8z-KTL.text" = "Color";
-
-/* Class = "UILabel"; text = "Name"; ObjectID = "RIs-NU-ILd"; */
-"RIs-NU-ILd.text" = "Name";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "RRH-TZ-Nl0"; */
 "RRH-TZ-Nl0.text" = "Label";
 
+/* Class = "UILabel"; text = "From"; ObjectID = "g7v-KH-fwN"; */
+"g7v-KH-fwN.text" = "From";
+
 /* Class = "UILabel"; text = "56.03"; ObjectID = "S85-Sm-bfc"; */
 "S85-Sm-bfc.text" = "56.03";
-
-/* Class = "UILabel"; text = "Show fraction part (current)"; ObjectID = "Soe-fr-b1A"; */
-"Soe-fr-b1A.text" = "Show fraction part (current)";
-
-/* Class = "UITableViewSection"; headerTitle = "Properties"; ObjectID = "Vjc-Lx-Ro6"; */
-"Vjc-Lx-Ro6.headerTitle" = "Properties";
 
 /* Class = "UILabel"; text = "Last synced: 06.06.2018"; ObjectID = "XhI-km-TrB"; */
 "XhI-km-TrB.text" = "Last synced: 06.06.2018";
 
 /* Class = "UILabel"; text = "30.00 USD"; ObjectID = "Yuf-w0-Ojf"; */
 "Yuf-w0-Ojf.text" = "30.00 USD";
-
-/* Class = "UILabel"; text = "Timestamps"; ObjectID = "Zj7-0T-hnf"; */
-"Zj7-0T-hnf.text" = "Timestamps";
-
-/* Class = "UIButton"; normalTitle = "Thank you!"; ObjectID = "a5H-nJ-q6n"; */
-"a5H-nJ-q6n.normalTitle" = "Thank you!";
-
-/* Class = "UILabel"; text = "Icon"; ObjectID = "aN8-VT-j2n"; */
-"aN8-VT-j2n.text" = "Icon";
 
 /* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "b7M-Eg-DZK"; */
 "b7M-Eg-DZK.title" = "Settings";
@@ -173,62 +247,14 @@
 /* Class = "UILabel"; text = "RUB"; ObjectID = "f8J-eC-ir4"; */
 "f8J-eC-ir4.text" = "RUB";
 
-/* Class = "UITableViewSection"; headerTitle = "Properties"; ObjectID = "fCW-so-prL"; */
-"fCW-so-prL.headerTitle" = "Properties";
-
-/* Class = "UILabel"; text = "Comment"; ObjectID = "feN-gF-O5I"; */
-"feN-gF-O5I.text" = "Comment";
-
-/* Class = "UILabel"; text = "Name"; ObjectID = "fkh-A4-9by"; */
-"fkh-A4-9by.text" = "Name";
-
-/* Class = "UILabel"; text = " or even donate:"; ObjectID = "g3l-od-yid"; */
-"g3l-od-yid.text" = " or even donate:";
-
-/* Class = "UILabel"; text = "From"; ObjectID = "g7v-KH-fwN"; */
-"g7v-KH-fwN.text" = "From";
-
-/* Class = "UIButton"; normalTitle = "You are my hero!"; ObjectID = "hVv-NE-cF7"; */
-"hVv-NE-cF7.normalTitle" = "You are my hero!";
-
-/* Class = "UITableViewSection"; headerTitle = "Manage"; ObjectID = "hW2-dF-s5b"; */
-"hW2-dF-s5b.headerTitle" = "Manage";
-
-/* Class = "UITableViewController"; title = "Settings"; ObjectID = "htg-54-DoI"; */
-"htg-54-DoI.title" = "Settings";
-
-/* Class = "UILabel"; text = "Delete"; ObjectID = "iDW-TL-E0A"; */
-"iDW-TL-E0A.text" = "Delete";
-
-/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "iaH-dK-vqB"; */
-"iaH-dK-vqB.title" = "Back";
-
 /* Class = "UITableViewSection"; footerTitle = "HINT: Use drag&drop to rearrage items and tap to edit"; ObjectID = "ihH-dy-bxp"; */
 "ihH-dy-bxp.footerTitle" = "HINT: Use drag&drop to rearrage items and tap to edit";
-
-/* Class = "UIButton"; normalTitle = "Show more"; ObjectID = "j21-ic-8te"; */
-"j21-ic-8te.normalTitle" = "Show more";
-
-/* Class = "UILabel"; text = "Input multiplier"; ObjectID = "jGf-Xu-aWW"; */
-"jGf-Xu-aWW.text" = "Input multiplier";
-
-/* Class = "UIViewController"; title = "About"; ObjectID = "jIb-4N-Tfo"; */
-"jIb-4N-Tfo.title" = "About";
 
 /* Class = "UILabel"; text = "none"; ObjectID = "krm-sP-izU"; */
 "krm-sP-izU.text" = "none";
 
-/* Class = "UITableViewController"; title = "Timestamps"; ObjectID = "mGk-VB-WI4"; */
-"mGk-VB-WI4.title" = "Timestamps";
-
 /* Class = "UILabel"; text = "Detail"; ObjectID = "nOa-8l-3NX"; */
 "nOa-8l-3NX.text" = "Detail";
-
-/* Class = "UIButton"; normalTitle = "Rate the app"; ObjectID = "noG-lN-VlT"; */
-"noG-lN-VlT.normalTitle" = "Rate the app";
-
-/* Class = "UILabel"; text = "Comment"; ObjectID = "ohg-yG-XQh"; */
-"ohg-yG-XQh.text" = "Comment";
 
 /* Class = "UILabel"; text = "USD"; ObjectID = "qH0-z4-bck"; */
 "qH0-z4-bck.text" = "USD";
@@ -236,23 +262,11 @@
 /* Class = "UILabel"; text = "Google Drive"; ObjectID = "qtz-fn-cpC"; */
 "qtz-fn-cpC.text" = "Google Drive";
 
-/* Class = "UITableViewSection"; headerTitle = "Properties"; ObjectID = "rZc-Iw-94P"; */
-"rZc-Iw-94P.headerTitle" = "Properties";
-
-/* Class = "UILabel"; text = "Day start time"; ObjectID = "sm8-aL-FkM"; */
-"sm8-aL-FkM.text" = "Day start time";
-
-/* Class = "UILabel"; text = "Delete"; ObjectID = "uae-xh-hnj"; */
-"uae-xh-hnj.text" = "Delete";
-
 /* Class = "UILabel"; text = "Last synced: 06.06.2018"; ObjectID = "ucG-Ud-oHC"; */
 "ucG-Ud-oHC.text" = "Last synced: 06.06.2018";
 
 /* Class = "UILabel"; text = "Sign in"; ObjectID = "vJB-Le-CAa"; */
 "vJB-Le-CAa.text" = "Sign in";
-
-/* Class = "UITableViewController"; title = "Currencies"; ObjectID = "vol-wE-IGc"; */
-"vol-wE-IGc.title" = "Currencies";
 
 /* Class = "UILabel"; text = "RUB"; ObjectID = "wDq-XC-w75"; */
 "wDq-XC-w75.text" = "RUB";
@@ -265,12 +279,6 @@
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "wob-jC-3Cb"; */
 "wob-jC-3Cb.text" = "Detail";
-
-/* Class = "UILabel"; text = "Sum"; ObjectID = "yY7-Z1-KvS"; */
-"yY7-Z1-KvS.text" = "Sum";
-
-/* Class = "UITextView"; text = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lack travel specific functionality. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can contact me on twitter: @net3ton"; ObjectID = "yZT-Sl-smY"; */
-"yZT-Sl-smY.text" = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lack travel specific functionality. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can contact me on twitter: @net3ton";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "zfs-ac-BXS"; */
 "zfs-ac-BXS.text" = "Detail";

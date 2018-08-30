@@ -9,12 +9,12 @@
 "NONE" = "нет";
 "SIGN_IN" = "Войти";
 "SIGN_OUT" = "Выйти";
-"LAST_UPDATE" = "Последнее обновление:";
-"LAST_SYNC" = "Последняя синхронизация:";
+"LAST_UPDATE" = "Обновление:";
+"LAST_SYNC" = "Синхронизация:";
 "NEVER" = "никогда";
 "MANUAL" = "ручное";
 
-"EXPENSE" = "Трата";
+"EXPENSE" = "Расход";
 "CATEGORY" = "Категория";
 "TIMESTAMP" = "Метка";
 "DATE" = "Дата";
@@ -33,17 +33,17 @@
 "GOOGLE_OUT_MSG" = "Синхронизация с Google Drive будет отключена.";
 "ICLOUD_DISABLED" = "Включите iCloud в системных настройках.";
 
-"DAILY_BUDGET" = "Дневной бюджет";
+"DAILY_BUDGET" = "Бюджет";
 "EXCHANGE_RATE" = "Курс обмена";
-"INPUT_MULT" = "Множитель ввода";
-"DAY_START_TIME" = "Время начала нового дня";
+"INPUT_MULT" = "Множитель";
+"DAY_START_TIME" = "Начало дня";
 "DATE_TIME" = "Дата и время";
 "COMMENT" = "Комментарий";
 "SUM" = "Сумма";
 "NAME" = "Название";
 "ICON" = "Иконка";
 "COLOR" = "Цвет";
-"T_CUSTOM" = "Custom";
+"T_CUSTOM" = "Выбранная";
 "T_TODAY" = "Сегодня";
 "T_YESTERDAY" = "Вчера";
 "EMPTY" = "Пусто";
@@ -53,6 +53,8 @@
 "PER_DAY" = " / день";
 "DAY" = "день";
 "DAYS" = "дней";
+"D_FROM" = "Начиная с";
+"D_TO" = "По";
 
 "EXPORT_TO_TITLE" = "Экспортировать выбранную историю:";
 "EXPORT_OK" = "Экспорт завершен";
@@ -65,3 +67,17 @@
 "EXPORT_ICLOUD_ERROR" = "Не удалось создать CSV файл в iCloud.";
 "EXPORT_LOCAL_OK" = "CSV файл создан в iTunes shared folder.";
 "EXPORT_LOCAL_ERROR" = "Не удалось создать CSV файл в iTunes shared folder.";
+
+/* Categories */
+"CAT_PRODUCTS" = "Продукты";
+"CAT_RENT" = "Жилье";
+"CAT_TRANSPORT" = "Транспорт";
+"CAT_DINNER" = "Обеды";
+"CAT_CAFE" = "Кафе";
+"CAT_MUSEUMS" = "Музеи";
+"CAT_GIFTS" = "Подарки";
+"CAT_CLOTHES" = "Одежда";
+"CAT_ENTERTAIN" = "Отдых";
+"CAT_MOBILE" = "Связь";
+"CAT_HEALTH" = "Здоровье";
+"CAT_BILLS" = "Счета";

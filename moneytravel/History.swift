@@ -17,10 +17,10 @@ class HistoryInterval {
     subscript(index: Int) -> (date: HistoryDate, minDate: Date?, label: String) {
         get {
             if index == 0 {
-                return (date: dateFrom, minDate: nil, label: "From")
+                return (date: dateFrom, minDate: nil, label: "D_FROM".loc())
             }
             
-            return (date: dateTo, minDate: dateFrom.getDate(), label: "To")
+            return (date: dateTo, minDate: dateFrom.getDate(), label: "D_TO".loc())
         }
     }
     
@@ -83,7 +83,7 @@ class HistoryDate {
         
         if let date = date {
             if Calendar.current.isDateInToday(date) {
-                return "Today"
+                return "T_TODAY".loc()
             }
 
             let formatter = DateFormatter()

@@ -10,18 +10,18 @@ import UIKit
 import CoreData
 
 let DEFAULT_CATEGORIES = [
-    ("Food", "Products", "UID-Prods"),          // Products
-    ("House", "Rent", "UID-Rent"),              // Rent
-    ("Transport", "Transport", "UID-Trans"),    // Transport
-    ("Canteen", "Dinner", "UID-Dinner"),        // Dinner
-    ("Cafe", "Cafe", "UID-Cafe"),               // Cafe
-    ("Museum", "Museums", "UID-Museums"),       // Museums
-    ("Gift", "Gifts", "UID-Gifts"),             // Gifts
-    ("Clothes", "Clothes", "UID-Clothes"),      // Clothes
-    ("Entertain", "Entertain", "UID-Relax"),    // Relax
-    ("Mobile", "Mobile", "UID-Mobile"),         // Mobile
-    ("Pills", "Health", "UID-Health"),          // Health
-    ("Taxes", "Bills", "UID-Bills"),            // Bills
+    ("Food", "CAT_PRODUCTS".loc(), "UID-Prods"),          // Products
+    ("House", "CAT_RENT".loc(), "UID-Rent"),              // Rent
+    ("Transport", "CAT_TRANSPORT".loc(), "UID-Trans"),    // Transport
+    ("Canteen", "CAT_DINNER".loc(), "UID-Dinner"),        // Dinner
+    ("Cafe", "CAT_CAFE".loc(), "UID-Cafe"),               // Cafe
+    ("Museum", "CAT_MUSEUMS".loc(), "UID-Museums"),       // Museums
+    ("Gift", "CAT_GIFTS".loc(), "UID-Gifts"),             // Gifts
+    ("Clothes", "CAT_CLOTHES".loc(), "UID-Clothes"),      // Clothes
+    ("Entertain", "CAT_ENTERTAIN".loc(), "UID-Relax"),    // Relax
+    ("Mobile", "CAT_MOBILE".loc(), "UID-Mobile"),         // Mobile
+    ("Pills", "CAT_HEALTH".loc(), "UID-Health"),          // Health
+    ("Taxes", "CAT_BILLS".loc(), "UID-Bills"),            // Bills
 ]
 
 let appCategories = AppCategories()
