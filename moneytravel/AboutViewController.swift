@@ -44,7 +44,7 @@ class AboutViewController: UIViewController {
             SKStoreReviewController.requestReview()
         }
         else {
-            rateApp(appId: "ID")
+            rateApp(appId: "1394064506")
         }
     }
 }
