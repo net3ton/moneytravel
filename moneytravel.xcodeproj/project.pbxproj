@@ -87,11 +87,11 @@
 		2114F14720D865AC00BB40CB /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		211A1F2C20BA1E4F004A793D /* MoneyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInput.swift; sourceTree = "<group>"; };
 		2140D34B2133D2AC00921060 /* DonateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateButton.swift; sourceTree = "<group>"; };
-		2140D34E2137150100921060 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		2140D3502137151400921060 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		2140D35121374D4A00921060 /* ICloudDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudDrive.swift; sourceTree = "<group>"; };
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
+		215BAD222137E1CF00198011 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		215BAD242137E1D600198011 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		2161B9F92120C50100FCC6BD /* moneytravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = moneytravel.entitlements; sourceTree = "<group>"; };
 		216F0BFF211109B8006DB302 /* HistoryViewController+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryViewController+Charts.swift"; sourceTree = "<group>"; };
 		216F0C01211312E5006DB302 /* MoneyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTextField.swift; sourceTree = "<group>"; };
@@ -454,8 +454,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2172BD7020B02AF400132D36 /* Base */,
-				2140D34E2137150100921060 /* en */,
-				2140D3502137151400921060 /* ru */,
+				215BAD222137E1CF00198011 /* en */,
+				215BAD242137E1D600198011 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
