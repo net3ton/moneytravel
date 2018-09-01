@@ -22,6 +22,21 @@ class SpendViewCell: UITableViewCell {
     public static func getNib() -> UINib {
         return UINib.init(nibName: "SpendViewCell", bundle: nil)
     }
+
+    public func swapColor() {
+        backgroundColor = (backgroundColor == COLOR_SPEND1) ? COLOR_SPEND2 : COLOR_SPEND1
+    }
+    
+    public func refresh(_ info: SpendModel, index: Int) {
+        let comm = info.comment ?? ""
+        let category = info.category
+        
+        icon.image = category?.icon
+        comment.text = comm.isEmpty ? category?.name : comm
+        sum.text = info.getSumString()
+        sumBase.text = info.getBaseSumString()
+        backgroundColor = (index % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
+    }
 }
 
 class StampViewCell: UITableViewCell {
@@ -48,6 +63,11 @@ class StampViewCell: UITableViewCell {
     public static func getNib() -> UINib {
         return UINib.init(nibName: "StampViewCell", bundle: nil)
     }
+
+    public func refresh(_ info: MarkModel) {
+        name.text = info.name
+        color = info.color
+    }
 }
 
 class SpendViewHeader: UITableViewHeaderFooterView {
@@ -72,6 +92,17 @@ class SpendViewHeader: UITableViewHeaderFooterView {
     override func layoutSubviews() {
         super.layoutSubviews()
         content.frame = self.bounds
+    }
+
+    public func refresh(_ info: DaySpends) {
+        let budgetInfo = info.getBudgetInfo()
+        
+        content.date.text = info.getDateString()
+        content.dateName.text = info.getDateSubname()
+        content.sum.text = appSettings.budgetTotal ? budgetInfo.budgetTotal : budgetInfo.budgetLeft
+        content.sum.textColor = budgetInfo.budgetPlus ? UIColor.black : UIColor.red
+        content.sumBase.text = budgetInfo.baseSum
+        content.dayProgress.progress = budgetInfo.budgetProgress
     }
 }
 
@@ -123,24 +154,15 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = data[indexPath.section].items[indexPath.row]
-        let count = data[indexPath.section].items.count
 
         if let spend = item.spend {
-            let comment = spend.comment ?? ""
-            let category = spend.category
-
             let cell = tableView.dequeueReusableCell(withIdentifier: SpendViewCell.ID, for: indexPath) as! SpendViewCell
-            cell.icon.image = category?.icon
-            cell.comment.text = comment.isEmpty ? category?.name : comment
-            cell.sum.text = spend.getSumString()
-            cell.sumBase.text = spend.getBaseSumString()
-            cell.backgroundColor = ((count - indexPath.row) % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
+            cell.refresh(spend, index: indexPath.row)
             return cell
         }
         else if let tmark = item.tmark {
             let cell = tableView.dequeueReusableCell(withIdentifier: StampViewCell.ID, for: indexPath) as! StampViewCell
-            cell.name.text = tmark.name
-            cell.color = tmark.color
+            cell.refresh(tmark)
             return cell
         }
 
@@ -157,16 +179,8 @@ class SpendViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let dayInfo = data[section]
-        let budgetInfo = dayInfo.getBudgetInfo()
-        
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SpendViewHeader.ID) as! SpendViewHeader
-        header.content.date.text = dayInfo.getDateString()
-        header.content.dateName.text = dayInfo.getDateSubname()
-        header.content.sum.text = appSettings.budgetTotal ? budgetInfo.budgetTotal : budgetInfo.budgetLeft
-        header.content.sum.textColor = budgetInfo.budgetPlus ? UIColor.black : UIColor.red
-        header.content.sumBase.text = budgetInfo.baseSum
-        header.content.dayProgress.progress = budgetInfo.budgetProgress
+        header.refresh(data[section])
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onHeaderTap))
         header.addGestureRecognizer(tapRecognizer)

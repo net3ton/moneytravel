@@ -128,6 +128,19 @@ class MainViewController: UIViewController {
         appSpends.add(category: cat, sum: sum, curIso: appSettings.currency, bsum: bsum, bcurIso: appSettings.currencyBase, comment: "")
         spendView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
         
+        let header = spendView.headerView(forSection: 0) as! SpendViewHeader
+        header.refresh(lastSpends.daily[0])
+        
+        UIView.animate(withDuration: 0.3) {
+            let number = self.spendView.numberOfRows(inSection: 0)
+            for i in 1..<number {
+                let cell = self.spendView.cellForRow(at: IndexPath(row: i, section: 0)) as? SpendViewCell
+                if cell != nil {
+                    cell!.swapColor()
+                }
+            }
+        }
+        
         updateSpendsView()
         keysView.clear()
     }
