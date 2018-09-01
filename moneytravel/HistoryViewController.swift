@@ -227,6 +227,11 @@ class HistoryViewController: UIViewController {
         let export = UIAlertController(title: "EXPORT_TO_TITLE".loc(), message: nil, preferredStyle: .actionSheet)
         
         let spreadsheet = UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
+            if !appGoogleDrive.isLogined() {
+                self.showExportMessage(false, "", "GOOGLE_DISABLED".loc())
+                return
+            }
+            
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy.MM.dd HH:mm"
             let sheetName = String(format: "MoneyTravel (%@)", formatter.string(from: Date()))
@@ -237,6 +242,11 @@ class HistoryViewController: UIViewController {
         })
         
         let googleCSV = UIAlertAction(title: "Google Drive (csv)", style: .default, handler: { (action) in
+            if !appGoogleDrive.isLogined() {
+                self.showExportMessage(false, "", "GOOGLE_DISABLED".loc())
+                return
+            }
+            
             let historyData = AppData(history: self.history)
             let dataCSV = historyData.exportToCSV()
             let fileName = getExportFileName()
@@ -247,6 +257,11 @@ class HistoryViewController: UIViewController {
         })
 
         let icloudCSV = UIAlertAction(title: "iCloud (csv)", style: .default, handler: { (action) in
+            if !appICloudDrive.isEnabled() {
+                self.showExportMessage(false, "", "ICLOUD_DISABLED".loc())
+                return
+            }
+            
             let historyData = AppData(history: self.history)
             let success = historyData.saveToCSV(name: getExportFileName(), location: .icloud)
 

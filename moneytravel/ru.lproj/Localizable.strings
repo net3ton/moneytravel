@@ -32,6 +32,7 @@
 "GOOGLE_OUT_TITLE" = "Выход из Google Drive";
 "GOOGLE_OUT_MSG" = "Синхронизация с Google Drive будет отключена.";
 "ICLOUD_DISABLED" = "Включите iCloud в системных настройках.";
+"GOOGLE_DISABLED" = "Необходимо войти в Google Drive в настройках.";
 
 "DAILY_BUDGET" = "Бюджет";
 "EXCHANGE_RATE" = "Курс обмена";
