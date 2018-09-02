@@ -204,7 +204,7 @@
 "iaH-dK-vqB.title" = "Back";
 
 /* Class = "UITableViewSection"; footerTitle = "HINT: Use drag&drop to rearrage items and tap to edit"; ObjectID = "ihH-dy-bxp"; */
-"ihH-dy-bxp.footerTitle" = "HINT: Use drag&drop to rearrage items and tap to edit";
+"ihH-dy-bxp.footerTitle" = "HINT: use drag&drop to rearrage items and tap to edit";
 
 /* Class = "UIButton"; normalTitle = "Show more"; ObjectID = "j21-ic-8te"; */
 "j21-ic-8te.normalTitle" = "Show more";

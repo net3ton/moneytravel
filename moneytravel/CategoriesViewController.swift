@@ -95,6 +95,8 @@ class CategoriesSelectViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "CATEGORY".loc()
+        
         let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
         
         viewHeight = viewInfo.height

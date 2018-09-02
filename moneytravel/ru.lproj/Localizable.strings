@@ -26,9 +26,9 @@
 "BACK" = "Назад";
 "OK" = "Ok";
 
-"DELETE_MSG" = "Удалить запись? Действие нельзя будет отменить";
-"DELETE_CAT" = "Удалить категорию? Действие нельзя будет отменить";
-"DELETE_TSTAMP" = "Удалить метку? Действие нельзя будет отменить";
+"DELETE_MSG" = "Удалить запись?\nДействие нельзя будет отменить";
+"DELETE_CAT" = "Удалить категорию?\nДействие нельзя будет отменить";
+"DELETE_TSTAMP" = "Удалить метку?\nДействие нельзя будет отменить";
 "GOOGLE_OUT_TITLE" = "Выход из Google Drive";
 "GOOGLE_OUT_MSG" = "Синхронизация с Google Drive будет отключена.";
 "ICLOUD_DISABLED" = "Включите iCloud в системных настройках.";
@@ -68,6 +68,9 @@
 "EXPORT_ICLOUD_ERROR" = "Не удалось создать CSV файл в iCloud.";
 "EXPORT_LOCAL_OK" = "CSV файл создан в iTunes shared folder.";
 "EXPORT_LOCAL_ERROR" = "Не удалось создать CSV файл в iTunes shared folder.";
+
+"HINT_CHARTBAR" = "Совет: выберите день на графике, чтобы увидеть детали";
+"HINT_CHARTPIE" = "Совет: вращайте диаграмму двумя пальцами";
 
 /* Categories */
 "CAT_PRODUCTS" = "Продукты";

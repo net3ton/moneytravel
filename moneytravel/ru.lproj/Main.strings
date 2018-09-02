@@ -165,12 +165,15 @@
 "JcL-ks-EQB.text" = "Удалить";
 
 
-/* Class = "UITableViewSection"; headerTitle = "Categories"; ObjectID = "NHB-kn-1pD"; */
-"NHB-kn-1pD.headerTitle" = "Категории";
+/* Class = "UITableViewSection"; footerTitle = "HINT: Use drag&drop to rearrage items and tap to edit"; ObjectID = "ihH-dy-bxp"; */
+"ihH-dy-bxp.footerTitle" = "Совет: удерживайте элемент для перетаскивания и нажимайте для редактирования";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "iaH-dK-vqB"; */
 "iaH-dK-vqB.title" = "Назад";
 
+
+/* Class = "UITableViewSection"; headerTitle = "Categories"; ObjectID = "NHB-kn-1pD"; */
+"NHB-kn-1pD.headerTitle" = "Categories";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "4U6-S6-cQi"; */
 "4U6-S6-cQi.text" = "Detail";
@@ -246,9 +249,6 @@
 
 /* Class = "UILabel"; text = "RUB"; ObjectID = "f8J-eC-ir4"; */
 "f8J-eC-ir4.text" = "RUB";
-
-/* Class = "UITableViewSection"; footerTitle = "HINT: Use drag&drop to rearrage items and tap to edit"; ObjectID = "ihH-dy-bxp"; */
-"ihH-dy-bxp.footerTitle" = "HINT: Use drag&drop to rearrage items and tap to edit";
 
 /* Class = "UILabel"; text = "none"; ObjectID = "krm-sP-izU"; */
 "krm-sP-izU.text" = "none";
