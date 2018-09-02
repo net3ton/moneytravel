@@ -23,8 +23,12 @@ struct CurrencyInfo {
         //print(NSLocale.commonISOCurrencyCodes.count)
 
         for ciso in NSLocale.commonISOCurrencyCodes {
-            let cname: String = NSLocale.current.localizedString(forCurrencyCode: ciso) ?? ""
+            var cname: String = NSLocale.current.localizedString(forCurrencyCode: ciso) ?? ""
             if ciso == "BYR" {
+                if let range = cname.range(of: "(") {
+                    cname = String(cname[..<range.lowerBound])
+                }
+                
                 available.append(CurrencyInfo(iso: "BYN", name: cname))
                 continue
             }
