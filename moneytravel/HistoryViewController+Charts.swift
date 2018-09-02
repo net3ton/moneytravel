@@ -12,9 +12,9 @@ import Charts
 extension HistoryViewController: ChartViewDelegate {
     /// ChartViewDelegate (bar chart click)
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        helpLabel.isHidden = true
         selectedDay = Int(entry.x)
         showHistoryDay(ind: selectedDay)
+        print("chartValueSelected")
     }
 
     func updateBarChartView() {
@@ -39,7 +39,7 @@ extension HistoryViewController: ChartViewDelegate {
         
         let chartDataSet = BarChartDataSet(values: chartData, label: nil)
         chartDataSet.colors = [COLOR_BAR1, COLOR_BAR2]
-        chartDataSet.highlightColor = UIColor.red
+        chartDataSet.highlightColor = COLOR_BAR_SELECTED
         chartDataSet.valueFormatter = ValueFormatter()
         
         class AxisLeftFormatter: IAxisValueFormatter {
@@ -87,6 +87,22 @@ extension HistoryViewController: ChartViewDelegate {
         barchartView.doubleTapToZoomEnabled = false
         
         barchartView.data = BarChartData(dataSets: [chartDataSet])
+        
+        barchartView.highlightValue(x: 0, dataSetIndex: 0)
+        /*
+        if barchartView.highlighted.isEmpty {
+            barchartView.highlightValue(x: 0, dataSetIndex: 0)
+            print("empty")
+        }
+        else {
+            let x: Double = barchartView.highlighted[0].x
+            let index: Int = barchartView.highlighted[0].dataIndex
+            
+            barchartView.highlightValue(x: x, dataSetIndex: index)
+            //barchartView.highlightValue(barchartView.highlighted[0])
+            print("selected")
+        }
+        */
         
         for constr in barchartView.constraints {
             if constr.identifier == "height" {

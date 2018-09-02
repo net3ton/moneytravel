@@ -19,9 +19,11 @@ class HistoryViewController: UIViewController {
     @IBOutlet weak var dateRangeView: UITableView!
     @IBOutlet weak var historyView: UITableView!
     @IBOutlet weak var categoryView: UITableView!
+    @IBOutlet weak var modeSegmentTab: UISegmentedControl!
     @IBOutlet weak var barchartView: BarChartView!
     @IBOutlet weak var piechartView: PieChartView!
     @IBOutlet weak var helpLabel: UILabel!
+    @IBOutlet weak var tailView: UIView!
     
     var dateRangeDelegate: DateViewDelegate?
     var historyDelegate: SpendViewDelegate?
@@ -78,12 +80,16 @@ class HistoryViewController: UIViewController {
     }
 
     func changeMode(to mode: EHistoryMode) {
+        modeSegmentTab.selectedSegmentIndex = mode.rawValue
+        
         switch mode {
         case .Tendency:
+            showHistoryDay(ind: selectedDay)
             barchartView.isHidden = false
             historyView.isHidden = false
-            showHistoryDay(ind: selectedDay)
-            helpLabel.isHidden = (selectedDay != -1)
+            tailView.isHidden = false
+            helpLabel.isHidden = false
+            helpLabel.text = "HINT_CHARTBAR".loc()
 
             categoryView.isHidden = true
             piechartView.isHidden = true
@@ -91,19 +97,22 @@ class HistoryViewController: UIViewController {
         case .Categories:
             categoryView.isHidden = false
             piechartView.isHidden = false
+            tailView.isHidden = false
+            helpLabel.isHidden = false
+            helpLabel.text = "HINT_CHARTPIE".loc()
 
             historyView.isHidden = true
             barchartView.isHidden = true
-            helpLabel.isHidden = true
 
         default: // .History
-            historyView.isHidden = false
             showHistory(days: history)
+            historyView.isHidden = false
 
             categoryView.isHidden = true
             barchartView.isHidden = true
             piechartView.isHidden = true
             helpLabel.isHidden = true
+            tailView.isHidden = true
         }
     }
 
@@ -127,11 +136,14 @@ class HistoryViewController: UIViewController {
         
         for constr in historyView.constraints {
             if constr.identifier == "height" {
+                constr.constant = historyDelegate!.getContentHeight()
+                /*
                 let newHeight = historyDelegate!.getContentHeight()
                 
                 if newHeight > constr.constant || shouldUpdateConstraint {
                     constr.constant = historyDelegate!.getContentHeight()
                 }
+                */
             }
         }
         

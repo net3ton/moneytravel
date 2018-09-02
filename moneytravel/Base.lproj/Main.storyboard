@@ -193,7 +193,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zge-Un-RdH">
-                                        <rect key="frame" x="16" y="20" width="343" height="592"/>
+                                        <rect key="frame" x="16" y="20" width="343" height="608"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HbG-M0-LdV">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
@@ -263,19 +263,26 @@
                                                 </constraints>
                                                 <sections/>
                                             </tableView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" HINT: Select a day to see details, pinch to scale" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CM-ed-3G1">
-                                                <rect key="frame" x="0.0" y="468" width="343" height="16"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xyn-L3-czR">
-                                                <rect key="frame" x="0.0" y="492" width="343" height="100"/>
+                                                <rect key="frame" x="0.0" y="468" width="343" height="100"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" identifier="height" id="trm-r9-TKt"/>
                                                 </constraints>
                                             </tableView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HINT" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CM-ed-3G1">
+                                                <rect key="frame" x="0.0" y="576" width="343" height="16"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Faz-Ao-rDK">
+                                                <rect key="frame" x="0.0" y="600" width="343" height="8"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="8" identifier="height" id="s35-24-2Cd"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -303,7 +310,9 @@
                         <outlet property="dateRangeView" destination="HbG-M0-LdV" id="jr5-O0-b85"/>
                         <outlet property="helpLabel" destination="5CM-ed-3G1" id="amw-Dh-RhQ"/>
                         <outlet property="historyView" destination="hEu-58-iUe" id="hL2-zp-HzY"/>
+                        <outlet property="modeSegmentTab" destination="5nB-6e-KhY" id="o5y-Hv-iUJ"/>
                         <outlet property="piechartView" destination="snC-Mz-6gE" id="cKg-60-rEA"/>
+                        <outlet property="tailView" destination="Faz-Ao-rDK" id="NHp-Er-lBZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KeN-V5-efB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -845,10 +854,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Categories" id="NHB-kn-1pD">
+                            <tableViewSection id="NHB-kn-1pD">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="dyJ-be-gJa">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="35" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dyJ-be-gJa" id="x76-4i-gNl">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
