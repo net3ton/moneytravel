@@ -1740,7 +1740,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="D8B-Uj-YWc">
-                                        <rect key="frame" x="16" y="12" width="343" height="568"/>
+                                        <rect key="frame" x="16" y="12" width="343" height="602"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZT-Sl-smY">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="272"/>
@@ -1816,6 +1816,12 @@ This app will never get any kind of ads or locked functionality. Enjoy!  Che
                                                     <action selector="onDonate3:" destination="jIb-4N-Tfo" eventType="touchUpInside" id="Oce-uP-zqN"/>
                                                 </connections>
                                             </button>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AHs-em-H98">
+                                                <rect key="frame" x="0.0" y="582" width="343" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="PUg-BD-ODj"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
