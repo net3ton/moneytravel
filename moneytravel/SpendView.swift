@@ -51,7 +51,7 @@ class SpendViewCell: UITableViewCell {
 
 class StampViewCell: UITableViewCell {
     public static let ID = "StampCell"
-    public static let HEIGHT: CGFloat = 36.0
+    public static let HEIGHT: CGFloat = 44.0
 
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var name: UILabel!

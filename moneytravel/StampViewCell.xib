@@ -26,8 +26,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m52-K5-Zlc">
                     <rect key="frame" x="0.0" y="3" width="320" height="30"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qj-Ng-flB">
-                            <rect key="frame" x="51" y="0.0" width="269" height="30"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qj-Ng-flB">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="2qj-Ng-flB" secondAttribute="trailing" id="anM-iu-2JS"/>
                         <constraint firstAttribute="bottom" secondItem="2qj-Ng-flB" secondAttribute="bottom" id="ere-ZL-VE1"/>
-                        <constraint firstItem="2qj-Ng-flB" firstAttribute="leading" secondItem="m52-K5-Zlc" secondAttribute="leading" constant="51" id="mTs-Li-NWA"/>
+                        <constraint firstItem="2qj-Ng-flB" firstAttribute="leading" secondItem="m52-K5-Zlc" secondAttribute="leading" id="mTs-Li-NWA"/>
                         <constraint firstItem="2qj-Ng-flB" firstAttribute="top" secondItem="m52-K5-Zlc" secondAttribute="top" id="o9z-3e-7I3"/>
                     </constraints>
                 </view>
