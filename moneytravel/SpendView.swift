@@ -32,10 +32,20 @@ class SpendViewCell: UITableViewCell {
         let category = info.category
         
         icon.image = category?.icon
-        comment.text = comm.isEmpty ? category?.name : comm
         sum.text = info.getSumString()
         sumBase.text = info.getBaseSumString()
+        comment.text = comm.isEmpty ? category?.name : comm
         backgroundColor = (index % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
+    
+        resizeComment()
+    }
+
+    private func resizeComment() {
+        let COMMENT_INDENT: CGFloat = 20.0
+        sum.sizeToFit()
+        
+        let width = frame.width - sum.frame.width - comment.frame.origin.x - COMMENT_INDENT
+        comment.frame = CGRect(origin: comment.frame.origin, size: CGSize(width: width, height: comment.frame.height))
     }
 }
 
