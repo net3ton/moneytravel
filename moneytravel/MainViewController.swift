@@ -158,8 +158,9 @@ class MainViewController: UIViewController {
 
     private func showHistory() {
         let sboard = UIStoryboard(name: "Main", bundle: nil) as UIStoryboard
-        let view = sboard.instantiateViewController(withIdentifier: "history")
-        navigationController?.pushViewController(view, animated: true)
+        let historyView = sboard.instantiateViewController(withIdentifier: "history") as! HistoryViewController
+        historyView.mode = .Categories
+        navigationController?.pushViewController(historyView, animated: true)
     }
     
     /*
