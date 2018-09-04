@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import DataCompression
 
 let appInfo = AppInfo()
 
@@ -65,13 +66,13 @@ class AppData: Codable {
     private(set) var timestamps: [MarkModel]
     private(set) var spends: [SpendModel]
 
-    init() {
+    init(fetchRemoved: Bool = true) {
         baseVer = appInfo.baseVer
         baseId = appInfo.baseId
 
-        categories = appCategories.fetchAll(removed: true)
-        timestamps = appTimestamps.fetchAll(removed: true)
-        spends = appSpends.fetchAll(removed: true)
+        categories = appCategories.fetchAll(removed: fetchRemoved)
+        timestamps = appTimestamps.fetchAll(removed: fetchRemoved)
+        spends = appSpends.fetchAll(removed: fetchRemoved)
     }
 
     init(history: [DaySpends]) {
@@ -95,50 +96,79 @@ class AppData: Codable {
         }
     }
 
-    static public func loadFromData(_ data: Data) -> AppData? {
-        let plistDecoder = PropertyListDecoder()
-        plistDecoder.userInfo[.context] = get_context()
-
+    public func importData() {
+        print("[Import] base: " + baseId)
+        print(String(format: "[Import] data (%i, %i, %i)", categories.count, spends.count, timestamps.count))
+        
+        let context = get_context()
+        context.mergePolicy = NSOverwriteMergePolicy
+        
+        var tstampCount = 0
+        var catCount = 0
+        var spendCount = 0
+        
+        for tstamp in timestamps {
+            if appTimestamps.shouldUpdate(uid: tstamp.uid!, ver: tstamp.version) {
+                context.insert(tstamp)
+                tstampCount += 1
+            }
+        }
+        for cat in categories {
+            if appCategories.shouldUpdate(uid: cat.uid!, ver: cat.version) {
+                context.insert(cat)
+                catCount += 1
+            }
+        }
+        for spend in spends {
+            if appSpends.shouldUpdate(uid: spend.uid!, ver: spend.version) {
+                context.insert(spend)
+                spendCount += 1
+            }
+        }
+        
         do {
-            return try plistDecoder.decode(AppData.self, from: data)
+            try context.save()
+            
+            print(String(format: "[Import] saved (%i, %i, %i)", catCount, spendCount, tstampCount))
         }
         catch let error {
             print("Failed to import! ERROR: " + error.localizedDescription)
         }
-
+    }
+    
+    static public func loadFromData(_ rawdata: Data) -> AppData? {
+        guard let data = rawdata.unzip() else {
+            print("Failed to import! Failed to unzip data!")
+            return nil
+        }
+        
+        do {
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.dateDecodingStrategy = .iso8601
+            jsonDecoder.userInfo[.context] = get_context()
+            
+            return try jsonDecoder.decode(AppData.self, from: data)
+        }
+        catch let error {
+            print("Failed to import! ERROR: " + error.localizedDescription)
+        }
+        
         return nil
     }
-
+    
     public func exportToData() -> Data? {
         do {
-            let plistEncoder = PropertyListEncoder()
-            plistEncoder.outputFormat = .binary
-
-            return try plistEncoder.encode(self)
+            let jsonEncoder = JSONEncoder()
+            jsonEncoder.dateEncodingStrategy = .iso8601
+            jsonEncoder.outputFormatting = .prettyPrinted
+            
+            return try jsonEncoder.encode(self).zip()
         }
         catch let error {
             print("Failed to export! ERROR: " + error.localizedDescription)
         }
 
         return nil
-    }
-
-    public func saveToJSON(name: String) {
-        do {
-            let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
-            jsonEncoder.outputFormatting = .prettyPrinted
-
-            let jsonData = try jsonEncoder.encode(self)
-            
-            let docsPath = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-            let exportPath = docsPath.appendingPathComponent(String(format: "%@.json", name))
-            
-            try jsonData.write(to: exportPath)
-        }
-        catch let error {
-            print("Failed to export to JSON! ERROR: " + error.localizedDescription)
-        }
     }
 
     private func prepareCSVLine(values: [String], sep: String) -> Data? {
