@@ -15,7 +15,7 @@ func getUID() -> String {
     let p1: UInt32 = UInt32(timestamp & 0xFFFFFFFF)
     let p2: UInt32 = UInt32(timestamp >> 32) | UInt32(arc4random() << 16)
     
-    return String(format:"'%08X%08X'", p2, p1)
+    return String(format:"%08X%08X", p2, p1)
 }
 
 func num_to_string(sum: Float, fraction: Int) -> String {
