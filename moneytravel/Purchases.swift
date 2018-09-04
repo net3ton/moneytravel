@@ -17,7 +17,7 @@ enum EPurchase: String {
 
 let appPurchases = AppPurchases()
 
-class AppPurchases: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+class AppPurchases: NSObject, SKProductsRequestDelegate, SKRequestDelegate, SKPaymentTransactionObserver {
     private var productRequest: SKProductsRequest?
     private var ids: [String] = []
     private var prods: [String: SKProduct] = [:]
@@ -81,10 +81,17 @@ class AppPurchases: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObs
             print("[purchases] ok ids:", product.productIdentifier)
             prods[product.productIdentifier] = product
         }
-        
+    }
+
+    func requestDidFinish(_ request: SKRequest) {
         productRequest = nil
     }
 
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        print("[purchases] " + error.localizedDescription)
+        productRequest = nil
+    }
+    
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for trans in transactions {
             if trans.transactionState == .purchased {
