@@ -15,26 +15,33 @@ class AppSync {
     public static let NAME_SYNC = "moneytravel.sync"
     public static let DESC_SYNC = "TravelMoney sync data"
     private var googleToSync = Date()
+    private var icloudToSync = Date()
 
-    public func syncGoogle() {
+    public func sync() {
+        syncGoogle()
+        syncICloud()
+    }
+    
+    private func syncGoogle() {
         if appGoogleDrive.isLogined() && googleToSync < Date() {
             makeGoogleSync()
         }
     }
 
-    public func syncICloud() {
-        if appSettings.isICloudEnabled() {
+    private func syncICloud() {
+        if appSettings.isICloudEnabled() && icloudToSync < Date() {
             makeSyncICloud()
         }
     }
 
     public func makeSyncICloud() {
         print("[Sync iCloud] syncing...")
+        icloudToSync = Calendar.current.date(byAdding: .minute, value: 5, to: Date())!
         
         let fileData = appICloudDrive.loadFromFile(AppSync.NAME_SYNC)
         if let fdata = fileData {
             if let appdata = AppData.loadFromData(fdata) {
-                //self.importData(appdata)
+                self.importData(appdata)
                 print("[Sync iCloud] data imported.")
             }
             else {
@@ -44,6 +51,7 @@ class AppSync {
 
         if let data = AppData().exportToData() {
             if appICloudDrive.saveToFile(AppSync.NAME_SYNC, data: data) {
+                self.icloudToSync = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
                 appSettings.icloudSyncDate = Date()
                 appSettings.save()
                 print("[Sync iCloud] ok.")
@@ -51,19 +59,18 @@ class AppSync {
         }
     }
     
-    private func makeGoogleSync() {
+    public func makeGoogleSync() {
         print("[Sync Google] syncing...")
         googleToSync = Calendar.current.date(byAdding: .minute, value: 5, to: Date())!
 
         appGoogleDrive.downloadFromRoot(filename: AppSync.NAME_SYNC) { (fileData, fileId, error) in
             if let fdata = fileData {
                 if let appdata = AppData.loadFromData(fdata) {
-                    //self.importData(appdata)
+                    self.importData(appdata)
                     print("[Sync Google] data imported.")
                 }
                 else {
                     print("[Sync Google] failed to load data!")
-                    return
                 }
             }
 
@@ -95,7 +102,7 @@ class AppSync {
 
     private func syncGoogleComplete(_ success: Bool) {
         if success {
-            googleToSync = Calendar.current.date(byAdding: .hour, value: 3, to: Date())!
+            googleToSync = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
             appSettings.googleSyncDate = Date()
             appSettings.save()
             print("[Sync Google] ok.")
@@ -106,46 +113,14 @@ class AppSync {
     }
 
     private func importData(_ appdata: AppData) {
-        print("[Sync] base: "  + appdata.baseId)
-        print("[Sync] timestamps: "  + String(appdata.timestamps.count))
-        print("[Sync] categories: "  + String(appdata.categories.count))
-        print("[Sync] spends: "  + String(appdata.spends.count))
-
-        let context = get_context()
-        context.mergePolicy = NSOverwriteMergePolicy
-
-        var tstampCount = 0
-        var catCount = 0
-        var spendCount = 0
-
-        for tstamp in appdata.timestamps {
-            if appTimestamps.shouldUpdate(uid: tstamp.uid!, ver: tstamp.version) {
-                context.insert(tstamp)
-                tstampCount += 1
-            }
-        }
-        for cat in appdata.categories {
-            if appCategories.shouldUpdate(uid: cat.uid!, ver: cat.version) {
-                context.insert(cat)
-                catCount += 1
-            }
-        }
-        for spend in appdata.spends {
-            if appSpends.shouldUpdate(uid: spend.uid!, ver: spend.version) {
-                context.insert(spend)
-                spendCount += 1
-            }
-        }
-
-        get_delegate().saveContext()
-        print("[Sync] saved.")
-        print("[Sync] timestamps updated: " + String(tstampCount))
-        print("[Sync] categories updated: " + String(catCount))
-        print("[Sync] spends updated: " + String(spendCount))
+        appdata.importData()
 
         DispatchQueue.main.async {
             appCategories.reload()
             lastSpends.reload()
+            
+            let main = top_view_controller() as? MainViewController
+            main?.updateSpendsView()
         }
     }
 }

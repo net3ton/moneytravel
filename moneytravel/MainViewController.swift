@@ -40,10 +40,13 @@ class MainViewController: UIViewController {
         }
 
         sumView.multilier = appSettings.inputMulStr
+        sumView.currency = appSettings.currency
         //sumView.placeholder = "Enter sum in " + appSettings.currency
 
         updateSpendsView()
         categoriesView.reloadData()
+
+        appSync.sync()
     }
 
     //override func didReceiveMemoryWarning() {
@@ -100,7 +103,7 @@ class MainViewController: UIViewController {
         navigationController?.pushViewController(view, animated: true)
     }
 
-    private func updateSpendsView() {
+    public func updateSpendsView() {
         lastSpends.checkDays()
         spendDelegate?.data = lastSpends.daily
 
@@ -153,7 +156,7 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func onPlacePressed(_ sender: UIBarButtonItem) {
-        showHistory();
+        showHistory()
     }
 
     private func showHistory() {

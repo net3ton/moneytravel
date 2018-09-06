@@ -211,7 +211,7 @@ class AppData: Codable {
             line.append(spend.currency!)
             line.append(String(format: "%0.05f", spend.bsum))
             line.append(spend.category!.name!)
-            line.append(spend.comment!)
+            line.append(spend.comment ?? "")
 
             if let lineData = prepareCSVLine(values: line, sep: SEP) {
                 data.append(lineData)
