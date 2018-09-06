@@ -14,7 +14,6 @@ extension HistoryViewController: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         selectedDay = Int(entry.x)
         showHistoryDay(ind: selectedDay)
-        print("chartValueSelected")
     }
 
     func updateBarChartView() {
@@ -85,25 +84,10 @@ extension HistoryViewController: ChartViewDelegate {
         barchartView.noDataText = "EMPTY".loc()
         barchartView.maxVisibleCount = 10
         barchartView.doubleTapToZoomEnabled = false
+        barchartView.highlightValue(x: 0, dataSetIndex: 0)
         
         barchartView.data = BarChartData(dataSets: [chartDataSet])
-        
-        barchartView.highlightValue(x: 0, dataSetIndex: 0)
-        /*
-        if barchartView.highlighted.isEmpty {
-            barchartView.highlightValue(x: 0, dataSetIndex: 0)
-            print("empty")
-        }
-        else {
-            let x: Double = barchartView.highlighted[0].x
-            let index: Int = barchartView.highlighted[0].dataIndex
-            
-            barchartView.highlightValue(x: x, dataSetIndex: index)
-            //barchartView.highlightValue(barchartView.highlighted[0])
-            print("selected")
-        }
-        */
-        
+
         for constr in barchartView.constraints {
             if constr.identifier == "height" {
                 constr.constant = barchartView.bounds.width / 1.5

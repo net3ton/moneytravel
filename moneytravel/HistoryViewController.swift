@@ -87,20 +87,24 @@ class HistoryViewController: UIViewController {
             showHistoryDay(ind: selectedDay)
             barchartView.isHidden = false
             historyView.isHidden = false
-            tailView.isHidden = false
             helpLabel.isHidden = false
             helpLabel.text = "HINT_CHARTBAR".loc()
 
+            tailView.isHidden = false
+            setTailHeight(view.frame.height)
+            
             categoryView.isHidden = true
             piechartView.isHidden = true
 
         case .Categories:
             categoryView.isHidden = false
             piechartView.isHidden = false
-            tailView.isHidden = false
             helpLabel.isHidden = false
             helpLabel.text = "HINT_CHARTPIE".loc()
 
+            tailView.isHidden = false
+            setTailHeight(16)
+            
             historyView.isHidden = true
             barchartView.isHidden = true
 
@@ -131,23 +135,23 @@ class HistoryViewController: UIViewController {
     }
     
     func showHistory(days: [DaySpends]) {
-        let shouldUpdateConstraint = (days.count != historyDelegate!.data.count)
         historyDelegate!.data = days
         
         for constr in historyView.constraints {
             if constr.identifier == "height" {
                 constr.constant = historyDelegate!.getContentHeight()
-                /*
-                let newHeight = historyDelegate!.getContentHeight()
-                
-                if newHeight > constr.constant || shouldUpdateConstraint {
-                    constr.constant = historyDelegate!.getContentHeight()
-                }
-                */
             }
         }
         
         historyView.reloadData()
+    }
+    
+    func setTailHeight(_ height: CGFloat) {
+        for constr in tailView.constraints {
+            if constr.identifier == "height" {
+                constr.constant = height
+            }
+        }
     }
     
     func initHistory() {
