@@ -68,10 +68,7 @@
 
 
 /* Class = "UIViewController"; title = "About"; ObjectID = "jIb-4N-Tfo"; */
-"jIb-4N-Tfo.title" = "О программе";
-
-/* Class = "UITextView"; text = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lack travel specific functionality. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can contact me on twitter: @net3ton"; ObjectID = "yZT-Sl-smY"; */
-"yZT-Sl-smY.text" = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lack travel specific functionality. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can contact me on twitter: @net3ton";
+"jIb-4N-Tfo.title" = "Инфо";
 
 /* Class = "UILabel"; text = " I would be very grateful to you for:"; ObjectID = "MIm-a1-zeV"; */
 "MIm-a1-zeV.text" = " Я буду очень благодарен если вы:";
@@ -170,115 +167,3 @@
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "iaH-dK-vqB"; */
 "iaH-dK-vqB.title" = "Назад";
-
-
-/* Class = "UITableViewSection"; headerTitle = "Categories"; ObjectID = "NHB-kn-1pD"; */
-"NHB-kn-1pD.headerTitle" = "Categories";
-
-/* Class = "UILabel"; text = "Detail"; ObjectID = "4U6-S6-cQi"; */
-"4U6-S6-cQi.text" = "Detail";
-
-/* Class = "UILabel"; text = "Detail"; ObjectID = "4eb-vy-pcE"; */
-"4eb-vy-pcE.text" = "Detail";
-
-/* Class = "UILabel"; text = " HINT: Select a day to see details, pinch to scale"; ObjectID = "5CM-ed-3G1"; */
-"5CM-ed-3G1.text" = " HINT: Select a day to see details, pinch to scale";
-
-/* Class = "UILabel"; text = "Title"; ObjectID = "5ho-YB-2TT"; */
-"5ho-YB-2TT.text" = "Title";
-
-/* Class = "UILabel"; text = "1 USD ="; ObjectID = "7zb-mA-qZp"; */
-"7zb-mA-qZp.text" = "1 USD =";
-
-/* Class = "UILabel"; text = "Yesterday"; ObjectID = "910-o2-9FK"; */
-"910-o2-9FK.text" = "Yesterday";
-
-/* Class = "UILabel"; text = "16 june, 2018"; ObjectID = "9TQ-0c-mFg"; */
-"9TQ-0c-mFg.text" = "16 june, 2018";
-
-/* Class = "UINavigationItem"; title = "Money Travel"; ObjectID = "Au5-lh-gNu"; */
-"Au5-lh-gNu.title" = "Money Travel";
-
-/* Class = "UILabel"; text = "Detail"; ObjectID = "CMP-H7-7b3"; */
-"CMP-H7-7b3.text" = "Detail";
-
-/* Class = "UILabel"; text = "iCloud"; ObjectID = "EHI-cY-VZY"; */
-"EHI-cY-VZY.text" = "iCloud";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "G6P-Uw-feY"; */
-"G6P-Uw-feY.text" = "Label";
-
-/* Class = "UILabel"; text = "Last updated: 06.06.2018"; ObjectID = "HR7-28-Ozr"; */
-"HR7-28-Ozr.text" = "Last updated: 06.06.2018";
-
-/* Class = "UILabel"; text = "Detail"; ObjectID = "J88-a4-gOy"; */
-"J88-a4-gOy.text" = "Detail";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "Jb9-f0-KFZ"; */
-"Jb9-f0-KFZ.text" = "Label";
-
-/* Class = "UIViewController"; title = "History"; ObjectID = "MJD-ZW-eud"; */
-"MJD-ZW-eud.title" = "History";
-
-/* Class = "UILabel"; text = "00:00"; ObjectID = "My8-Hr-zM4"; */
-"My8-Hr-zM4.text" = "00:00";
-
-/* Class = "UILabel"; text = "USD"; ObjectID = "QUm-a2-MFN"; */
-"QUm-a2-MFN.text" = "USD";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "RRH-TZ-Nl0"; */
-"RRH-TZ-Nl0.text" = "Label";
-
-/* Class = "UILabel"; text = "From"; ObjectID = "g7v-KH-fwN"; */
-"g7v-KH-fwN.text" = "From";
-
-/* Class = "UILabel"; text = "56.03"; ObjectID = "S85-Sm-bfc"; */
-"S85-Sm-bfc.text" = "56.03";
-
-/* Class = "UILabel"; text = "Last synced: 06.06.2018"; ObjectID = "XhI-km-TrB"; */
-"XhI-km-TrB.text" = "Last synced: 06.06.2018";
-
-/* Class = "UILabel"; text = "30.00 USD"; ObjectID = "Yuf-w0-Ojf"; */
-"Yuf-w0-Ojf.text" = "30.00 USD";
-
-/* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "b7M-Eg-DZK"; */
-"b7M-Eg-DZK.title" = "Settings";
-
-/* Class = "UILabel"; text = "Detail"; ObjectID = "ebJ-Zc-etb"; */
-"ebJ-Zc-etb.text" = "Detail";
-
-/* Class = "UILabel"; text = "RUB"; ObjectID = "f8J-eC-ir4"; */
-"f8J-eC-ir4.text" = "RUB";
-
-/* Class = "UILabel"; text = "none"; ObjectID = "krm-sP-izU"; */
-"krm-sP-izU.text" = "none";
-
-/* Class = "UILabel"; text = "Detail"; ObjectID = "nOa-8l-3NX"; */
-"nOa-8l-3NX.text" = "Detail";
-
-/* Class = "UILabel"; text = "USD"; ObjectID = "qH0-z4-bck"; */
-"qH0-z4-bck.text" = "USD";
-
-/* Class = "UILabel"; text = "Google Drive"; ObjectID = "qtz-fn-cpC"; */
-"qtz-fn-cpC.text" = "Google Drive";
-
-/* Class = "UILabel"; text = "Last synced: 06.06.2018"; ObjectID = "ucG-Ud-oHC"; */
-"ucG-Ud-oHC.text" = "Last synced: 06.06.2018";
-
-/* Class = "UILabel"; text = "Sign in"; ObjectID = "vJB-Le-CAa"; */
-"vJB-Le-CAa.text" = "Sign in";
-
-/* Class = "UILabel"; text = "RUB"; ObjectID = "wDq-XC-w75"; */
-"wDq-XC-w75.text" = "RUB";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "wYz-uA-yU2"; */
-"wYz-uA-yU2.text" = "Label";
-
-/* Class = "UIBarButtonItem"; title = "Place"; ObjectID = "wn1-iX-iVN"; */
-"wn1-iX-iVN.title" = "Place";
-
-/* Class = "UILabel"; text = "Detail"; ObjectID = "wob-jC-3Cb"; */
-"wob-jC-3Cb.text" = "Detail";
-
-/* Class = "UILabel"; text = "Detail"; ObjectID = "zfs-ac-BXS"; */
-"zfs-ac-BXS.text" = "Detail";

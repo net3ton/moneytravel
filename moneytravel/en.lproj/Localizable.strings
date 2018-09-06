@@ -72,6 +72,8 @@
 "HINT_CHARTBAR" = "HINT: select a day to see details, pinch to scale";
 "HINT_CHARTPIE" = "HINT: use two fingers to rotate chart pie";
 
+"ABOUT" = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lack travel specific functionality. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can contact me on twitter: @net3ton";
+
 /* Categories */
 "CAT_PRODUCTS" = "Products";
 "CAT_RENT" = "Rent";

@@ -23,6 +23,7 @@ class AboutViewController: UIViewController {
         buttonDonate2.price = appPurchases.getProductPrice(item: .donate2)
         buttonDonate3.price = appPurchases.getProductPrice(item: .donate3)
         
+        textAbout.text = "ABOUT".loc()
         textAbout.sizeToFit()
         textAbout.isScrollEnabled = false
     }
