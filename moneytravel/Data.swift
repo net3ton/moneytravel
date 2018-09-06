@@ -137,7 +137,7 @@ class AppData: Codable {
     }
     
     static public func loadFromData(_ rawdata: Data) -> AppData? {
-        guard let data = rawdata.unzip() else {
+        guard let data = rawdata.gunzip() else {
             print("Failed to import! Failed to unzip data!")
             return nil
         }
@@ -162,7 +162,7 @@ class AppData: Codable {
             jsonEncoder.dateEncodingStrategy = .iso8601
             jsonEncoder.outputFormatting = .prettyPrinted
             
-            return try jsonEncoder.encode(self).zip()
+            return try jsonEncoder.encode(self).gzip()
         }
         catch let error {
             print("Failed to export! ERROR: " + error.localizedDescription)
