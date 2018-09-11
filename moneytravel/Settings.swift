@@ -44,7 +44,9 @@ class AppSettings {
     
     var icloudSyncEnabled: Bool = ConfDefaults.ICLOUD_SYNC_ENABLED
     var icloudSyncDate: Date?
+    
     var googleSyncDate: Date?
+    var googleSyncLastHash: String = ""
     
     struct ConfNames {
         static let DAILY_MAX = "daily-max"
@@ -66,7 +68,9 @@ class AppSettings {
         
         static let ICLOUD_SYNC_ENABLED = "icloud-sync-enabled"
         static let ICLOUD_SYNC_DATE = "icloud-sync-date"
+        
         static let GOOGLE_SYNC_DATE = "google-sync-date"
+        static let GOOGLE_SYNC_HASH = "google-sync-hash"
     }
     
     struct ConfDefaults {
@@ -111,7 +115,9 @@ class AppSettings {
         
         icloudSyncEnabled = conf.object(forKey: ConfNames.ICLOUD_SYNC_ENABLED) as? Bool ?? ConfDefaults.ICLOUD_SYNC_ENABLED
         icloudSyncDate = conf.object(forKey: ConfNames.ICLOUD_SYNC_DATE) as? Date
+        
         googleSyncDate = conf.object(forKey: ConfNames.GOOGLE_SYNC_DATE) as? Date
+        googleSyncLastHash = conf.object(forKey: ConfNames.GOOGLE_SYNC_HASH) as? String ?? ""
     }
 
     func save() {
@@ -136,7 +142,9 @@ class AppSettings {
         
         conf.set(icloudSyncEnabled, forKey: ConfNames.ICLOUD_SYNC_ENABLED)
         conf.set(icloudSyncDate, forKey: ConfNames.ICLOUD_SYNC_DATE)
+        
         conf.set(googleSyncDate, forKey: ConfNames.GOOGLE_SYNC_DATE)
+        conf.set(googleSyncLastHash, forKey: ConfNames.GOOGLE_SYNC_HASH)
 
         print("settings saved.")
     }

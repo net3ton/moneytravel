@@ -49,6 +49,20 @@ class AppInfo {
             print("Failed to init application info! ERROR: " + error.localizedDescription)
         }
     }
+
+    public func changeBaseId(newId: String) {
+        let fetchRequest = NSFetchRequest<InfoModel>(entityName: "Info")
+        
+        do {
+            let infos = try get_context().fetch(fetchRequest)
+            if !infos.isEmpty {
+                infos[0].id = newId
+            }
+        }
+        catch let error {
+            print("Failed to init application info! ERROR: " + error.localizedDescription)
+        }
+    }
 }
 
 
@@ -100,6 +114,11 @@ class AppData: Codable {
         print("[Import] base: " + baseId)
         print(String(format: "[Import] data (%i, %i, %i)", categories.count, spends.count, timestamps.count))
         
+        if baseId != appInfo.baseId {
+            appInfo.changeBaseId(newId: baseId)
+            print("[Import] base id changed")
+        }
+        
         let context = get_context()
         context.mergePolicy = NSOverwriteMergePolicy
         
@@ -136,6 +155,13 @@ class AppData: Codable {
         }
     }
     
+    static public func getDataHash(_ gzip: Data) -> String {
+        let ui64data = gzip.subdata(in: (gzip.count-8)..<gzip.count)
+        return ui64data.map {
+            String(format: "%02X", $0)
+        }.joined()
+    }
+    
     static public func loadFromData(_ rawdata: Data) -> AppData? {
         guard let data = rawdata.gunzip() else {
             print("Failed to import! Failed to unzip data!")
@@ -170,7 +196,7 @@ class AppData: Codable {
 
         return nil
     }
-
+    
     private func prepareCSVLine(values: [String], sep: String) -> Data? {
         var line = ""
         

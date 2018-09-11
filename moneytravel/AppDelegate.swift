@@ -14,6 +14,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        appGoogleDrive.authHandler = { (loginOk) in
+            SettingsViewController.view?.updateLabels()
+
+            if loginOk {
+                appSync.makeGoogleSync()
+            }
+        }
+        
         appGoogleDrive.start()
         appPurchases.start()
         return true
@@ -41,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         CurrencyExchangeRate.check()
+        appSync.sync()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -73,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
 
+            //container.viewContext.automaticallyMergesChangesFromParent = true
             //container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         })
         return container

@@ -29,23 +29,27 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var icloudEnabled: UISwitch!
     @IBOutlet weak var icloudSyncLabel: UILabel!
     
+    static public var view: SettingsViewController?
     private var headerDateSince: HistoryDate = HistoryDate()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         headerDateSince.setDate(appSettings.headerSince)
         updateLabels()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        SettingsViewController.view = self
+
         appPurchases.fetchProducts()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        SettingsViewController.view = nil
+
         if self.isMovingFromParentViewController {
             appSettings.save()
         }
@@ -141,23 +145,19 @@ class SettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 4 && indexPath.row == 1 {
+            self.deselectAll()
+            
             if appGoogleDrive.isLogined() {
                 
                 let msg = UIAlertController(title: "GOOGLE_OUT_TITLE".loc(), message: "GOOGLE_OUT_MSG".loc(), preferredStyle: .alert)
                 msg.addAction(UIAlertAction(title: "PROCEED".loc(), style: .default) { (action) in
-                    appGoogleDrive.signOut() {
-                        self.updateLabels()
-                    }
+                    appGoogleDrive.signOut()
                 })
                 msg.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
-                self.present(msg, animated: true) {
-                    self.deselectAll()
-                }
+                self.present(msg, animated: true)
             }
             else {
-                appGoogleDrive.signIn(vc: self) {
-                    self.updateLabels()
-                }
+                appGoogleDrive.signIn(vc: self)
             }
         }
     }

@@ -28,7 +28,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
     private let sheetsService = GTLRSheetsService()
     private let driveService = GTLRDriveService()
     private var uiroot: UIViewController?
-    private var authCompletion: (() -> Void)?
+    public var authHandler: ((Bool) -> Void)?
 
     public func start() {
         GIDSignIn.sharedInstance().clientID = "188641982599-e2n205trq0s07tg5g29pbk2anfk365q7.apps.googleusercontent.com"
@@ -42,23 +42,78 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
-    public func signIn(vc: UIViewController, completion: @escaping (() -> Void)) {
+    public func signIn(vc: UIViewController) {
         uiroot = vc
-        authCompletion = completion
-
         GIDSignIn.sharedInstance().signIn()
     }
 
-    public func signOut(completion: @escaping (() -> Void)) {
-        authCompletion = completion
-
+    public func signOut() {
         GIDSignIn.sharedInstance().disconnect()
     }
 
     public func isLogined() -> Bool {
-        return GIDSignIn.sharedInstance().hasAuthInKeychain()
+        return driveService.authorizer != nil
     }
 
+    public func lookupInRoot(filename: String, completion: @escaping ((String?, String?, EGoogleDriveError) -> Void)) {
+        let querySearch = GTLRDriveQuery_FilesList.query()
+        querySearch.q = String.init(format: "name = '%@' and 'root' in parents", filename)
+        querySearch.spaces = "drive"
+        querySearch.fields = "nextPageToken, files(id, name, properties)"
+
+        driveService.executeQuery(querySearch) { (ticket, result, error) -> Void in
+            if error != nil {
+                print("[Google Drive] Failed to find file! Error: " + error!.localizedDescription)
+                completion(nil, nil, .lookupError)
+                return
+            }
+            
+            if let filesList = result as? GTLRDrive_FileList {
+                if let files = filesList.files {
+                    if !files.isEmpty {
+                        if let fileId = files[0].identifier {
+                            let fileHash = files[0].properties?.additionalProperty(forName: "hash") as? String ?? ""
+                            print("[Google Drive] File id: " + fileId)
+                            print("[Google Drive] File hash: " + fileHash)
+                            completion(fileId, fileHash, .none)
+                            return
+                        }
+                    }
+                }
+            }
+            
+            print("[Google Drive] File not found!")
+            completion(nil, nil, .notFoundError)
+        }
+    }
+    
+    public func downloadFile(fileid: String?, completion: @escaping ((Data?, EGoogleDriveError) -> Void)) {
+        guard let fileId = fileid else {
+            completion(nil, .notFoundError)
+            return
+        }
+        
+        let queryGet = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: fileId)
+        
+        driveService.executeQuery(queryGet) { (ticket, result, error) -> Void in
+            if error != nil {
+                print("[Google Drive] Failed to download file! Error: " + error!.localizedDescription)
+                completion(nil, .downloadError)
+                return
+            }
+            
+            if let file = result as? GTLRDataObject {
+                print("[Google Drive] File size: " + String(file.data.count))
+                completion(file.data, .none)
+                return
+            }
+            
+            print("[Google Drive] Failed to download file!")
+            completion(nil, .downloadError)
+        }
+    }
+    
+    /*
     public func downloadFromRoot(filename: String, completion: @escaping ((Data?, String?, EGoogleDriveError) -> Void)) {
         let querySearch = GTLRDriveQuery_FilesList.query()
         querySearch.q = String.init(format: "name = '%@' and 'root' in parents", filename)
@@ -108,12 +163,18 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
             }
         }
     }
+    */
 
-    public func uploadToRoot(data: Data, filename: String, description: String? = nil, mime: EGoogleDriveMimeType, completion: @escaping ((Bool) -> Void)) {
+    public func uploadToRoot(data: Data, filename: String, filehash: String? = nil, description: String? = nil, mime: EGoogleDriveMimeType, completion: @escaping ((Bool) -> Void)) {
         let file = GTLRDrive_File()
         file.name = filename
         file.descriptionProperty = description
         file.mimeType = mime.rawValue
+
+        if let fileHash = filehash {
+            file.properties = GTLRDrive_File_Properties()
+            file.properties?.setAdditionalProperty(fileHash, forName: "hash")
+        }
 
         let uploadParameters = GTLRUploadParameters(data: data, mimeType: file.mimeType!)
         uploadParameters.shouldUploadWithSingleRequest = true
@@ -132,11 +193,18 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         }
     }
 
-    public func updateFile(data: Data, fileid: String, mime: EGoogleDriveMimeType, completion: @escaping ((Bool) -> Void)) {
+    public func updateFile(data: Data, fileid: String, filehash: String? = nil, mime: EGoogleDriveMimeType, completion: @escaping ((Bool) -> Void)) {
         let uploadParameters = GTLRUploadParameters(data: data, mimeType: mime.rawValue)
         uploadParameters.shouldUploadWithSingleRequest = true
 
-        let query = GTLRDriveQuery_FilesUpdate.query(withObject: GTLRDrive_File(), fileId: fileid, uploadParameters: uploadParameters)
+        let file = GTLRDrive_File()
+        
+        if let fileHash = filehash {
+            file.properties = GTLRDrive_File_Properties()
+            file.properties?.setAdditionalProperty(fileHash, forName: "hash")
+        }
+        
+        let query = GTLRDriveQuery_FilesUpdate.query(withObject: file, fileId: fileid, uploadParameters: uploadParameters)
         
         driveService.executeQuery(query) { (ticket, result, error) -> Void in
             if let error = error {
@@ -208,7 +276,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
                     googleSheet.addString(spend.currency!)
                     googleSheet.addFloat(spend.bsum)
                     googleSheet.addString(spend.category!.name!)
-                    googleSheet.addString(spend.comment!)
+                    googleSheet.addString(spend.comment ?? "")
                 }
             }
 
@@ -275,8 +343,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         //let familyName = user.profile.familyName
         //let email = user.profile.email
 
-        authCompletion?()
-        authCompletion = nil
+        authHandler?(true)
     }
 
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
@@ -289,8 +356,7 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         sheetsService.authorizer = nil
         driveService.authorizer = nil
 
-        authCompletion?()
-        authCompletion = nil
+        authHandler?(false)
     }
 
     func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
