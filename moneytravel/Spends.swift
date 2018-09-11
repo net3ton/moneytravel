@@ -76,7 +76,9 @@ class DaySpends {
                 sum += spend.sum
             }
             else {
-                sum += spend.bsum * appSettings.exchangeRate
+                if spend.bcurrency == appSettings.currencyBase {
+                    sum += spend.bsum * appSettings.exchangeRate
+                }
             }
         }
         
