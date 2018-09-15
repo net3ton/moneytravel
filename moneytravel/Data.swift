@@ -10,62 +10,6 @@ import UIKit
 import CoreData
 import DataCompression
 
-let appInfo = AppInfo()
-
-class AppInfo {
-    private(set) var baseVer: Int32 = 0
-    private(set) var baseId: String = ""
-
-    init() {
-        initData()
-    }
-
-    private func reset() {
-        baseVer = 1
-        baseId = UUID().uuidString
-    }
-
-    private func initData() {
-        let context = get_context()
-        let infoEntity = NSEntityDescription.entity(forEntityName: "Info", in: context)
-        let fetchRequest = NSFetchRequest<InfoModel>(entityName: "Info")
-        
-        do {
-            let infos = try context.fetch(fetchRequest)
-            if infos.isEmpty {
-                let info = InfoModel(entity: infoEntity!, insertInto: context)
-                
-                reset()
-                info.id = baseId
-                info.version = baseVer
-                try context.save()
-            }
-            else {
-                baseId = infos[0].id!
-                baseVer = infos[0].version
-            }
-        }
-        catch let error {
-            print("Failed to init application info! ERROR: " + error.localizedDescription)
-        }
-    }
-
-    public func changeBaseId(newId: String) {
-        let fetchRequest = NSFetchRequest<InfoModel>(entityName: "Info")
-        
-        do {
-            let infos = try get_context().fetch(fetchRequest)
-            if !infos.isEmpty {
-                infos[0].id = newId
-            }
-        }
-        catch let error {
-            print("Failed to init application info! ERROR: " + error.localizedDescription)
-        }
-    }
-}
-
-
 enum EExportLocation {
     case sharedFolder
     case icloud
@@ -73,25 +17,24 @@ enum EExportLocation {
 
 
 class AppData: Codable {
+    private static var VER: Int32 = 1
+    
     private(set) var baseVer: Int32
-    private(set) var baseId: String
 
     private(set) var categories: [CategoryModel]
     private(set) var timestamps: [MarkModel]
     private(set) var spends: [SpendModel]
 
-    init(fetchRemoved: Bool = true) {
-        baseVer = appInfo.baseVer
-        baseId = appInfo.baseId
+    init(fetchRemoved: Bool = true, with context: NSManagedObjectContext = get_context()) {
+        baseVer = AppData.VER
 
-        categories = appCategories.fetchAll(removed: fetchRemoved)
-        timestamps = appTimestamps.fetchAll(removed: fetchRemoved)
-        spends = appSpends.fetchAll(removed: fetchRemoved)
+        categories = appCategories.fetchAll(removed: fetchRemoved, with: context)
+        timestamps = appTimestamps.fetchAll(removed: fetchRemoved, with: context)
+        spends = appSpends.fetchAll(removed: fetchRemoved, with: context)
     }
 
     init(history: [DaySpends]) {
-        baseVer = appInfo.baseVer
-        baseId = appInfo.baseId
+        baseVer = AppData.VER
 
         categories = []
         timestamps = []
@@ -110,16 +53,9 @@ class AppData: Codable {
         }
     }
 
-    public func importData() {
-        print("[Import] base: " + baseId)
+    public func importData(with context: NSManagedObjectContext) {
         print(String(format: "[Import] data (%i, %i, %i)", categories.count, spends.count, timestamps.count))
         
-        if baseId != appInfo.baseId {
-            appInfo.changeBaseId(newId: baseId)
-            print("[Import] base id changed")
-        }
-        
-        let context = get_context()
         context.mergePolicy = NSOverwriteMergePolicy
         
         var tstampCount = 0
@@ -127,39 +63,34 @@ class AppData: Codable {
         var spendCount = 0
         
         for tstamp in timestamps {
-            if appTimestamps.shouldUpdate(uid: tstamp.uid!, ver: tstamp.version) {
+            if appTStampChecker.shouldUpdate(uid: tstamp.uid!, ver: tstamp.version, with: context) {
                 context.insert(tstamp)
                 tstampCount += 1
             }
         }
         for cat in categories {
-            if appCategories.shouldUpdate(uid: cat.uid!, ver: cat.version) {
+            if appCategoryChecker.shouldUpdate(uid: cat.uid!, ver: cat.version, with: context) {
                 context.insert(cat)
                 catCount += 1
             }
         }
         for spend in spends {
-            if appSpends.shouldUpdate(uid: spend.uid!, ver: spend.version) {
+            if appSpendChecker.shouldUpdate(uid: spend.uid!, ver: spend.version, with: context) {
                 context.insert(spend)
                 spendCount += 1
             }
         }
         
         do {
-            try context.save()
+            if catCount > 0 || spendCount > 0 || tstampCount > 0 {
+                try context.save()
+            }
             
             print(String(format: "[Import] saved (%i, %i, %i)", catCount, spendCount, tstampCount))
         }
         catch let error {
             print("Failed to import! ERROR: " + error.localizedDescription)
         }
-    }
-    
-    static public func getDataHash(_ gzip: Data) -> String {
-        let ui64data = gzip.subdata(in: (gzip.count-8)..<gzip.count)
-        return ui64data.map {
-            String(format: "%02X", $0)
-        }.joined()
     }
     
     static public func loadFromData(_ rawdata: Data) -> AppData? {
@@ -171,7 +102,6 @@ class AppData: Codable {
         do {
             let jsonDecoder = JSONDecoder()
             jsonDecoder.dateDecodingStrategy = .iso8601
-            jsonDecoder.userInfo[.context] = get_context()
             
             return try jsonDecoder.decode(AppData.self, from: data)
         }
@@ -195,6 +125,13 @@ class AppData: Codable {
         }
 
         return nil
+    }
+    
+    static public func getDataHash(_ gzip: Data) -> String {
+        let ui64data = gzip.subdata(in: (gzip.count-8)..<gzip.count)
+        return ui64data.map {
+            String(format: "%02X", $0)
+            }.joined()
     }
     
     private func prepareCSVLine(values: [String], sep: String) -> Data? {

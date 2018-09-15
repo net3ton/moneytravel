@@ -9,10 +9,6 @@
 import UIKit
 import CoreData
 
-extension CodingUserInfoKey {
-    static let context = CodingUserInfoKey(rawValue: "context")!
-}
-
 @objc(CategoryModel)
 public class CategoryModel: NSManagedObject, Codable {
     public override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
@@ -31,9 +27,7 @@ public class CategoryModel: NSManagedObject, Codable {
     
     // Decodable
     public required init(from decoder: Decoder) throws {
-        guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else { fatalError() }
-        guard let entity = NSEntityDescription.entity(forEntityName: "Category", in: context) else { fatalError() }
-        super.init(entity: entity, insertInto: nil)
+        super.init(entity: CategoryModel.entity(), insertInto: nil)
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -109,9 +103,7 @@ public class MarkModel: NSManagedObject, Codable {
     
     // Decodable
     public required init(from decoder: Decoder) throws {
-        guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else { fatalError() }
-        guard let entity = NSEntityDescription.entity(forEntityName: "Mark", in: context) else { fatalError() }
-        super.init(entity: entity, insertInto: nil)
+        super.init(entity: MarkModel.entity(), insertInto: nil)
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -189,9 +181,7 @@ public class SpendModel: NSManagedObject, Codable {
     
     // Decodable
     public required init(from decoder: Decoder) throws {
-        guard let context = decoder.userInfo[.context] as? NSManagedObjectContext else { fatalError() }
-        guard let entity = NSEntityDescription.entity(forEntityName: "Spend", in: context) else { fatalError() }
-        super.init(entity: entity, insertInto: nil)
+        super.init(entity: SpendModel.entity(), insertInto: nil)
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
