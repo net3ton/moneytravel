@@ -44,9 +44,13 @@ class AppSettings {
     
     var icloudSyncEnabled: Bool = ConfDefaults.ICLOUD_SYNC_ENABLED
     var icloudSyncDate: Date?
+    var icloudSyncLastHash: String = ""
     
     var googleSyncDate: Date?
     var googleSyncLastHash: String = ""
+    
+    let local = UserDefaults.standard
+    let cloud = NSUbiquitousKeyValueStore()
     
     struct ConfNames {
         static let DAILY_MAX = "daily-max"
@@ -68,6 +72,7 @@ class AppSettings {
         
         static let ICLOUD_SYNC_ENABLED = "icloud-sync-enabled"
         static let ICLOUD_SYNC_DATE = "icloud-sync-date"
+        static let ICLOUD_SYNC_HASH = "icloud-sync-hash"
         
         static let GOOGLE_SYNC_DATE = "google-sync-date"
         static let GOOGLE_SYNC_HASH = "google-sync-hash"
@@ -94,61 +99,73 @@ class AppSettings {
     }
     
     func load() {
-        let conf = UserDefaults.standard
+        dailyMax = loadValue(forKey: ConfNames.DAILY_MAX, def: ConfDefaults.DAILY_MAX)
+        headerSince = loadValue(forKey: ConfNames.HEADER_SINCE, def: ConfDefaults.HEADER_SINCE)
+        dayStart = loadValue(forKey: ConfNames.DAY_START, def: ConfDefaults.DAY_START)
+        inputMul = loadValue(forKey: ConfNames.INPUT_MUL, def: ConfDefaults.INPUT_MUL)
         
-        dailyMax = conf.object(forKey: ConfNames.DAILY_MAX) as? Float ?? ConfDefaults.DAILY_MAX
-        headerSince = conf.object(forKey: ConfNames.HEADER_SINCE) as? Date ?? ConfDefaults.HEADER_SINCE
-        dayStart = conf.object(forKey: ConfNames.DAY_START) as? Int ?? ConfDefaults.DAY_START
-        inputMul = conf.object(forKey: ConfNames.INPUT_MUL) as? Int ?? ConfDefaults.INPUT_MUL
-        
-        currency = conf.object(forKey: ConfNames.CURRENCY) as? String ?? ConfDefaults.CURRENCY
-        currencyBase = conf.object(forKey: ConfNames.CURRENCY_BASE) as? String ?? ConfDefaults.CURRENCY_BASE
+        currency = loadValue(forKey: ConfNames.CURRENCY, def: ConfDefaults.CURRENCY)
+        currencyBase = loadValue(forKey: ConfNames.CURRENCY_BASE, def: ConfDefaults.CURRENCY_BASE)
 
-        exchangeRate = conf.object(forKey: ConfNames.EXCHANGE_RATE) as? Float ?? ConfDefaults.EXCHANGE_RATE
-        exchangeUpdate = conf.object(forKey: ConfNames.EXCHANGE_UPDATE) as? Bool ?? ConfDefaults.EXCHANGE_UPDATE
-        exchangeUpdateDate = conf.object(forKey: ConfNames.EXCHANGE_UPDATE_DATE) as? Date
+        exchangeRate = loadValue(forKey: ConfNames.EXCHANGE_RATE, def: ConfDefaults.EXCHANGE_RATE)
+        exchangeUpdate = loadValue(forKey: ConfNames.EXCHANGE_UPDATE, def: ConfDefaults.EXCHANGE_UPDATE)
 
-        fractionCurrent = conf.object(forKey: ConfNames.FRACTION_CURRENT) as? Bool ?? ConfDefaults.FRACTION_CURRENT
-        fractionBase = conf.object(forKey: ConfNames.FRACTION_BASE) as? Bool ?? ConfDefaults.FRACTION_BASE
+        fractionCurrent = loadValue(forKey: ConfNames.FRACTION_CURRENT, def: ConfDefaults.FRACTION_CURRENT)
+        fractionBase = loadValue(forKey: ConfNames.FRACTION_BASE, def: ConfDefaults.FRACTION_BASE)
         
-        budgetTotal = conf.object(forKey: ConfNames.BUDGET_TOTAL) as? Bool ?? ConfDefaults.BUDGET_TOTAL
+        // local only
+        exchangeUpdateDate = local.object(forKey: ConfNames.EXCHANGE_UPDATE_DATE) as? Date
+    
+        budgetTotal = local.object(forKey: ConfNames.BUDGET_TOTAL) as? Bool ?? ConfDefaults.BUDGET_TOTAL
         
-        icloudSyncEnabled = conf.object(forKey: ConfNames.ICLOUD_SYNC_ENABLED) as? Bool ?? ConfDefaults.ICLOUD_SYNC_ENABLED
-        icloudSyncDate = conf.object(forKey: ConfNames.ICLOUD_SYNC_DATE) as? Date
+        icloudSyncEnabled = local.object(forKey: ConfNames.ICLOUD_SYNC_ENABLED) as? Bool ?? ConfDefaults.ICLOUD_SYNC_ENABLED
+        icloudSyncDate = local.object(forKey: ConfNames.ICLOUD_SYNC_DATE) as? Date
+        icloudSyncLastHash = local.object(forKey: ConfNames.ICLOUD_SYNC_HASH) as? String ?? ""
         
-        googleSyncDate = conf.object(forKey: ConfNames.GOOGLE_SYNC_DATE) as? Date
-        googleSyncLastHash = conf.object(forKey: ConfNames.GOOGLE_SYNC_HASH) as? String ?? ""
+        googleSyncDate = local.object(forKey: ConfNames.GOOGLE_SYNC_DATE) as? Date
+        googleSyncLastHash = local.object(forKey: ConfNames.GOOGLE_SYNC_HASH) as? String ?? ""
     }
 
     func save() {
-        let conf = UserDefaults.standard
-        
-        conf.set(dailyMax, forKey: ConfNames.DAILY_MAX)
-        conf.set(headerSince, forKey: ConfNames.HEADER_SINCE)
-        conf.set(dayStart, forKey: ConfNames.DAY_START)
-        conf.set(inputMul, forKey: ConfNames.INPUT_MUL)
+        saveValue(dailyMax, forKey: ConfNames.DAILY_MAX)
+        saveValue(headerSince, forKey: ConfNames.HEADER_SINCE)
+        saveValue(dayStart, forKey: ConfNames.DAY_START)
+        saveValue(inputMul, forKey: ConfNames.INPUT_MUL)
 
-        conf.set(currency, forKey: ConfNames.CURRENCY)
-        conf.set(currencyBase, forKey: ConfNames.CURRENCY_BASE)
+        saveValue(currency, forKey: ConfNames.CURRENCY)
+        saveValue(currencyBase, forKey: ConfNames.CURRENCY_BASE)
 
-        conf.set(exchangeRate, forKey: ConfNames.EXCHANGE_RATE)
-        conf.set(exchangeUpdate, forKey: ConfNames.EXCHANGE_UPDATE)
-        conf.set(exchangeUpdateDate, forKey: ConfNames.EXCHANGE_UPDATE_DATE)
+        saveValue(exchangeRate, forKey: ConfNames.EXCHANGE_RATE)
+        saveValue(exchangeUpdate, forKey: ConfNames.EXCHANGE_UPDATE)
 
-        conf.set(fractionCurrent, forKey: ConfNames.FRACTION_CURRENT)
-        conf.set(fractionBase, forKey: ConfNames.FRACTION_BASE)
+        saveValue(fractionCurrent, forKey: ConfNames.FRACTION_CURRENT)
+        saveValue(fractionBase, forKey: ConfNames.FRACTION_BASE)
         
-        conf.set(budgetTotal, forKey: ConfNames.BUDGET_TOTAL)
+        // local only
+        local.set(exchangeUpdateDate, forKey: ConfNames.EXCHANGE_UPDATE_DATE)
         
-        conf.set(icloudSyncEnabled, forKey: ConfNames.ICLOUD_SYNC_ENABLED)
-        conf.set(icloudSyncDate, forKey: ConfNames.ICLOUD_SYNC_DATE)
+        local.set(budgetTotal, forKey: ConfNames.BUDGET_TOTAL)
         
-        conf.set(googleSyncDate, forKey: ConfNames.GOOGLE_SYNC_DATE)
-        conf.set(googleSyncLastHash, forKey: ConfNames.GOOGLE_SYNC_HASH)
+        local.set(icloudSyncEnabled, forKey: ConfNames.ICLOUD_SYNC_ENABLED)
+        local.set(icloudSyncDate, forKey: ConfNames.ICLOUD_SYNC_DATE)
+        local.set(icloudSyncLastHash, forKey: ConfNames.ICLOUD_SYNC_HASH)
+        
+        local.set(googleSyncDate, forKey: ConfNames.GOOGLE_SYNC_DATE)
+        local.set(googleSyncLastHash, forKey: ConfNames.GOOGLE_SYNC_HASH)
 
+        cloud.synchronize()
         print("settings saved.")
     }
 
+    private func loadValue<T>(forKey key: String, def: T) -> T {
+        return cloud.object(forKey: key) as? T ?? (local.object(forKey: key) as? T ?? def)
+    }
+    
+    private func saveValue<T>(_ value: T, forKey key: String) {
+        cloud.set(value, forKey: key)
+        local.set(value, forKey: key)
+    }
+    
     func saveExchangeRate(val: Float) {
         exchangeRate = val
         exchangeUpdateDate = Date()
