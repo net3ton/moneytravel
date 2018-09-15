@@ -98,15 +98,8 @@ class DaySpends {
     }
     
     public func getDateSubname() -> String {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
-        if date == today {
-            return "T_TODAY".loc()
-        }
-        
-        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)
-        if date == yesterday {
-            return "T_YESTERDAY".loc()
+        if let dayName = HistoryDate.getDayName(date) {
+            return dayName
         }
         
         let formatter = DateFormatter()

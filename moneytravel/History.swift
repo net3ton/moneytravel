@@ -52,7 +52,7 @@ class HistoryDate {
     }
     
     public func setToday() {
-        setDate(Date())
+        setDate(HistoryDate.normalize(Date()))
     }
 
     public func setWeekAgo() {
@@ -60,8 +60,8 @@ class HistoryDate {
     }
 
     public func setDaysAgo(days: Int) {
-        let daysAgo = Calendar.current.date(byAdding: .day, value: -days, to: Date())
-        setDate(daysAgo!)
+        let daysAgo = Calendar.current.date(byAdding: .day, value: -days, to: Date())!
+        setDate(HistoryDate.normalize(daysAgo))
     }
 
     public func getDate() -> Date {
@@ -82,8 +82,8 @@ class HistoryDate {
         }
         
         if let date = date {
-            if Calendar.current.isDateInToday(date) {
-                return "T_TODAY".loc()
+            if let dayName = HistoryDate.getDayName(date) {
+                return dayName
             }
 
             let formatter = DateFormatter()
@@ -130,6 +130,20 @@ class HistoryDate {
     }
     
     static public func normalize(_ date: Date) -> Date {
-        return Calendar.current.startOfDay(for: date - TimeInterval(appSettings.dayStart))
+        return date - TimeInterval(appSettings.dayStart)
+    }
+    
+    static public func getDayName(_ date: Date) -> String? {
+        let today = Date()
+        if HistoryDate.isSameDay(today, to: date) {
+            return "T_TODAY".loc()
+        }
+        
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+        if HistoryDate.isSameDay(yesterday, to: date) {
+            return "T_YESTERDAY".loc()
+        }
+        
+        return nil
     }
 }
