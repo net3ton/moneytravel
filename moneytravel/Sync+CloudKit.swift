@@ -110,6 +110,8 @@ extension AppSync {
         appSettings.save()
         print("[Sync iCloud] ok.")
         
-        SettingsViewController.view?.updateLabels()
+        DispatchQueue.main.async {
+            SettingsViewController.view?.updateLabels()
+        }
     }
 }

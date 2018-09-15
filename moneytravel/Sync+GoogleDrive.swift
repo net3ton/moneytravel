@@ -76,7 +76,9 @@ extension AppSync {
             appSettings.save()
             print("[Sync Google] ok.")
             
-            SettingsViewController.view?.updateLabels()
+            DispatchQueue.main.async {
+                SettingsViewController.view?.updateLabels()
+            }
         }
         else {
             print("[Sync Google] failed to upload sync base!")
