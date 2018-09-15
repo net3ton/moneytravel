@@ -65,14 +65,14 @@ class AppCategories {
         categories = fetchAll(removed: false)
     }
     
-    public func fetchAll(removed: Bool) -> [CategoryModel] {
+    public func fetchAll(removed: Bool, with context: NSManagedObjectContext = get_context()) -> [CategoryModel] {
         let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
         
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "position", ascending: true)]
             fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
 
-            return try get_context().fetch(fetchRequest)
+            return try context.fetch(fetchRequest)
         }
         catch let error {
             print("Failed to fetch categories! ERROR: " + error.localizedDescription)
@@ -139,10 +139,6 @@ class AppCategories {
         }
 
         return nil
-    }
-
-    public func shouldUpdate(uid: String, ver: Int16) -> Bool {
-        return should_update_record(entity: "Category", uid: uid, ver: ver)
     }
 
     public func update(category: CategoryModel) {

@@ -185,14 +185,14 @@ class LastSpends {
 let appSpends = AppSpends()
 
 class AppSpends {
-    public func fetchAll(removed: Bool) -> [SpendModel] {
+    public func fetchAll(removed: Bool, with context: NSManagedObjectContext = get_context()) -> [SpendModel] {
         let fetchRequest = NSFetchRequest<SpendModel>(entityName: "Spend")
 
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
             fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
 
-            return try get_context().fetch(fetchRequest)
+            return try context.fetch(fetchRequest)
         }
         catch let error {
             print("Failed to fetch all spend records! ERROR: " + error.localizedDescription)
@@ -264,10 +264,6 @@ class AppSpends {
         }
     }
 
-    public func shouldUpdate(uid: String, ver: Int16) -> Bool {
-        return should_update_record(entity: "Spend", uid: uid, ver: ver)
-    }
-    
     public func update(spend: SpendModel) {
         spend.version += 1
         get_delegate().saveContext()

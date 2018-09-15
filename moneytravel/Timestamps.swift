@@ -12,14 +12,14 @@ import CoreData
 let appTimestamps = AppTimestamps()
 
 class AppTimestamps {
-    public func fetchAll(removed: Bool = false) -> [MarkModel] {
+    public func fetchAll(removed: Bool = false, with context: NSManagedObjectContext = get_context()) -> [MarkModel] {
         let fetchRequest = NSFetchRequest<MarkModel>(entityName: "Mark")
         
         do {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
             fetchRequest.predicate = removed ? nil : NSPredicate(format: "removed == NO")
 
-            return try get_context().fetch(fetchRequest)
+            return try context.fetch(fetchRequest)
         }
         catch let error {
             print("Failed to fetch timestamps! ERROR: " + error.localizedDescription)
@@ -68,10 +68,6 @@ class AppTimestamps {
         }
 
         return nil
-    }
-
-    public func shouldUpdate(uid: String, ver: Int16) -> Bool {
-        return should_update_record(entity: "Mark", uid: uid, ver: ver)
     }
 
     public func update(stamp: MarkModel) {
