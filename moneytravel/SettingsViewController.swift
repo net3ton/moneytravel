@@ -139,7 +139,7 @@ class SettingsViewController: UITableViewController {
         appSettings.icloudSyncEnabled = sender.isOn
         
         if sender.isOn {
-            appSync.makeSyncICloud()
+            appSync.makeICloudSync()
         }
     }
     
