@@ -10,12 +10,6 @@ import UIKit
 import CoreData
 import DataCompression
 
-enum EExportLocation {
-    case sharedFolder
-    case icloud
-}
-
-
 class AppData: Codable {
     private static var VER: Int32 = 1
     
@@ -182,26 +176,5 @@ class AppData: Codable {
         }
 
         return data
-    }
-    
-    public func saveToCSV(name: String, location: EExportLocation) -> Bool {
-        guard let path = (location == .icloud) ? appICloudDrive.getDocumentsPath() : getSharedPath() else {
-            return false
-        }
-
-        do {
-            let exportPath = path.appendingPathComponent(name)
-            try exportToCSV().write(to: exportPath)
-        }
-        catch let error {
-            print("Failed to export to CVS! ERROR: " + error.localizedDescription)
-            return false
-        }
-
-        return true
-    }
-    
-    private func getSharedPath() -> URL? {
-        return FileManager().urls(for: .documentDirectory, in: .userDomainMask).first
     }
 }

@@ -240,7 +240,7 @@ class HistoryViewController: UIViewController {
             return String(format: "MoneyTravel_%@.csv", formatter.string(from: Date()))
         }
         
-        let export = UIAlertController(title: "EXPORT_TO_TITLE".loc(), message: nil, preferredStyle: .actionSheet)
+        let export = UIAlertController(title: nil, message: "EXPORT_TO_TITLE".loc(), preferredStyle: .actionSheet)
         
         let spreadsheet = UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
             if !appGoogleDrive.isLogined() {
@@ -279,14 +279,14 @@ class HistoryViewController: UIViewController {
             }
             
             let historyData = AppData(history: self.history)
-            let success = historyData.saveToCSV(name: getExportFileName(), location: .icloud)
+            let success = historyData.exportToCSV().saveTo(.icloud, withName: getExportFileName())
 
             self.showExportMessage(success, "EXPORT_ICLOUD_OK".loc(), "EXPORT_ICLOUD_ERROR".loc())
         })
         
         let localCSV = UIAlertAction(title: "iTunes Shared Folder (csv)", style: .default, handler: { (action) in
             let historyData = AppData(history: self.history)
-            let success = historyData.saveToCSV(name: getExportFileName(), location: .sharedFolder)
+            let success = historyData.exportToCSV().saveTo(.documents, withName: getExportFileName())
 
             self.showExportMessage(success, "EXPORT_LOCAL_OK".loc(), "EXPORT_LOCAL_ERROR".loc())
         })
