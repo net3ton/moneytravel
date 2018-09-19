@@ -35,6 +35,9 @@
 		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
 		215C77C4214BE0E100A3637F /* Sync+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77C3214BE0E100A3637F /* Sync+CloudKit.swift */; };
 		215C77C6214C4BA600A3637F /* Sync+GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77C5214C4BA600A3637F /* Sync+GoogleDrive.swift */; };
+		215C77C8214D770200A3637F /* BackupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77C7214D770200A3637F /* BackupsViewController.swift */; };
+		215C77CA214D865400A3637F /* FuncsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77C9214D865400A3637F /* FuncsData.swift */; };
+		215C77D0214DC79E00A3637F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77CF214DC79E00A3637F /* Extensions.swift */; };
 		216F0C00211109B8006DB302 /* HistoryViewController+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F0BFF211109B8006DB302 /* HistoryViewController+Charts.swift */; };
 		216F0C02211312E5006DB302 /* MoneyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F0C01211312E5006DB302 /* MoneyTextField.swift */; };
 		216F0C0821188F29006DB302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 216F0C0A21188F29006DB302 /* Localizable.strings */; };
@@ -54,6 +57,7 @@
 		2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B320B5B83900B6E381 /* SettingsViewController.swift */; };
 		2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */; };
 		217648AE20FE29BF00F3488F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217648AD20FE29BF00F3488F /* AboutViewController.swift */; };
+		218F6F8F2152BFE60091AB4E /* BackupCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218F6F8E2152BFE60091AB4E /* BackupCreateViewController.swift */; };
 		2199212720DC0F7C00CE1355 /* GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2199212620DC0F7C00CE1355 /* GoogleDrive.swift */; };
 		21A846DB214A718400B4A0C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A846DA214A718400B4A0C1 /* CloudKit.framework */; };
 		21A846DD214B0E4700B4A0C1 /* EntityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A846DC214B0E4700B4A0C1 /* EntityChecker.swift */; };
@@ -94,10 +98,12 @@
 		2140D35121374D4A00921060 /* ICloudDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudDrive.swift; sourceTree = "<group>"; };
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
-		215BAD222137E1CF00198011 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		215BAD242137E1D600198011 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		215C77C3214BE0E100A3637F /* Sync+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sync+CloudKit.swift"; sourceTree = "<group>"; };
 		215C77C5214C4BA600A3637F /* Sync+GoogleDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sync+GoogleDrive.swift"; sourceTree = "<group>"; };
+		215C77C7214D770200A3637F /* BackupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupsViewController.swift; sourceTree = "<group>"; };
+		215C77C9214D865400A3637F /* FuncsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncsData.swift; sourceTree = "<group>"; };
+		215C77CF214DC79E00A3637F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2161B9F92120C50100FCC6BD /* moneytravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = moneytravel.entitlements; sourceTree = "<group>"; };
 		216F0BFF211109B8006DB302 /* HistoryViewController+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryViewController+Charts.swift"; sourceTree = "<group>"; };
 		216F0C01211312E5006DB302 /* MoneyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTextField.swift; sourceTree = "<group>"; };
@@ -121,6 +127,8 @@
 		2174F4B320B5B83900B6E381 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewController.swift; sourceTree = "<group>"; };
 		217648AD20FE29BF00F3488F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		218F6F8E2152BFE60091AB4E /* BackupCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupCreateViewController.swift; sourceTree = "<group>"; };
+		218F6F912152EFF40091AB4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		2199212620DC0F7C00CE1355 /* GoogleDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDrive.swift; sourceTree = "<group>"; };
 		21A846DA214A718400B4A0C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		21A846DC214B0E4700B4A0C1 /* EntityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityChecker.swift; sourceTree = "<group>"; };
@@ -199,6 +207,8 @@
 				2103DA3220C939E0003B027D /* DateViewController.swift */,
 				2114F13920D126BD00BB40CB /* DateStampViewController.swift */,
 				21FCDDAE20CBC9A50044567F /* SumViewController.swift */,
+				215C77C7214D770200A3637F /* BackupsViewController.swift */,
+				218F6F8E2152BFE60091AB4E /* BackupCreateViewController.swift */,
 				2172BD6F20B02AF400132D36 /* Main.storyboard */,
 				2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */,
 				2114F13320CEF86400BB40CB /* LaunchScreen.storyboard */,
@@ -218,6 +228,8 @@
 				2103DA1C20C46CEE003B027D /* SpendViewHeader.xib */,
 				21D1A89F21035B7E0033B419 /* StampViewCell.xib */,
 				21D1A8A32105E2EA0033B419 /* Funcs.swift */,
+				215C77C9214D865400A3637F /* FuncsData.swift */,
+				215C77CF214DC79E00A3637F /* Extensions.swift */,
 				21D1A8A52105E3B90033B419 /* Entities.swift */,
 				21A846DC214B0E4700B4A0C1 /* EntityChecker.swift */,
 				2174F4A920B44B9800B6E381 /* Data.swift */,
@@ -421,7 +433,9 @@
 				21FCDDAF20CBC9A50044567F /* SumViewController.swift in Sources */,
 				2174F4A220B0417100B6E381 /* MoneyKeyboard.swift in Sources */,
 				2174F4AA20B44B9800B6E381 /* Data.swift in Sources */,
+				215C77CA214D865400A3637F /* FuncsData.swift in Sources */,
 				21A846DD214B0E4700B4A0C1 /* EntityChecker.swift in Sources */,
+				218F6F8F2152BFE60091AB4E /* BackupCreateViewController.swift in Sources */,
 				21D1A8A42105E2EA0033B419 /* Funcs.swift in Sources */,
 				215C77C6214C4BA600A3637F /* Sync+GoogleDrive.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,
@@ -439,6 +453,7 @@
 				2114F14220D6789600BB40CB /* Categories.swift in Sources */,
 				2199212720DC0F7C00CE1355 /* GoogleDrive.swift in Sources */,
 				2174F4AF20B574E500B6E381 /* SpendView.swift in Sources */,
+				215C77C8214D770200A3637F /* BackupsViewController.swift in Sources */,
 				21D1A8A22104D9070033B419 /* Sync.swift in Sources */,
 				2114F13C20D25D6900BB40CB /* History.swift in Sources */,
 				2103DA2D20C720BC003B027D /* ColorsViewController.swift in Sources */,
@@ -452,6 +467,7 @@
 				217648AE20FE29BF00F3488F /* AboutViewController.swift in Sources */,
 				2103DA2B20C708CA003B027D /* Icons.swift in Sources */,
 				2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */,
+				215C77D0214DC79E00A3637F /* Extensions.swift in Sources */,
 				2140D35221374D4A00921060 /* ICloudDrive.swift in Sources */,
 				2104195120FB8321004B227D /* Titlebar.swift in Sources */,
 				211A1F2D20BA1E4F004A793D /* MoneyInput.swift in Sources */,
@@ -475,8 +491,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2172BD7020B02AF400132D36 /* Base */,
-				215BAD222137E1CF00198011 /* en */,
 				215BAD242137E1D600198011 /* ru */,
+				218F6F912152EFF40091AB4E /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

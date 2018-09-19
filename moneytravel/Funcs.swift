@@ -7,16 +7,6 @@
 //
 
 import UIKit
-import CoreData
-
-func getUID() -> String {
-    let timestamp =  UInt((Date().timeIntervalSince1970 * 1000000.0).rounded())
-    
-    let p1: UInt32 = UInt32(timestamp & 0xFFFFFFFF)
-    let p2: UInt32 = UInt32(timestamp >> 32) | UInt32(arc4random() << 16)
-    
-    return String(format:"%08X%08X", p2, p1)
-}
 
 func num_to_string(sum: Float, fraction: Int) -> String {
     let formatter = NumberFormatter()
@@ -52,15 +42,6 @@ func bsum_to_string(sum: Float) -> String {
 
 func bsum_to_string(sum: Float, currency: String) -> String {
     return String.init(format: "%@ %@", bnum_to_string(sum: sum), currency)
-}
-
-
-func get_delegate() -> AppDelegate {
-    return UIApplication.shared.delegate as! AppDelegate
-}
-
-func get_context() -> NSManagedObjectContext {
-    return get_delegate().persistentContainer.viewContext
 }
 
 func top_view_controller(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
@@ -99,10 +80,4 @@ func uicolor_to_int32(_ val: UIColor) -> Int32 {
     let ib = Int32(b * 255) << 16
     let ia = Int32(a * 255) << 24
     return ia + ib + ig + ir
-}
-
-extension String {
-    public func loc() -> String {
-        return NSLocalizedString(self, tableName: "Localizable", value: "**\(self)**", comment: "")
-    }
 }

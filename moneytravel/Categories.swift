@@ -33,26 +33,15 @@ class AppCategories {
         initCategories()
         reload()
     }
-
-    private func initCategories() {
+    
+    public func initCategories() {
         let context = get_context()
-        let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)
         let fetchRequest = NSFetchRequest<CategoryModel>(entityName: "Category")
 
         do {
             let count = try context.count(for: fetchRequest)
             if count == 0 {
-                var pos: Int16 = 0
-                for (iconname, name, uid) in DEFAULT_CATEGORIES {
-                    let category = CategoryModel(entity: categoryEntity!, insertInto: context)
-                    category.name = name
-                    category.iconname = iconname
-                    category.color = CATEGORY_DEFAULT
-                    category.position = pos
-                    category.uid = uid
-                    pos += 1
-                }
-                
+                inserDefaultCategories(into: context)
                 try context.save()
             }
         }
@@ -61,6 +50,19 @@ class AppCategories {
         }
     }
 
+    private func inserDefaultCategories(into context: NSManagedObjectContext) {
+        var pos: Int16 = 0
+        for (iconname, name, uid) in DEFAULT_CATEGORIES {
+            let category = CategoryModel(entity: CategoryModel.entity(), insertInto: context)
+            category.name = name
+            category.iconname = iconname
+            category.color = CATEGORY_DEFAULT
+            category.position = pos
+            category.uid = uid
+            pos += 1
+        }
+    }
+    
     public func reload() {
         categories = fetchAll(removed: false)
     }
@@ -80,7 +82,13 @@ class AppCategories {
 
         return []
     }
-
+    
+    public func removeAll(with context: NSManagedObjectContext) {
+        for cat in fetchAll(removed: true, with: context) {
+            context.delete(cat)
+        }
+    }
+    
     public func add(name: String, iconname: String, color: UIColor) {
         let context = get_context()
         let categoryEntity = NSEntityDescription.entity(forEntityName: "Category", in: context)

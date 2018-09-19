@@ -18,6 +18,8 @@
 "CATEGORY" = "Категория";
 "TIMESTAMP" = "Метка";
 "DATE" = "Дата";
+"BACKUPS" = "Данные";
+"BACKUP" = "Резервная копия";
 
 "PROCEED" = "Продолжить";
 "CANCEL" = "Отмена";
@@ -25,14 +27,16 @@
 "DELETE" = "Удалить";
 "BACK" = "Назад";
 "OK" = "Ok";
+"CREATE" = "Создать";
 
 "DELETE_MSG" = "Удалить запись?\nДействие нельзя будет отменить";
 "DELETE_CAT" = "Удалить категорию?\nДействие нельзя будет отменить";
 "DELETE_TSTAMP" = "Удалить метку?\nДействие нельзя будет отменить";
 "GOOGLE_OUT_TITLE" = "Выход из Google Drive";
-"GOOGLE_OUT_MSG" = "Синхронизация с Google Drive будет отключена.";
-"ICLOUD_DISABLED" = "Включите iCloud в системных настройках.";
-"GOOGLE_DISABLED" = "Необходимо войти в Google Drive в настройках.";
+"GOOGLE_OUT_MSG" = "Синхронизация с Google Drive будет отключена";
+"ICLOUD_DISABLED" = "Включите iCloud в системных настройках";
+"GOOGLE_DISABLED" = "Необходимо войти в Google Drive в настройках";
+"DATA_RESET_MSG" = "Все данные будут удалены! Вы уверены?\nДействие нельзя будет отменить";
 
 "DAILY_BUDGET" = "Бюджет";
 "EXCHANGE_RATE" = "Курс обмена";
@@ -59,7 +63,7 @@
 
 "EXPORT_TO_TITLE" = "Экспортировать выбранную историю:";
 "EXPORT_OK" = "Экспорт завершен";
-"EXPORT_ERROR" = "Ошибка экспорта!";
+"EXPORT_ERROR" = "Ошибка экспорта";
 "EXPORT_SHT_OK" = "Таблица создана.";
 "EXPORT_SHT_ERROR" = "Не удалось создать таблицу.";
 "EXPORT_GOOGLE_OK" = "CSV файл загружен на google drive.";

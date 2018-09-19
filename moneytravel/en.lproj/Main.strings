@@ -23,8 +23,8 @@
 /* Class = "UILabel"; text = "Detail"; ObjectID = "4eb-vy-pcE"; */
 "4eb-vy-pcE.text" = "Detail";
 
-/* Class = "UILabel"; text = " HINT: Select a day to see details, pinch to scale"; ObjectID = "5CM-ed-3G1"; */
-"5CM-ed-3G1.text" = " HINT: Select a day to see details, pinch to scale";
+/* Class = "UILabel"; text = "HINT"; ObjectID = "5CM-ed-3G1"; */
+"5CM-ed-3G1.text" = "HINT";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "5ho-YB-2TT"; */
 "5ho-YB-2TT.text" = "Title";
@@ -38,6 +38,9 @@
 /* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[2] = "Categories"; ObjectID = "5nB-6e-KhY"; */
 "5nB-6e-KhY.segmentTitles[2]" = "Categories";
 
+/* Class = "UITableViewSection"; footerTitle = "HINT: Don't forget to create backup before reseting data"; ObjectID = "61D-W1-fw2"; */
+"61D-W1-fw2.footerTitle" = "HINT: Don't forget to create backup before reseting data";
+
 /* Class = "UITableViewSection"; headerTitle = "Cloud Sync"; ObjectID = "6Sf-B1-k4y"; */
 "6Sf-B1-k4y.headerTitle" = "Cloud Sync";
 
@@ -50,11 +53,17 @@
 /* Class = "UILabel"; text = "Date and time"; ObjectID = "6ys-Is-d4M"; */
 "6ys-Is-d4M.text" = "Date and time";
 
+/* Class = "UILabel"; text = "Reset all data"; ObjectID = "7K8-vP-8WP"; */
+"7K8-vP-8WP.text" = "Reset all data";
+
 /* Class = "UITableViewSection"; headerTitle = "General"; ObjectID = "7iC-c6-tWO"; */
 "7iC-c6-tWO.headerTitle" = "General";
 
 /* Class = "UILabel"; text = "1 USD ="; ObjectID = "7zb-mA-qZp"; */
 "7zb-mA-qZp.text" = "1 USD =";
+
+/* Class = "UITableViewSection"; headerTitle = "Backups"; ObjectID = "8LP-he-LRN"; */
+"8LP-he-LRN.headerTitle" = "Backups";
 
 /* Class = "UILabel"; text = "Yesterday"; ObjectID = "910-o2-9FK"; */
 "910-o2-9FK.text" = "Yesterday";
@@ -64,6 +73,9 @@
 
 /* Class = "UINavigationItem"; title = "Money Travel"; ObjectID = "Au5-lh-gNu"; */
 "Au5-lh-gNu.title" = "Money Travel";
+
+/* Class = "UILabel"; text = "Create"; ObjectID = "Bz3-Du-csR"; */
+"Bz3-Du-csR.text" = "Create";
 
 /* Class = "UILabel"; text = "Categories"; ObjectID = "CGk-pB-6Qd"; */
 "CGk-pB-6Qd.text" = "Categories";
@@ -95,6 +107,12 @@
 /* Class = "UILabel"; text = "Last updated: 06.06.2018"; ObjectID = "HR7-28-Ozr"; */
 "HR7-28-Ozr.text" = "Last updated: 06.06.2018";
 
+/* Class = "UITableViewSection"; footerTitle = "HINT: Data is saved in gzipped json file"; ObjectID = "HRo-KA-iYv"; */
+"HRo-KA-iYv.footerTitle" = "HINT: Data is saved in gzipped json file";
+
+/* Class = "UITableViewSection"; headerTitle = "Interval"; ObjectID = "HRo-KA-iYv"; */
+"HRo-KA-iYv.headerTitle" = "Interval";
+
 /* Class = "UITableViewSection"; headerTitle = "Currency"; ObjectID = "HZR-ti-cBe"; */
 "HZR-ti-cBe.headerTitle" = "Currency";
 
@@ -110,6 +128,9 @@
 /* Class = "UILabel"; text = "Delete"; ObjectID = "JcL-ks-EQB"; */
 "JcL-ks-EQB.text" = "Delete";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "M4T-3N-K57"; */
+"M4T-3N-K57.text" = "Title";
+
 /* Class = "UILabel"; text = " I would be very grateful to you for:"; ObjectID = "MIm-a1-zeV"; */
 "MIm-a1-zeV.text" = " I would be very grateful to you for:";
 
@@ -119,11 +140,14 @@
 /* Class = "UILabel"; text = "00:00"; ObjectID = "My8-Hr-zM4"; */
 "My8-Hr-zM4.text" = "00:00";
 
-/* Class = "UITableViewSection"; headerTitle = "Categories"; ObjectID = "NHB-kn-1pD"; */
-"NHB-kn-1pD.headerTitle" = "Categories";
+/* Class = "UITableViewSection"; headerTitle = "Filename"; ObjectID = "NzS-6q-xgo"; */
+"NzS-6q-xgo.headerTitle" = "Filename";
 
 /* Class = "UILabel"; text = "Exchange rate"; ObjectID = "Om2-lM-LLb"; */
 "Om2-lM-LLb.text" = "Exchange rate";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "P4l-Sg-KbO"; */
+"P4l-Sg-KbO.text" = "To";
 
 /* Class = "UILabel"; text = "Category"; ObjectID = "PL5-Cx-6Hu"; */
 "PL5-Cx-6Hu.text" = "Category";
@@ -146,8 +170,14 @@
 /* Class = "UILabel"; text = "Show fraction part (current)"; ObjectID = "Soe-fr-b1A"; */
 "Soe-fr-b1A.text" = "Show fraction part (current)";
 
+/* Class = "UILabel"; text = "Load"; ObjectID = "UCI-TQ-EKM"; */
+"UCI-TQ-EKM.text" = "Load";
+
 /* Class = "UITableViewSection"; headerTitle = "Properties"; ObjectID = "Vjc-Lx-Ro6"; */
 "Vjc-Lx-Ro6.headerTitle" = "Properties";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "X4q-IR-geB"; */
+"X4q-IR-geB.text" = "Detail";
 
 /* Class = "UILabel"; text = "Last synced: 06.06.2018"; ObjectID = "XhI-km-TrB"; */
 "XhI-km-TrB.text" = "Last synced: 06.06.2018";
@@ -166,6 +196,9 @@
 
 /* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "b7M-Eg-DZK"; */
 "b7M-Eg-DZK.title" = "Settings";
+
+/* Class = "UILabel"; text = "Data"; ObjectID = "eUq-Qr-gIq"; */
+"eUq-Qr-gIq.text" = "Data";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "ebJ-Zc-etb"; */
 "ebJ-Zc-etb.text" = "Detail";
@@ -204,7 +237,7 @@
 "iaH-dK-vqB.title" = "Back";
 
 /* Class = "UITableViewSection"; footerTitle = "HINT: Use drag&drop to rearrage items and tap to edit"; ObjectID = "ihH-dy-bxp"; */
-"ihH-dy-bxp.footerTitle" = "HINT: use drag&drop to rearrage items and tap to edit";
+"ihH-dy-bxp.footerTitle" = "HINT: Use drag&drop to rearrage items and tap to edit";
 
 /* Class = "UIButton"; normalTitle = "Show more"; ObjectID = "j21-ic-8te"; */
 "j21-ic-8te.normalTitle" = "Show more";
@@ -214,6 +247,9 @@
 
 /* Class = "UIViewController"; title = "About"; ObjectID = "jIb-4N-Tfo"; */
 "jIb-4N-Tfo.title" = "About";
+
+/* Class = "UILabel"; text = "All data"; ObjectID = "k8P-qD-pxg"; */
+"k8P-qD-pxg.text" = "All data";
 
 /* Class = "UILabel"; text = "none"; ObjectID = "krm-sP-izU"; */
 "krm-sP-izU.text" = "none";
@@ -233,6 +269,9 @@
 /* Class = "UILabel"; text = "USD"; ObjectID = "qH0-z4-bck"; */
 "qH0-z4-bck.text" = "USD";
 
+/* Class = "UILabel"; text = "Detail"; ObjectID = "qVq-gf-I38"; */
+"qVq-gf-I38.text" = "Detail";
+
 /* Class = "UILabel"; text = "Google Drive"; ObjectID = "qtz-fn-cpC"; */
 "qtz-fn-cpC.text" = "Google Drive";
 
@@ -241,6 +280,9 @@
 
 /* Class = "UILabel"; text = "Day start time"; ObjectID = "sm8-aL-FkM"; */
 "sm8-aL-FkM.text" = "Day start time";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "tG8-Nq-nMl"; */
+"tG8-Nq-nMl.text" = "From";
 
 /* Class = "UILabel"; text = "Delete"; ObjectID = "uae-xh-hnj"; */
 "uae-xh-hnj.text" = "Delete";

@@ -46,6 +46,9 @@
 /* Class = "UILabel"; text = "Timestamps"; ObjectID = "Zj7-0T-hnf"; */
 "Zj7-0T-hnf.text" = "Временные метки";
 
+/* Class = "UILabel"; text = "Data"; ObjectID = "eUq-Qr-gIq"; */
+"eUq-Qr-gIq.text" = "Данные";
+
 /* Class = "UITableViewSection"; headerTitle = "Cloud Sync"; ObjectID = "6Sf-B1-k4y"; */
 "6Sf-B1-k4y.headerTitle" = "Синхронизация";
 
@@ -56,7 +59,6 @@
 "06R-QD-T8j.text" = "Поддержать разработчика";
 
 
-
 /* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[0] = "History"; ObjectID = "5nB-6e-KhY"; */
 "5nB-6e-KhY.segmentTitles[0]" = "История";
 
@@ -65,6 +67,40 @@
 
 /* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[2] = "Categories"; ObjectID = "5nB-6e-KhY"; */
 "5nB-6e-KhY.segmentTitles[2]" = "Категории";
+
+
+/* Class = "UITableViewSection"; headerTitle = "Backups"; ObjectID = "8LP-he-LRN"; */
+"8LP-he-LRN.headerTitle" = "Резервные копии";
+
+/* Class = "UILabel"; text = "Create"; ObjectID = "Bz3-Du-csR"; */
+"Bz3-Du-csR.text" = "Создать";
+
+/* Class = "UILabel"; text = "Load"; ObjectID = "UCI-TQ-EKM"; */
+"UCI-TQ-EKM.text" = "Загрузить";
+
+/* Class = "UILabel"; text = "Reset all data"; ObjectID = "7K8-vP-8WP"; */
+"7K8-vP-8WP.text" = "Сбросить данные";
+
+/* Class = "UITableViewSection"; footerTitle = "HINT: Don't forget to create backup before reseting data"; ObjectID = "61D-W1-fw2"; */
+"61D-W1-fw2.footerTitle" = "Совет: не забудьте сделать резервную копию перед тем как сбрасывать данные";
+
+/* Class = "UITableViewSection"; headerTitle = "Filename"; ObjectID = "NzS-6q-xgo"; */
+"NzS-6q-xgo.headerTitle" = "Название";
+
+/* Class = "UITableViewSection"; headerTitle = "Interval"; ObjectID = "HRo-KA-iYv"; */
+"HRo-KA-iYv.headerTitle" = "Интервал";
+
+/* Class = "UILabel"; text = "All data"; ObjectID = "k8P-qD-pxg"; */
+"k8P-qD-pxg.text" = "Все данные";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "tG8-Nq-nMl"; */
+"tG8-Nq-nMl.text" = "Начиная с";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "P4l-Sg-KbO"; */
+"P4l-Sg-KbO.text" = "До";
+
+/* Class = "UITableViewSection"; footerTitle = "HINT: Data is saved in gzipped json file"; ObjectID = "HRo-KA-iYv"; */
+"HRo-KA-iYv.footerTitle" = "Совет: данные будут сохранены в формате gzipped json";
 
 
 /* Class = "UIViewController"; title = "About"; ObjectID = "jIb-4N-Tfo"; */
