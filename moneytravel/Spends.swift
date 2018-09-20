@@ -145,7 +145,7 @@ class LastSpends {
 
     public func reload() {
         daily = fetchLast()
-        changed = true
+        markChanged()
     }
 
     private func fetchLast() -> [DaySpends] {
@@ -165,6 +165,10 @@ class LastSpends {
     public func addSpend(_ spend: SpendModel) {
         checkDays()
         daily[0].add(spend: spend, tmark: nil)
+    }
+    
+    public func markChanged() {
+        changed = true
     }
     
     public func isReloaded() -> Bool {

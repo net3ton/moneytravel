@@ -118,11 +118,13 @@ class SettingsViewController: UITableViewController {
 
     @IBAction func fractionCurrentCheck(_ sender: UISwitch) {
         appSettings.fractionCurrent = sender.isOn
+        lastSpends.markChanged()
         updateLabels()
     }
 
     @IBAction func fractionBaseCheck(_ sender: UISwitch) {
         appSettings.fractionBase = sender.isOn
+        lastSpends.markChanged()
         updateLabels()
     }
 
