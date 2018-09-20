@@ -91,6 +91,11 @@ import UIKit
         processSelection(false)
     }
     
+    override func cancelTracking(with event: UIEvent?) {
+        super.cancelTracking(with: event)
+        processSelection(false)
+    }
+    
     private func processSelection(_ pressed: Bool) {
         if tapState == pressed {
             return
