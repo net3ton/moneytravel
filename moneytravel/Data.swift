@@ -88,11 +88,14 @@ class AppData: Codable {
     }
     
     static public func loadFromData(_ rawdata: Data) -> AppData? {
-        guard let data = rawdata.gunzip() else {
-            print("Failed to import! Failed to unzip data!")
-            return nil
+        var data = rawdata
+        if let unzipdata = rawdata.gunzip() {
+            data = unzipdata
         }
-        
+        else {
+            print("Failed to unzip data.")
+        }
+
         do {
             let jsonDecoder = JSONDecoder()
             jsonDecoder.dateDecodingStrategy = .iso8601
