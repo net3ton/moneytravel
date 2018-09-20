@@ -12,7 +12,7 @@ import CloudKit
 
 extension AppSync {
     private static let REC_TYPE = "MoneyTravelSync3"
-    private static let REC_ID = CKRecordID(recordName: "moneytravel-sync-id6")
+    private static let REC_ID = CKRecord.ID(recordName: "moneytravel-sync-id6")
     
     public func makeICloudSync() {
         print("[Sync iCloud] syncing...")

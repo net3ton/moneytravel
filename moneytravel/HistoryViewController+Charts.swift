@@ -177,13 +177,13 @@ extension HistoryViewController: ChartViewDelegate {
         titleParagraphStyle.alignment = .center
         
         let dictMain = [
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16),
-            NSAttributedStringKey.paragraphStyle: titleParagraphStyle
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16),
+            NSAttributedString.Key.paragraphStyle: titleParagraphStyle
         ]
         
         let dictDays = [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12),
-            NSAttributedStringKey.paragraphStyle: titleParagraphStyle
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+            NSAttributedString.Key.paragraphStyle: titleParagraphStyle
         ]
         
         let pieInfo: NSMutableAttributedString = NSMutableAttributedString()

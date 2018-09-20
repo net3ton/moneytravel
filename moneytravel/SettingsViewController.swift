@@ -50,7 +50,7 @@ class SettingsViewController: UITableViewController {
         super.viewWillDisappear(animated)
         SettingsViewController.view = nil
 
-        if self.isMovingFromParentViewController {
+        if self.isMovingFromParent {
             appSettings.save()
         }
     }
