@@ -67,7 +67,7 @@
 "EXPORT_ERROR" = "Ошибка экспорта";
 "IMPORT_ERROR" = "Ошибка импорта";
 
-"SYNC_ICLOUD_MERGE_MSG" = "Резервная копия в iCloud. Хотите загрузить?";
+"SYNC_ICLOUD_MERGE_MSG" = "iCloud уже содержит данные. Хотите загрузить?";
 "SYNC_ICLOUD_DELETE_MSG" = "Данные в iCloud будут заменены текущими";
 
 "SYNC_GOOGLE_MERGE_TITLE" = "Данные Google Drive";

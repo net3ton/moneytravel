@@ -67,8 +67,8 @@
 "EXPORT_ERROR" = "Failed to export data";
 "IMPORT_ERROR" = "Failed to import data";
 
-"SYNC_ICLOUD_MERGE_TITLE" = "iCloud data";
 "SYNC_ICLOUD_MERGE_MSG" = "iCloud already contains data. Do you want to merge?";
+"SYNC_ICLOUD_DELETE_MSG" = "iCloud data will be overwritten";
 
 "SYNC_GOOGLE_MERGE_TITLE" = "Google Drive data";
 "SYNC_GOOGLE_MERGE_MSG" = "Google Drive already contains data. Do you want to merge?";

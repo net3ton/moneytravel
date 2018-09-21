@@ -10,9 +10,10 @@ import UIKit
 import CoreData
 import CloudKit
 
+
 extension AppSync {
-    private static let REC_TYPE = "MoneyTravelSync3"
-    private static let REC_ID = CKRecord.ID(recordName: "moneytravel-sync-id6")
+    private static let REC_TYPE = "MoneyTravelSync"
+    private static let REC_ID = CKRecord.ID(recordName: "moneytravel-sync-id")
     
     public func makeICloudSync() {
         print("[Sync iCloud] syncing...")
@@ -65,14 +66,50 @@ extension AppSync {
             }
             
             if let record = record {
-                let fileData = record["data"] as? Data
-                self.importData(fileData, with: context)
+                if !appSettings.icloudSyncMade {
+                    DispatchQueue.main.async {
+                        self.iCloudMergeAsk(container, record: record, recHash: recHash, with: context)
+                    }
+                    return
+                }
+                
+                self.iCloudImportData(record, with: context)
             }
             
             self.iCloudUpload(container, record: record, recHash: recHash, with: context)
         }
     }
 
+    private func iCloudImportData(_ record: CKRecord, with context: NSManagedObjectContext) {
+        let fileData = record["data"] as? Data
+        self.importData(fileData, with: context)
+    }
+    
+    private func iCloudMergeAsk(_ container: CKDatabase, record: CKRecord, recHash: String, with context: NSManagedObjectContext) {
+        let alert = UIAlertController(title: nil, message: "SYNC_ICLOUD_MERGE_MSG".loc(), preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "MERGE".loc(), style: .default) { action in
+            self.iCloudImportData(record, with: context)
+            self.iCloudUpload(container, record: record, recHash: recHash, with: context)
+        })
+        alert.addAction(UIAlertAction(title: "OVERWRITE".loc(), style: .destructive) { action in
+            self.iCloudOverwriteAsk(container, record: record, recHash: recHash, with: context)
+        })
+        
+        top_view_controller()?.present(alert, animated: true)
+    }
+    
+    private func iCloudOverwriteAsk(_ container: CKDatabase, record: CKRecord, recHash: String, with context: NSManagedObjectContext) {
+        let alert = UIAlertController(title: nil, message: "SYNC_ICLOUD_DELETE_MSG".loc(), preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "PROCEED".loc(), style: .default) { action in
+            self.iCloudUpload(container, record: record, recHash: recHash, with: context)
+        })
+        alert.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
+        
+        top_view_controller()?.present(alert, animated: true)
+    }
+    
     private func iCloudUpload(_ container: CKDatabase, record: CKRecord?, recHash: String, with context: NSManagedObjectContext) {
         guard let data = AppData(with: context).exportToData() else {
             print("[Sync iCloud] failed to export data!")
@@ -107,6 +144,7 @@ extension AppSync {
         self.icloudToSync = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
         appSettings.icloudSyncLastHash = hash
         appSettings.icloudSyncDate = Date()
+        appSettings.icloudSyncMade = true
         appSettings.save()
         print("[Sync iCloud] ok.")
         
