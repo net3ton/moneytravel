@@ -47,7 +47,9 @@ class AppData: Codable {
         }
     }
 
-    public func importData(with context: NSManagedObjectContext) {
+    public typealias ImportDataCompletion = (_ categories: Int, _ spends: Int, _ tmarks: Int) -> Void
+    
+    public func importData(with context: NSManagedObjectContext, completion: ImportDataCompletion? = nil) {
         print(String(format: "[Import] data (%i, %i, %i)", categories.count, spends.count, timestamps.count))
         
         context.mergePolicy = NSOverwriteMergePolicy
@@ -81,6 +83,7 @@ class AppData: Codable {
             }
             
             print(String(format: "[Import] saved (%i, %i, %i)", catCount, spendCount, tstampCount))
+            completion?(catCount, spendCount, tstampCount)
         }
         catch let error {
             print("Failed to import! ERROR: " + error.localizedDescription)

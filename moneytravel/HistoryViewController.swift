@@ -224,90 +224,83 @@ class HistoryViewController: UIViewController {
         titlebar.days = history.count
     }
     
-    private func showExportMessage(_ success: Bool, _ messageOk: String, _ messageError: String) {
-        let title = success ? "EXPORT_OK".loc() : "EXPORT_ERROR".loc()
-        let message = success ? messageOk : messageError
-        
-        let alert = UIAlertController(title: title, message: "\n" + message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK".loc(), style: .default))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     @objc func onExport() {
-        func getExportFileName() -> String {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd_HH-mm"
-            return String(format: "MoneyTravel_%@.csv", formatter.string(from: Date()))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd_HH-mm"
+        let name = String(format: "MoneyTravel_%@.csv", formatter.string(from: Date()))
+        
+        guard let path = get_temp_path()?.appendingPathComponent(name) else {
+            show_info_message(self, msg: "EXPORT_ERROR".loc())
+            return
         }
         
-        let export = UIAlertController(title: nil, message: "EXPORT_TO_TITLE".loc(), preferredStyle: .actionSheet)
+        let historyData = AppData(history: self.history)
+        guard historyData.exportToCSV().saveTo(path) else {
+            show_info_message(self, msg: "EXPORT_ERROR".loc())
+            return
+        }
+
+        let googleSheet = GoogleSheetActivity(for: history, in: self)
         
-        let spreadsheet = UIAlertAction(title: "Google Spreadsheet", style: .default, handler: { (action) in
-            if !appGoogleDrive.isLogined() {
-                self.showExportMessage(false, "", "GOOGLE_DISABLED".loc())
-                return
-            }
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy.MM.dd HH:mm"
-            let sheetName = String(format: "MoneyTravel (%@)", formatter.string(from: Date()))
-            
-            appGoogleDrive.makeSpreadsheet(name: sheetName, history: self.history) { (success) in
-                self.showExportMessage(success, "EXPORT_SHT_OK".loc(), "EXPORT_SHT_ERROR".loc())
-            }
-        })
+        let panel = UIActivityViewController(activityItems: [path], applicationActivities: [googleSheet])
+        panel.completionWithItemsHandler = exportComplete
+        panel.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(panel, animated: true)
+    }
+    
+    private func exportComplete(activityType: UIActivity.ActivityType?, shared: Bool, items: [Any]?, error: Error?) {
+        if let error = error {
+            print("Failed to export! ERROR: " + error.localizedDescription)
+        }
+    }
+}
+
+
+class GoogleSheetActivity: UIActivity {
+    private var history: [DaySpends]
+    private var vc: UIViewController
+    private let HIPImages = "com.oskharkov.moneytravel.gsheet"
+    
+    init(for history: [DaySpends], in vc: HistoryViewController) {
+        self.history = history
+        self.vc = vc
+    }
+    
+    override class var activityCategory: UIActivity.Category {
+        return .action
+    }
+    
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(HIPImages)
+    }
+    
+    override var activityImage: UIImage? {
+        get { return UIImage(named: "Google") }
+    }
+    
+    override var activityTitle: String? {
+        get { return "Make spreadsheet" }
+    }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        return true
+    }
+    
+    override func perform() {
+        if !appGoogleDrive.isLogined() {
+            show_info_message(vc, msg: "GOOGLE_DISABLED".loc())
+            activityDidFinish(true)
+            return
+        }
         
-        let googleCSV = UIAlertAction(title: "Google Drive (csv)", style: .default, handler: { (action) in
-            if !appGoogleDrive.isLogined() {
-                self.showExportMessage(false, "", "GOOGLE_DISABLED".loc())
-                return
-            }
-            
-            let historyData = AppData(history: self.history)
-            let dataCSV = historyData.exportToCSV()
-            let fileName = getExportFileName()
-
-            appGoogleDrive.uploadToRoot(data: dataCSV, filename: fileName, mime: .csv) { (success) in
-                self.showExportMessage(success, "EXPORT_GOOGLE_OK".loc(), "EXPORT_GOOGLE_ERROR".loc())
-            }
-        })
-
-        let icloudCSV = UIAlertAction(title: "iCloud (csv)", style: .default, handler: { (action) in
-            if !appICloudDrive.isEnabled() {
-                self.showExportMessage(false, "", "ICLOUD_DISABLED".loc())
-                return
-            }
-            
-            let historyData = AppData(history: self.history)
-            let success = historyData.exportToCSV().saveTo(.icloud, withName: getExportFileName())
-
-            self.showExportMessage(success, "EXPORT_ICLOUD_OK".loc(), "EXPORT_ICLOUD_ERROR".loc())
-        })
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd HH:mm"
+        let sheetName = String(format: "MoneyTravel (%@)", formatter.string(from: Date()))
         
-        let localCSV = UIAlertAction(title: "iTunes Shared Folder (csv)", style: .default, handler: { (action) in
-            let historyData = AppData(history: self.history)
-            let success = historyData.exportToCSV().saveTo(.documents, withName: getExportFileName())
-
-            self.showExportMessage(success, "EXPORT_LOCAL_OK".loc(), "EXPORT_LOCAL_ERROR".loc())
-        })
-
-        spreadsheet.setValue(UIImage(named: "Google"), forKey: "image")
-        spreadsheet.setValue(0, forKey: "titleTextAlignment")
-        googleCSV.setValue(UIImage(named: "Google"), forKey: "image")
-        googleCSV.setValue(0, forKey: "titleTextAlignment")
-        icloudCSV.setValue(UIImage(named: "iCloud"), forKey: "image")
-        icloudCSV.setValue(0, forKey: "titleTextAlignment")
-        localCSV.setValue(UIImage(named: "iTunes"), forKey: "image")
-        localCSV.setValue(0, forKey: "titleTextAlignment")
-
-        export.addAction(spreadsheet)
-        export.addAction(googleCSV)
-        export.addAction(icloudCSV)
-        export.addAction(localCSV)
-        export.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
-        export.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        
-        present(export, animated: true, completion: nil)
+        appGoogleDrive.makeSpreadsheet(name: sheetName, history: history) { (success) in
+            show_info_message(self.vc, msg: success ? "EXPORT_SHT_OK".loc() : "EXPORT_SHT_ERROR".loc())
+            self.activityDidFinish(true)
+        }
     }
 }
 

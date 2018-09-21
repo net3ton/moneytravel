@@ -28,13 +28,14 @@
 "BACK" = "Back";
 "OK" = "Ok";
 "CREATE" = "Create";
+"MERGE" = "Merge";
+"OVERWRITE" = "Overwrite";
 
 "DELETE_MSG" = "Delete the record? It can't be undone";
 "DELETE_CAT" = "Delete the category? It can't be undone";
 "DELETE_TSTAMP" = "Delete the timestamp? It can't be undone";
 "GOOGLE_OUT_TITLE" = "Sign out from Google Drive";
 "GOOGLE_OUT_MSG" = "This operation will disable sync with Google Drive";
-"ICLOUD_DISABLED" = "You must enable iCloud in system settings first";
 "GOOGLE_DISABLED" = "You must sign in to Google Drive in settings first";
 "DATA_RESET_MSG" = "All data will be reseted! Are you shure?\nIt can't be undone";
 
@@ -61,17 +62,16 @@
 "D_FROM" = "From";
 "D_TO" = "To";
 
-"EXPORT_TO_TITLE" = "Export selected history to:";
-"EXPORT_OK" = "Export complete";
+"EXPORT_SHT_OK" = "Spreadsheet successfully created";
+"EXPORT_SHT_ERROR" = "Failed to create spreadsheet";
 "EXPORT_ERROR" = "Failed to export data";
-"EXPORT_SHT_OK" = "Spreadsheed created.";
-"EXPORT_SHT_ERROR" = "An error occurred while exporting to spreadsheed.";
-"EXPORT_GOOGLE_OK" = "CSV file uploaded to google drive.";
-"EXPORT_GOOGLE_ERROR" = "An error occurred while uploading to google drive.";
-"EXPORT_ICLOUD_OK" = "CSV file created in iCloud.";
-"EXPORT_ICLOUD_ERROR" = "An error occurred while exporting.";
-"EXPORT_LOCAL_OK" = "CSV file created in iTunes shared folder.";
-"EXPORT_LOCAL_ERROR" = "An error occurred while exporting.";
+"IMPORT_ERROR" = "Failed to import data";
+
+"SYNC_ICLOUD_MERGE_TITLE" = "iCloud data";
+"SYNC_ICLOUD_MERGE_MSG" = "iCloud already contains data. Do you want to merge?";
+
+"SYNC_GOOGLE_MERGE_TITLE" = "Google Drive data";
+"SYNC_GOOGLE_MERGE_MSG" = "Google Drive already contains data. Do you want to merge?";
 
 "HINT_CHARTBAR" = "HINT: select a day to see details, pinch to scale";
 "HINT_CHARTPIE" = "HINT: use two fingers to rotate chart pie";

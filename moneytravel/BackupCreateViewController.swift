@@ -14,6 +14,7 @@ class BackupCreateViewController: UITableViewController {
     @IBOutlet weak var labelFrom: UILabel!
     @IBOutlet weak var labelTo: UILabel!
     
+    private let EXT = ".backup"
     private var interval = HistoryInterval()
     
     override func viewDidLoad() {
@@ -22,7 +23,7 @@ class BackupCreateViewController: UITableViewController {
         navigationItem.title = "BACKUP".loc()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "CREATE".loc(), style: .plain, target: self, action: #selector(createBackup))
         
-        backupName.text = "MoneyTravel.backup"
+        backupName.text = "MoneyTravel"
         
         interval.dateFrom.setWeekAgo()
         interval.dateTo.setToday()
@@ -69,7 +70,7 @@ class BackupCreateViewController: UITableViewController {
             return
         }
         
-        guard let name = backupName.text, let path = get_temp_path()?.appendingPathComponent(name) else {
+        guard let name = backupName.text, let path = get_temp_path()?.appendingPathComponent(name + EXT) else {
             showBackupMessage("EXPORT_ERROR".loc())
             return
         }
@@ -80,13 +81,26 @@ class BackupCreateViewController: UITableViewController {
         }
         
         let panel = UIActivityViewController(activityItems: [path], applicationActivities: nil)
+        panel.completionWithItemsHandler = createCompleted
         present(panel, animated: true)
     }
     
+    private func createCompleted(activityType: UIActivity.ActivityType?, shared: Bool, items: [Any]?, error: Error?) {
+        if let error = error {
+            print("Failed to export! ERROR: " + error.localizedDescription)
+        }
+        
+        //if shared {
+        //    showBackupMessage("EXPORT_OK".loc())
+        //}
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     private func showBackupMessage(_ message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK".loc(), style: .default))
-        self.present(alert, animated: true, completion: nil)
+        show_info_message(self, msg: message) {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

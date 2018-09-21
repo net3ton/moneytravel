@@ -45,9 +45,11 @@ class AppSettings {
     var icloudSyncEnabled: Bool = ConfDefaults.ICLOUD_SYNC_ENABLED
     var icloudSyncDate: Date?
     var icloudSyncLastHash: String = ""
+    var icloudSyncMade: Bool = false
     
     var googleSyncDate: Date?
     var googleSyncLastHash: String = ""
+    var googleSyncMade: Bool = false
     
     let local = UserDefaults.standard
     let cloud = NSUbiquitousKeyValueStore()
@@ -73,9 +75,11 @@ class AppSettings {
         static let ICLOUD_SYNC_ENABLED = "icloud-sync-enabled"
         static let ICLOUD_SYNC_DATE = "icloud-sync-date"
         static let ICLOUD_SYNC_HASH = "icloud-sync-hash"
+        static let ICLOUD_SYNC_MADE = "icloud-sync-made"
         
         static let GOOGLE_SYNC_DATE = "google-sync-date"
         static let GOOGLE_SYNC_HASH = "google-sync-hash"
+        static let GOOGLE_SYNC_MADE = "google-sync-made"
     }
     
     struct ConfDefaults {
@@ -121,9 +125,11 @@ class AppSettings {
         icloudSyncEnabled = local.object(forKey: ConfNames.ICLOUD_SYNC_ENABLED) as? Bool ?? ConfDefaults.ICLOUD_SYNC_ENABLED
         icloudSyncDate = local.object(forKey: ConfNames.ICLOUD_SYNC_DATE) as? Date
         icloudSyncLastHash = local.object(forKey: ConfNames.ICLOUD_SYNC_HASH) as? String ?? ""
+        icloudSyncMade = local.object(forKey: ConfNames.ICLOUD_SYNC_MADE) as? Bool ?? false
         
         googleSyncDate = local.object(forKey: ConfNames.GOOGLE_SYNC_DATE) as? Date
         googleSyncLastHash = local.object(forKey: ConfNames.GOOGLE_SYNC_HASH) as? String ?? ""
+        googleSyncMade = local.object(forKey: ConfNames.GOOGLE_SYNC_MADE) as? Bool ?? false
     }
 
     func save() {
@@ -149,9 +155,11 @@ class AppSettings {
         local.set(icloudSyncEnabled, forKey: ConfNames.ICLOUD_SYNC_ENABLED)
         local.set(icloudSyncDate, forKey: ConfNames.ICLOUD_SYNC_DATE)
         local.set(icloudSyncLastHash, forKey: ConfNames.ICLOUD_SYNC_HASH)
+        local.set(icloudSyncMade, forKey: ConfNames.ICLOUD_SYNC_MADE)
         
         local.set(googleSyncDate, forKey: ConfNames.GOOGLE_SYNC_DATE)
         local.set(googleSyncLastHash, forKey: ConfNames.GOOGLE_SYNC_HASH)
+        local.set(googleSyncMade, forKey: ConfNames.GOOGLE_SYNC_MADE)
 
         cloud.synchronize()
         print("settings saved.")

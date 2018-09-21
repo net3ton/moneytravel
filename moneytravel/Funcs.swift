@@ -59,6 +59,14 @@ func top_view_controller(controller: UIViewController? = UIApplication.shared.ke
     return controller
 }
 
+func show_info_message(_ vc: UIViewController, msg: String, title: String? = nil, completion: (()->())? = nil) {
+    let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK".loc(), style: .default) { action in
+        completion?()
+    })
+    vc.present(alert, animated: true)
+}
+
 func int32_to_uicolor(_ val: Int32) -> UIColor {
     let r: CGFloat = CGFloat(val & 0xFF) / 255.0
     let g: CGFloat = CGFloat(val >> 8 & 0xFF) / 255.0

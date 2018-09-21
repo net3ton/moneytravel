@@ -34,7 +34,9 @@ class BackupsViewController: UITableViewController, UIDocumentPickerDelegate {
             reset_all_data()
 
             appSettings.icloudSyncLastHash = ""
+            appSettings.icloudSyncMade = false
             appSettings.googleSyncLastHash = ""
+            appSettings.googleSyncMade = false
             appSettings.save()
             
             appCategories.initCategories()
@@ -68,20 +70,43 @@ class BackupsViewController: UITableViewController, UIDocumentPickerDelegate {
             let url = urls[0]
             let data = try Data(contentsOf: url)
             
-            if let appdata = AppData.loadFromData(data) {
-                appdata.importData(with: get_context())
+            guard let appdata = AppData.loadFromData(data) else {
+                throw NSError(domain: "Failed to load data", code: -1, userInfo: nil)
+            }
+            
+            appdata.importData(with: get_context()) { cats, spends, tstams in
+                var msg = "Imported:"
                 
-                DispatchQueue.main.async {
-                    appCategories.reload()
-                    lastSpends.reload()
-                    
-                    let main = top_view_controller() as? MainViewController
-                    main?.updateSpendsView()
+                if cats > 0 {
+                    msg += String(format: " %i categories", cats)
                 }
+                if spends > 0 {
+                    msg += String(format: " %i expenses", spends)
+                }
+                if spends > 0 {
+                    msg += String(format: " %i timestamps", tstams)
+                }
+                
+                self.showImportMessage(msg)
+            }
+            
+            DispatchQueue.main.async {
+                appCategories.reload()
+                lastSpends.reload()
+                
+                let main = top_view_controller() as? MainViewController
+                main?.updateSpendsView()
             }
         }
         catch let error {
             print("Failed to import! ERROR: " + error.localizedDescription)
+            self.showImportMessage("IMPORT_ERROR".loc())
+        }
+    }
+    
+    private func showImportMessage(_ message: String) {
+        show_info_message(self, msg: message) {
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
