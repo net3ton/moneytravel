@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SettingsViewController.view?.updateLabels()
 
             if loginOk {
-                appSync.makeGoogleSync()
+                appSync.syncGoogle()
             }
         }
         

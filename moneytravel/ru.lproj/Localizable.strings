@@ -28,8 +28,8 @@
 "BACK" = "Назад";
 "OK" = "Ok";
 "CREATE" = "Создать";
-"MERGE" = "Загрузить";
-"OVERWRITE" = "Удалить";
+"MERGE" = "Объединить";
+"OVERWRITE" = "Заменить";
 
 "DELETE_MSG" = "Удалить запись?\nДействие нельзя будет отменить";
 "DELETE_CAT" = "Удалить категорию?\nДействие нельзя будет отменить";
@@ -67,11 +67,11 @@
 "EXPORT_ERROR" = "Ошибка экспорта";
 "IMPORT_ERROR" = "Ошибка импорта";
 
-"SYNC_ICLOUD_MERGE_MSG" = "iCloud уже содержит данные. Хотите загрузить?";
+"SYNC_ICLOUD_MERGE_MSG" = "iCloud уже содержит данные. Хотите объединить?";
 "SYNC_ICLOUD_DELETE_MSG" = "Данные в iCloud будут заменены текущими";
 
-"SYNC_GOOGLE_MERGE_TITLE" = "Данные Google Drive";
-"SYNC_GOOGLE_MERGE_MSG" = "На Google Drive уже есть данные. Хотите объединить?";
+"SYNC_GOOGLE_MERGE_MSG" = "Google Drive уже содержит данные. Хотите объединить?";
+"SYNC_GOOGLE_DELETE_MSG" = "Данные в Google Drive будут заменены текущими";
 
 "HINT_CHARTBAR" = "Совет: выберите день на графике, чтобы увидеть детали; меняйте масштаб двумя касаниями";
 "HINT_CHARTPIE" = "Совет: вращайте диаграмму двумя касаниями";

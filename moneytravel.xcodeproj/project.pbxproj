@@ -33,8 +33,6 @@
 		2140D35221374D4A00921060 /* ICloudDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2140D35121374D4A00921060 /* ICloudDrive.swift */; };
 		2156EFF420B74D0B00ECA2E2 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */; };
 		2156EFF720B8624800ECA2E2 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2156EFF520B8624800ECA2E2 /* Main.xcdatamodeld */; };
-		215C77C4214BE0E100A3637F /* Sync+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77C3214BE0E100A3637F /* Sync+CloudKit.swift */; };
-		215C77C6214C4BA600A3637F /* Sync+GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77C5214C4BA600A3637F /* Sync+GoogleDrive.swift */; };
 		215C77C8214D770200A3637F /* BackupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77C7214D770200A3637F /* BackupsViewController.swift */; };
 		215C77CA214D865400A3637F /* FuncsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77C9214D865400A3637F /* FuncsData.swift */; };
 		215C77D0214DC79E00A3637F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215C77CF214DC79E00A3637F /* Extensions.swift */; };
@@ -67,6 +65,8 @@
 		21D1A8A62105E3B90033B419 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A52105E3B90033B419 /* Entities.swift */; };
 		21E71804211DAE4700F677C9 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E71803211DAE4700F677C9 /* Purchases.swift */; };
 		21E71806211DB31000F677C9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E71805211DB31000F677C9 /* StoreKit.framework */; };
+		21F3F2DE215582D800F3C37A /* SyncICloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F3F2DD215582D800F3C37A /* SyncICloud.swift */; };
+		21F3F2E02155A1C900F3C37A /* SyncGoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F3F2DF2155A1C900F3C37A /* SyncGoogleDrive.swift */; };
 		21FCDDAF20CBC9A50044567F /* SumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCDDAE20CBC9A50044567F /* SumViewController.swift */; };
 		5135793554F743AF4C1CE493 /* Pods_moneytravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F921507761A61B02C61AB36B /* Pods_moneytravel.framework */; };
 /* End PBXBuildFile section */
@@ -99,8 +99,6 @@
 		2156EFF320B74D0B00ECA2E2 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
 		2156EFF620B8624800ECA2E2 /* Spend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spend.xcdatamodel; sourceTree = "<group>"; };
 		215BAD242137E1D600198011 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		215C77C3214BE0E100A3637F /* Sync+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sync+CloudKit.swift"; sourceTree = "<group>"; };
-		215C77C5214C4BA600A3637F /* Sync+GoogleDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sync+GoogleDrive.swift"; sourceTree = "<group>"; };
 		215C77C7214D770200A3637F /* BackupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupsViewController.swift; sourceTree = "<group>"; };
 		215C77C9214D865400A3637F /* FuncsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncsData.swift; sourceTree = "<group>"; };
 		215C77CF214DC79E00A3637F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -138,6 +136,8 @@
 		21D1A8A52105E3B90033B419 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		21E71803211DAE4700F677C9 /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
 		21E71805211DB31000F677C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		21F3F2DD215582D800F3C37A /* SyncICloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncICloud.swift; sourceTree = "<group>"; };
+		21F3F2DF2155A1C900F3C37A /* SyncGoogleDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncGoogleDrive.swift; sourceTree = "<group>"; };
 		21FCDDAE20CBC9A50044567F /* SumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SumViewController.swift; sourceTree = "<group>"; };
 		86E3EB6618F4B8034CD26603 /* Pods-moneytravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneytravel.release.xcconfig"; path = "Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel.release.xcconfig"; sourceTree = "<group>"; };
 		A63F8C7ECDE3868633526887 /* Pods-moneytravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moneytravel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-moneytravel/Pods-moneytravel.debug.xcconfig"; sourceTree = "<group>"; };
@@ -234,8 +234,8 @@
 				21A846DC214B0E4700B4A0C1 /* EntityChecker.swift */,
 				2174F4A920B44B9800B6E381 /* Data.swift */,
 				21D1A8A12104D9070033B419 /* Sync.swift */,
-				215C77C3214BE0E100A3637F /* Sync+CloudKit.swift */,
-				215C77C5214C4BA600A3637F /* Sync+GoogleDrive.swift */,
+				21F3F2DD215582D800F3C37A /* SyncICloud.swift */,
+				21F3F2DF2155A1C900F3C37A /* SyncGoogleDrive.swift */,
 				2114F14320D678FC00BB40CB /* Spends.swift */,
 				2114F14120D6789600BB40CB /* Categories.swift */,
 				2114F14520D85ABC00BB40CB /* Timestamps.swift */,
@@ -438,9 +438,7 @@
 				21A846DD214B0E4700B4A0C1 /* EntityChecker.swift in Sources */,
 				218F6F8F2152BFE60091AB4E /* BackupCreateViewController.swift in Sources */,
 				21D1A8A42105E2EA0033B419 /* Funcs.swift in Sources */,
-				215C77C6214C4BA600A3637F /* Sync+GoogleDrive.swift in Sources */,
 				2174F4B620B5C15C00B6E381 /* CurrenciesViewController.swift in Sources */,
-				215C77C4214BE0E100A3637F /* Sync+CloudKit.swift in Sources */,
 				216F0C0F2119F348006DB302 /* GoogleSheet.swift in Sources */,
 				21E71804211DAE4700F677C9 /* Purchases.swift in Sources */,
 				2172BD6C20B02AF400132D36 /* AppDelegate.swift in Sources */,
@@ -452,6 +450,7 @@
 				2103DA2720C6BD92003B027D /* CategoriesViewController.swift in Sources */,
 				2114F14620D85ABC00BB40CB /* Timestamps.swift in Sources */,
 				2114F14220D6789600BB40CB /* Categories.swift in Sources */,
+				21F3F2E02155A1C900F3C37A /* SyncGoogleDrive.swift in Sources */,
 				2199212720DC0F7C00CE1355 /* GoogleDrive.swift in Sources */,
 				2174F4AF20B574E500B6E381 /* SpendView.swift in Sources */,
 				215C77C8214D770200A3637F /* BackupsViewController.swift in Sources */,
@@ -468,6 +467,7 @@
 				217648AE20FE29BF00F3488F /* AboutViewController.swift in Sources */,
 				2103DA2B20C708CA003B027D /* Icons.swift in Sources */,
 				2174F4B420B5B83900B6E381 /* SettingsViewController.swift in Sources */,
+				21F3F2DE215582D800F3C37A /* SyncICloud.swift in Sources */,
 				215C77D0214DC79E00A3637F /* Extensions.swift in Sources */,
 				2140D35221374D4A00921060 /* ICloudDrive.swift in Sources */,
 				2104195120FB8321004B227D /* Titlebar.swift in Sources */,

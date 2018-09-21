@@ -9,30 +9,76 @@
 import UIKit
 import CoreData
 
+enum SyncTaskType {
+    case unknown
+    case icloud
+    case google
+}
+
+class SyncTask {
+    internal weak var manager: AppSync!
+    
+    init(_ manager: AppSync) {
+        self.manager = manager
+    }
+    
+    internal func finish(_ msg: String)  {
+        print(msg)
+        manager.taskFinished(type: type)
+    }
+    
+    open func sync() {}
+    open var type: SyncTaskType { return .unknown }
+}
+
+
 let appSync = AppSync()
 
 class AppSync {
-    internal var googleToSync = Date()
-    internal var icloudToSync = Date()
+    internal var tasks: [SyncTask] = []
     
     public func sync() {
         syncICloud()
         syncGoogle()
     }
     
-    private func syncGoogle() {
-        if appGoogleDrive.isLogined() && googleToSync < Date() {
-            makeGoogleSync()
+    public func syncICloud() {
+        if !taskInQueue(.icloud) {
+            syncTask(SyncICloud(self))
         }
     }
-
-    private func syncICloud() {
-        if appSettings.isICloudEnabled() && icloudToSync < Date() {
-            makeICloudSync()
+    
+    public func syncGoogle() {
+        if !taskInQueue(.google) {
+            syncTask(SyncGoogleDrive(self))
         }
     }
+    
+    private func syncTask(_ task: SyncTask) {
+        tasks.append(task)
+        
+        if tasks.count == 1 {
+            tasks[0].sync()
+        }
+    }
+    
+    private func taskInQueue(_ type: SyncTaskType) -> Bool {
+        return tasks.first { (task) -> Bool in
+            return task.type == type
+        } != nil
+    }
 
-    internal func importData(_ data: Data?, with context: NSManagedObjectContext) {
+    public func taskFinished(type: SyncTaskType) {
+        print("TASK FINISHED")
+        
+        tasks.removeAll { (task) -> Bool in
+            task.type == type
+        }
+        
+        tasks.last?.sync()
+    }
+    
+    public func importData(_ data: Data?, with context: NSManagedObjectContext) {
         guard let fdata = data else {
             print("[Sync] no data to load!")
             return

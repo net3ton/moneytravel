@@ -70,8 +70,8 @@
 "SYNC_ICLOUD_MERGE_MSG" = "iCloud already contains data. Do you want to merge?";
 "SYNC_ICLOUD_DELETE_MSG" = "iCloud data will be overwritten";
 
-"SYNC_GOOGLE_MERGE_TITLE" = "Google Drive data";
 "SYNC_GOOGLE_MERGE_MSG" = "Google Drive already contains data. Do you want to merge?";
+"SYNC_GOOGLE_DELETE_MSG" = "Google Drive data will be overwritten";
 
 "HINT_CHARTBAR" = "HINT: select a day to see details, pinch to scale";
 "HINT_CHARTPIE" = "HINT: use two fingers to rotate chart pie";
