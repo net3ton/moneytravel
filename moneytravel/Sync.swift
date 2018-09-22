@@ -35,11 +35,22 @@ class SyncTask {
 let appSync = AppSync()
 
 class AppSync {
-    internal var tasks: [SyncTask] = []
+    private var lastSync = Date()
+    private var tasks: [SyncTask] = []
     
     public func sync() {
+        if lastSync > Date() {
+            return
+        }
+        
+        lastSync = Calendar.current.date(byAdding: .minute, value: 30, to: Date())!
+        
         syncICloud()
         syncGoogle()
+    }
+    
+    public func resetDelay() {
+        lastSync = Date()
     }
     
     public func syncICloud() {
