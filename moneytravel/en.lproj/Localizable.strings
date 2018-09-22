@@ -21,6 +21,12 @@
 "BACKUPS" = "Backups";
 "BACKUP" = "Backup";
 
+"IMPORTED" = "Imported:\n";
+"CATEGORIES_COUNT" = "categories";
+"SPENDS_COUNT" = "expenses";
+"TSTAMPS_COUNT" = "timestamps";
+"NOTHING_NEW" = "nothing new";
+
 "PROCEED" = "Proceed";
 "CANCEL" = "Cancel";
 "SAVE" = "Save";

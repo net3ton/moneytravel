@@ -21,6 +21,12 @@
 "BACKUPS" = "Данные";
 "BACKUP" = "Backup";
 
+"IMPORTED" = "Загружено:\n";
+"CATEGORIES_COUNT" = "категорий";
+"SPENDS_COUNT" = "трат";
+"TSTAMPS_COUNT" = "меток";
+"NOTHING_NEW" = "ничего нового";
+
 "PROCEED" = "Продолжить";
 "CANCEL" = "Отмена";
 "SAVE" = "Сохранить";

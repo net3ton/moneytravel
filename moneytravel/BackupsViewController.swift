@@ -42,6 +42,8 @@ class BackupsViewController: UITableViewController, UIDocumentPickerDelegate {
             appCategories.initCategories()
             appCategories.reload()
             lastSpends.reload()
+            
+            appSync.resetDelay()
         }))
         msg.addAction(UIAlertAction(title: "CANCEL".loc(), style: .cancel))
         
@@ -75,16 +77,22 @@ class BackupsViewController: UITableViewController, UIDocumentPickerDelegate {
             }
             
             appdata.importData(with: get_context()) { cats, spends, tstams in
-                var msg = "Imported:"
+                var msg = "IMPORTED".loc()
+                var first = true
                 
-                if cats > 0 {
-                    msg += String(format: " %i categories", cats)
+                func buildMsg(_ count: Int, for name: String) {
+                    if count > 0 {
+                        msg += String(format: "%@ %@ - %i", first ? "" : ",", name, count)
+                        first = false
+                    }
                 }
-                if spends > 0 {
-                    msg += String(format: " %i expenses", spends)
-                }
-                if spends > 0 {
-                    msg += String(format: " %i timestamps", tstams)
+                
+                buildMsg(cats, for: "CATEGORIES_COUNT".loc())
+                buildMsg(spends, for: "SPENDS_COUNT".loc())
+                buildMsg(tstams, for: "TSTAMPS_COUNT".loc())
+                
+                if (cats <= 0 && spends <= 0 && tstams <= 0) {
+                    msg += "NOTHING_NEW".loc()
                 }
                 
                 self.showImportMessage(msg)
