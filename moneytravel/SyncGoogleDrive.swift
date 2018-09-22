@@ -63,7 +63,7 @@ class SyncGoogleDrive: SyncTask {
             self.manager.importData(data, with: get_context())
             self.upload(to: fileId, lastHash: lastHash)
         })
-        alert.addAction(UIAlertAction(title: "OVERWRITE".loc(), style: .cancel) { action in
+        alert.addAction(UIAlertAction(title: "OVERWRITE".loc(), style: .destructive) { action in
             self.overwriteAsk(to: fileId, lastHash: lastHash)
         })
         
