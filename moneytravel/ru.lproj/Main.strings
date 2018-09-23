@@ -82,7 +82,7 @@
 "7K8-vP-8WP.text" = "Сбросить данные";
 
 /* Class = "UITableViewSection"; footerTitle = "HINT: Don't forget to create backup before reseting data"; ObjectID = "61D-W1-fw2"; */
-"61D-W1-fw2.footerTitle" = "Совет: не забудьте сделать резервную копию перед тем как сбрасывать данные";
+"61D-W1-fw2.footerTitle" = "Не забудьте сделать резервную копию перед тем как сбрасывать данные";
 
 /* Class = "UITableViewSection"; headerTitle = "Filename"; ObjectID = "NzS-6q-xgo"; */
 "NzS-6q-xgo.headerTitle" = "Название";
@@ -100,7 +100,7 @@
 "P4l-Sg-KbO.text" = "До";
 
 /* Class = "UITableViewSection"; footerTitle = "HINT: Data is saved in gzipped json file"; ObjectID = "HRo-KA-iYv"; */
-"HRo-KA-iYv.footerTitle" = "Совет: данные будут сохранены в формате gzipped json";
+"HRo-KA-iYv.footerTitle" = "Данные будут сохранены в формате gzipped json";
 
 
 /* Class = "UIViewController"; title = "About"; ObjectID = "jIb-4N-Tfo"; */
@@ -122,7 +122,7 @@
 "CaK-9k-les.normalTitle" = "Очень нравится!";
 
 /* Class = "UIButton"; normalTitle = "You are my hero!"; ObjectID = "hVv-NE-cF7"; */
-"hVv-NE-cF7.normalTitle" = "Делай ещё!";
+"hVv-NE-cF7.normalTitle" = "Путешествуй ещё!";
 
 
 /* Class = "UITextField"; placeholder = "Enter sum"; ObjectID = "F7n-Dy-wHl"; */
@@ -199,7 +199,7 @@
 
 
 /* Class = "UITableViewSection"; footerTitle = "HINT: Use drag&drop to rearrage items and tap to edit"; ObjectID = "ihH-dy-bxp"; */
-"ihH-dy-bxp.footerTitle" = "Совет: удерживайте элемент для перетаскивания и нажимайте для редактирования";
+"ihH-dy-bxp.footerTitle" = "Удерживайте элемент для перетаскивания и нажимайте для редактирования";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "iaH-dK-vqB"; */
 "iaH-dK-vqB.title" = "Назад";

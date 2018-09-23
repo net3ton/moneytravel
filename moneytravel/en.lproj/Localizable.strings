@@ -42,7 +42,8 @@
 "DELETE_TSTAMP" = "Delete the timestamp? It can't be undone";
 "GOOGLE_OUT_TITLE" = "Sign out from Google Drive";
 "GOOGLE_OUT_MSG" = "This operation will disable sync with Google Drive";
-"GOOGLE_DISABLED" = "You must sign in to Google Drive in settings first";
+"GOOGLE_DISABLED" = "You must sign in to Google Drive in the settings first";
+"ICLOUD_DISABLED" = "You must sign in to iCloud in the system settings first";
 "DATA_RESET_MSG" = "All data will be reseted! Are you shure?\nIt can't be undone";
 
 "DAILY_BUDGET" = "Daily budget";
@@ -79,10 +80,10 @@
 "SYNC_GOOGLE_MERGE_MSG" = "Google Drive already contains data. Do you want to merge?";
 "SYNC_GOOGLE_DELETE_MSG" = "Google Drive data will be overwritten";
 
-"HINT_CHARTBAR" = "HINT: select a day to see details, pinch to scale";
-"HINT_CHARTPIE" = "HINT: use two fingers to rotate chart pie";
+"HINT_CHARTBAR" = "Select a day to see details, pinch to scale";
+"HINT_CHARTPIE" = "Use two fingers to rotate chart pie";
 
-"ABOUT" = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lack travel specific functionality. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov You can contact me on twitter: @net3ton";
+"ABOUT" = "Thank you for using this app!\n\nWhen I've been travelling I tried to find application for counting my expenses. I wanted it simple and usefull, tried a lot of apps but couldn't find the one fitting my needs. They were either too complex or lacking some features. So, eventually I've made it myself.\n\nThis app will never get any kind of ads or locked functionality. Enjoy!  Cheers, Alex Kharkov\nYou can contact me on twitter: @net3ton";
 
 /* Categories */
 "CAT_PRODUCTS" = "Products";

@@ -279,7 +279,7 @@ class GoogleSheetActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        get { return "Make spreadsheet" }
+        get { return "Make Spreadsheet" }
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
