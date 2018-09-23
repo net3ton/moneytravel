@@ -38,7 +38,7 @@
 /* Class = "UISegmentedControl"; 5nB-6e-KhY.segmentTitles[2] = "Categories"; ObjectID = "5nB-6e-KhY"; */
 "5nB-6e-KhY.segmentTitles[2]" = "Categories";
 
-/* Class = "UITableViewSection"; footerTitle = "HINT: Don't forget to create backup before reseting data"; ObjectID = "61D-W1-fw2"; */
+/* Class = "UITableViewSection"; footerTitle = "Don't forget to create backup before reseting data"; ObjectID = "61D-W1-fw2"; */
 "61D-W1-fw2.footerTitle" = "Don't forget to create backup before reseting data";
 
 /* Class = "UITableViewSection"; headerTitle = "Cloud Sync"; ObjectID = "6Sf-B1-k4y"; */
@@ -107,11 +107,14 @@
 /* Class = "UILabel"; text = "Last updated: 06.06.2018"; ObjectID = "HR7-28-Ozr"; */
 "HR7-28-Ozr.text" = "Last updated: 06.06.2018";
 
-/* Class = "UITableViewSection"; footerTitle = "HINT: Data is saved in gzipped json file"; ObjectID = "HRo-KA-iYv"; */
-"HRo-KA-iYv.footerTitle" = "Data is saved in gzipped json file";
+/* Class = "UITableViewSection"; footerTitle = "Data will be saved in gzipped json file"; ObjectID = "HRo-KA-iYv"; */
+"HRo-KA-iYv.footerTitle" = "Data will be saved in gzipped json file";
 
 /* Class = "UITableViewSection"; headerTitle = "Interval"; ObjectID = "HRo-KA-iYv"; */
 "HRo-KA-iYv.headerTitle" = "Interval";
+
+/* Class = "UITableViewSection"; footerTitle = "Base currency for your savings and current for actual expenses"; ObjectID = "HZR-ti-cBe"; */
+"HZR-ti-cBe.footerTitle" = "Base currency for your savings and current for actual expenses";
 
 /* Class = "UITableViewSection"; headerTitle = "Currency"; ObjectID = "HZR-ti-cBe"; */
 "HZR-ti-cBe.headerTitle" = "Currency";
@@ -236,7 +239,7 @@
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "iaH-dK-vqB"; */
 "iaH-dK-vqB.title" = "Back";
 
-/* Class = "UITableViewSection"; footerTitle = "HINT: Use drag&drop to rearrage items and tap to edit"; ObjectID = "ihH-dy-bxp"; */
+/* Class = "UITableViewSection"; footerTitle = "Use drag&drop to rearrage items and tap to edit"; ObjectID = "ihH-dy-bxp"; */
 "ihH-dy-bxp.footerTitle" = "Use drag&drop to rearrage items and tap to edit";
 
 /* Class = "UIButton"; normalTitle = "Show more"; ObjectID = "j21-ic-8te"; */

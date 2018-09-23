@@ -127,7 +127,6 @@
 		2174F4B520B5C15C00B6E381 /* CurrenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewController.swift; sourceTree = "<group>"; };
 		217648AD20FE29BF00F3488F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		218F6F8E2152BFE60091AB4E /* BackupCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupCreateViewController.swift; sourceTree = "<group>"; };
-		218F6F912152EFF40091AB4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		2199212620DC0F7C00CE1355 /* GoogleDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDrive.swift; sourceTree = "<group>"; };
 		21A846DA214A718400B4A0C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		21A846DC214B0E4700B4A0C1 /* EntityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityChecker.swift; sourceTree = "<group>"; };
@@ -136,6 +135,7 @@
 		21D1A8A32105E2EA0033B419 /* Funcs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
 		21D1A8A52105E3B90033B419 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		21D61BBD2157C9E2005F28F6 /* IPadSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPadSupport.swift; sourceTree = "<group>"; };
+		21D61BC02157FBE6005F28F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		21E71803211DAE4700F677C9 /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
 		21E71805211DB31000F677C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		21F3F2DD215582D800F3C37A /* SyncICloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncICloud.swift; sourceTree = "<group>"; };
@@ -497,7 +497,7 @@
 			children = (
 				2172BD7020B02AF400132D36 /* Base */,
 				215BAD242137E1D600198011 /* ru */,
-				218F6F912152EFF40091AB4E /* en */,
+				21D61BC02157FBE6005F28F6 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

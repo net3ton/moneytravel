@@ -31,6 +31,9 @@
 /* Class = "UILabel"; text = "Automatic update"; ObjectID = "4ZU-QA-YBU"; */
 "4ZU-QA-YBU.text" = "Обновлять курс";
 
+/* Class = "UITableViewSection"; footerTitle = "Base currency for your savings and current for actual expenses"; ObjectID = "HZR-ti-cBe"; */
+"HZR-ti-cBe.footerTitle" = "Базовая валюта - ваши сбережения, текущая - траты";
+
 /* Class = "UILabel"; text = "Show fraction part (base)"; ObjectID = "GP3-L3-aSZ"; */
 "GP3-L3-aSZ.text" = "Дробная часть (базовая)";
 
