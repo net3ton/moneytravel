@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SumViewController: UIViewController {
+class SumViewController: UIViewControllerMod {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var keyboardField: MoneyKeyboardWithInput!

@@ -41,7 +41,7 @@ struct CurrencyInfo {
 }
 
 
-class CurrenciesViewController: UITableViewController, UISearchBarDelegate {
+class CurrenciesViewController: UITableViewControllerMod, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     public var selectedHandler: ((String) -> Void)?

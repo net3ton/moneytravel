@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoriesViewController: UITableViewController {
+class CategoriesViewController: UITableViewControllerMod {
     @IBOutlet weak var categoriesView: UICollectionView!
     
     private var categoriesDelegate: CategoriesEditViewDelegate?
@@ -84,7 +84,7 @@ class CategoriesViewController: UITableViewController {
 }
 
 
-class CategoriesSelectViewController: UITableViewController {
+class CategoriesSelectViewController: UITableViewControllerMod {
     @IBOutlet weak var categoriesView: UICollectionView!
 
     private var categoriesDelegate: CategoriesViewDelegate?

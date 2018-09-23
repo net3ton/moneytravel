@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpendViewController: UITableViewController {
+class SpendViewController: UITableViewControllerMod {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var sumLabel: UILabel!
     @IBOutlet weak var exchangeRateLabel: UILabel!
@@ -74,8 +74,8 @@ class SpendViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 {
-            let removeController = UIAlertController(title: nil, message: "DELETE_MSG".loc(), preferredStyle: .actionSheet);
 
+            let removeController = UIAlertController(title: nil, message: "DELETE_MSG".loc(), preferredStyle: getActionSheetType())
             removeController.addAction(UIAlertAction(title: "DELETE".loc(), style: .destructive, handler: { (action) in
                 self.navigationController?.popViewController(animated: true)
                 appSpends.delete(spend: self.spendInfo!)

@@ -15,7 +15,7 @@ enum EHistoryMode: Int {
     case Categories = 2
 }
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: UIViewControllerMod {
     @IBOutlet weak var dateRangeView: UITableView!
     @IBOutlet weak var historyView: UITableView!
     @IBOutlet weak var categoryView: UITableView!

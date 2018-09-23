@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DateViewController: UIViewController {
+class DateViewController: UIViewControllerMod {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
 

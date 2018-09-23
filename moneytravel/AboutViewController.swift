@@ -9,7 +9,7 @@
 import UIKit
 import StoreKit
 
-class AboutViewController: UIViewController {
+class AboutViewController: UIViewControllerMod {
     @IBOutlet weak var buttonDonate1: DonateButton!
     @IBOutlet weak var buttonDonate2: DonateButton!
     @IBOutlet weak var buttonDonate3: DonateButton!

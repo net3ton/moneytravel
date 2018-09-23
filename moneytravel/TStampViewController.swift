@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TStampViewController: UITableViewController {
+class TStampViewController: UITableViewControllerMod {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
@@ -85,7 +85,7 @@ class TStampViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 && markToSave != nil {
-            let removeController = UIAlertController(title: nil, message: "DELETE_TSTAMP".loc(), preferredStyle: .actionSheet);
+            let removeController = UIAlertController(title: nil, message: "DELETE_TSTAMP".loc(), preferredStyle: getActionSheetType());
 
             removeController.addAction(UIAlertAction(title: "DELETE".loc(), style: .destructive, handler: { (action) in
                 self.navigationController?.popViewController(animated: true)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextViewController: UIViewController {
+class TextViewController: UIViewControllerMod {
     @IBOutlet weak var textField: UITextField!
 
     public var onTextEntered: ((String) -> Void)?

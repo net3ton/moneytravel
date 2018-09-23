@@ -9,7 +9,7 @@
 import UIKit
 import MobileCoreServices
 
-class BackupsViewController: UITableViewController, UIDocumentPickerDelegate {
+class BackupsViewController: UITableViewControllerMod, UIDocumentPickerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class BackupsViewController: UITableViewController, UIDocumentPickerDelegate {
     }
     
     private func resetAllData() {
-        let msg = UIAlertController(title: nil, message: "DATA_RESET_MSG".loc(), preferredStyle: .actionSheet);
+        let msg = UIAlertController(title: nil, message: "DATA_RESET_MSG".loc(), preferredStyle: getActionSheetType());
         
         msg.addAction(UIAlertAction(title: "DELETE".loc(), style: .destructive, handler: { (action) in
             self.navigationController?.popViewController(animated: true)

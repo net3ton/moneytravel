@@ -35,7 +35,7 @@ class ColorViewCell: UICollectionViewCell {
     }
 }
 
-class ColorsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ColorsViewController: UICollectionViewControllerMod, UICollectionViewDelegateFlowLayout {
     private let COUNTX = 5
     private var cellSize: CGFloat = 60.0
 

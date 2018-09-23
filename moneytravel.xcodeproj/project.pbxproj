@@ -63,6 +63,7 @@
 		21D1A8A22104D9070033B419 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A12104D9070033B419 /* Sync.swift */; };
 		21D1A8A42105E2EA0033B419 /* Funcs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A32105E2EA0033B419 /* Funcs.swift */; };
 		21D1A8A62105E3B90033B419 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A8A52105E3B90033B419 /* Entities.swift */; };
+		21D61BBE2157C9E2005F28F6 /* IPadSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D61BBD2157C9E2005F28F6 /* IPadSupport.swift */; };
 		21E71804211DAE4700F677C9 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E71803211DAE4700F677C9 /* Purchases.swift */; };
 		21E71806211DB31000F677C9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E71805211DB31000F677C9 /* StoreKit.framework */; };
 		21F3F2DE215582D800F3C37A /* SyncICloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F3F2DD215582D800F3C37A /* SyncICloud.swift */; };
@@ -134,6 +135,7 @@
 		21D1A8A12104D9070033B419 /* Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
 		21D1A8A32105E2EA0033B419 /* Funcs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Funcs.swift; sourceTree = "<group>"; };
 		21D1A8A52105E3B90033B419 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		21D61BBD2157C9E2005F28F6 /* IPadSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPadSupport.swift; sourceTree = "<group>"; };
 		21E71803211DAE4700F677C9 /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
 		21E71805211DB31000F677C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		21F3F2DD215582D800F3C37A /* SyncICloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncICloud.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				21D1A8A32105E2EA0033B419 /* Funcs.swift */,
 				215C77C9214D865400A3637F /* FuncsData.swift */,
 				215C77CF214DC79E00A3637F /* Extensions.swift */,
+				21D61BBD2157C9E2005F28F6 /* IPadSupport.swift */,
 				21D1A8A52105E3B90033B419 /* Entities.swift */,
 				21A846DC214B0E4700B4A0C1 /* EntityChecker.swift */,
 				2174F4A920B44B9800B6E381 /* Data.swift */,
@@ -425,6 +428,7 @@
 				2140D34C2133D2AC00921060 /* DonateButton.swift in Sources */,
 				2172BD6E20B02AF400132D36 /* MainViewController.swift in Sources */,
 				2114F14820D865AC00BB40CB /* Stats.swift in Sources */,
+				21D61BBE2157C9E2005F28F6 /* IPadSupport.swift in Sources */,
 				2114F13A20D126BD00BB40CB /* DateStampViewController.swift in Sources */,
 				2174F4AC20B55DC600B6E381 /* Consts.swift in Sources */,
 				2174F4B220B585E600B6E381 /* Settings.swift in Sources */,

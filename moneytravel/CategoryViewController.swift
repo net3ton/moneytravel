@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: UITableViewControllerMod {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var colorView: UIView!
@@ -77,7 +77,7 @@ class CategoryViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 && categoryToSave != nil {
-            let removeController = UIAlertController(title: nil, message: "DELETE_CAT".loc(), preferredStyle: .actionSheet);
+            let removeController = UIAlertController(title: nil, message: "DELETE_CAT".loc(), preferredStyle: getActionSheetType());
             
             removeController.addAction(UIAlertAction(title: "DELETE".loc(), style: .destructive, handler: { (action) in
                 self.navigationController?.popViewController(animated: true)

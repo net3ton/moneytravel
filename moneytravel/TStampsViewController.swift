@@ -14,7 +14,7 @@ class TStampViewCell: UITableViewCell {
     @IBOutlet weak var yearLabel: UILabel!
 }
 
-class TStampsViewController: UITableViewController {
+class TStampsViewController: UITableViewControllerMod {
     private var data: [MarkModel] = []
 
     override func viewDidLoad() {

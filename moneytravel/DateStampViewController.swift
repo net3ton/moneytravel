@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DateStampViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DateStampViewController: UIViewControllerMod, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var markPicker: UIPickerView!

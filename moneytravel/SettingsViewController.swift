@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: UITableViewControllerMod {
     @IBOutlet weak var currency: UILabel!
     @IBOutlet weak var currencyBase: UILabel!
     @IBOutlet weak var dailyMax: UILabel!

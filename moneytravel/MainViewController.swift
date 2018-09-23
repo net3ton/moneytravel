@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewControllerMod {
     @IBOutlet weak var sumView: MoneyTextField!
     @IBOutlet weak var keysView: MoneyKeyboardWithInput!
     @IBOutlet weak var categoriesView: UICollectionView!

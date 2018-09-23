@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BackupCreateViewController: UITableViewController {
+class BackupCreateViewController: UITableViewControllerMod {
     @IBOutlet weak var switchAllData: UISwitch!
     @IBOutlet weak var backupName: UILabel!
     @IBOutlet weak var labelFrom: UILabel!

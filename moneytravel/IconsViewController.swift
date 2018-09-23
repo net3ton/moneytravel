@@ -33,7 +33,7 @@ class IconViewCell: UICollectionViewCell {
     }
 }
 
-class IconsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class IconsViewController: UICollectionViewControllerMod, UICollectionViewDelegateFlowLayout {
     private let COUNTX = 5
     private var cellSize: CGFloat = 60.0
 
