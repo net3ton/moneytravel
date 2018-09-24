@@ -10,8 +10,6 @@ import UIKit
 
 class CategoryViewCell: UICollectionViewCell {
     public static let ID = "CategoryCell"
-    public static let COUNTX = 5
-    public static let COUNTY = 2
     public static let SPACING: CGFloat = 2.0
     
     @IBOutlet weak var icon: UIImageView!
@@ -24,26 +22,41 @@ class CategoryViewCell: UICollectionViewCell {
         self.selectedBackgroundView?.backgroundColor = UIColor.white
     }
 
-    public static func getCellSizeAndHeight(width: CGFloat) -> (csize: CGFloat, height: CGFloat) {
-        let cellsize = (width - CGFloat(CategoryViewCell.COUNTX-1) * CategoryViewCell.SPACING) / CGFloat(CategoryViewCell.COUNTX)
-        let viewheight = cellsize * CGFloat(CategoryViewCell.COUNTY) + CGFloat(CategoryViewCell.COUNTY-1) * CategoryViewCell.SPACING
-
-        return (csize: cellsize, height: viewheight)
-    }
-    
     public static func getNib() -> UINib {
         return UINib.init(nibName: "CategoryViewCell", bundle: nil)
     }
 }
 
+
+@IBDesignable class CategoriesView: UICollectionView {
+    private var lastWidth: CGFloat = 0
+    public var onWidthChanged: ((CGFloat, CGFloat) -> Void)?
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if lastWidth != self.frame.width {
+            lastWidth = self.frame.width
+            widthUpdated(lastWidth)
+        }
+    }
+    
+    private func widthUpdated(_ width: CGFloat) {
+        let CY: CGFloat = 2
+        let CX: CGFloat = (UIDevice.current.userInterfaceIdiom != .pad) ? 5 : 6
+        
+        let cellsize = (width - (CX-1) * CategoryViewCell.SPACING) / CX
+        let viewheight = cellsize * CY + (CY-1) * CategoryViewCell.SPACING + 1.0
+        
+        onWidthChanged?(cellsize, viewheight)
+    }
+}
+
+
 class CategoriesViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    private var cellSize: CGFloat
+    public var cellSize: CGFloat = 32
     public var onCategoryPressed: ((CategoryModel) -> Void)?
     
-    init(cellSize: CGFloat) {
-        self.cellSize = cellSize
-    }
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return appCategories.categories.count
     }

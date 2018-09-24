@@ -12,7 +12,7 @@ import CoreData
 class MainViewController: UIViewControllerMod {
     @IBOutlet weak var sumView: MoneyTextField!
     @IBOutlet weak var keysView: MoneyKeyboardWithInput!
-    @IBOutlet weak var categoriesView: UICollectionView!
+    @IBOutlet weak var categoriesView: CategoriesView!
     @IBOutlet weak var spendView: UITableView!
     @IBOutlet weak var showMore: UIButton!
 
@@ -58,20 +58,24 @@ class MainViewController: UIViewControllerMod {
     }
 
     private func initCategories() {
-        let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
-
-        categoriesDelegate = CategoriesViewDelegate(cellSize: viewInfo.csize)
+        categoriesDelegate = CategoriesViewDelegate()
         categoriesDelegate?.onCategoryPressed = onCategoryPressed
 
         categoriesView.register(CategoryViewCell.getNib(), forCellWithReuseIdentifier: CategoryViewCell.ID)
         categoriesView.delegate = categoriesDelegate
         categoriesView.dataSource = categoriesDelegate
-
+        categoriesView.onWidthChanged = onCategoryWidthChanged
+    }
+    
+    private func onCategoryWidthChanged(cellSize: CGFloat, viewHeight: CGFloat) {
         for constr in categoriesView.constraints {
             if constr.identifier == "height" {
-                constr.constant = viewInfo.height + 1.0
+                constr.constant = viewHeight
             }
         }
+        
+        categoriesDelegate?.cellSize = cellSize
+        categoriesView.reloadData()
     }
 
     private func initSpends() {

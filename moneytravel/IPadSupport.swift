@@ -19,8 +19,7 @@ extension UIViewController {
         uiroot.frame = self.view.frame
         uiroot.backgroundColor = UIColor(red:0.35, green:0.64, blue:0.88, alpha:1.0)
         
-        let width = self.view.frame.width * 2/3
-        print(width)
+        let width = self.view.frame.width * 0.58
         let x = (self.view.frame.width - width) / 2
         self.view.frame = CGRect(x: x, y: 0, width: width, height: self.view.frame.height)
         

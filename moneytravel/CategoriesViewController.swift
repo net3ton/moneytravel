@@ -9,7 +9,7 @@
 import UIKit
 
 class CategoriesViewController: UITableViewControllerMod {
-    @IBOutlet weak var categoriesView: UICollectionView!
+    @IBOutlet weak var categoriesView: CategoriesView!
     
     private var categoriesDelegate: CategoriesEditViewDelegate?
     private var gestureRecognizer: UILongPressGestureRecognizer?
@@ -23,10 +23,7 @@ class CategoriesViewController: UITableViewControllerMod {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewCategory))
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "BACK".loc(), style: .plain, target: nil, action: nil)
 
-        let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
-
-        viewHeight = viewInfo.height
-        categoriesDelegate = CategoriesEditViewDelegate(cellSize: viewInfo.csize)
+        categoriesDelegate = CategoriesEditViewDelegate()
         categoriesDelegate?.onCategoryPressed = editCategory
         categoriesDelegate?.onCategoryMoved = movedCategory
         
@@ -36,8 +33,17 @@ class CategoriesViewController: UITableViewControllerMod {
         categoriesView.delegate = categoriesDelegate
         categoriesView.dataSource = categoriesDelegate
         categoriesView.addGestureRecognizer(gestureRecognizer!)
+        categoriesView.onWidthChanged = onCategoryWidthChanged
     }
 
+    private func onCategoryWidthChanged(csize: CGFloat, vheight: CGFloat) {
+        viewHeight = vheight
+        tableView.reloadData()
+        
+        categoriesDelegate?.cellSize = csize
+        categoriesView.reloadData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         categoriesView.reloadData()
@@ -79,13 +85,13 @@ class CategoriesViewController: UITableViewControllerMod {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return viewHeight + 1.0
+        return viewHeight
     }
 }
 
 
 class CategoriesSelectViewController: UITableViewControllerMod {
-    @IBOutlet weak var categoriesView: UICollectionView!
+    @IBOutlet weak var categoriesView: CategoriesView!
 
     private var categoriesDelegate: CategoriesViewDelegate?
     private var viewHeight: CGFloat = 100
@@ -97,15 +103,21 @@ class CategoriesSelectViewController: UITableViewControllerMod {
         
         navigationItem.title = "CATEGORY".loc()
         
-        let viewInfo = CategoryViewCell.getCellSizeAndHeight(width: categoriesView.frame.width)
-        
-        viewHeight = viewInfo.height
-        categoriesDelegate = CategoriesViewDelegate(cellSize: viewInfo.csize)
+        categoriesDelegate = CategoriesViewDelegate()
         categoriesDelegate?.onCategoryPressed = onCategoryPressed
         
         categoriesView.register(CategoryViewCell.getNib(), forCellWithReuseIdentifier: CategoryViewCell.ID)
         categoriesView.delegate = categoriesDelegate
         categoriesView.dataSource = categoriesDelegate
+        categoriesView.onWidthChanged = onCategoryWidthChanged
+    }
+    
+    private func onCategoryWidthChanged(csize: CGFloat, vheight: CGFloat) {
+        viewHeight = vheight
+        tableView.reloadData()
+        
+        categoriesDelegate?.cellSize = csize
+        categoriesView.reloadData()
     }
 
     private func onCategoryPressed(category: CategoryModel) {
@@ -114,17 +126,13 @@ class CategoriesSelectViewController: UITableViewControllerMod {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return viewHeight + 1.0
+        return viewHeight
     }
 }
 
 
 class CategoriesEditViewDelegate: CategoriesViewDelegate {
     public var onCategoryMoved: ((Int, Int) -> Void)?
-
-    override init(cellSize: CGFloat) {
-        super.init(cellSize: cellSize)
-    }
 
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         return true
