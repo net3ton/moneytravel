@@ -124,6 +124,7 @@ import UIKit
                           ".", "0", "del"]
 
     private var keys: [MoneyKey] = []
+    private var heightConstraint: NSLayoutConstraint!
     
     public var onPressedHandler: ((String) -> Void)?
     
@@ -145,18 +146,27 @@ import UIKit
             keys.append(key)
             addSubview(key)
         }
+        
+        heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: getIntrinsicHeight())
+        self.addConstraint(heightConstraint)
+    }
+    
+    private func getIntrinsicHeight() -> CGFloat {
+        return self.frame.width * 0.7
     }
     
     override func layoutSubviews() {
+        heightConstraint.constant = getIntrinsicHeight()
+
         let COUNTY = keys.count / COUNTX
-        let BORDER = 2
+        let BORDER: CGFloat = 2.0
         
-        let width = (Int(frame.width) - (COUNTX-1) * BORDER) / COUNTX
-        let height = (Int(frame.height) - (COUNTY-1) * BORDER) / COUNTY
+        let width = (frame.width - CGFloat(COUNTX-1) * BORDER) / CGFloat(COUNTX)
+        let height = (frame.height - CGFloat(COUNTY-1) * BORDER) / CGFloat(COUNTY)
         
         for key in keys.enumerated() {
-            let ix = key.offset % COUNTX
-            let iy = key.offset / COUNTX
+            let ix = CGFloat(key.offset % COUNTX)
+            let iy = CGFloat(key.offset / COUNTX)
 
             key.element.frame = CGRect(x: ix * (width + BORDER), y: iy * (height + BORDER), width: width, height: height)
         }
