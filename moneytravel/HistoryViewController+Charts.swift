@@ -84,10 +84,10 @@ extension HistoryViewController: ChartViewDelegate {
         barchartView.noDataText = "EMPTY".loc()
         barchartView.maxVisibleCount = 10
         barchartView.doubleTapToZoomEnabled = false
-        barchartView.highlightValue(x: 0, dataSetIndex: 0)
         
         barchartView.data = BarChartData(dataSets: [chartDataSet])
-
+        barchartView.highlightValue(x: 0, dataSetIndex: 0)
+        
         for constr in barchartView.constraints {
             if constr.identifier == "height" {
                 constr.constant = barchartView.bounds.width / 1.5
