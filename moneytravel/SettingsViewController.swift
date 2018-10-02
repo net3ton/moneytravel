@@ -173,6 +173,7 @@ class SettingsViewController: UITableViewControllerMod {
             currencyPicker.selectedHandler = { iso in
                 appSettings.currency = iso
                 self.updateLabels()
+                lastSpends.reload()
                 CurrencyExchangeRate.update()
             }
         }
@@ -181,6 +182,7 @@ class SettingsViewController: UITableViewControllerMod {
             currencyPicker.selectedHandler = { iso in
                 appSettings.currencyBase = iso
                 self.updateLabels()
+                lastSpends.reload()
                 CurrencyExchangeRate.update()
             }
         }
@@ -197,6 +199,7 @@ class SettingsViewController: UITableViewControllerMod {
             sumEdit.setup(caption: "DAILY_BUDGET".loc(), sum: appSettings.dailyMax, currency: appSettings.currencyBase)
             sumEdit.onSumEntered = { val in
                 appSettings.dailyMax = val
+                lastSpends.reload()
                 self.updateLabels()
             }
         }
