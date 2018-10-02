@@ -51,6 +51,9 @@ class AppSettings {
     var googleSyncLastHash: String = ""
     var googleSyncMade: Bool = false
     
+    var initDate: Date = Date()
+    var ratemeDone: Bool = false
+    
     let local = UserDefaults.standard
     let cloud = NSUbiquitousKeyValueStore()
     
@@ -80,6 +83,9 @@ class AppSettings {
         static let GOOGLE_SYNC_DATE = "google-sync-date"
         static let GOOGLE_SYNC_HASH = "google-sync-hash"
         static let GOOGLE_SYNC_MADE = "google-sync-made"
+        
+        static let INIT_DATE = "init-date"
+        static let RATEME_DONE = "rateme-done"
     }
     
     struct ConfDefaults {
@@ -130,6 +136,9 @@ class AppSettings {
         googleSyncDate = local.object(forKey: ConfNames.GOOGLE_SYNC_DATE) as? Date
         googleSyncLastHash = local.object(forKey: ConfNames.GOOGLE_SYNC_HASH) as? String ?? ""
         googleSyncMade = local.object(forKey: ConfNames.GOOGLE_SYNC_MADE) as? Bool ?? false
+        
+        initDate = local.object(forKey: ConfNames.INIT_DATE) as? Date ?? Date()
+        ratemeDone = local.object(forKey: ConfNames.RATEME_DONE) as? Bool ?? false
     }
 
     func save() {
@@ -161,6 +170,9 @@ class AppSettings {
         local.set(googleSyncLastHash, forKey: ConfNames.GOOGLE_SYNC_HASH)
         local.set(googleSyncMade, forKey: ConfNames.GOOGLE_SYNC_MADE)
 
+        local.set(initDate, forKey: ConfNames.INIT_DATE)
+        local.set(ratemeDone, forKey: ConfNames.RATEME_DONE)
+        
         cloud.synchronize()
         print("settings saved.")
     }

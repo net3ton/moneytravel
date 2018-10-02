@@ -68,6 +68,8 @@ class HistoryViewController: UIViewControllerMod {
         updatePieChartView()
 
         changeMode(to: mode)
+        
+        MainViewController.returnFromHistory = true
     }
 
     //override func didReceiveMemoryWarning() {

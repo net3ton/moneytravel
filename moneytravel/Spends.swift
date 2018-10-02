@@ -176,6 +176,15 @@ class LastSpends {
         changed = false
         return res
     }
+    
+    public func spendsCount() -> Int {
+        var count = 0
+        for info in daily {
+            count += info.spends.count
+        }
+        
+        return count
+    }
 }
 
 

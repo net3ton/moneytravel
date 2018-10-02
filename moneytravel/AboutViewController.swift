@@ -51,6 +51,25 @@ class AboutViewController: UIViewControllerMod {
 }
 
 
+public func show_rateme() {
+    if appSettings.ratemeDone {
+        return
+    }
+    
+    let components = Calendar.current.dateComponents([.day], from: appSettings.initDate, to: Date())
+    let daysPast = components.day!
+
+    if daysPast >= 3 && lastSpends.spendsCount() >= 6 {
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+            
+            appSettings.ratemeDone = true
+            appSettings.save()
+        }
+    }
+}
+
+
 fileprivate func rateApp(appId: String) {
     openUrl("itms-apps://itunes.apple.com/app/" + appId)
 }

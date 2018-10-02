@@ -19,6 +19,8 @@ class MainViewController: UIViewControllerMod {
     var titlebar = Titlebar()
     var categoriesDelegate: CategoriesViewDelegate?
     var spendDelegate: SpendViewDelegate?
+    
+    static public var returnFromHistory = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,12 @@ class MainViewController: UIViewControllerMod {
         categoriesView.reloadData()
 
         appSync.sync()
+        
+        if MainViewController.returnFromHistory {
+            MainViewController.returnFromHistory = false
+            
+            show_rateme()
+        }
     }
 
     //override func didReceiveMemoryWarning() {
