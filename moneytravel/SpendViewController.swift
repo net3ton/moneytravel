@@ -111,8 +111,10 @@ class SpendViewController: UITableViewControllerMod {
             let sumEdit = segue.destination as! SumViewController
             sumEdit.setup(caption: "SUM".loc(), sum: sum, currency: spendInfo?.currency ?? "")
             sumEdit.onSumEntered = { sum in
-                self.sum = sum
-                self.updateInfo()
+                if sum > 0 {
+                    self.sum = sum
+                    self.updateInfo()
+                }
             }
         }
         else if segue.identifier == "spend-exchange" {
@@ -120,8 +122,10 @@ class SpendViewController: UITableViewControllerMod {
             let exchangeRate = (spendInfo?.sum ?? 0.0) / (spendInfo?.bsum ?? 1.0)
             sumEdit.setup(caption: "EXCHANGE_RATE".loc(), sum: exchangeRate, currency: spendInfo?.currency ?? "")
             sumEdit.onSumEntered = { rate in
-                self.exchangeRate = rate
-                self.updateInfo()
+                if rate > 0 {
+                    self.exchangeRate = rate
+                    self.updateInfo()
+                }
             }
         }
         else if segue.identifier == "spend-category" {
