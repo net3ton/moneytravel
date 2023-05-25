@@ -289,7 +289,7 @@ class GoogleSheetActivity: UIActivity {
     }
     
     override func perform() {
-        if !appGoogleDrive.isLogined() {
+        if !appGoogleDrive.isSpreadsheetsEnabled() {
             show_info_message(vc, msg: "GOOGLE_DISABLED".loc())
             activityDidFinish(true)
             return

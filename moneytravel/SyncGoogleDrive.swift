@@ -20,7 +20,7 @@ class SyncGoogleDrive: SyncTask {
     override func sync() {
         print("[Sync Google] syncing...")
         
-        if !appGoogleDrive.isLogined() {
+        if !appGoogleDrive.isDriveEnabled() {
             finish("[Sync Google] not logined")
             return
         }

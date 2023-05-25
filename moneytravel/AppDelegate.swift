@@ -27,11 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    //@available(iOS 9.0, *)
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
-        let annotation = options[UIApplication.OpenURLOptionsKey.annotation]
-        return appGoogleDrive.handle(url: url, sourceApplication: sourceApplication, annotation: annotation)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        if appGoogleDrive.handle(url: url) {
+            return true
+        }
+        // Handle other custom URL types
+        return false
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

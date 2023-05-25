@@ -30,18 +30,18 @@ extension HistoryViewController: ChartViewDelegate {
             }
         }
         
-        class ValueFormatter: IValueFormatter {
+        class FloatValueFormatter: ValueFormatter {
             func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
                 return bnum_to_string(sum: Float(value))
             }
         }
         
-        let chartDataSet = BarChartDataSet(values: chartData, label: nil)
+        let chartDataSet = BarChartDataSet(entries: chartData)
         chartDataSet.colors = [COLOR_BAR1, COLOR_BAR2]
         chartDataSet.highlightColor = COLOR_BAR_SELECTED
-        chartDataSet.valueFormatter = ValueFormatter()
+        chartDataSet.valueFormatter = FloatValueFormatter()
         
-        class AxisLeftFormatter: IAxisValueFormatter {
+        class AxisLeftFormatter: AxisValueFormatter {
             func stringForValue(_ value: Double, axis: AxisBase?) -> String {
                 return bnum_to_string(sum: Float(value))
             }
@@ -60,7 +60,7 @@ extension HistoryViewController: ChartViewDelegate {
         barchartView.leftAxis.valueFormatter = AxisLeftFormatter()
         barchartView.leftAxis.addLimitLine(target)
         
-        class AxisXFormatter: IAxisValueFormatter {
+        class AxisXFormatter: AxisValueFormatter {
             private var labels: [String]!
             
             init(_ labels: [String]) {
@@ -72,7 +72,7 @@ extension HistoryViewController: ChartViewDelegate {
             }
         }
         
-        barchartView.chartDescription?.enabled = false
+        barchartView.chartDescription.enabled = false
         barchartView.xAxis.drawGridLinesEnabled = false
         barchartView.xAxis.valueFormatter = AxisXFormatter(chartLabels)
         barchartView.xAxis.labelPosition = .bottom
@@ -145,14 +145,14 @@ extension HistoryViewController: ChartViewDelegate {
             chartColors.append(item.color)
         }
         
-        class ValueFormatter: IValueFormatter {
+        class FloatValueFormatter: ValueFormatter {
             func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
                 return bnum_to_string(sum: Float(value))
             }
         }
         
-        let chartDataSet = PieChartDataSet(values: chartData, label: nil)
-        chartDataSet.valueFormatter = ValueFormatter()
+        let chartDataSet = PieChartDataSet(entries: chartData)
+        chartDataSet.valueFormatter = FloatValueFormatter()
         
         chartDataSet.colors = chartColors
         chartDataSet.entryLabelColor = UIColor.black
@@ -166,7 +166,7 @@ extension HistoryViewController: ChartViewDelegate {
         //chartDataSet.valueLinePart1Length = 0.2
         //chartDataSet.valueLinePart2Length = 0.4
         
-        piechartView.chartDescription?.enabled = false
+        piechartView.chartDescription.enabled = false
         piechartView.legend.enabled = false
         piechartView.noDataText = "Empty"
         piechartView.data = PieChartData(dataSets: [chartDataSet])

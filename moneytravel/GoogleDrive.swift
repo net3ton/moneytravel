@@ -24,37 +24,59 @@ enum EGoogleDriveMimeType: String {
     case csv = "text/csv"
 }
 
-class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
+class GoogleDrive: NSObject {
     private let sheetsService = GTLRSheetsService()
     private let driveService = GTLRDriveService()
-    private var uiroot: UIViewController?
     public var authHandler: ((Bool) -> Void)?
 
     public func start() {
-        GIDSignIn.sharedInstance().clientID = "188641982599-e2n205trq0s07tg5g29pbk2anfk365q7.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().scopes = [kGTLRAuthScopeSheetsSpreadsheets, kGTLRAuthScopeSheetsDrive]
-        GIDSignIn.sharedInstance().signInSilently()
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            self.didSignInFor(user: user, withError: error)
+        }
     }
 
-    public func handle(url: URL!, sourceApplication: String!, annotation: Any!) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+    public func handle(url: URL) -> Bool {
+        return GIDSignIn.sharedInstance.handle(url)
     }
 
     public func signIn(vc: UIViewController) {
-        uiroot = vc
-        GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance.signIn(withPresenting: vc) { signInResult, error in
+            
+            if let error = error {
+                print("[Google Drive] Failed to sign in! ERROR: " + error.localizedDescription)
+                return
+            }
+
+            guard let user = signInResult?.user else {
+                print("[Google Drive] Failed to sign in! No valid user returned!")
+                return
+            }
+            
+            let additionalScopes = [kGTLRAuthScopeSheetsSpreadsheets, kGTLRAuthScopeSheetsDrive]
+            
+            if let grantedScopes = user.grantedScopes {
+                if additionalScopes.allSatisfy(grantedScopes.contains) {
+                    self.didSignInFor(user: user, withError: error)
+                    return
+                }
+            }
+
+            user.addScopes(additionalScopes, presenting: vc) { signInResult, error in
+                self.didSignInFor(user: signInResult?.user, withError: error)
+            }
+        }
     }
 
     public func signOut() {
-        GIDSignIn.sharedInstance().disconnect()
+        GIDSignIn.sharedInstance.disconnect { error in
+            self.didDisconnectWith(error: error)
+        }
     }
 
-    public func isLogined() -> Bool {
-        return driveService.authorizer != nil
+    public func isSignedIn() -> Bool {
+        return GIDSignIn.sharedInstance.currentUser != nil
     }
-
+    
     public func lookupInRoot(filename: String, completion: @escaping ((String?, String?, EGoogleDriveError) -> Void)) {
         let querySearch = GTLRDriveQuery_FilesList.query()
         querySearch.q = String.init(format: "name = '%@' and 'root' in parents", filename)
@@ -326,27 +348,39 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
         }
     }
 
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+    func didSignInFor(user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print("[Google Drive] Failed to sign in! ERROR: " + error.localizedDescription)
             return
         }
-
+        
+        guard user != nil else {
+            print("[Google Drive] Failed to sign in! No valid user returned!")
+            return
+        }
+        
         print("[Google Drive] sign in")
-        sheetsService.authorizer = user.authentication.fetcherAuthorizer()
-        driveService.authorizer = user.authentication.fetcherAuthorizer()
-
-        //let userId = user.userID                  // For client-side use only!
-        //let idToken = user.authentication.idToken // Safe to send to the server
-        //let fullName = user.profile.name
-        //let givenName = user.profile.givenName
-        //let familyName = user.profile.familyName
-        //let email = user.profile.email
+        
+        if let grantedScopes = user.grantedScopes {
+            if grantedScopes.contains(kGTLRAuthScopeSheetsSpreadsheets) {
+                sheetsService.authorizer = user.fetcherAuthorizer
+            }
+            else {
+                print("[Google Drive] No granted scope for Spreadsheets!")
+            }
+            
+            if grantedScopes.contains(kGTLRAuthScopeSheetsDrive) {
+                driveService.authorizer = user.fetcherAuthorizer
+            }
+            else {
+                print("[Google Drive] No granted scope for Drive!")
+            }
+        }
 
         authHandler?(true)
     }
 
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+    func didDisconnectWith(error: Error!) {
         if let error = error {
             print("[Google Drive] Failed to sign out! ERROR: " + error.localizedDescription)
             return
@@ -358,12 +392,12 @@ class GoogleDrive: NSObject, GIDSignInDelegate, GIDSignInUIDelegate {
 
         authHandler?(false)
     }
-
-    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-        uiroot?.present(viewController, animated: true)
+    
+    public func isDriveEnabled() -> Bool {
+        return driveService.authorizer != nil
     }
-
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        viewController.dismiss(animated: true)
+    
+    public func isSpreadsheetsEnabled() -> Bool {
+        return sheetsService.authorizer != nil
     }
 }

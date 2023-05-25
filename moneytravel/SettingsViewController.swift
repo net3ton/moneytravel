@@ -71,7 +71,7 @@ class SettingsViewController: UITableViewControllerMod {
 
         icloudEnabled.isOn = appSettings.isICloudEnabled()
         icloudSyncLabel.text = getLastSyncString(appSettings.icloudSyncDate)
-        googleDriveLabel.text = appGoogleDrive.isLogined() ? "SIGN_OUT".loc() : "SIGN_IN".loc()
+        googleDriveLabel.text = appGoogleDrive.isSignedIn() ? "SIGN_OUT".loc() : "SIGN_IN".loc()
         googleDriveSyncLabel.text = getLastSyncString(appSettings.googleSyncDate)
 
         let formatter = DateFormatter()
@@ -149,7 +149,7 @@ class SettingsViewController: UITableViewControllerMod {
         if indexPath.section == 4 && indexPath.row == 1 {
             self.deselectAll()
             
-            if appGoogleDrive.isLogined() {
+            if appGoogleDrive.isSignedIn() {
                 
                 let msg = UIAlertController(title: "GOOGLE_OUT_TITLE".loc(), message: "GOOGLE_OUT_MSG".loc(), preferredStyle: .alert)
                 msg.addAction(UIAlertAction(title: "PROCEED".loc(), style: .default) { (action) in
