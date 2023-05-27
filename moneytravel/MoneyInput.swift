@@ -76,8 +76,10 @@ import UIKit
                 return instr
             }
             
-            let point = instr.index(of: ".")!
-            if instr.count - point.encodedOffset > 2 {
+            // no more then 2 digits after point
+            let pointIndex = instr.firstIndex(of: ".")!
+            let pointPos = instr.distance(from: instr.startIndex, to: pointIndex)
+            if instr.count - pointPos > 2 {
                 return instr
             }
         }
@@ -90,7 +92,7 @@ import UIKit
             return ""
         }
         
-        let point = instr.index(of: ".") ?? instr.endIndex
+        let point = instr.firstIndex(of: ".") ?? instr.endIndex
         let lstr = instr[..<point]
         let rstr = instr[point...]
         

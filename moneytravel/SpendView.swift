@@ -87,7 +87,7 @@ class SpendViewHeader: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        content = UINib(nibName: "SpendViewHeader", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SpendViewHeaderContent
+        content = (UINib(nibName: "SpendViewHeader", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SpendViewHeaderContent)
         content.backgroundColor = COLOR_SPEND_HEADER
         content.layer.cornerRadius = 3
         contentView.backgroundColor = UIColor.white

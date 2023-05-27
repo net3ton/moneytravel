@@ -72,7 +72,7 @@ class DateStampViewController: UIViewControllerMod, UIPickerViewDelegate, UIPick
     }
 
     private func updateMark() {
-        let index = timestamps.index { (tstamp) -> Bool in
+        let index = timestamps.firstIndex { (tstamp) -> Bool in
             return tstamp.date == historyDate.getDate()
         }
 

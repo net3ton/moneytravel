@@ -42,7 +42,7 @@ class MoneyTextField: UITextField {
     
     private func layoutLabels() {
         let currentText = text != nil ? text! : ""
-        let offset = self.bounds.width - (currentText.isEmpty ? 106 : 130)
+        let offset = self.bounds.width - (currentText.isEmpty ? 106 : 140)
 
         mulLabel.frame = CGRect(x: offset, y: 4, width: 100, height: 14)
         currencyLabel.frame = CGRect(x: offset, y: self.bounds.height - 18, width: 100, height: 14)

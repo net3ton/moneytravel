@@ -56,7 +56,7 @@ class SyncICloud: SyncTask {
         }
         
         operation.desiredKeys = ["hash"]
-        operation.timeoutIntervalForResource = TimeInterval(15)
+        operation.configuration.timeoutIntervalForResource = TimeInterval(15)
         container.add(operation)
     }
     

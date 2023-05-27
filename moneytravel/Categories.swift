@@ -159,7 +159,7 @@ class AppCategories {
         category.removed = true
         get_delegate().saveContext()
 
-        if let ind = categories.index(of: category) {
+        if let ind = categories.firstIndex(of: category) {
             categories.remove(at: ind)
         }
     }

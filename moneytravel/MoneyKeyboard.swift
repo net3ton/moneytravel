@@ -177,7 +177,7 @@ import UIKit
     }
     
     public func enableKey(key: String, enabled: Bool) {
-        if let index = CHARS.index(of: key) {
+        if let index = CHARS.firstIndex(of: key) {
             keys[index].isEnabled = enabled
         }
     }
