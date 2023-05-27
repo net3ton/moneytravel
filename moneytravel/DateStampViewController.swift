@@ -24,10 +24,16 @@ class DateStampViewController: UIViewControllerMod, UIPickerViewDelegate, UIPick
 
     private let CUSTOM = 0
     private let TODAY = 1
+    private let YESTERDAY = 2
+    private let THIS_WEEK = 3
+    private let THIS_MONTH = 4
 
     private let PREMARKS = [
         "T_CUSTOM".loc(),
-        "T_TODAY".loc()
+        "T_TODAY".loc(),
+        "T_YESTERDAY".loc(),
+        "T_THIS_WEEK".loc(),
+        "T_THIS_MONTH".loc()
     ]
 
     override func viewDidLoad() {
@@ -106,11 +112,25 @@ class DateStampViewController: UIViewControllerMod, UIPickerViewDelegate, UIPick
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if row == 0 {
+        if row == CUSTOM {
             historyDate.setDate(customDate)
         }
-        else if row == 1 {
+        else if row == TODAY {
             historyDate.setToday()
+        }
+        else if row == YESTERDAY {
+            historyDate.setDaysAgo(days: 1)
+        }
+        else if row == THIS_WEEK {
+            // we want Monday as first day (Sunday in .gregorian)
+            let calendar = Calendar(identifier: .iso8601)
+            let startOfWeek = calendar.dateComponents([.calendar, .yearForWeekOfYear, .weekOfYear], from: Date())
+            historyDate.setDate(startOfWeek.date!)
+        }
+        else if row == THIS_MONTH {
+            let calendar = Calendar(identifier: .iso8601)
+            let startOfMonth = calendar.dateComponents([.year, .month], from: Date())
+            historyDate.setDate(calendar.date(from: startOfMonth)!)
         }
         else {
             historyDate.setStamp(timestamps[row - PREMARKS.count])

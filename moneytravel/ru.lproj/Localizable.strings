@@ -59,6 +59,8 @@
 "T_CUSTOM" = "Выбранная";
 "T_TODAY" = "Сегодня";
 "T_YESTERDAY" = "Вчера";
+"T_THIS_WEEK" = "Начало недели";
+"T_THIS_MONTH" = "Начало месяца";
 "EMPTY" = "Пусто";
 "BUDGET" = "Бюджет";
 "BUDGET_LEFT" = "Осталось:";

@@ -59,6 +59,8 @@
 "T_CUSTOM" = "Custom";
 "T_TODAY" = "Today";
 "T_YESTERDAY" = "Yesterday";
+"T_THIS_WEEK" = "Beginning of the week";
+"T_THIS_MONTH" = "Beginning of the month";
 "EMPTY" = "Empty";
 "BUDGET" = "Budget";
 "BUDGET_LEFT" = "Budget left:";
