@@ -12,10 +12,11 @@ import UIKit
 // fixer.io
 // "https://www.exchange-rates.org/Rate/USD/UAH"
 // "([0-9]+[.,])*[0-9]+ UAH"
+// https://www.google.com/finance/quote/USD-UAH
 
 class CurrencyExchangeRate {
-    private static let REQUEST_URL = "https://www.exchange-rates.org/Rate/%@/%@"
-    private static let REGEX = "([0-9]+[.,])*[0-9]+ %@"
+    private static let REQUEST_URL = "https://www.exchange-rates.org/converter/%@-%@"
+    private static let REGEX = "(<span class=\"rate-to\">)([0-9]+[.,]+[0-9]+) %@"
     public static let RES_ERROR: Float = -1.0
 
     public static func fetch(fromIso: String, toIso: String, result: @escaping ((Float) -> Void)) {
@@ -57,12 +58,13 @@ class CurrencyExchangeRate {
                 //for match in res {
                 //    let r = Range(match.range, in: rstring)
                 //    print(rstring[r!])
+                //    let rval = Range(match.range(at: 2), in: rstring)
+                //    print(rstring[rval!])
                 //}
                 
                 if !res.isEmpty {
-                    let rateSubstring = rstring[Range(res[0].range, in: rstring)!]
-                    let rateString = String(rateSubstring.prefix(rateSubstring.count - 3))
-                    print("Currence exchange: rate = " + rateSubstring)
+                    let rateString = String(rstring[Range(res[0].range(at: 2), in: rstring)!])
+                    print("Currence exchange: rate = " + rateString)
 
                     let formatter = NumberFormatter()
                     formatter.numberStyle = .decimal
