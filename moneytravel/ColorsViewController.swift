@@ -33,6 +33,12 @@ class ColorViewCell: UICollectionViewCell {
         sample.frame.size.width -= SPACING * 2
         sample.frame.size.height -= SPACING * 2
     }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            contentView.backgroundColor = isHighlighted ? sample.backgroundColor : backgroundColor
+        }
+    }
 }
 
 class ColorsViewController: UICollectionViewControllerMod, UICollectionViewDelegateFlowLayout {
@@ -45,11 +51,20 @@ class ColorsViewController: UICollectionViewControllerMod, UICollectionViewDeleg
         super.viewDidLoad()
         
         collectionView!.register(ColorViewCell.self, forCellWithReuseIdentifier: ColorViewCell.ID)
-        cellSize = collectionView!.contentSize.width / CGFloat(COUNTX)
-        
         navigationItem.title = "COLOR".loc()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let newSize = collectionView!.bounds.width / CGFloat(COUNTX)
+        
+        if newSize != cellSize {
+            cellSize = newSize
+            collectionView!.reloadData()
+        }
+    }
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -59,7 +74,7 @@ class ColorsViewController: UICollectionViewControllerMod, UICollectionViewDeleg
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IconViewCell.ID, for: indexPath) as! ColorViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorViewCell.ID, for: indexPath) as! ColorViewCell
         cell.sample.backgroundColor = CATEGORY_COLORS[indexPath.row]
         return cell
     }
@@ -71,16 +86,6 @@ class ColorsViewController: UICollectionViewControllerMod, UICollectionViewDeleg
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         navigationController?.popViewController(animated: true)
         onColorSelected?(CATEGORY_COLORS[indexPath.row])
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = COLOR_CAT_SELECT
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = UIColor.white
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

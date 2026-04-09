@@ -11,6 +11,7 @@ import UIKit
 class IconViewCell: UICollectionViewCell {
     public static let ID = "IconCell"
     public var icon = UIImageView()
+    public var bgcolor = UIColor()
     private let SPACING: CGFloat = 8.0
 
     override init(frame: CGRect) {
@@ -31,6 +32,12 @@ class IconViewCell: UICollectionViewCell {
         icon.frame.size.width -= SPACING * 2
         icon.frame.size.height -= SPACING * 2
     }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? COLOR_CAT_SELECT : bgcolor
+        }
+    }
 }
 
 class IconsViewController: UICollectionViewControllerMod, UICollectionViewDelegateFlowLayout {
@@ -43,11 +50,20 @@ class IconsViewController: UICollectionViewControllerMod, UICollectionViewDelega
         super.viewDidLoad()
 
         collectionView!.register(IconViewCell.self, forCellWithReuseIdentifier: IconViewCell.ID)
-        cellSize = collectionView!.contentSize.width / CGFloat(COUNTX)
-
         navigationItem.title = "ICON".loc()
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let newSize = collectionView!.bounds.width / CGFloat(COUNTX)
+        
+        if newSize != cellSize {
+            cellSize = newSize
+            collectionView!.reloadData()
+        }
+    }
+    
     private func getColor(forIndex index: IndexPath) -> UIColor {
         return ((index.row/COUNTX + index.row%COUNTX) % 2 == 1) ? COLOR_SPEND1 : COLOR_SPEND2
     }
@@ -63,7 +79,8 @@ class IconsViewController: UICollectionViewControllerMod, UICollectionViewDelega
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IconViewCell.ID, for: indexPath) as! IconViewCell
         cell.icon.image = UIImage(named: ICON_NAMES[indexPath.row])
-        cell.backgroundColor = getColor(forIndex: indexPath)
+        cell.bgcolor = getColor(forIndex: indexPath)
+        cell.backgroundColor = cell.bgcolor
         return cell
     }
 
@@ -74,16 +91,6 @@ class IconsViewController: UICollectionViewControllerMod, UICollectionViewDelega
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         navigationController?.popViewController(animated: true)
         onIconSelected?(ICON_NAMES[indexPath.row])
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = COLOR_CAT_SELECT
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.contentView.backgroundColor = getColor(forIndex: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
